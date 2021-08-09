@@ -1,1 +1,1 @@
-# commons-config-frontend
+# Commons Config Dashboard
