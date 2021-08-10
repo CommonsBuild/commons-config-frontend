@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Bai Jamjuree";
+  src: url("/fonts/BaiJamjuree.woff") format("woff"),
+    url("/fonts/BaiJamjuree.woff2") format("woff2");
+  font-weight: 100 900;
+}
+
+@font-face {
+  font-family: "Bai Jamjuree Bold";
+  src: url("/fonts/BaiJamjuree-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter.woff") format("woff"),
+    url("/fonts/Inter.woff2") format("woff2");
+  font-weight: 100 900;
+}
