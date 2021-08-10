@@ -138,7 +138,7 @@ module.exports = {
           800: "#1F1F1F",
           900: "#141414",
         },
-        ciano: "#03B3FF",
+        cyan: "#03B3FF",
         magenta: "#7622A8",
         "secondary-black": "#0B0A15",
         black: "#0A0A06",
