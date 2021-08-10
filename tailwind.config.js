@@ -143,6 +143,10 @@ module.exports = {
         "secondary-black": "#0B0A15",
         black: "#0A0A06",
       },
+      fontFamily: {
+        inter: ["Inter", "sans-serif"],
+        bj: ["Bai Jamjuree", "sans-serif"],
+      },
     },
   },
   variants: {
