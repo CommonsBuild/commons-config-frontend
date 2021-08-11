@@ -7,6 +7,12 @@ module.exports = {
   darkMode: false,
   theme: {
     extend: {
+      height: {
+        144: '36rem'
+      },
+      maxWidth: {
+        144: '9rem'
+      },
       colors: {
         neon: {
           DEFAULT: "#DEFB48",
@@ -138,7 +144,11 @@ module.exports = {
           800: "#1F1F1F",
           900: "#141414",
         },
-        cyan: "#03B3FF",
+        cyan: {
+          DEFAULT: "#03B3FF",
+          50: "#03B3FF",
+          700: "#002535",
+        },
         magenta: "#7622A8",
         "secondary-black": "#0B0A15",
         black: "#0A0A06",
