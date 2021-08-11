@@ -15,13 +15,13 @@ function Dashboard() {
   return (
     <div className="lg:min-h-screen bg-black">
       <Navbar />
-      <div className="lg:flex">
+      <div className="lg:flex lg:my-8">
         <Card title="token freeze & token thaw" nextPanel="The Economic Engine">
           <Input name="Opening Price" placeholder="wxDAI" />
           <Input name="Token Freeze" placeholder="weeks" />
           <Input name="Token Thaw" placeholder="weeks" />
         </Card>
-        <div className="flex flex-col bg-black w-10/12 mx-auto my-4 shadow-2xl lg:w-7/12 lg:my-16">
+        <div className="flex flex-col bg-black w-10/12 mx-auto my-4 shadow-2xl lg:w-7/12">
           <h1 className="font-bj font-bold text-gray-100 text-2xl text-center px-9 pt-6 pb-3 lg:text-left">
             What price should we set the TEC token at launch?
           </h1>
@@ -29,7 +29,7 @@ function Dashboard() {
             The Opening Price is the price we sell TEC tokens after Commons
             Upgrade is complete.
           </h3>
-          <div style={{ height: "400px" }}>chart</div>
+          <div style={{ height: "350px" }}>chart</div>
           <div className="min-w-full px-9 py-6 mt-auto">
             <div className="flex justify-between font-bj font-bold text-gray-100 text-xs uppercase border-b border-gray-100 pb-2 mb-2">
               <div className="w-1/3 max-w-144"># of tokens</div>
