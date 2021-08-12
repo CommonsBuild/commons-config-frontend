@@ -4,3 +4,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.tooltip {
+  width: 330px;
+  bottom: calc(100% + 11px);
+}
+
+.triangle {
+  border-bottom-color: #0A0A06;
+  transform: rotate(180deg) translateX(-50%);
+  left: calc(50% - 12px)
+ }
