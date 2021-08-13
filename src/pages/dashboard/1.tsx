@@ -1,29 +1,35 @@
-import { useState } from 'react'
-import { Transition } from '@headlessui/react'
+import { useState } from "react";
 
 import Card from "@/components/Card";
 import Input from "@/components/Input";
 import Navbar from "@/components/Navbar";
+import LineChart from "@/components/LineChart";
 
-type ParamsOptionsType = 'OPENING_PRICE' | 'TOKEN_FREEZE' | 'TOKEN_THAW'
+type ParamsOptionsType = "OPENING_PRICE" | "TOKEN_FREEZE" | "TOKEN_THAW";
 
 const paramsContent = {
   OPENING_PRICE: {
-    question: 'What price should we set the TEC token at launch?',
-    description: 'The Opening Price is the price we sell TEC tokens after Commons Upgrade is complete.',
+    question: "What price should we set the TEC token at launch?",
+    description:
+      "The Opening Price is the price we sell TEC tokens after Commons Upgrade is complete.",
   },
   TOKEN_FREEZE: {
-    question: "How long should the Hatcher's TEC tokens be frozen to maintain the price floor?",
-    description: 'Token Freeze is the duration from the initiliazation of the Commons which tokens remain fully locked.',
+    question:
+      "How long should the Hatcher's TEC tokens be frozen to maintain the price floor?",
+    description:
+      "Token Freeze is the duration from the initiliazation of the Commons which tokens remain fully locked.",
   },
   TOKEN_THAW: {
-    question: 'How long should it take for 100% of the Hatcher’s TEC tokens to be released?',
-    description: 'Token Thaw is designed to guarantee, for a certain period, the minimum possible price of the token or, price floor.',
+    question:
+      "How long should it take for 100% of the Hatcher’s TEC tokens to be released?",
+    description:
+      "Token Thaw is designed to guarantee, for a certain period, the minimum possible price of the token or, price floor.",
   },
-}
+};
 
 function Dashboard() {
-  const [paramSelected, setParamSelected] = useState<ParamsOptionsType>('OPENING_PRICE')
+  const [paramSelected, setParamSelected] =
+    useState<ParamsOptionsType>("OPENING_PRICE");
 
   const tableRows = [
     { time: "5", token: "0", price: "2" },
@@ -35,50 +41,40 @@ function Dashboard() {
   ];
 
   return (
-    <div className="lg:min-h-screen bg-black">
+    <div className="lg:min-h-screen bg-dash bg-cover">
       <Navbar />
       <div className="lg:flex">
         <Card title="token freeze & token thaw" nextPanel="The Economic Engine">
           <Input
             name="Opening Price"
             placeholder="wxDAI"
-            changeParam={() => setParamSelected('OPENING_PRICE')}
+            changeParam={() => setParamSelected("OPENING_PRICE")}
             tooltipText="The Opening Price is the price we sell TEC tokens after the Commons Upgrade is complete."
           />
           <Input
             name="Token Freeze"
             placeholder="weeks"
-            changeParam={() => setParamSelected('TOKEN_FREEZE')}
+            changeParam={() => setParamSelected("TOKEN_FREEZE")}
             tooltipText="Token Freeze is the duration from the initialization of the Commons which tokens remain fully locked."
           />
           <Input
             name="Token Thaw"
             placeholder="weeks"
-            changeParam={() => setParamSelected('TOKEN_THAW')}
+            changeParam={() => setParamSelected("TOKEN_THAW")}
             tooltipText="Token Thaw is designed to guarantee, for a certain period, the minimum possible price of the token, or price floor."
           />
         </Card>
-        <div className="flex flex-col bg-black w-10/12 mx-auto my-4 shadow-2xl lg:w-7/12 lg:my-16">
-          <h1 className="transition-all duration-1000	font-bj text-gray-100 text-2xl text-center px-9 pt-6 pb-3 lg:text-left">
-            <Transition
-              show={true}
-              enter="transition-opacity duration-1000"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="transition-opacity duration-1000"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              {paramsContent[paramSelected].question}
-            </Transition>
+        <div className="flex flex-col bg-transparent w-10/12 mx-auto mt-4 shadow-2xl lg:w-7/12 lg:mt-4">
+          <h1 className="font-bj text-gray-100 text-2xl text-center px-9 pt-6 pb-3 lg:text-left">
+            {paramsContent[paramSelected].question}
           </h1>
-          <h3 className="transition duration-1000	font-inter text-gray-300 text-center text-xs px-9 pb-2 lg:text-left">
+          <h3 className="font-inter text-gray-300 text-center text-xs px-9 pb-6 lg:text-left">
             {paramsContent[paramSelected].description}
           </h3>
-          <div style={{ height: "400px" }}>chart</div>
-          <div className="min-w-full px-9 py-6 mt-auto">
+          <LineChart />
+          <div className="min-w-full px-9 pt-4 pb-2 mt-auto">
             <div className="flex justify-between font-bj font-bold text-gray-100 text-xs uppercase border-b border-gray-100 pb-2 mb-2">
-              <div className="w-1/3 max-w-144"># of tokens</div>
+              <div className="w-1/3 max-w-144"># of weeks</div>
               <div className="w-1/3 max-w-144">% tokens released</div>
               <div className="w-1/3 max-w-144">price floor of token</div>
             </div>

@@ -7,11 +7,14 @@ module.exports = {
   darkMode: false,
   theme: {
     extend: {
+      backgroundImage: (theme) => ({
+        dash: "url('/dash.png')",
+      }),
       height: {
-        144: '36rem'
+        144: "36rem",
       },
       maxWidth: {
-        144: '9rem'
+        144: "9rem",
       },
       colors: {
         neon: {
