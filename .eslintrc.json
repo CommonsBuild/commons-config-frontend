@@ -20,6 +20,11 @@
     "react",
     "@typescript-eslint"
   ],
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
   "rules": {
     "space-before-function-paren": "off",
     "react/prop-types": "off",

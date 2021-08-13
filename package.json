@@ -6,8 +6,11 @@
     "start": "next start"
   },
   "dependencies": {
+    "@headlessui/react": "^1.4.0",
+    "chart.js": "^3.5.0",
     "next": "latest",
     "react": "^17.0.2",
+    "react-chartjs-2": "^3.0.4",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
@@ -17,6 +20,7 @@
     "autoprefixer": "^10.2.6",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-typescript": "^12.3.1",
+    "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-import": "^2.24.0",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.24.0",
