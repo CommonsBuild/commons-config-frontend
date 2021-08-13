@@ -39,9 +39,24 @@ function Dashboard() {
       <Navbar />
       <div className="lg:flex">
         <Card title="token freeze & token thaw" nextPanel="The Economic Engine">
-          <Input name="Opening Price" placeholder="wxDAI" changeParam={() => setParamSelected('OPENING_PRICE')} />
-          <Input name="Token Freeze" placeholder="weeks" changeParam={() => setParamSelected('TOKEN_FREEZE')} />
-          <Input name="Token Thaw" placeholder="weeks" changeParam={() => setParamSelected('TOKEN_THAW')} />
+          <Input
+            name="Opening Price"
+            placeholder="wxDAI"
+            changeParam={() => setParamSelected('OPENING_PRICE')}
+            tooltipText="The Opening Price is the price we sell TEC tokens after the Commons Upgrade is complete."
+          />
+          <Input
+            name="Token Freeze"
+            placeholder="weeks"
+            changeParam={() => setParamSelected('TOKEN_FREEZE')}
+            tooltipText="Token Freeze is the duration from the initialization of the Commons which tokens remain fully locked."
+          />
+          <Input
+            name="Token Thaw"
+            placeholder="weeks"
+            changeParam={() => setParamSelected('TOKEN_THAW')}
+            tooltipText="Token Thaw is designed to guarantee, for a certain period, the minimum possible price of the token, or price floor."
+          />
         </Card>
         <div className="flex flex-col bg-black w-10/12 mx-auto my-4 shadow-2xl lg:w-7/12 lg:my-16">
           <h1 className="transition-all duration-1000	font-bj text-gray-100 text-2xl text-center px-9 pt-6 pb-3 lg:text-left">
