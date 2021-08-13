@@ -10,7 +10,7 @@ interface CardProps {
 function Card(props: CardProps) {
   const { title, children, nextPanel } = props;
   return (
-    <div className="flex flex-col bg-black w-10/12 mx-auto my-4 shadow-2xl lg:w-96 lg:h-144 lg:my-16">
+    <div className="flex flex-col bg-secondary-black w-10/12 mx-auto my-4 shadow-2xl lg:w-96 lg:h-144 lg:my-16">
       <h3 className="font-bj font-bold text-sm text-gray-100 uppercase py-6 px-9">
         {title}
       </h3>
