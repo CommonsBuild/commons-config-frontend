@@ -21,3 +21,9 @@
   transform: rotate(180deg) translateX(-50%);
   left: calc(50% - 12px);
 }
+
+.chart {
+  width: 93%;
+  margin: 0 auto;
+  top: calc(-40px + -50%);
+}
