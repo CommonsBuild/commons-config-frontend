@@ -1,4 +1,6 @@
 {
+  "name": "commons-config-frontend",
+  "license": "AGPL-3.0-or-later",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -6,7 +8,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "@headlessui/react": "^1.4.0",
     "chart.js": "^3.5.0",
     "next": "latest",
     "react": "^17.0.2",
@@ -20,12 +21,15 @@
     "autoprefixer": "^10.2.6",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-typescript": "^12.3.1",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-import": "^2.24.0",
     "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "postcss": "^8.3.5",
+    "prettier": "2.3.2",
     "tailwindcss": "^2.2.4",
     "typescript": "^4.3.5"
   }
