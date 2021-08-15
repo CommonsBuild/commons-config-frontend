@@ -465,6 +465,13 @@ axe-core@^4.0.2:
   resolved "https://registry.npmjs.org/axe-core/-/axe-core-4.3.2.tgz"
   integrity sha512-5LMaDRWm8ZFPAEdzTYmgjjEdj1YnQcpfrVajO/sn/LhbpGp0Y0H64c2hLZI1gRMxfA+w1S71Uc/nHaOXgcCvGg==
 
+axios@^0.21.1:
+  version "0.21.1"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
+  integrity sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
+  dependencies:
+    follow-redirects "^1.10.0"
+
 axobject-query@^2.2.0:
   version "2.2.0"
   resolved "https://registry.npmjs.org/axobject-query/-/axobject-query-2.2.0.tgz"
@@ -692,6 +699,11 @@ chart.js@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-3.5.0.tgz#6eb075332d4ebbbb20a94e5a07a234052ed6c4fb"
   integrity sha512-J1a4EAb1Gi/KbhwDRmoovHTRuqT8qdF0kZ4XgwxpGethJHUdDrkqyPYwke0a+BuvSeUxPf8Cos6AX2AB8H8GLA==
+
+chartjs-plugin-annotation@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/chartjs-plugin-annotation/-/chartjs-plugin-annotation-1.0.2.tgz#59ea0971b52b91c78690a5ba328e4ed38940f864"
+  integrity sha512-asqP2/B+9tv105e3rwkzqoIgzhDBQRMzFRh/0ZTKqormxDXMP68uzxI5t3Fx8bxZSMNeEph0sY+0GIXXU0PeBQ==
 
 chokidar@3.5.1:
   version "3.5.1"
@@ -1493,6 +1505,11 @@ flatted@^3.1.0:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.2.tgz"
   integrity sha512-JaTY/wtrcSyvXJl4IMFHPKyFur1sE9AUqc0QnhOaJ0CxHtAoIV8pYDzeEfAaNEtGkOfq4gr3LBFmdXW5mOQFnA==
+
+follow-redirects@^1.10.0:
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.1.tgz#d9114ded0a1cfdd334e164e6662ad02bfd91ff43"
+  integrity sha512-HWqDgT7ZEkqRzBvc2s64vSZ/hfOceEol3ac/7tKwzuvEyWx3/4UegXh5oBOIotkGsObyk3xznnSRVADBgWSQVg==
 
 foreach@^2.0.5:
   version "2.0.5"
