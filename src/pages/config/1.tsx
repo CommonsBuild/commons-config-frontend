@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Card from '@/components/Card';
-import Input from '@/components/Input';
-import Navbar from '@/components/Navbar';
-import LineChart from '@/components/LineChart';
+import Card from '../../components/Card';
+import Input from '../../components/Input';
+import Navbar from '../../components/Navbar';
+import LineChart from '../../components/LineChart';
 
 type ParamsOptionsType = 'OPENING_PRICE' | 'TOKEN_FREEZE' | 'TOKEN_THAW';
 
@@ -100,7 +100,9 @@ function Dashboard() {
             param="Opening Price"
             placeholder="wxDAI"
             changeParam={() => setParamSelected('OPENING_PRICE')}
-            onChange={(event) => handleChange(event)}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              handleChange(event)
+            }
             tooltipText="The Opening Price is the price we sell TEC tokens after the Commons Upgrade is complete."
           />
           <Input
@@ -110,7 +112,9 @@ function Dashboard() {
             param="Token Freeze"
             placeholder="weeks"
             changeParam={() => setParamSelected('TOKEN_FREEZE')}
-            onChange={(event) => handleChange(event)}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              handleChange(event)
+            }
             tooltipText="Token Freeze is the duration from the initialization of the Commons which tokens remain fully locked."
           />
           <Input
@@ -120,7 +124,9 @@ function Dashboard() {
             param="Token Thaw"
             placeholder="weeks"
             changeParam={() => setParamSelected('TOKEN_THAW')}
-            onChange={(event) => handleChange(event)}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              handleChange(event)
+            }
             tooltipText="Token Thaw is designed to guarantee, for a certain period, the minimum possible price of the token, or price floor."
           />
         </Card>

@@ -1,5 +1,5 @@
-import Tooltip from "./Tooltip";
-import useHover from "../utils/useHover";
+import Tooltip from './Tooltip';
+import useHover from '../utils/useHover';
 
 interface InputProps {
   name: string;
@@ -9,7 +9,7 @@ interface InputProps {
   value: number;
   min: number;
   changeParam(): void;
-  onChange(): (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function Input({

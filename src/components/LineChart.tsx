@@ -57,15 +57,15 @@ const LineChart = ({ price, week }: ChartData) => {
     labels: week,
     datasets: [
       {
-        label: "Floor price",
+        label: 'Floor price',
         // yAxisID: "leftScale",
         data: price,
         fill: false,
-        borderColor: "#DEFB48",
-        pointBackgroundColor: "#DEFB48",
+        borderColor: '#DEFB48',
+        pointBackgroundColor: '#DEFB48',
         pointHoverRadius: 7,
         pointRadius: 7,
-        pointStyle: "rect",
+        pointStyle: 'rect',
       },
       // {
       //   label: "Token price",
@@ -81,10 +81,9 @@ const LineChart = ({ price, week }: ChartData) => {
     ],
   };
   return (
-    <div style={{ maxHeight: "400px" }} className="px-9 pb-6">
+    <div style={{ maxHeight: '400px' }} className="px-9 pb-6">
       <div className="font-bj font-bold text-xs uppercase flex justify-between pb-3 text-neon-light z-10">
-        <a style={{ maxWidth: "100px" }}>FLOOR FLOOR (wxDAI)</a>
-        <a className="text-right" style={{ maxWidth: "100px" }}></a>
+        <a style={{ maxWidth: '100px' }}>FLOOR FLOOR (wxDAI)</a>
       </div>
       <Line
         className="relative z-10"
