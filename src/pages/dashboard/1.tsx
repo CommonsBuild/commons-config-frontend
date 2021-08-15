@@ -59,13 +59,22 @@ function Dashboard() {
         "https://commons-config-backend.herokuapp.com/token-lockup/",
         paramsValue
       )
-      .then((response) => setChartData(response.data.output));
+      .then((response) => {
+        const output = response.data.output;
+        setChartData({
+          price: output.price.filter((element, index) => index % 10 == 0),
+          week: output.week.filter((element, index) => index % 10 == 0),
+        });
+      });
   }, [paramsValue]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const name = event.target.name;
-    const value = event.target.value ? event.target.value : 1;
-    console.log(value);
+    let value = Number(event.target.value);
+
+    if (name === "token-thaw" && value === 0) {
+      value = 1;
+    }
     setParamsValue({
       ...paramsValue,
       [name]: value,
@@ -88,6 +97,7 @@ function Dashboard() {
           <Input
             name="opening-price"
             value={paramsValue["opening-price"]}
+            min={0}
             param="Opening Price"
             placeholder="wxDAI"
             changeParam={() => setParamSelected("OPENING_PRICE")}
@@ -97,6 +107,7 @@ function Dashboard() {
           <Input
             name="token-freeze"
             value={paramsValue["token-freeze"]}
+            min={0}
             param="Token Freeze"
             placeholder="weeks"
             changeParam={() => setParamSelected("TOKEN_FREEZE")}
@@ -106,6 +117,7 @@ function Dashboard() {
           <Input
             name="token-thaw"
             value={paramsValue["token-thaw"]}
+            min={1}
             param="Token Thaw"
             placeholder="weeks"
             changeParam={() => setParamSelected("TOKEN_THAW")}

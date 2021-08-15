@@ -86,9 +86,7 @@ const LineChart = ({ price, week }: ChartData) => {
     <div style={{ maxHeight: "400px" }} className="px-9 pb-6">
       <div className="font-bj font-bold text-xs uppercase flex justify-between pb-3 text-neon-light z-10">
         <a style={{ maxWidth: "100px" }}>FLOOR FLOOR (wxDAI)</a>
-        <a className="text-right" style={{ maxWidth: "100px" }}>
-          TOKEN PRICE (wxDAI)
-        </a>
+        <a className="text-right" style={{ maxWidth: "100px" }}></a>
       </div>
       <Line
         className="relative z-10"

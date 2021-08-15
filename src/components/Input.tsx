@@ -7,6 +7,7 @@ interface InputProps {
   placeholder: string;
   tooltipText: string;
   value: number;
+  min: number;
   changeParam(): void;
   onChange(): (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -17,6 +18,7 @@ function Input({
   placeholder,
   tooltipText,
   value,
+  min,
   changeParam,
   onChange,
 }: InputProps) {
@@ -34,7 +36,7 @@ function Input({
           name={name}
           value={value}
           type="number"
-          min="1"
+          min={min}
           onClick={changeParam}
           onChange={onChange}
           maxLength={5}
