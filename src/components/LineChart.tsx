@@ -106,4 +106,4 @@ const LineChart = ({ price, week }: ChartData) => {
   );
 };
 
-export default LineChart;
+export default React.memo(LineChart);

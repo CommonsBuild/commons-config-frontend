@@ -45,7 +45,10 @@ function Dashboard() {
     "token-freeze": 10,
     "token-thaw": 50,
   });
-  const [chartData, setChartData] = useState<ChartData>();
+  const [chartData, setChartData] = useState<ChartData>({
+    price: [],
+    week: [],
+  });
 
   const [paramSelected, setParamSelected] =
     useState<ParamsOptionsType>("OPENING_PRICE");
