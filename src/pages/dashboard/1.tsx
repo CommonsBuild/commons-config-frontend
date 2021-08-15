@@ -83,9 +83,6 @@ function Dashboard() {
   return (
     <div className="lg:min-h-screen bg-dash bg-cover">
       <Navbar />
-      <button className="bg-neon" onClick={() => console.log(paramsValue)}>
-        TESTE
-      </button>
       <div className="lg:flex">
         <Card title="token freeze & token thaw" nextPanel="The Economic Engine">
           <Input
