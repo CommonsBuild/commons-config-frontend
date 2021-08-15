@@ -8,11 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
-<<<<<<< HEAD
-=======
     "@headlessui/react": "^1.4.0",
     "axios": "^0.21.1",
->>>>>>> cm-1
     "chart.js": "^3.5.0",
     "chartjs-plugin-annotation": "^1.0.2",
     "next": "latest",
