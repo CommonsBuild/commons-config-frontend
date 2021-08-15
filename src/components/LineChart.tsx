@@ -15,6 +15,7 @@ const options = {
     xAxes: {
       grid: {
         display: false,
+        borderColor: '#03B3FF',
       },
       ticks: {
         color: '#FFFFFF',
@@ -24,6 +25,7 @@ const options = {
     yAxes: {
       grid: {
         display: false,
+        borderColor: '#03B3FF',
       },
       ticks: {
         color: '#FFFFFF',

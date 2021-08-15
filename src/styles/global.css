@@ -11,8 +11,8 @@
   }
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -31,7 +31,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .chart {
-  width: 93%;
-  margin: 0 auto;
+  width: 96%;
+  margin-left: 3%;
   top: calc(-40px + -50%);
 }

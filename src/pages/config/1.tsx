@@ -18,6 +18,11 @@ interface ChartData {
   week: number[];
 }
 
+interface TableData {
+  time: number[];
+  price: string[];
+}
+
 const paramsContent = {
   OPENING_PRICE: {
     question: 'What price should we set the TEC token at launch?',
@@ -48,11 +53,21 @@ function Dashboard() {
     price: [],
     week: [],
   });
+  const [tableRows, setTableRows] = useState<TableData>({
+    time: [],
+    price: [],
+  });
 
   const [paramSelected, setParamSelected] =
     useState<ParamsOptionsType>('OPENING_PRICE');
 
   useEffect(() => {
+    console.log(paramsValue);
+    console.log([
+      paramsValue['token-freeze'] - 1,
+      paramsValue['token-thaw'] - 1,
+    ]);
+    console.log('Chart data', chartData);
     axios
       .post(
         'https://commons-config-backend.herokuapp.com/token-lockup/',
@@ -60,9 +75,32 @@ function Dashboard() {
       )
       .then((response) => {
         const { output } = response.data;
+        const { price } = output;
+        const { week } = output;
         setChartData({
-          price: output.price.filter((element, index) => index % 10 === 0),
-          week: output.week.filter((element, index) => index % 10 === 0),
+          price: [
+            price[0],
+            price[paramsValue['token-freeze'] - 1],
+            price[paramsValue['token-thaw'] - 1],
+          ],
+          week: [
+            week[0] - 1,
+            week[paramsValue['token-freeze'] - 1],
+            week[paramsValue['token-thaw'] - 1],
+            '',
+          ],
+        });
+        setTableRows({
+          time: [
+            week[0],
+            week[paramsValue['token-freeze'] - 1],
+            week[paramsValue['token-thaw'] - 1],
+          ],
+          price: [
+            price[0],
+            price[paramsValue['token-freeze'] - 1],
+            price[paramsValue['token-thaw'] - 1],
+          ],
         });
       });
   }, [paramsValue]);
@@ -80,14 +118,6 @@ function Dashboard() {
     });
   };
 
-  const tableRows = [
-    { time: '5', token: '0', price: '2' },
-    { time: '10', token: '0', price: '2' },
-    { time: '20', token: '40', price: '1.10' },
-    { time: '30', token: '60', price: '0.80' },
-    { time: '40', token: '80', price: '0.45' },
-    { time: '52', token: '100', price: '0,00' },
-  ];
   return (
     <div className="lg:min-h-screen bg-dash bg-cover">
       <Navbar />
@@ -144,14 +174,23 @@ function Dashboard() {
               <div className="w-1/3 max-w-144">% tokens released</div>
               <div className="w-1/3 max-w-144">price floor of token</div>
             </div>
-            {tableRows.map((row) => (
+            {tableRows.price.map((elem, index) => (
               <div
-                key={row.time}
+                key={elem}
                 className="flex justify-between font-bj text-neon-light text-xs py-1 hover:bg-cyan-700 cursor-pointer"
               >
-                <div className="w-1/3 max-w-144">{row.time} weeks</div>
-                <div className="w-1/3 max-w-144">{row.token}%</div>
-                <div className="w-1/3 max-w-144">{row.price} wxDAI</div>
+                <div className="w-1/3 max-w-144">
+                  {tableRows.time[index]} weeks
+                </div>
+                <div className="w-1/3 max-w-144">
+                  {parseFloat(
+                    String((Number(elem) / paramsValue['opening-price']) * 100)
+                  ).toFixed(0)}
+                  %
+                </div>
+                <div className="w-1/3 max-w-144">
+                  {parseFloat(elem).toFixed(2)} wxDAI
+                </div>
               </div>
             ))}
           </div>
