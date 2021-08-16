@@ -56,7 +56,7 @@ interface ChartData {
 
 const LineChart = ({ price, week }: ChartData) => {
   const data = {
-    labels: week,
+    labels: week || ['0'],
     datasets: [
       {
         label: 'Floor price',
@@ -84,9 +84,12 @@ const LineChart = ({ price, week }: ChartData) => {
   };
   return (
     <div style={{ maxHeight: '400px' }} className="px-9 pb-6">
-      <div className="font-bj font-bold text-xs uppercase flex justify-between pb-3 text-neon-light z-10">
-        <a style={{ maxWidth: '100px' }}>FLOOR FLOOR (wxDAI)</a>
-      </div>
+      <span
+        style={{ maxWidth: '100px' }}
+        className="font-bj font-bold text-xs uppercase flex justify-between pb-3 text-neon-light z-10"
+      >
+        FLOOR FLOOR (wxDAI)
+      </span>
       <Line
         className="relative z-10"
         data={data}

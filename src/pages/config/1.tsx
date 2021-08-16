@@ -8,19 +8,14 @@ import LineChart from '../../components/LineChart';
 type ParamsOptionsType = 'OPENING_PRICE' | 'TOKEN_FREEZE' | 'TOKEN_THAW';
 
 interface ParamsValues {
-  'opening-price': number;
-  'token-freeze': number;
-  'token-thaw': number;
+  'opening-price': string;
+  'token-freeze': string;
+  'token-thaw': string;
 }
 
 interface ChartData {
   price: number[];
   week: number[];
-}
-
-interface TableData {
-  time: number[];
-  price: string[];
 }
 
 const paramsContent = {
@@ -45,78 +40,55 @@ const paramsContent = {
 
 function Dashboard() {
   const [paramsValue, setParamsValue] = useState<ParamsValues>({
-    'opening-price': 2,
-    'token-freeze': 10,
-    'token-thaw': 50,
+    'opening-price': '',
+    'token-freeze': '',
+    'token-thaw': '',
   });
   const [chartData, setChartData] = useState<ChartData>({
     price: [],
-    week: [],
-  });
-  const [tableRows, setTableRows] = useState<TableData>({
-    time: [],
-    price: [],
+    week: null,
   });
 
   const [paramSelected, setParamSelected] =
     useState<ParamsOptionsType>('OPENING_PRICE');
 
   useEffect(() => {
-    console.log(paramsValue);
-    console.log([
-      paramsValue['token-freeze'] - 1,
-      paramsValue['token-thaw'] - 1,
-    ]);
-    console.log('Chart data', chartData);
-    axios
-      .post(
-        'https://commons-config-backend.herokuapp.com/token-lockup/',
-        paramsValue
-      )
-      .then((response) => {
-        const { output } = response.data;
-        const { price } = output;
-        const { week } = output;
-        setChartData({
-          price: [
-            price[0],
-            price[paramsValue['token-freeze'] - 1],
-            price[paramsValue['token-thaw'] - 1],
-          ],
-          week: [
-            week[0] - 1,
-            week[paramsValue['token-freeze'] - 1],
-            week[paramsValue['token-thaw'] - 1],
-            '',
-          ],
+    const values = Object.values(paramsValue);
+    const validParams = values.every((elem) => elem !== '');
+    if (validParams) {
+      axios
+        .post(
+          'https://commons-config-backend.herokuapp.com/token-lockup/',
+          paramsValue
+        )
+        .then((response) => {
+          const { output } = response.data;
+          const { price } = output;
+          const { week } = output;
+          setChartData({
+            price,
+            week,
+          });
         });
-        setTableRows({
-          time: [
-            week[0],
-            week[paramsValue['token-freeze'] - 1],
-            week[paramsValue['token-thaw'] - 1],
-          ],
-          price: [
-            price[0],
-            price[paramsValue['token-freeze'] - 1],
-            price[paramsValue['token-thaw'] - 1],
-          ],
-        });
-      });
+    }
   }, [paramsValue]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = event.target;
-    let value = Number(event.target.value);
+    const { value } = event.target;
 
-    if (name === 'token-thaw' && value === 0) {
-      value = 1;
-    }
     setParamsValue({
       ...paramsValue,
       [name]: value,
     });
   };
+
+  const tableRows = [
+    { id: 1, week: 0, token: 100, price: 2 },
+    { id: 2, week: 10, token: 100, price: 2 },
+    { id: 3, week: 50, token: 20, price: 0.4 },
+    { id: 4, week: 60, token: 0, price: 0 },
+  ];
 
   return (
     <div className="lg:min-h-screen bg-dash bg-cover">
@@ -126,7 +98,6 @@ function Dashboard() {
           <Input
             name="opening-price"
             value={paramsValue['opening-price']}
-            min={0}
             param="Opening Price"
             placeholder="wxDAI"
             changeParam={() => setParamSelected('OPENING_PRICE')}
@@ -138,7 +109,6 @@ function Dashboard() {
           <Input
             name="token-freeze"
             value={paramsValue['token-freeze']}
-            min={0}
             param="Token Freeze"
             placeholder="weeks"
             changeParam={() => setParamSelected('TOKEN_FREEZE')}
@@ -150,7 +120,6 @@ function Dashboard() {
           <Input
             name="token-thaw"
             value={paramsValue['token-thaw']}
-            min={1}
             param="Token Thaw"
             placeholder="weeks"
             changeParam={() => setParamSelected('TOKEN_THAW')}
@@ -160,7 +129,7 @@ function Dashboard() {
             tooltipText="Token Thaw is designed to guarantee, for a certain period, the minimum possible price of the token, or price floor."
           />
         </Card>
-        <div className="flex flex-col bg-transparent w-10/12 mx-auto mt-4 shadow-2xl lg:w-7/12 lg:mt-4">
+        <div className="flex flex-col bg-transparent w-10/12 mx-auto mt-4 shadow-2xl lg:w-7/12">
           <h1 className="font-bj text-gray-100 text-2xl text-center px-9 pt-6 pb-3 lg:text-left">
             {paramsContent[paramSelected].question}
           </h1>
@@ -168,29 +137,20 @@ function Dashboard() {
             {paramsContent[paramSelected].description}
           </h3>
           <LineChart price={chartData.price} week={chartData.week} />
-          <div className="min-w-full px-9 pt-4 pb-2">
-            <div className="flex justify-between font-bj font-bold text-gray-100 text-xs uppercase border-b border-gray-100 pb-2 mb-2">
-              <div className="w-1/3 max-w-144"># of weeks</div>
+          <div className="min-w-full px-9 pt-4 pb-2 font-bj text-neon-light text-xs">
+            <div className="flex justify-between pb-2 mb-2 border-b border-gray-100 uppercase font-bold">
+              <div className="w-1/3 max-w-144 table-text"># of weeks</div>
               <div className="w-1/3 max-w-144">% tokens released</div>
               <div className="w-1/3 max-w-144">price floor of token</div>
             </div>
-            {tableRows.price.map((elem, index) => (
+            {tableRows.map((elem) => (
               <div
-                key={elem}
-                className="flex justify-between font-bj text-neon-light text-xs py-1 hover:bg-cyan-700 cursor-pointer"
+                key={elem.id}
+                className="flex justify-between py-1 hover:bg-cyan-700 cursor-pointer"
               >
-                <div className="w-1/3 max-w-144">
-                  {tableRows.time[index]} weeks
-                </div>
-                <div className="w-1/3 max-w-144">
-                  {parseFloat(
-                    String((Number(elem) / paramsValue['opening-price']) * 100)
-                  ).toFixed(0)}
-                  %
-                </div>
-                <div className="w-1/3 max-w-144">
-                  {parseFloat(elem).toFixed(2)} wxDAI
-                </div>
+                <div className="w-1/3 max-w-144">{elem.week} weeks</div>
+                <div className="w-1/3 max-w-144">{elem.token}%</div>
+                <div className="w-1/3 max-w-144">{elem.price} wxDAI</div>
               </div>
             ))}
           </div>
