@@ -5,7 +5,10 @@ interface NeonButtonProps {
 function NeonButton(props: NeonButtonProps) {
   const { name } = props;
   return (
-    <button className="w-full h-14 mx-auto font-bj font-bold text-lg bg-neon hover:bg-neon-light-600 uppercase">
+    <button
+      disabled
+      className="w-full h-14 mx-auto font-bj font-bold text-lg bg-neon hover:bg-neon-light-600 uppercase disabled:opacity-50 disabled:bg-gray-400 disabled:text-gray-300"
+    >
       {name}
     </button>
   );
