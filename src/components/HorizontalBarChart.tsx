@@ -78,7 +78,7 @@ const options = {
 
 const HorizontalBarChart = () => (
   <div className="px-9 pb-6 flex">
-    <div className="flex flex-col justify-between w-20">
+    <div className="flex flex-col justify-between py-12 w-20">
       <span className="font-bj text-xs text-neon-light text-center">
         Voting Process
       </span>
