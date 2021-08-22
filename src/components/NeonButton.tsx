@@ -1,13 +1,27 @@
+import { ReactNode } from 'react';
+import Link from 'next/link';
+import classnames from 'classnames';
+
 interface NeonButtonProps {
-  name: string;
+  children: ReactNode;
+  fullWidth?: boolean;
+  href: string;
 }
 
-function NeonButton(props: NeonButtonProps) {
-  const { name } = props;
+function NeonButton({ fullWidth, href, children }: NeonButtonProps) {
   return (
-    <button className="w-full h-14 mx-auto font-bj font-bold text-lg bg-neon hover:bg-neon-light-600 uppercase">
-      {name}
-    </button>
+    <Link href={href}>
+      <button
+        className={classnames(
+          'px-8 h-16 mx-auto bg-neon hover:bg-neon-light-600 ',
+          {
+            'w-full': fullWidth,
+          }
+        )}
+      >
+        <span className="font-bj font-bold text-lg uppercase">{children}</span>
+      </button>
+    </Link>
   );
 }
 

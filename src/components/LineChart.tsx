@@ -44,6 +44,8 @@ const options = {
     xAxes: {
       grid: {
         display: false,
+        borderColor: '#03B3FF',
+        borderWidth: 2,
       },
       ticks: {
         color: '#FFFFFF',
@@ -53,6 +55,8 @@ const options = {
     leftScale: {
       grid: {
         display: false,
+        borderColor: '#03B3FF',
+        borderWidth: 2,
       },
       ticks: {
         color: '#FFFFFF',
@@ -93,7 +97,7 @@ const LineChart = () => (
       TIME (WEEKS)
     </div>
     <div className="relative h-2/4 chart">
-      <Image src="/chart_bg.png" layout="fill" />
+      <Image src="/chart-bg.svg" layout="fill" />
     </div>
   </div>
 );

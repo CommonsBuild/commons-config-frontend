@@ -57,7 +57,9 @@ function Card({ children, previousPanel, nextPanel, title }: CardProps) {
             <div />
           )}
         </div>
-        <NeonButton name="next" />
+        <NeonButton href="/config/2" fullWidth>
+          NEXT
+        </NeonButton>
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import Card from '@components/Card';
 import Input from '@components/Input';
-import Navbar from '@components/Navbar';
+import { ConfigNavbar as Navbar } from '@components/Navbar';
 import LineChart from '@components/LineChart';
 
 type ParamsOptionsType = 'OPENING_PRICE' | 'TOKEN_FREEZE' | 'TOKEN_THAW';
@@ -72,7 +72,7 @@ function Dashboard() {
               tooltipText="Token Thaw is designed to guarantee, for a certain period, the minimum possible price of the token, or price floor."
             />
           </Card>
-          <div className="flex flex-col bg-transparent w-10/12 mx-auto mt-4 shadow-2xl lg:w-7/12 lg:mt-4">
+          <div className="flex flex-col bg-transparent w-10/12 mx-auto mt-4 lg:w-7/12 lg:mt-4">
             <h1 className="font-bj text-gray-100 text-2xl text-center px-9 pt-6 pb-3 lg:text-left">
               {paramsContent[paramSelected].question}
             </h1>
