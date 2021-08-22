@@ -7,7 +7,7 @@ interface InputProps {
   placeholder: string;
   tooltipText: string;
   value: string;
-  changeParam(): void;
+  changeParam?(): void;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
