@@ -1,10 +1,14 @@
+import React from 'react';
 import { Bar } from 'react-chartjs-2';
 
 const data = {
   labels: [
-    ['Voting', 'Process'],
-    ['Delegated', 'Voting'],
-    ['Voting', 'Process with an', 'Extension'],
+    // ['Voting', 'Process'],
+    // ['Delegated', 'Voting'],
+    // ['Voting', 'Process with an', 'Extension'],
+    [],
+    [],
+    [],
   ],
   datasets: [
     {
@@ -73,9 +77,22 @@ const options = {
 };
 
 const HorizontalBarChart = () => (
-  <div style={{ maxHeight: '450px', maxWidth: '825px' }} className="px-9 pb-6">
-    <Bar data={data} options={options} height={140} />
+  <div className="px-9 pb-6 flex">
+    <div className="flex flex-col justify-between w-20">
+      <span className="font-bj text-xs text-neon-light text-center">
+        Voting Process
+      </span>
+      <span className="font-bj text-xs text-neon-light text-center">
+        Delegated voting
+      </span>
+      <span className="font-bj text-xs text-neon-light text-center">
+        Voting Process with an Extension
+      </span>
+    </div>
+    <div className="flex-grow" style={{ maxWidth: '700px' }}>
+      <Bar data={data} options={options} height={140} />
+    </div>
   </div>
 );
 
-export default HorizontalBarChart;
+export default React.memo(HorizontalBarChart);
