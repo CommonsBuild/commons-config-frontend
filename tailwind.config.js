@@ -155,6 +155,14 @@ module.exports = {
         magenta: '#7622A8',
         'secondary-black': '#0B0A15',
         black: '#0A0A06',
+        chart: {
+          yellow: '#FBC948',
+          orange: '#FB9E48',
+          turquoise: '#03FFD2',
+          'dark-blue': '#028FCC',
+          blue: '#03D2FF',
+          purple: '#8D15C5',
+        },
       },
       fontFamily: {
         inter: ['Inter', 'sans-serif'],
