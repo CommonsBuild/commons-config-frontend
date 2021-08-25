@@ -45,7 +45,7 @@ function Card({ children, previousPanel, nextPanel, title }: CardProps) {
             <div />
           )}
         </div>
-        <NeonButton name="submit proposal" />
+        <NeonButton disabled fullWidth name="submit proposal" />
       </div>
     </div>
   );

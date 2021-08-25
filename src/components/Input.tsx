@@ -7,7 +7,7 @@ interface InputProps {
   placeholder: string;
   tooltipText: string;
   value: string;
-  changeParam(): void;
+  changeParam?(): void;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -23,13 +23,13 @@ function Input({
   const [hoverRef, isHovered] = useHover<HTMLDivElement>();
 
   return (
-    <div className="py-2 lg:grid lg:grid-cols-2 justify-between">
+    <div className="py-1 lg:grid lg:grid-cols-2 justify-between">
       <Tooltip text={tooltipText} isHovered={isHovered}>
-        <span ref={hoverRef} className="font-bj text-gray-100 self-center py-1">
+        <span ref={hoverRef} className="font-bj text-gray-100 self-center">
           {param}
         </span>
       </Tooltip>
-      <div className="relative h-11">
+      <div className="relative h-12">
         <input
           name={name}
           value={value}
