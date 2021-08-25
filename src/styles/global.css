@@ -50,3 +50,7 @@
   -webkit-text-stroke: #03b3ff;
   -webkit-text-stroke-width: 2px;
 }
+
+.bg-lp-size {
+  background-size: 100vw 1828px;
+}
