@@ -4,7 +4,7 @@ import Card from '@/components/Card';
 import ChartLegend from '@/components/ChartLegend';
 import HorizontalBarChart from '@/components/HorizontalBarChart';
 import Input from '@/components/Input';
-import Navbar from '@/components/Navbar';
+import { ConfigNavbar as Navbar } from '@/components/Navbar';
 import Dialog from '@/components/Dialog';
 import PieChart from '@/components/PieChart';
 

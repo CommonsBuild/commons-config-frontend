@@ -9,6 +9,8 @@ module.exports = {
     extend: {
       backgroundImage: (theme) => ({
         dash: "url('/dash.png')",
+        chart: "url('/chart-bg.svg')",
+        learn: "url('/assets/learn-circle-bg.png')",
       }),
       height: {
         144: '36rem',
@@ -175,5 +177,7 @@ module.exports = {
       gridColumnStart: ['last'],
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 };

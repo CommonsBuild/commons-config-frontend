@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Card from '../../components/Card';
-import Input from '../../components/Input';
-import Navbar from '../../components/Navbar';
-import LineChart from '../../components/LineChart';
+
+import Card from '@/components/Card';
+import Input from '@/components/Input';
+import { ConfigNavbar as Navbar } from '@/components/Navbar';
+import LineChart from '@/components/LineChart';
 
 type ParamsOptionsType = 'OPENING_PRICE' | 'TOKEN_FREEZE' | 'TOKEN_THAW';
 
