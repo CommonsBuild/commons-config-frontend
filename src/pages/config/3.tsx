@@ -1,9 +1,12 @@
 import { useState } from 'react';
+import Image from 'next/image';
 import Card from '@/components/Card';
 import ChartLegend from '@/components/ChartLegend';
 import HorizontalBarChart from '@/components/HorizontalBarChart';
 import Input from '@/components/Input';
 import Navbar from '@/components/Navbar';
+import Dialog from '@/components/Dialog';
+import PieChart from '@/components/PieChart';
 
 interface DisputableVotingParams {
   supportRequired: string;
@@ -25,6 +28,7 @@ function DisputableVoting() {
     quietEndingExtension: '',
     executionDelay: '',
   });
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = event.target;
@@ -36,11 +40,22 @@ function DisputableVoting() {
     });
   };
 
-  const chartLegend = [
+  const handleDialog = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const barChartLegend = [
     { name: 'non-quiet voting period', bgColor: 'yellow' },
     { name: 'delegated and non-delegated voting', bgColor: 'dark-blue' },
     { name: 'delegated voting period', bgColor: 'purple' },
-    { name: 'quiet voting period', bgColor: 'orange' },
+    { name: 'quiet ending period', bgColor: 'orange' },
+    { name: 'quiet ending extension', bgColor: 'blue' },
+    { name: 'execution delay', bgColor: 'turquoise' },
+  ];
+
+  const pieChartLegend = [
+    { name: 'non-quiet voting period', bgColor: 'yellow' },
+    { name: 'quiet ending period', bgColor: 'orange' },
     { name: 'quiet ending extension', bgColor: 'blue' },
     { name: 'execution delay', bgColor: 'turquoise' },
   ];
@@ -105,6 +120,22 @@ function DisputableVoting() {
 
   return (
     <div className="lg:min-h-screen bg-dash bg-cover">
+      <Dialog title="Disputable Voting" isOpen={isOpen}>
+        <div style={{ maxWidth: '350px' }} className="py-8 m-auto">
+          <PieChart />
+        </div>
+        <div className="grid grid-cols-2">
+          {pieChartLegend.map((legend) => (
+            <ChartLegend name={legend.name} bgColor={legend.bgColor} />
+          ))}
+        </div>
+        <button
+          className="flex m-auto uppercase font-bj font-bold text-neon text-xs pt-6"
+          onClick={() => handleDialog()}
+        >
+          close
+        </button>
+      </Dialog>
       <Navbar />
       <div className="lg:flex">
         <Card
@@ -130,10 +161,20 @@ function DisputableVoting() {
           <h1 className="font-bj text-gray-100 text-2xl text-center px-9 pt-6 pb-3 lg:text-left">
             What percent of yes votes are needed to pass a proposal?
           </h1>
+          <div
+            className="ml-auto px-9 cursor-pointer"
+            onClick={() => handleDialog()}
+          >
+            <Image src="/pie_icon.svg" width="24" height="24" />
+          </div>
           <HorizontalBarChart />
           <div className="grid grid-rows-3 grid-flow-col text-gray">
-            {chartLegend.map((legend) => (
-              <ChartLegend name={legend.name} bgColor={legend.bgColor} />
+            {barChartLegend.map((legend) => (
+              <ChartLegend
+                name={legend.name}
+                bgColor={legend.bgColor}
+                colAlign
+              />
             ))}
           </div>
         </div>
