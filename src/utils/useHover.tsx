@@ -6,6 +6,7 @@ function useHover<T>(): [MutableRefObject<T>, boolean] {
   const handleMouseOver = (): void => setValue(true);
   const handleMouseOut = (): void => setValue(false);
   useEffect(
+    // eslint-disable-next-line consistent-return
     () => {
       const node: any = ref.current;
       if (node) {
