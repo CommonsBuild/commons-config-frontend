@@ -19,6 +19,12 @@ interface ChartData {
   week: number[];
 }
 
+interface TableData {
+  price: number[];
+  tokens_released: number[];
+  week: number[];
+}
+
 const paramsContent = {
   OPENING_PRICE: {
     question: 'What price should we set the TEC token at launch?',
@@ -49,6 +55,11 @@ function Dashboard() {
     price: [],
     week: null,
   });
+  const [tableData, setTableData] = useState<TableData>({
+    price: [],
+    tokens_released: [],
+    week: [],
+  });
 
   const [paramSelected, setParamSelected] =
     useState<ParamsOptionsType>('OPENING_PRICE');
@@ -59,16 +70,23 @@ function Dashboard() {
     if (validParams) {
       axios
         .post(
-          'https://commons-config-backend.herokuapp.com/token-lockup/',
+          'https://test-token-lockup.herokuapp.com/token-lockup/',
           paramsValue
         )
         .then((response) => {
           const { output } = response.data;
-          const { price } = output;
-          const { week } = output;
+          const { chart } = output;
+          const { table } = output;
+
           setChartData({
-            price,
-            week,
+            price: chart.price,
+            week: chart.week,
+          });
+
+          setTableData({
+            price: table.price,
+            tokens_released: table.tokens_released,
+            week: table.week,
           });
         });
     }
@@ -83,13 +101,6 @@ function Dashboard() {
       [name]: value,
     });
   };
-
-  const tableRows = [
-    { id: 1, week: 0, token: 100, price: 2 },
-    { id: 2, week: 10, token: 100, price: 2 },
-    { id: 3, week: 50, token: 20, price: 0.4 },
-    { id: 4, week: 60, token: 0, price: 0 },
-  ];
 
   return (
     <div className="lg:min-h-screen bg-dash bg-cover">
@@ -138,20 +149,24 @@ function Dashboard() {
             {paramsContent[paramSelected].description}
           </h3>
           <LineChart price={chartData.price} week={chartData.week} />
-          <div className="min-w-full px-9 pt-4 pb-2 font-bj text-neon-light text-xs">
+          <div className="min-w-full px-9 pt-2 pb-2 font-bj text-neon-light text-xs">
             <div className="flex justify-between pb-2 mb-2 border-b border-gray-100 uppercase font-bold">
               <div className="w-1/3 max-w-144 table-text"># of weeks</div>
               <div className="w-1/3 max-w-144">% tokens released</div>
               <div className="w-1/3 max-w-144">price floor of token</div>
             </div>
-            {tableRows.map((elem) => (
+            {tableData.price.map((elem, index) => (
               <div
-                key={elem.id}
+                key={index}
                 className="flex justify-between py-1 hover:bg-cyan-700 cursor-pointer"
               >
-                <div className="w-1/3 max-w-144">{elem.week} weeks</div>
-                <div className="w-1/3 max-w-144">{elem.token}%</div>
-                <div className="w-1/3 max-w-144">{elem.price} wxDAI</div>
+                <div className="w-1/3 max-w-144">
+                  {tableData.week[index]} weeks
+                </div>
+                <div className="w-1/3 max-w-144">
+                  {Number(tableData.tokens_released[index].toFixed(2)) * 100}%
+                </div>
+                <div className="w-1/3 max-w-144">{elem.toFixed(2)} wxDAI</div>
               </div>
             ))}
           </div>
