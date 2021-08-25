@@ -23,7 +23,7 @@
 }
 
 .chart {
-  width: 93%;
-  margin: 0 auto;
+  width: 96%;
+  margin-left: 3%;
   top: calc(-40px + -50%);
 }
