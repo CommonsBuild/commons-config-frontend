@@ -1,7 +1,9 @@
 import React from 'react';
+import classnames from 'classnames';
 
 interface NavbarProps {
   children?: React.ReactNode;
+  transparentBackground?: boolean;
 }
 
 const configModules = [
@@ -27,9 +29,13 @@ const configModules = [
   },
 ];
 
-function Navbar({ children }: NavbarProps) {
+function Navbar({ children, transparentBackground }: NavbarProps) {
   return (
-    <div className="flex bg-black items-center">
+    <div
+      className={classnames('flex items-center', {
+        'bg-black': !transparentBackground,
+      })}
+    >
       <div className="bg-neon px-5 py-10">
         <img src="/assets/tec-logo-light.svg" alt="TEC Logomark" />
       </div>
