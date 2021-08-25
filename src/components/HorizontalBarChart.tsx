@@ -1,15 +1,10 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
+import Tooltip from './Tooltip';
+import useHover from '../utils/useHover';
 
 const data = {
-  labels: [
-    // ['Voting', 'Process'],
-    // ['Delegated', 'Voting'],
-    // ['Voting', 'Process with an', 'Extension'],
-    [],
-    [],
-    [],
-  ],
+  labels: [[], [], []],
   datasets: [
     {
       label: 'First bar',
@@ -76,23 +71,39 @@ const options = {
   },
 };
 
-const HorizontalBarChart = () => (
-  <div className="px-9 pb-6 flex">
-    <div className="flex flex-col justify-between py-12 w-20">
-      <span className="font-bj text-xs text-neon-light text-center">
-        Voting Process
-      </span>
-      <span className="font-bj text-xs text-neon-light text-center">
-        Delegated voting
-      </span>
-      <span className="font-bj text-xs text-neon-light text-center">
-        Voting Process with an Extension
-      </span>
+function HorizontalBarChart() {
+  const [hoverRef, isHovered] = useHover<HTMLDivElement>();
+  return (
+    <div className="px-9 pb-6 flex">
+      <div className="flex flex-col justify-between py-12 w-20">
+        <span className="font-bj text-xs text-neon-light text-center">
+          Voting Process
+        </span>
+        <span className="font-bj text-xs text-neon-light text-center">
+          Delegated voting
+        </span>
+        <span className="font-bj text-xs text-neon-light text-center">
+          Voting Process with an Extension
+        </span>
+      </div>
+      <div className="flex-grow" style={{ maxWidth: '700px' }}>
+        <Bar data={data} options={options} height={140} />
+      </div>
+      <div className="mt-auto ml-4 w-20 text-center">
+        <Tooltip
+          text="The amount of time allocated to each phase of the voting process."
+          isHovered={isHovered}
+        >
+          <span
+            ref={hoverRef}
+            className="font-bj text-xs text-neon-light uppercase"
+          >
+            time (days)
+          </span>
+        </Tooltip>
+      </div>
     </div>
-    <div className="flex-grow" style={{ maxWidth: '700px' }}>
-      <Bar data={data} options={options} height={140} />
-    </div>
-  </div>
-);
+  );
+}
 
 export default React.memo(HorizontalBarChart);
