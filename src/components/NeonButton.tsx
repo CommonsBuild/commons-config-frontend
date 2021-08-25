@@ -4,16 +4,18 @@ import classnames from 'classnames';
 
 interface NeonButtonProps {
   children: ReactNode;
+  disabled?: boolean;
   fullWidth?: boolean;
   href: string;
 }
 
-function NeonButton({ fullWidth, href, children }: NeonButtonProps) {
+function NeonButton({ disabled, fullWidth, href, children }: NeonButtonProps) {
   return (
     <Link href={href}>
       <button
+        disabled={disabled}
         className={classnames(
-          'px-8 h-16 mx-auto bg-neon hover:bg-neon-light-600 ',
+          'h-14 mx-auto bg-neon hover:bg-neon-light-600 disabled:opacity-50 disabled:bg-gray-400 disabled:text-gray-300',
           {
             'w-full': fullWidth,
           }

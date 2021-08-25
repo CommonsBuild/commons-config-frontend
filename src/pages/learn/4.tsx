@@ -1,8 +1,8 @@
 import Head from 'next/head';
 
-import Checkbox from '@components/Chekbox';
-import { Navbar } from '@components/Navbar';
-import NeonButton from '@components/NeonButton';
+import Checkbox from '@/components/Chekbox';
+import { Navbar } from '@/components/Navbar';
+import NeonButton from '@/components/NeonButton';
 
 function LearnFour() {
   return (

@@ -1,7 +1,7 @@
 import Head from 'next/head';
 
-import { Navbar } from '@components/Navbar';
-import NeonButton from '@components/NeonButton';
+import { Navbar } from '@/components/Navbar';
+import NeonButton from '@/components/NeonButton';
 
 function LearnDone() {
   return (
