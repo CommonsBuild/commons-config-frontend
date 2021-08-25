@@ -34,18 +34,6 @@ const options = {
       beginAtZero: true,
       position: 'left',
     },
-    // rightScale: {
-    //   grid: {
-    //     borderColor: "#transparent",
-    //     borderWidth: 2,
-    //   },
-    //   ticks: {
-    //     color: "#FFFFFF",
-    //     stepSize: 0.5,
-    //   },
-    //   beginAtZero: true,
-    //   position: "right",
-    // },
   },
 };
 
