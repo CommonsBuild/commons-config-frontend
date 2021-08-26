@@ -9,7 +9,7 @@ function GradientTitle({ children, extraLargeText }: GradientTitleProps) {
   return (
     <h2
       className={`font-bj font-bold uppercase mt-8 lg:mt-16 ${
-        extraLargeText ? 'text-6xl md:text-9xl' : 'text-3xl md:text-6xl'
+        extraLargeText ? 'text-9xl' : 'text-6xl'
       }
       `}
     >
