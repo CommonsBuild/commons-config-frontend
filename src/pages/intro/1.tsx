@@ -1,17 +1,9 @@
-import { useState } from 'react';
 import Head from 'next/head';
 
 import { CustomNavbar as Navbar } from '@/components/Navbar';
 import NeonButton from '@/components/NeonButton';
-import Dialog from '@/components/Dialog';
 
 function IntroOne() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleDialog = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
     <>
       <Head>
@@ -19,15 +11,6 @@ function IntroOne() {
       </Head>
       <Navbar href="/config/1" text="go to configuration" />
       <div className="min-h-screen bg-black-one">
-        <Dialog title="The Augmented Bonding Curve (ABC)" isOpen={isOpen}>
-          <div style={{ maxWidth: '350px' }} className="py-8 m-auto" />
-          <button
-            className="flex m-auto uppercase font-bj font-bold text-neon text-xs pt-6"
-            onClick={() => handleDialog()}
-          >
-            close
-          </button>
-        </Dialog>
         <div className="container grid grid-cols-1 lg:grid-cols-4 lg:gap-24 mx-auto px-4 py-8">
           <img
             className="mb-6 lg:mt-16"
@@ -51,10 +34,7 @@ function IntroOne() {
                 <li>The rate at which tokens become liquid</li>
                 <li>The opening price of the TEC token</li>
               </ul>
-              <a
-                onClick={() => handleDialog()}
-                className="block font-bj font-bold text-sm text-neon uppercase my-6"
-              >
+              <a className="block font-bj font-bold text-sm text-neon uppercase my-6">
                 learn more
               </a>
             </div>
