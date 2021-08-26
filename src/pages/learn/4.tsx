@@ -71,31 +71,33 @@ function LearnFour() {
                 If you need more information please check the links below:
               </p>
               <a
-                href="#"
+                href="https://forum.tecommons.org/t/disputable-conviction-voting-conviction-growth-aka-half-life/490"
+                target="_blank"
+                rel="noreferrer"
                 className="block font-bj font-bold text-neon leading-loose"
               >
                 Conviction Growth
               </a>
               <a
-                href="#"
+                href="https://forum.tecommons.org/t/disputable-conviction-voting-spending-limit-aka-max-ratio-beta/469"
+                target="_blank"
+                rel="noreferrer"
                 className="block font-bj font-bold text-neon leading-loose"
               >
                 Spending Limit
               </a>
               <a
-                href="#"
+                href="https://forum.tecommons.org/t/disputable-conviction-voting-minimum-conviction-aka-minimum-threshold/493"
+                target="_blank"
+                rel="noreferrer"
                 className="block font-bj font-bold text-neon leading-loose"
               >
                 Minimum Conviction
               </a>
               <a
-                href="#"
-                className="block font-bj font-bold text-neon leading-loose"
-              >
-                Conviction Voting TL;DR
-              </a>
-              <a
-                href="#"
+                href="https://forum.1hive.org/t/celeste-a-brief-primer/1483"
+                target="_blank"
+                rel="noreferrer"
                 className="block font-bj font-bold text-neon leading-loose"
               >
                 Disputing and Celeste

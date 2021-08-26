@@ -74,13 +74,17 @@ function LearnOne() {
                 If you need more information please check the links below:
               </p>
               <a
-                href="#"
+                href="https://forum.tecommons.org/t/opening-price-price-floor-mechanism/507/2"
+                target="_blank"
+                rel="noreferrer"
                 className="block font-bj font-bold text-neon leading-loose"
               >
                 Price Floor Dynamics
               </a>
               <a
-                href="#"
+                href="https://forum.tecommons.org/t/token-freeze-token-thaw/509/2"
+                target="_blank"
+                rel="noreferrer"
                 className="block font-bj font-bold text-neon leading-loose"
               >
                 Token Thaw and Token Freeze

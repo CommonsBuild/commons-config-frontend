@@ -23,7 +23,7 @@ function LearnThree() {
             alt="Getting familiar with the Commons configuration"
           />
           <div className="col-span-2 text-white">
-            <h3 className="text-bj font-bold text-3xl">Disputable Voting</h3>
+            <h3 className="text-bj font-bold text-3xl">Tao Voting</h3>
             <div className="font-inter">
               <br />
               <p className="text-lg">
@@ -37,10 +37,10 @@ function LearnThree() {
               <p className="font-bold">Modifying the Commons</p>
               <br />
               <p>
-                Disputable Voting (DV) is the voting process by which the
-                Commons can modify its economic and governance settings
-                post-upgrade. It is a very powerful voting application that is
-                capable of performing many high-impact functions, for example:
+                Tao Voting (TV) is the voting process by which the Commons can
+                modify its economic and governance settings post-upgrade. It is
+                a very powerful voting application that is capable of performing
+                many high-impact functions, for example:
               </p>
               <br />
               <ul className="list-disc list-inside">
@@ -56,19 +56,19 @@ function LearnThree() {
               <p>
                 Since there are only one set of voting parameters for all
                 Commons components, strong thresholds for passing proposals in
-                DV are critical to ensure the Commons architecture remains
+                TV are critical to ensure the Commons architecture remains
                 uncompromised.
               </p>
               <br />
               <p>
-                DV is an upgraded version of Dandelion Voting with familiar
+                TV is an upgraded version of Dandelion Voting with familiar
                 parameters such as Support Required, Minimum Quorum, Execution
                 Delay and Vote Duration.
               </p>
               <br />
               <p>
-                Disputable Voting also comes with two new concepts: Delegation
-                and Quiet Ending.
+                Tao Voting also comes with two new concepts: Delegation and
+                Quiet Ending.
               </p>
               <br />
               <p className="font-bold">Delegation</p>
@@ -108,22 +108,60 @@ function LearnThree() {
                 If you need more information please check the links below:
               </p>
               <a
-                href="#"
+                href="https://forum.tecommons.org/t/disputable-voting-support-required/486/2"
+                target="_blank"
+                rel="noreferrer"
                 className="block font-bj font-bold text-neon leading-loose"
               >
-                Dandelion Voting Spec
+                Support Required
               </a>
               <a
-                href="#"
+                href="https://forum.tecommons.org/t/disputable-voting-minimum-quorum/485/2"
+                target="_blank"
+                rel="noreferrer"
                 className="block font-bj font-bold text-neon leading-loose"
               >
-                Disputable Voting TL;DR
+                Minimum Quorum
               </a>
               <a
-                href="#"
+                href="https://forum.tecommons.org/t/disputable-voting-execution-delay/489/2"
+                target="_blank"
+                rel="noreferrer"
                 className="block font-bj font-bold text-neon leading-loose"
               >
-                Disputing and Celeste
+                Execution Delay
+              </a>
+              <a
+                href="https://forum.1hive.org/t/celeste-a-brief-primer/1483"
+                target="_blank"
+                rel="noreferrer"
+                className="block font-bj font-bold text-neon leading-loose"
+              >
+                Disputability and Celeste
+              </a>
+              <a
+                href="https://forum.tecommons.org/t/disputable-voting-delegated-voting-period/487/2"
+                target="_blank"
+                rel="noreferrer"
+                className="block font-bj font-bold text-neon leading-loose"
+              >
+                Delegated Voting
+              </a>
+              <a
+                href="https://forum.tecommons.org/t/disputable-voting-quiet-ending-period-and-quiet-ending-extension/488/2"
+                target="_blank"
+                rel="noreferrer"
+                className="block font-bj font-bold text-neon leading-loose"
+              >
+                Quiet Ending
+              </a>
+              <a
+                href="https://forum.tecommons.org/t/disputable-voting-vote-duration/484/2"
+                target="_blank"
+                rel="noreferrer"
+                className="block font-bj font-bold text-neon leading-loose"
+              >
+                Vote Duration
               </a>
               <div className="mt-6">
                 <Checkbox text="I understood everything and I’m able to configure the parameters" />
