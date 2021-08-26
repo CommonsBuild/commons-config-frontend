@@ -48,9 +48,9 @@ const paramsContent = {
 
 function Dashboard() {
   const [paramsValue, setParamsValue] = useState<ParamsValues>({
-    'opening-price': '',
-    'token-freeze': '',
-    'token-thaw': '',
+    'opening-price': '1',
+    'token-freeze': '50',
+    'token-thaw': '5',
   });
   const [chartData, setChartData] = useState<ChartData>({
     price: [],

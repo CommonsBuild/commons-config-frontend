@@ -11,6 +11,15 @@ import { ConfigNavbar as Navbar } from '@/components/Navbar';
 import Dialog from '@/components/Dialog';
 import PieChart from '@/components/PieChart';
 
+type ParamsOptionsType =
+  | 'SUPPORT_REQUIRED'
+  | 'MINIMUM_QUORUM'
+  | 'VOTE_DURATION'
+  | 'DELEGATED_VOTING_PERIOD'
+  | 'QUIET_ENDING_PERIOD'
+  | 'QUIET_ENDING_EXTENSION'
+  | 'EXECUTION_DELAY';
+
 interface DisputableVotingParams {
   'support-required': string;
   'minimum-quorum': string;
@@ -37,15 +46,30 @@ interface BarChartParams {
   'execution-delay': number;
 }
 
+const paramsContent = {
+  SUPPORT_REQUIRED: 'What percent of yes votes are needed to pass a proposal?',
+  MINIMUM_QUORUM:
+    'What percent of all tokens are needed to vote on a proposal in order for it to be valid?',
+  VOTE_DURATION: 'How many days should voting on a proposal last?',
+  DELEGATED_VOTING_PERIOD:
+    'How many days should delegates be allowed to vote within the Vote Duration?',
+  QUIET_ENDING_PERIOD:
+    'For how many days at the latter end of the Vote Duration should a flipped voting outcome cause an extension?',
+  QUIET_ENDING_EXTENSION:
+    'How many days should be added to a Vote Duration from a vote changing outcome during the Quiet Ending Period?',
+  EXECUTION_DELAY:
+    'How much time should pass from when the vote closes until the outcome is executed?',
+};
+
 function DisputableVoting() {
   const [paramsValue, setParamsValue] = useState<DisputableVotingParams>({
-    'support-required': '',
-    'minimum-quorum': '',
-    'vote-duration': '',
-    'delegated-voting-period': '',
-    'quiet-ending-period': '',
-    'quiet-ending-extension': '',
-    'execution-delay': '',
+    'support-required': '10',
+    'minimum-quorum': '20',
+    'vote-duration': '20',
+    'delegated-voting-period': '5',
+    'quiet-ending-period': '5',
+    'quiet-ending-extension': '10',
+    'execution-delay': '7',
   });
 
   const [barChartData, setBarChartData] = useState<BarChartParams>({
@@ -63,6 +87,9 @@ function DisputableVoting() {
     'quiet-ending-extension': 0,
     'quiet-ending-period': 0,
   });
+
+  const [paramSelected, setParamSelected] =
+    useState<ParamsOptionsType>('SUPPORT_REQUIRED');
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -113,6 +140,7 @@ function DisputableVoting() {
   const inputs = [
     {
       name: 'support-required',
+      paramName: 'SUPPORT_REQUIRED',
       value: paramsValue['support-required'],
       param: 'Support Required',
       placehoder: '%',
@@ -122,6 +150,7 @@ function DisputableVoting() {
     },
     {
       name: 'minimum-quorum',
+      paramName: 'MINIMUM_QUORUM',
       value: paramsValue['minimum-quorum'],
       param: 'Minimum Quorum',
       placehoder: '%',
@@ -131,6 +160,7 @@ function DisputableVoting() {
     },
     {
       name: 'vote-duration',
+      paramName: 'VOTE_DURATION',
       value: paramsValue['vote-duration'],
       param: 'Vote Duration',
       placehoder: 'days',
@@ -139,6 +169,7 @@ function DisputableVoting() {
     },
     {
       name: 'delegated-voting-period',
+      paramName: 'DELEGATED_VOTING_PERIOD',
       value: paramsValue['delegated-voting-period'],
       param: 'Delegated Voting Period',
       placehoder: 'days',
@@ -148,6 +179,7 @@ function DisputableVoting() {
     },
     {
       name: 'quiet-ending-period',
+      paramName: 'QUIET_ENDING_PERIOD',
       value: paramsValue['quiet-ending-period'],
       param: 'Quiet Ending Period',
       placehoder: 'days',
@@ -157,6 +189,7 @@ function DisputableVoting() {
     },
     {
       name: 'quiet-ending-extension',
+      paramName: 'QUIET_ENDING_EXTENSION',
       value: paramsValue['quiet-ending-extension'],
       param: 'Quiet Ending Extension',
       placehoder: 'days',
@@ -166,6 +199,7 @@ function DisputableVoting() {
     },
     {
       name: 'execution-delay',
+      paramName: 'EXECUTION_DELAY',
       value: paramsValue['execution-delay'],
       param: 'Execution Delay',
       placehoder: 'days',
@@ -252,6 +286,9 @@ function DisputableVoting() {
                 name={input.name}
                 value={input.value}
                 param={input.param}
+                changeParam={() =>
+                  setParamSelected(input.paramName as ParamsOptionsType)
+                }
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                   input.numeric
                     ? handleNumeriChange(event)
@@ -264,7 +301,7 @@ function DisputableVoting() {
           </Card>
           <div className="flex flex-col w-10/12 mx-auto mt-4 shadow-2xl lg:w-7/12">
             <h1 className="font-bj text-gray-100 text-2xl text-center px-9 pt-6 pb-3 lg:text-left">
-              What percent of yes votes are needed to pass a proposal?
+              {paramsContent[paramSelected]}
             </h1>
             <div
               className="ml-auto px-9 cursor-pointer"
