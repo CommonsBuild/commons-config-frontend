@@ -10,8 +10,12 @@ function IntroIndex() {
       <Head>
         <title>Intro | Commons Dashboard</title>
       </Head>
-      <div className="flex flex-col min-h-screen">
-        <Navbar href="/config/1" text="go to configuration" />
+      <div className="flex flex-col min-h-screen bg-black-one">
+        <Navbar
+          href="/config/1"
+          text="go to configuration"
+          transparentBackground
+        />
         <div className="flex-1 bg-black-one bg-learn bg-no-repeat bg-left-bottom bg-blend-hard-light	text-center">
           <div className="container mx-auto flex flex-col items-center gap-12">
             <GradientTitle extraLargeText>
@@ -23,7 +27,11 @@ function IntroIndex() {
                 collaborate on the design of our token economy.
               </span>
             </p>
-            <NeonButton href="/intro/1">NEXT</NeonButton>
+            <div className="w-48">
+              <NeonButton href="/intro/1" fullWidth>
+                next
+              </NeonButton>
+            </div>
           </div>
         </div>
       </div>

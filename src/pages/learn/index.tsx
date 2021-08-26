@@ -19,8 +19,8 @@ function LearnIndex() {
       <Head>
         <title>Learn | Commons Dashboard</title>
       </Head>
-      <Navbar href="/intro/" text="take me back" />
       <div className="min-h-screen bg-black-one">
+        <Navbar href="/intro/" text="take me back" transparentBackground />
         <div className="flex container mx-auto px-4 py-8 justify-center text-center">
           <GradientTitle>
             Let&apos;s learn a little bit about how the Commons works before we
@@ -47,9 +47,7 @@ function LearnIndex() {
           </div>
           <Checkbox text="I have enough time, no distractions and will be fully focused" />
         </div>
-        <NeonButton disabled href="/learn/1">
-          LET&apos;S GO
-        </NeonButton>
+        <NeonButton href="/learn/1">LET&apos;S GO</NeonButton>
       </div>
     </>
   );

@@ -2,6 +2,7 @@ import Head from 'next/head';
 
 import { CustomNavbar as Navbar } from '@/components/Navbar';
 import GradientTitle from '@/components/GradientTitle';
+import NeonButton from '@/components/NeonButton';
 
 function IntroDone() {
   return (
@@ -9,9 +10,9 @@ function IntroDone() {
       <Head>
         <title>Intro Done | Commons Dashboard</title>
       </Head>
-      <Navbar href="" />
       <div className="min-h-screen bg-black-one">
-        <div className="flex container mx-auto px-4 py-8 justify-center text-center text-white">
+        <Navbar href="" transparentBackground />
+        <div className="flex container mx-auto px-4 py-8 justify-center text-center">
           <div className="max-w-screen-lg">
             <GradientTitle>
               It&apos;s <span className="text-white underline">important</span>{' '}
@@ -22,6 +23,11 @@ function IntroDone() {
               of your choices for the various parameters that comprise the
               economy and governance of the Commons we’re launching.
             </p>
+            <div className="mx-auto w-96 mt-10">
+              <NeonButton href="/config/1" fullWidth>
+                go to configuration
+              </NeonButton>
+            </div>
           </div>
         </div>
       </div>

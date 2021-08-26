@@ -10,11 +10,11 @@ function LearnDone() {
       <Head>
         <title>Learn Done | Commons Dashboard</title>
       </Head>
-      <div className="flex flex-col min-h-screen">
-        <Navbar href="/learn/" text="take me back" />
+      <div className="flex flex-col bg-black-one min-h-screen">
+        <Navbar href="/learn/" text="take me back" transparentBackground />
         <div className="flex-1 bg-black-one bg-learn bg-no-repeat bg-left-bottom bg-blend-hard-light	text-center">
           <div className="container mx-auto flex flex-col items-center gap-12">
-            <GradientTitle>PREPARE FOR THE LAUNCH!</GradientTitle>
+            <GradientTitle extraLargeText>PREPARE FOR LAUNCH!</GradientTitle>
             <p className="font-inter font-normal text-3xl text-white max-w-screen-md">
               Now you should be equipped with the knowledge to take the reins
               and design your Commons. Continue to the Configuration to begin
