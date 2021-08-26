@@ -37,10 +37,10 @@ function LearnThree() {
               <p className="font-bold">Modifying the Commons</p>
               <br />
               <p>
-                Tao Voting (TV) is the voting process by which the  
-                Commons can modify its economic and governance settings
-                post-upgrade. It is a very powerful voting application that is
-                capable of performing many high-impact functions, for example:
+                Tao Voting (TV) is the voting process by which the Commons can
+                modify its economic and governance settings post-upgrade. It is
+                a very powerful voting application that is capable of performing
+                many high-impact functions, for example:
               </p>
               <br />
               <ul className="list-disc list-inside">
@@ -67,8 +67,8 @@ function LearnThree() {
               </p>
               <br />
               <p>
-                Tao Voting also comes with two new concepts: Delegation
-                and Quiet Ending.
+                Tao Voting also comes with two new concepts: Delegation and
+                Quiet Ending.
               </p>
               <br />
               <p className="font-bold">Delegation</p>
