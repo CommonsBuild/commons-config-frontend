@@ -27,27 +27,30 @@ function LearnIndex() {
             configure it.
           </GradientTitle>
         </div>
-        <div className="container mx-auto px-4">
-          <h3 className="text-bj text-white font-bold text-2xl mb-4">
-            What you will learn:
-          </h3>
-          <ul className="text-inter">
-            {learnings.map((text, index) => (
-              <ListItem key={index}>{text}</ListItem>
-            ))}
-          </ul>
-        </div>
-        <div className="container mx-auto px-4 text-inter text-white">
-          <div className="flex flex-row">
-            <img src="/icons/clock.svg" alt="Clock Icon" />
-            <span className="italic ml-2">
-              This will take you about 15-20 minutes. Please make sure you have
-              the time and focus.
-            </span>
+        <div className="container mx-auto px-20 grid md:grid-cols-2">
+          <div className="container mx-auto px-4">
+            <h3 className="text-bj text-white font-bold text-2xl mb-4">
+              What you will learn:
+            </h3>
+            <ul className="text-inter">
+              {learnings.map((text, index) => (
+                <ListItem key={index}>{text}</ListItem>
+              ))}
+            </ul>
           </div>
-          <Checkbox text="I have enough time, no distractions and will be fully focused" />
+          <div className="container mx-auto px-4 text-inter self-center">
+            <div className="flex flex-row text-white mb-4">
+              <img src="/icons/clock.svg" alt="Clock Icon" />
+              <span className="italic ml-2">
+                This will take you about 15-20 minutes. Please make sure you
+                have the time and focus.
+              </span>
+            </div>
+            <Checkbox text="I have enough time, no distractions and will be fully focused" />
+            <div className="mb-4" />
+            <NeonButton href="/learn/1">LET&apos;S GO</NeonButton>
+          </div>
         </div>
-        <NeonButton href="/learn/1">LET&apos;S GO</NeonButton>
       </div>
     </>
   );
