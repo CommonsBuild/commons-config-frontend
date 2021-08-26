@@ -1,8 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
+import classnames from 'classnames';
 
 interface NavbarProps {
   children?: React.ReactNode;
+  transparentBackground?: boolean;
 }
 
 interface CustomNavbarProps {
@@ -33,9 +35,13 @@ const configModules = [
   },
 ];
 
-function Navbar({ children }: NavbarProps) {
+function Navbar({ children, transparentBackground }: NavbarProps) {
   return (
-    <div className="flex sticky top-0 z-50 bg-black items-center">
+    <div
+      className={classnames('flex items-center sticky top-0 z-50', {
+        'bg-black': !transparentBackground,
+      })}
+    >
       <div className="bg-neon px-5 py-10">
         <img src="/assets/tec-logo-light.svg" alt="TEC Logomark" />
       </div>
@@ -50,6 +56,7 @@ function Navbar({ children }: NavbarProps) {
     </div>
   );
 }
+
 function CustomNavbar({ href, text }: CustomNavbarProps) {
   return (
     <Navbar>
