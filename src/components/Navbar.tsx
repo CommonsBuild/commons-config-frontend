@@ -10,6 +10,7 @@ interface NavbarProps {
 interface CustomNavbarProps {
   text?: string;
   href?: string;
+  transparentBackground?: boolean;
 }
 
 const configModules = [
@@ -57,9 +58,13 @@ function Navbar({ children, transparentBackground }: NavbarProps) {
   );
 }
 
-function CustomNavbar({ href, text }: CustomNavbarProps) {
+function CustomNavbar({
+  href,
+  text,
+  transparentBackground,
+}: CustomNavbarProps) {
   return (
-    <Navbar>
+    <Navbar transparentBackground={transparentBackground}>
       <Link href={href}>
         <button className="flex ml-auto uppercase font-bj font-bold text-neon text-xs pt-6">
           {text}
