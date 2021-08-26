@@ -24,12 +24,12 @@ function LearnFour() {
           />
           <div className="col-span-2 text-white">
             <h3 className="text-bj font-bold text-3xl">
-              Disputable Conviction Voting
+              Conviction Voting
             </h3>
             <div className="font-inter">
               <br />
               <p className="text-lg">
-                Disputable Conviction Voting is the governance system in which
+                Conviction Voting is the governance system in which
                 Commons Members create proposals to request funds from the
                 Common Pool.
               </p>
@@ -38,10 +38,10 @@ function LearnFour() {
                 TEC tokens can be staked on these proposals to signal approval
                 of the request. Staked tokens accrue voting power, or
                 Conviction, continuously over time. The amount of tokens
-                currently voting on all proposals in Disputable Conviction
-                Voting is represented by the term Effective Supply. The
+                currently voting on all proposals in Conviction
+                Voting is represented by the term <strong>Effective Supply</strong>. The
                 logarithmic function that decides the rate at which Conviction
-                accumulates is Conviction Growth.
+                accumulates is <strong>Conviction Growth</strong>.
               </p>
               <br />
               <p>
@@ -52,9 +52,9 @@ function LearnFour() {
               </p>
               <br />
               <p>
-                The Spending Limit sets the maximum percentage of the Common
+                The <strong>Spending Limit</strong> sets the maximum percentage of the Common
                 Pool funds that can be requested by a single proposal. The
-                Minimum Conviction dictates how many TEC tokens are needed to
+                <strong>Minimum Conviction</strong> dictates how many TEC tokens are needed to
                 pass a proposal, no matter how small the amount requested.
               </p>
               <br />
