@@ -10,8 +10,12 @@ function LearnThree() {
       <Head>
         <title>Learn 3 | Commons Dashboard</title>
       </Head>
-      <Navbar href="/learn/done" text="finish learning" />
       <div className="min-h-screen bg-black-one">
+        <Navbar
+          href="/learn/done"
+          text="finish learning"
+          transparentBackground
+        />
         <div className="container grid grid-cols-1 lg:grid-cols-4 lg:gap-24 mx-auto px-4 py-8">
           <img
             className="mb-4 lg:mt-16"
