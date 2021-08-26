@@ -1,15 +1,25 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import NeonButton from './NeonButton';
 
 interface CardProps {
   children: React.ReactNode;
   previousPanel?: string;
+  previousHref?: string;
   nextPanel?: string;
+  nextHref?: string;
   title: string;
 }
 
-function Card({ children, previousPanel, nextPanel, title }: CardProps) {
+function Card({
+  children,
+  previousPanel,
+  previousHref,
+  nextPanel,
+  nextHref,
+  title,
+}: CardProps) {
   return (
     <div className="self-start flex flex-col bg-secondary-black w-10/12 mx-auto my-4 py-6 px-9 lg:w-96 lg:mt-8">
       <h3 className="font-bj font-bold text-sm text-gray-100 mb-4 uppercase">
@@ -19,28 +29,32 @@ function Card({ children, previousPanel, nextPanel, title }: CardProps) {
       <div className="w-full mt-8">
         <div className="flex justify-between">
           {previousPanel ? (
-            <div className="flex justify-end items-center font-bj text-right text-xs text-gray-100 cursor-pointer py-2">
-              <Image
-                src="/assets/arrow-left.svg"
-                alt="Left arrow icon."
-                width="20"
-                height="20"
-              />
-              {previousPanel}
-            </div>
+            <Link href={previousHref}>
+              <div className="flex justify-end items-center font-bj text-right text-xs text-gray-100 cursor-pointer py-2">
+                <Image
+                  src="/assets/arrow-left.svg"
+                  alt="Left arrow icon."
+                  width="20"
+                  height="20"
+                />
+                {previousPanel}
+              </div>
+            </Link>
           ) : (
             <div />
           )}
           {nextPanel ? (
-            <div className="flex justify-end items-center font-bj text-right text-xs text-gray-100 cursor-pointer py-2">
-              {nextPanel}
-              <Image
-                src="/assets/arrow-right.svg"
-                alt="Right arrow icon."
-                width="20"
-                height="20"
-              />
-            </div>
+            <Link href={nextHref}>
+              <div className="flex justify-end items-center font-bj text-right text-xs text-gray-100 cursor-pointer py-2">
+                {nextPanel}
+                <Image
+                  src="/assets/arrow-right.svg"
+                  alt="Right arrow icon."
+                  width="20"
+                  height="20"
+                />
+              </div>
+            </Link>
           ) : (
             <div />
           )}
