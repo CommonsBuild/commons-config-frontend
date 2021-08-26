@@ -130,7 +130,7 @@ function Dashboard() {
             tooltipText="Token Thaw is designed to guarantee, for a certain period, the minimum possible price of the token, or price floor."
           />
         </Card>
-        <div className="flex flex-col bg-transparent w-10/12 mx-auto mt-4 shadow-2xl lg:w-7/12">
+        <div className="flex flex-col bg-transparent w-10/12 mx-auto mt-4 lg:w-7/12">
           <h1 className="font-bj text-gray-100 text-2xl text-center px-9 pt-6 pb-3 lg:text-left">
             {paramsContent[paramSelected].question}
           </h1>

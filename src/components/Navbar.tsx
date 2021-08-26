@@ -1,7 +1,13 @@
 import React from 'react';
+import Link from 'next/link';
 
 interface NavbarProps {
   children?: React.ReactNode;
+}
+
+interface CustomNavbarProps {
+  text?: string;
+  href?: string;
 }
 
 const configModules = [
@@ -29,7 +35,7 @@ const configModules = [
 
 function Navbar({ children }: NavbarProps) {
   return (
-    <div className="flex bg-black items-center">
+    <div className="flex sticky top-0 z-50 bg-black items-center">
       <div className="bg-neon px-5 py-10">
         <img src="/assets/tec-logo-light.svg" alt="TEC Logomark" />
       </div>
@@ -42,6 +48,17 @@ function Navbar({ children }: NavbarProps) {
         {children}
       </div>
     </div>
+  );
+}
+function CustomNavbar({ href, text }: CustomNavbarProps) {
+  return (
+    <Navbar>
+      <Link href={href}>
+        <button className="flex ml-auto uppercase font-bj font-bold text-neon text-xs pt-6">
+          {text}
+        </button>
+      </Link>
+    </Navbar>
   );
 }
 
@@ -63,4 +80,4 @@ function ConfigNavbar() {
   );
 }
 
-export { Navbar, ConfigNavbar };
+export { Navbar, ConfigNavbar, CustomNavbar };

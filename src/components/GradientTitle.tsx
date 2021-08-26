@@ -13,7 +13,7 @@ function GradientTitle({ children, extraLargeText }: GradientTitleProps) {
       }
       `}
     >
-      <span className="text-transparent bg-clip-text bg-gradient-to-br from-cyan to-neon">
+      <span className="text-transparent leading-tight bg-clip-text bg-gradient-to-br from-cyan to-neon">
         {children}
       </span>
     </h2>

@@ -15,7 +15,7 @@ function NeonButton({ disabled, fullWidth, href, children }: NeonButtonProps) {
       <button
         disabled={disabled}
         className={classnames(
-          'px-6 h-14 mx-auto bg-neon hover:bg-neon-light-600 disabled:opacity-50 disabled:bg-gray-400 disabled:text-gray-300',
+          'h-14 px-6 mx-auto bg-neon hover:bg-neon-light-600 disabled:opacity-50 disabled:bg-gray-400 disabled:text-gray-300',
           {
             'w-full': fullWidth,
           }

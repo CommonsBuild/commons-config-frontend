@@ -22,7 +22,7 @@ function ChartLegend({ name, bgColor, colAlign }: ChartLegendProps) {
         'last:col-start-3': colAlign,
       })}
     >
-      <div className={classnames('h-4 w-4 mx-4', legendColors[bgColor])} />
+      <div className={classnames('h-4 w-4 mr-4', legendColors[bgColor])} />
       <span className="font-bj font-bold text-neon-light text-xs uppercase">
         {name}
       </span>

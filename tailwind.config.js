@@ -72,7 +72,7 @@ module.exports = {
           900: '#0F2EEE',
         },
         pink: {
-          DEFAULT: '#FD40FE',
+          DEFAULT: '#FE40B7',
           50: '#FD40FE',
           100: '#E43AE5',
           200: '#CA33CB',

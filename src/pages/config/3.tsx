@@ -157,7 +157,7 @@ function DisputableVoting() {
             />
           ))}
         </Card>
-        <div className="flex flex-col w-10/12 mx-auto mt-4 shadow-2xl lg:w-7/12">
+        <div className="flex flex-col w-10/12 mx-auto mt-4 lg:w-7/12">
           <h1 className="font-bj text-gray-100 text-2xl text-center px-9 pt-6 pb-3 lg:text-left">
             What percent of yes votes are needed to pass a proposal?
           </h1>

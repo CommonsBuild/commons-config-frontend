@@ -1,9 +1,10 @@
 import Head from 'next/head';
 
-import { Navbar } from '@/components/Navbar';
+import { CustomNavbar as Navbar } from '@/components/Navbar';
 import NeonButton from '@/components/NeonButton';
 import Checkbox from '@/components/Chekbox';
 import GradientTitle from '@/components/GradientTitle';
+import ListItem from '@/components/ListItem';
 
 const learnings = [
   'Distribution of TEC tokens and Governance power to Hatchers',
@@ -18,9 +19,9 @@ function LearnIndex() {
       <Head>
         <title>Learn | Commons Dashboard</title>
       </Head>
-      <Navbar />
+      <Navbar href="/intro/" text="take me back" />
       <div className="min-h-screen bg-black-one">
-        <div className="flex container mx-auto px-4 py-8 justify-center text-center text-white">
+        <div className="flex container mx-auto px-4 py-8 justify-center text-center">
           <GradientTitle>
             Let&apos;s learn a little bit about how the Commons works before we
             configure it.
@@ -32,13 +33,11 @@ function LearnIndex() {
           </h3>
           <ul className="text-inter">
             {learnings.map((text, index) => (
-              <li key={index} className="text-white text-xl">
-                {text}
-              </li>
+              <ListItem key={index}>{text}</ListItem>
             ))}
           </ul>
         </div>
-        <div className="container mx-auto px-4 text-inter">
+        <div className="container mx-auto px-4 text-inter text-white">
           <div className="flex flex-row">
             <img src="/icons/clock.svg" alt="Clock Icon" />
             <span className="italic ml-2">
@@ -48,7 +47,9 @@ function LearnIndex() {
           </div>
           <Checkbox text="I have enough time, no distractions and will be fully focused" />
         </div>
-        <NeonButton href="/learn/1">LET&apos;S GO</NeonButton>
+        <NeonButton disabled href="/learn/1">
+          LET&apos;S GO
+        </NeonButton>
       </div>
     </>
   );

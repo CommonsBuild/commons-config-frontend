@@ -11,7 +11,7 @@ interface CardProps {
 
 function Card({ children, previousPanel, nextPanel, title }: CardProps) {
   return (
-    <div className="self-start flex flex-col bg-secondary-black w-10/12 mx-auto my-4 shadow-2xl py-6 px-9 lg:w-96 lg:mt-8">
+    <div className="self-start flex flex-col bg-secondary-black w-10/12 mx-auto my-4 py-6 px-9 lg:w-96 lg:mt-8">
       <h3 className="font-bj font-bold text-sm text-gray-100 mb-4 uppercase">
         {title}
       </h3>

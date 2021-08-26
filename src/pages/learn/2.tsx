@@ -1,7 +1,7 @@
 import Head from 'next/head';
 
 import Checkbox from '@/components/Chekbox';
-import { Navbar } from '@/components/Navbar';
+import { CustomNavbar as Navbar } from '@/components/Navbar';
 import NeonButton from '@/components/NeonButton';
 
 function LearnTwo() {
@@ -10,7 +10,7 @@ function LearnTwo() {
       <Head>
         <title>Learn 2 | Commons Dashboard</title>
       </Head>
-      <Navbar />
+      <Navbar href="/learn/done" text="finish learning" />
       <div className="min-h-screen bg-black-one">
         <div className="container grid grid-cols-1 lg:grid-cols-4 lg:gap-24 mx-auto px-4 py-8">
           <img
