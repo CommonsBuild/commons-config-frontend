@@ -36,6 +36,7 @@ function Input({
           onClick={changeParam}
           onChange={onChange}
           maxLength={5}
+          max={100}
           className="font-bold text-neon-light text-xl w-full h-full pl-3 border-2 border-gray-500 focus:border-neon hover:border-gray-400 bg-transparent outline-none placeholder-right"
         />
         <div className="absolute right-3 top-2/4 transform -translate-y-2/4">

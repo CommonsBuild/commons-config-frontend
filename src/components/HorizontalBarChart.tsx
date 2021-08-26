@@ -3,33 +3,6 @@ import { Bar } from 'react-chartjs-2';
 import Tooltip from './Tooltip';
 import useHover from '../utils/useHover';
 
-const data = {
-  labels: [[], [], []],
-  datasets: [
-    {
-      label: 'First bar',
-      data: [4.5, 3, 6],
-      backgroundColor: ['#FBC948', '#B01BF6', '#03B3FF'],
-      borderWidth: 1,
-      barThickness: 46,
-    },
-    {
-      label: 'Second bar',
-      data: [1.5, 0, 3],
-      backgroundColor: ['#FB9E48', 'black', '#03D2FF'],
-      borderWidth: 1,
-      barThickness: 46,
-    },
-    {
-      label: 'Third bar',
-      data: [3, 0, 3],
-      backgroundColor: '#03FFD2',
-      borderWidth: 1,
-      barThickness: 46,
-    },
-  ],
-};
-
 const options = {
   indexAxis: 'y',
   responsive: true,
@@ -70,9 +43,56 @@ const options = {
     },
   },
 };
+interface BarChartProps {
+  nonQuietVotingPeriod: number;
+  delegatedVotingPeriod: number;
+  delegatedAndNonDelegatedVoting: number;
+  quietEndingPeriod: number;
+  quietEndingExtension: number;
+  executionDelay: number;
+}
 
-function HorizontalBarChart() {
+function HorizontalBarChart({
+  nonQuietVotingPeriod,
+  delegatedVotingPeriod,
+  delegatedAndNonDelegatedVoting,
+  quietEndingPeriod,
+  quietEndingExtension,
+  executionDelay,
+}: BarChartProps) {
   const [hoverRef, isHovered] = useHover<HTMLDivElement>();
+
+  const data = {
+    labels: [[], [], []],
+    datasets: [
+      {
+        label: 'First bar',
+        data: [
+          nonQuietVotingPeriod,
+          delegatedVotingPeriod,
+          delegatedAndNonDelegatedVoting,
+        ],
+        backgroundColor: ['#FBC948', '#B01BF6', '#03B3FF'],
+        borderWidth: 1,
+        barThickness: 46,
+      },
+      {
+        label: 'Second bar',
+        data: [quietEndingPeriod, 0, quietEndingExtension],
+        backgroundColor: ['#FB9E48', 'black', '#03D2FF'],
+        borderWidth: 1,
+        barThickness: 46,
+      },
+      {
+        label: 'Third bar',
+        data: [executionDelay, 0, executionDelay],
+        backgroundColor: '#03FFD2',
+        borderWidth: 1,
+        barThickness: 46,
+      },
+    ],
+  };
+
   return (
     <div className="px-9 pb-6 flex">
       <div className="flex flex-col justify-between py-12 w-20">
