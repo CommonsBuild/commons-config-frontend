@@ -24,8 +24,8 @@ function IntroDone() {
               economy and governance of the Commons we’re launching.
             </p>
             <div className="mx-auto w-96 mt-10">
-              <NeonButton href="/config/1" fullWidth>
-                go to configuration
+              <NeonButton href="/learn/" fullWidth>
+                begin tutorial
               </NeonButton>
             </div>
           </div>
