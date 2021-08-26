@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Head from 'next/head';
 import axios from 'axios';
 
 import Card from '@/components/Card';
@@ -92,72 +93,80 @@ function Dashboard() {
   ];
 
   return (
-    <div className="lg:min-h-screen bg-dash bg-cover">
-      <Navbar />
-      <div className="lg:flex">
-        <Card title="token freeze & token thaw" nextPanel="The Economic Engine">
-          <Input
-            name="opening-price"
-            value={paramsValue['opening-price']}
-            param="Opening Price"
-            placeholder="wxDAI"
-            changeParam={() => setParamSelected('OPENING_PRICE')}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              handleChange(event)
-            }
-            tooltipText="The Opening Price is the price we sell TEC tokens after the Commons Upgrade is complete."
-          />
-          <Input
-            name="token-freeze"
-            value={paramsValue['token-freeze']}
-            param="Token Freeze"
-            placeholder="weeks"
-            changeParam={() => setParamSelected('TOKEN_FREEZE')}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              handleChange(event)
-            }
-            tooltipText="Token Freeze is the duration from the initialization of the Commons which tokens remain fully locked."
-          />
-          <Input
-            name="token-thaw"
-            value={paramsValue['token-thaw']}
-            param="Token Thaw"
-            placeholder="weeks"
-            changeParam={() => setParamSelected('TOKEN_THAW')}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              handleChange(event)
-            }
-            tooltipText="Token Thaw is designed to guarantee, for a certain period, the minimum possible price of the token, or price floor."
-          />
-        </Card>
-        <div className="flex flex-col bg-transparent w-10/12 mx-auto mt-4 lg:w-7/12">
-          <h1 className="font-bj text-gray-100 text-2xl text-center px-9 pt-6 pb-3 lg:text-left">
-            {paramsContent[paramSelected].question}
-          </h1>
-          <h3 className="font-inter text-gray-300 text-center text-xs px-9 pb-6 lg:text-left">
-            {paramsContent[paramSelected].description}
-          </h3>
-          <LineChart price={chartData.price} week={chartData.week} />
-          <div className="min-w-full px-9 pt-4 pb-2 font-bj text-neon-light text-xs">
-            <div className="flex justify-between pb-2 mb-2 border-b border-gray-100 uppercase font-bold">
-              <div className="w-1/3 max-w-144 table-text"># of weeks</div>
-              <div className="w-1/3 max-w-144">% tokens released</div>
-              <div className="w-1/3 max-w-144">price floor of token</div>
-            </div>
-            {tableRows.map((elem) => (
-              <div
-                key={elem.id}
-                className="flex justify-between py-1 hover:bg-cyan-700 cursor-pointer"
-              >
-                <div className="w-1/3 max-w-144">{elem.week} weeks</div>
-                <div className="w-1/3 max-w-144">{elem.token}%</div>
-                <div className="w-1/3 max-w-144">{elem.price} wxDAI</div>
+    <>
+      <Head>
+        <title>Config 1 | Commons Dashboard</title>
+      </Head>
+      <div className="lg:min-h-screen bg-dash bg-cover">
+        <Navbar />
+        <div className="lg:flex">
+          <Card
+            title="token freeze & token thaw"
+            nextPanel="The Economic Engine"
+          >
+            <Input
+              name="opening-price"
+              value={paramsValue['opening-price']}
+              param="Opening Price"
+              placeholder="wxDAI"
+              changeParam={() => setParamSelected('OPENING_PRICE')}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                handleChange(event)
+              }
+              tooltipText="The Opening Price is the price we sell TEC tokens after the Commons Upgrade is complete."
+            />
+            <Input
+              name="token-freeze"
+              value={paramsValue['token-freeze']}
+              param="Token Freeze"
+              placeholder="weeks"
+              changeParam={() => setParamSelected('TOKEN_FREEZE')}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                handleChange(event)
+              }
+              tooltipText="Token Freeze is the duration from the initialization of the Commons which tokens remain fully locked."
+            />
+            <Input
+              name="token-thaw"
+              value={paramsValue['token-thaw']}
+              param="Token Thaw"
+              placeholder="weeks"
+              changeParam={() => setParamSelected('TOKEN_THAW')}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                handleChange(event)
+              }
+              tooltipText="Token Thaw is designed to guarantee, for a certain period, the minimum possible price of the token, or price floor."
+            />
+          </Card>
+          <div className="flex flex-col bg-transparent w-10/12 mx-auto mt-4 lg:w-7/12">
+            <h1 className="font-bj text-gray-100 text-2xl text-center px-9 pt-6 pb-3 lg:text-left">
+              {paramsContent[paramSelected].question}
+            </h1>
+            <h3 className="font-inter text-gray-300 text-center text-xs px-9 pb-6 lg:text-left">
+              {paramsContent[paramSelected].description}
+            </h3>
+            <LineChart price={chartData.price} week={chartData.week} />
+            <div className="min-w-full px-9 pt-4 pb-2 font-bj text-neon-light text-xs">
+              <div className="flex justify-between pb-2 mb-2 border-b border-gray-100 uppercase font-bold">
+                <div className="w-1/3 max-w-144 table-text"># of weeks</div>
+                <div className="w-1/3 max-w-144">% tokens released</div>
+                <div className="w-1/3 max-w-144">price floor of token</div>
               </div>
-            ))}
+              {tableRows.map((elem) => (
+                <div
+                  key={elem.id}
+                  className="flex justify-between py-1 hover:bg-cyan-700 cursor-pointer"
+                >
+                  <div className="w-1/3 max-w-144">{elem.week} weeks</div>
+                  <div className="w-1/3 max-w-144">{elem.token}%</div>
+                  <div className="w-1/3 max-w-144">{elem.price} wxDAI</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

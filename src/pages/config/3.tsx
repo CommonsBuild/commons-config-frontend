@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
+import Head from 'next/head';
+
 import Card from '@/components/Card';
 import ChartLegend from '@/components/ChartLegend';
 import HorizontalBarChart from '@/components/HorizontalBarChart';
@@ -119,67 +121,72 @@ function DisputableVoting() {
   ];
 
   return (
-    <div className="lg:min-h-screen bg-dash bg-cover">
-      <Dialog title="Disputable Voting" isOpen={isOpen}>
-        <div style={{ maxWidth: '350px' }} className="py-8 m-auto">
-          <PieChart />
-        </div>
-        <div className="grid grid-cols-2">
-          {pieChartLegend.map((legend) => (
-            <ChartLegend name={legend.name} bgColor={legend.bgColor} />
-          ))}
-        </div>
-        <button
-          className="flex m-auto uppercase font-bj font-bold text-neon text-xs pt-6"
-          onClick={() => handleDialog()}
-        >
-          close
-        </button>
-      </Dialog>
-      <Navbar />
-      <div className="lg:flex">
-        <Card
-          title="disputable voting"
-          nextPanel="Requesting Funds"
-          previousPanel="Back"
-        >
-          {inputs.map((input) => (
-            <Input
-              key={input.name}
-              name={input.name}
-              value={input.value}
-              param={input.param}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                handleChange(event)
-              }
-              placeholder={input.placehoder}
-              tooltipText={input.tooltipText}
-            />
-          ))}
-        </Card>
-        <div className="flex flex-col w-10/12 mx-auto mt-4 lg:w-7/12">
-          <h1 className="font-bj text-gray-100 text-2xl text-center px-9 pt-6 pb-3 lg:text-left">
-            What percent of yes votes are needed to pass a proposal?
-          </h1>
-          <div
-            className="ml-auto px-9 cursor-pointer"
+    <>
+      <Head>
+        <title>Intro 1 | Commons Dashboard</title>
+      </Head>
+      <div className="lg:min-h-screen bg-dash bg-cover">
+        <Dialog title="Disputable Voting" isOpen={isOpen}>
+          <div style={{ maxWidth: '350px' }} className="py-8 m-auto">
+            <PieChart />
+          </div>
+          <div className="grid grid-cols-2">
+            {pieChartLegend.map((legend) => (
+              <ChartLegend name={legend.name} bgColor={legend.bgColor} />
+            ))}
+          </div>
+          <button
+            className="flex m-auto uppercase font-bj font-bold text-neon text-xs pt-6"
             onClick={() => handleDialog()}
           >
-            <Image src="/pie_icon.svg" width="24" height="24" />
-          </div>
-          <HorizontalBarChart />
-          <div className="grid grid-rows-3 grid-flow-col text-gray">
-            {barChartLegend.map((legend) => (
-              <ChartLegend
-                name={legend.name}
-                bgColor={legend.bgColor}
-                colAlign
+            close
+          </button>
+        </Dialog>
+        <Navbar />
+        <div className="lg:flex">
+          <Card
+            title="disputable voting"
+            nextPanel="Requesting Funds"
+            previousPanel="Back"
+          >
+            {inputs.map((input) => (
+              <Input
+                key={input.name}
+                name={input.name}
+                value={input.value}
+                param={input.param}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                  handleChange(event)
+                }
+                placeholder={input.placehoder}
+                tooltipText={input.tooltipText}
               />
             ))}
+          </Card>
+          <div className="flex flex-col w-10/12 mx-auto mt-4 lg:w-7/12">
+            <h1 className="font-bj text-gray-100 text-2xl text-center px-9 pt-6 pb-3 lg:text-left">
+              What percent of yes votes are needed to pass a proposal?
+            </h1>
+            <div
+              className="ml-auto px-9 cursor-pointer"
+              onClick={() => handleDialog()}
+            >
+              <Image src="/pie_icon.svg" width="24" height="24" />
+            </div>
+            <HorizontalBarChart />
+            <div className="grid grid-rows-3 grid-flow-col text-gray">
+              {barChartLegend.map((legend) => (
+                <ChartLegend
+                  name={legend.name}
+                  bgColor={legend.bgColor}
+                  colAlign
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
