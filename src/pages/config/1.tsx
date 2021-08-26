@@ -113,7 +113,7 @@ function Dashboard() {
         <div className="lg:flex">
           <Card
             title="token freeze & token thaw"
-            nextPanel="The Economic Engine"
+            nextPanel="Modifying the Commons"
             nextHref="/config/3"
           >
             <Input
