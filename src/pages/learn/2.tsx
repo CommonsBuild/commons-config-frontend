@@ -74,22 +74,28 @@ function LearnTwo() {
                 If you need more information please check the links below:
               </p>
               <a
-                href="#"
+                href="https://forum.tecommons.org/t/augmented-bonding-curve-entry-exit-tribute/494"
+                target="_blank"
+                rel="noreferrer"
                 className="block font-bj font-bold text-neon leading-loose"
               >
-                Entry Tribute Deep Dive
+                Entry Tribute & Exit Tribute
               </a>
               <a
-                href="#"
+                href="https://forum.tecommons.org/t/augmented-bonding-curve-commons-tribute/517/2"
+                target="_blank"
+                rel="noreferrer"
                 className="block font-bj font-bold text-neon leading-loose"
               >
-                All about the Exit Trbute
+                Commons Tribute
               </a>
               <a
-                href="#"
+                href="https://forum.tecommons.org/t/augmented-bonding-curve-opening-price-reserve-ratio/516/2"
+                target="_blank"
+                rel="noreferrer"
                 className="block font-bj font-bold text-neon leading-loose"
               >
-                What is the Commons Tribute
+                Opening Price & Reserve Ratio
               </a>
               <div className="mt-6">
                 <Checkbox text="I understood everything and I’m able to configure the parameters" />
