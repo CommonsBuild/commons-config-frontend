@@ -114,6 +114,7 @@ function Dashboard() {
           <Card
             title="token freeze & token thaw"
             nextPanel="The Economic Engine"
+            nextHref="/config/3"
           >
             <Input
               name="opening-price"

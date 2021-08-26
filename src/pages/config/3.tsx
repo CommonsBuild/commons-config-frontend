@@ -241,8 +241,10 @@ function DisputableVoting() {
         <div className="lg:flex">
           <Card
             title="disputable voting"
-            nextPanel="Requesting Funds"
             previousPanel="Back"
+            previousHref="/config/1"
+            nextPanel="Requesting Funds"
+            nextHref="/config/3"
           >
             {inputs.map((input) => (
               <Input
