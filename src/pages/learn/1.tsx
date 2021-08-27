@@ -36,10 +36,11 @@ function LearnOne() {
               </p>
               <br />
               <p>
-                The <strong>Token Freeze</strong> is the duration from the initialization of the
-                Commons which tokens remain fully locked, only at the end of the
-                Token Freeze do tokens begin to thaw. This next period of time
-                is known as the <strong>Token Thaw</strong>. We use this time for the Commons to
+                The <strong>Token Freeze</strong> is the duration from the
+                initialization of the Commons which tokens remain fully locked,
+                only at the end of the Token Freeze do tokens begin to thaw.
+                This next period of time is known as the
+                <strong>Token Thaw</strong>. We use this time for the Commons to
                 establish value and start its initiatives. This mechanism is
                 designed to guarantee, for a certain period, the minimum
                 possible price of the token or, price floor.
@@ -48,9 +49,10 @@ function LearnOne() {
               <p>
                 During the Hatch, TECH tokens were minted at a value of 1 wxDAI
                 per TECH. At the Commons Upgrade TEC tokens will be given to
-                Hatchers at a 1:1 TEC/TECH ratio. The <strong>Opening Price</strong> is the price
-                we sell TEC tokens on the Augmented Bonding Curve after the
-                Commons Upgrade is complete.
+                Hatchers at a 1:1 TEC/TECH ratio. The
+                <strong>Opening Price</strong> is the price we sell TEC tokens
+                on the Augmented Bonding Curve after the Commons Upgrade is
+                complete.
               </p>
               <br />
               <p>
