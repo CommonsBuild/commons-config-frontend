@@ -2,6 +2,7 @@ import Tooltip from './Tooltip';
 import useHover from '../utils/useHover';
 
 interface InputProps {
+  children: React.ReactNode;
   name: string;
   param: string;
   placeholder: string;
@@ -12,6 +13,7 @@ interface InputProps {
 }
 
 function Input({
+  children,
   name,
   param,
   placeholder,
@@ -25,9 +27,18 @@ function Input({
   return (
     <div className="py-1 lg:grid lg:grid-cols-2 justify-between">
       <Tooltip text={tooltipText} isHovered={isHovered}>
-        <span ref={hoverRef} className="font-bj text-gray-100 self-center">
-          {param}
-        </span>
+        <div className="flex flex-col justify-center">
+          <span ref={hoverRef} className="font-bj text-gray-100 self-center">
+            {param}
+          </span>
+          {children ? (
+            <span className="font-bj font-bold text-xs text-neon uppercase">
+              {children}{' '}
+            </span>
+          ) : (
+            <></>
+          )}
+        </div>
       </Tooltip>
       <div className="relative h-12">
         <input
