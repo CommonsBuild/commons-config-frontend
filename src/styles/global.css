@@ -27,6 +27,20 @@
   [type='checkbox']:indeterminate:hover {
     @apply border-white;
   }
+
+  input[type='radio'] + label span {
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  input[type='radio'] + label span:hover,
+  input[type='radio'] + label:hover span {
+    transform: scale(1.1);
+  }
+
+  input[type='radio']:checked + label span {
+    background-color: #defb48;
+    box-shadow: 0px 0px 0px 4px black inset;
+  }
 }
 
 .tooltip {
@@ -44,6 +58,12 @@
   width: 96%;
   margin-left: 3%;
   top: calc(-40px + -50%);
+}
+
+.curve-chart {
+  width: 40vw;
+  margin-left: 172px;
+  top: calc(-24px + -50%);
 }
 
 .text-stroke {
