@@ -2,7 +2,7 @@ import Tooltip from './Tooltip';
 import useHover from '../utils/useHover';
 
 interface InputProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   name: string;
   param: string;
   placeholder: string;
@@ -31,13 +31,7 @@ function Input({
           <span ref={hoverRef} className="font-bj text-gray-100 self-center">
             {param}
           </span>
-          {children ? (
-            <span className="font-bj font-bold text-xs text-neon uppercase">
-              {children}{' '}
-            </span>
-          ) : (
-            <></>
-          )}
+          {children}
         </div>
       </Tooltip>
       <div className="relative h-12">
