@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Head from 'next/head';
 import axios from 'axios';
 import Card from '@/components/Card';
 import Dialog from '@/components/Dialog';
@@ -147,116 +148,123 @@ function ConvictionVoting() {
   }, [paramsValue]);
 
   return (
-    <div className="lg:min-h-screen bg-dash bg-cover">
-      <Dialog title="Conviction Growth" isOpen={dialogOpen}>
-        <div className="py-8 m-auto">
-          <ConvictionGrowthChart
-            convictionPercentage={growthChartData.convictionPercentage}
-            timeDays={growthChartData.timeDays}
-          />
-        </div>
-        <div className="h-12 border border-gray-500 w-1/3 mx-auto flex justify-center items-center">
-          <span className="font-bj font-bold text-neon-light uppercase">
-            conviction growth: {paramsValue.convictionGrowth}
-          </span>
-          <span className="font-inter font-medium text-gray-200 text-xs px-1 pt-1">
-            days
-          </span>
-        </div>
-        <div className="py-4">
-          <input
-            className="slider"
-            name="convictionGrowth"
-            type="range"
-            min="1"
-            max="100"
-            value={paramsValue.convictionGrowth}
-            onChange={(event) => handleNumeriChange(event)}
-          />
-        </div>
-        <button
-          className="flex m-auto uppercase font-bj font-bold text-neon text-xs pt-6"
-          onClick={() => setDialogOpen(false)}
-        >
-          close
-        </button>
-      </Dialog>
-      <Navbar />
-      <div className="lg:flex">
-        <Card
-          title="conviction voting"
-          previousPanel="Back"
-          previousHref="/config/3"
-        >
-          {inputs.map((input) => (
-            <Input
-              key={input.name}
-              name={input.name}
-              value={input.value}
-              param={input.param}
-              changeParam={() =>
-                setParamSelected(input.paramName as ParamsOptionsType)
-              }
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                input.numeric ? handleNumeriChange(event) : handleChange(event)
-              }
-              placeholder={input.placehoder}
-              tooltipText={input.tooltipText}
-            >
-              {input.children}
-            </Input>
-          ))}
-        </Card>
-        <div className="flex flex-col w-10/12 mx-auto mt-4 shadow-2xl lg:w-7/12">
-          <h1 className="font-bj text-gray-100 text-2xl text-center px-9 pt-6 pb-3 lg:text-left">
-            {paramsContent[paramSelected].question}
-          </h1>
-          <h3 className="font-inter text-gray-300 text-center text-xs px-9 pb-6 lg:text-left">
-            {paramsContent[paramSelected].description}
-          </h3>
-          <CurveChart />
-          <div className="flex justify-between max-w-2xl mx-auto px-8 py-6 bg-cyan-700 opacity-60">
-            {radioButtons.map((button) => (
-              <p className="mx-4" key={button.id}>
-                <input
-                  id={button.id}
-                  type="radio"
-                  name="radio"
-                  className="hidden"
-                />
-                <label
-                  htmlFor={button.id}
-                  className="flex items-center cursor-pointer font-bj text-sm text-neon-light"
-                >
-                  <span className="w-5 h-5 inline-block mr-2 rounded-full border border-grey flex-no-shrink" />
-                  {button.label}
-                </label>
-              </p>
-            ))}
+    <>
+      <Head>
+        <title>Config 4 | Commons Dashboard</title>
+      </Head>
+      <div className="lg:min-h-screen bg-dash bg-cover">
+        <Dialog title="Conviction Growth" isOpen={dialogOpen}>
+          <div className="py-8 m-auto">
+            <ConvictionGrowthChart
+              convictionPercentage={growthChartData.convictionPercentage}
+              timeDays={growthChartData.timeDays}
+            />
           </div>
-          <div className="px-16 pt-6 pb-2 font-bj text-neon-light text-xs">
-            <div className="flex justify-between pb-2 mb-2 border-b border-gray-100 uppercase font-bold">
-              <div className="w-1/6 max-w-144 table-text">variables</div>
-              <div className="w-1/6 max-w-144">scneario 1</div>
-              <div className="w-1/6 max-w-144">scneario 2</div>
-              <div className="w-1/6 max-w-144">scneario 3</div>
-              <div className="w-1/6 max-w-144">scneario 4</div>
-              <div className="w-1/6 max-w-144">scneario 5</div>
-              <div className="w-1/6 max-w-144">scneario 6</div>
+          <div className="h-12 border border-gray-500 w-1/3 mx-auto flex justify-center items-center">
+            <span className="font-bj font-bold text-neon-light uppercase">
+              conviction growth: {paramsValue.convictionGrowth}
+            </span>
+            <span className="font-inter font-medium text-gray-200 text-xs px-1 pt-1">
+              days
+            </span>
+          </div>
+          <div className="py-4">
+            <input
+              className="slider"
+              name="convictionGrowth"
+              type="range"
+              min="1"
+              max="100"
+              value={paramsValue.convictionGrowth}
+              onChange={(event) => handleNumeriChange(event)}
+            />
+          </div>
+          <button
+            className="flex m-auto uppercase font-bj font-bold text-neon text-xs pt-6"
+            onClick={() => setDialogOpen(false)}
+          >
+            close
+          </button>
+        </Dialog>
+        <Navbar />
+        <div className="lg:flex">
+          <Card
+            title="conviction voting"
+            previousPanel="Back"
+            previousHref="/config/3"
+          >
+            {inputs.map((input) => (
+              <Input
+                key={input.name}
+                name={input.name}
+                value={input.value}
+                param={input.param}
+                changeParam={() =>
+                  setParamSelected(input.paramName as ParamsOptionsType)
+                }
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                  input.numeric
+                    ? handleNumeriChange(event)
+                    : handleChange(event)
+                }
+                placeholder={input.placehoder}
+                tooltipText={input.tooltipText}
+              >
+                {input.children}
+              </Input>
+            ))}
+          </Card>
+          <div className="flex flex-col w-10/12 mx-auto mt-4 shadow-2xl lg:w-7/12">
+            <h1 className="font-bj text-gray-100 text-2xl text-center px-9 pt-6 pb-3 lg:text-left">
+              {paramsContent[paramSelected].question}
+            </h1>
+            <h3 className="font-inter text-gray-300 text-center text-xs px-9 pb-6 lg:text-left">
+              {paramsContent[paramSelected].description}
+            </h3>
+            <CurveChart />
+            <div className="flex justify-between max-w-2xl mx-auto px-8 py-6 bg-cyan-700 opacity-60">
+              {radioButtons.map((button) => (
+                <p className="mx-4" key={button.id}>
+                  <input
+                    id={button.id}
+                    type="radio"
+                    name="radio"
+                    className="hidden"
+                  />
+                  <label
+                    htmlFor={button.id}
+                    className="flex items-center cursor-pointer font-bj text-sm text-neon-light"
+                  >
+                    <span className="w-5 h-5 inline-block mr-2 rounded-full border border-grey flex-no-shrink" />
+                    {button.label}
+                  </label>
+                </p>
+              ))}
             </div>
-            <div className="flex justify-between py-1 hover:bg-cyan-700 cursor-pointer">
-              <div className="w-1/6 max-w-144">IN PROGRESS</div>
-              <div className="w-1/6 max-w-144">IN PROGRESS</div>
-              <div className="w-1/6 max-w-144">IN PROGRESS</div>
-              <div className="w-1/6 max-w-144">IN PROGRESS</div>
-              <div className="w-1/6 max-w-144">IN PROGRESS</div>
-              <div className="w-1/6 max-w-144">IN PROGRESS</div>
-              <div className="w-1/6 max-w-144">IN PROGRESS</div>
+            <div className="px-16 pt-6 pb-2 font-bj text-neon-light text-xs">
+              <div className="flex justify-between pb-2 mb-2 border-b border-gray-100 uppercase font-bold">
+                <div className="w-1/6 max-w-144 table-text">variables</div>
+                <div className="w-1/6 max-w-144">scneario 1</div>
+                <div className="w-1/6 max-w-144">scneario 2</div>
+                <div className="w-1/6 max-w-144">scneario 3</div>
+                <div className="w-1/6 max-w-144">scneario 4</div>
+                <div className="w-1/6 max-w-144">scneario 5</div>
+                <div className="w-1/6 max-w-144">scneario 6</div>
+              </div>
+              <div className="flex justify-between py-1 hover:bg-cyan-700 cursor-pointer">
+                <div className="w-1/6 max-w-144">IN PROGRESS</div>
+                <div className="w-1/6 max-w-144">IN PROGRESS</div>
+                <div className="w-1/6 max-w-144">IN PROGRESS</div>
+                <div className="w-1/6 max-w-144">IN PROGRESS</div>
+                <div className="w-1/6 max-w-144">IN PROGRESS</div>
+                <div className="w-1/6 max-w-144">IN PROGRESS</div>
+                <div className="w-1/6 max-w-144">IN PROGRESS</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

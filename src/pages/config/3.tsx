@@ -278,7 +278,7 @@ function DisputableVoting() {
             previousPanel="Back"
             previousHref="/config/1"
             nextPanel="Requesting Funds"
-            nextHref="/config/3"
+            nextHref="/config/4"
           >
             {inputs.map((input) => (
               <Input
