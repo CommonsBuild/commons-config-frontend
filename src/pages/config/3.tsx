@@ -21,29 +21,29 @@ type ParamsOptionsType =
   | 'EXECUTION_DELAY';
 
 interface DisputableVotingParams {
-  'support-required': string;
-  'minimum-quorum': string;
-  'vote-duration': string;
-  'delegated-voting-period': string;
-  'quiet-ending-period': string;
-  'quiet-ending-extension': string;
-  'execution-delay': string;
-}
-
-interface PieChartParams {
-  'execution-delay': number;
-  'non-quiet-voting-period': number;
-  'quiet-ending-extension': number;
-  'quiet-ending-period': number;
+  supportRequired: string;
+  minimumQuorum: string;
+  voteDuration: string;
+  delegatedVotingPeriod: string;
+  quietEndingPeriod: string;
+  quietEndingExtension: string;
+  executionDelay: string;
 }
 
 interface BarChartParams {
-  'non-quiet-voting-period': number;
-  'delegated-voting-period': number;
-  'delegated-and-non-delegated-voting': number;
-  'quiet-ending-period': number;
-  'quiet-ending-extension': number;
-  'execution-delay': number;
+  nonQuietVotingPeriod: number;
+  voteDuration: number;
+  delegatedVotingPeriod: number;
+  quietEndingPeriod: number;
+  quietEndingExtension: number;
+  executionDelay: number;
+}
+
+interface PieChartParams {
+  nonQuietVotingPeriod: number;
+  quietEndingPeriod: number;
+  quietEndingExtension: number;
+  executionDelay: number;
 }
 
 const paramsContent = {
@@ -63,29 +63,29 @@ const paramsContent = {
 
 function DisputableVoting() {
   const [paramsValue, setParamsValue] = useState<DisputableVotingParams>({
-    'support-required': '10',
-    'minimum-quorum': '20',
-    'vote-duration': '20',
-    'delegated-voting-period': '5',
-    'quiet-ending-period': '5',
-    'quiet-ending-extension': '10',
-    'execution-delay': '7',
+    supportRequired: '10',
+    minimumQuorum: '20',
+    voteDuration: '20',
+    delegatedVotingPeriod: '5',
+    quietEndingPeriod: '5',
+    quietEndingExtension: '10',
+    executionDelay: '7',
   });
 
   const [barChartData, setBarChartData] = useState<BarChartParams>({
-    'non-quiet-voting-period': 0,
-    'delegated-voting-period': 0,
-    'delegated-and-non-delegated-voting': 0,
-    'quiet-ending-period': 0,
-    'quiet-ending-extension': 0,
-    'execution-delay': 0,
+    nonQuietVotingPeriod: 0,
+    voteDuration: 0,
+    delegatedVotingPeriod: 0,
+    quietEndingPeriod: 0,
+    quietEndingExtension: 0,
+    executionDelay: 0,
   });
 
   const [pieChartData, setPieChartData] = useState<PieChartParams>({
-    'execution-delay': 0,
-    'non-quiet-voting-period': 0,
-    'quiet-ending-extension': 0,
-    'quiet-ending-period': 0,
+    nonQuietVotingPeriod: 0,
+    quietEndingPeriod: 0,
+    quietEndingExtension: 0,
+    executionDelay: 0,
   });
 
   const [paramSelected, setParamSelected] =
@@ -139,9 +139,9 @@ function DisputableVoting() {
 
   const inputs = [
     {
-      name: 'support-required',
+      name: 'supportRequired',
       paramName: 'SUPPORT_REQUIRED',
-      value: paramsValue['support-required'],
+      value: paramsValue.supportRequired,
       param: 'Support Required',
       placehoder: '%',
       tooltipText:
@@ -149,9 +149,9 @@ function DisputableVoting() {
       numeric: true,
     },
     {
-      name: 'minimum-quorum',
+      name: 'minimumQuorum',
       paramName: 'MINIMUM_QUORUM',
-      value: paramsValue['minimum-quorum'],
+      value: paramsValue.minimumQuorum,
       param: 'Minimum Quorum',
       placehoder: '%',
       tooltipText:
@@ -159,18 +159,18 @@ function DisputableVoting() {
       numeric: true,
     },
     {
-      name: 'vote-duration',
+      name: 'voteDuration',
       paramName: 'VOTE_DURATION',
-      value: paramsValue['vote-duration'],
+      value: paramsValue.voteDuration,
       param: 'Vote Duration',
       placehoder: 'days',
       tooltipText: 'The amount of time a proposal is eligible to be voted on.',
       numeric: false,
     },
     {
-      name: 'delegated-voting-period',
+      name: 'delegatedVotingPeriod',
       paramName: 'DELEGATED_VOTING_PERIOD',
-      value: paramsValue['delegated-voting-period'],
+      value: paramsValue.delegatedVotingPeriod,
       param: 'Delegated Voting Period',
       placehoder: 'days',
       tooltipText:
@@ -178,9 +178,9 @@ function DisputableVoting() {
       numeric: false,
     },
     {
-      name: 'quiet-ending-period',
+      name: 'quietEndingPeriod',
       paramName: 'QUIET_ENDING_PERIOD',
-      value: paramsValue['quiet-ending-period'],
+      value: paramsValue.quietEndingPeriod,
       param: 'Quiet Ending Period',
       placehoder: 'days',
       tooltipText:
@@ -188,9 +188,9 @@ function DisputableVoting() {
       numeric: false,
     },
     {
-      name: 'quiet-ending-extension',
+      name: 'quietEndingExtension',
       paramName: 'QUIET_ENDING_EXTENSION',
-      value: paramsValue['quiet-ending-extension'],
+      value: paramsValue.quietEndingExtension,
       param: 'Quiet Ending Extension',
       placehoder: 'days',
       tooltipText:
@@ -198,9 +198,9 @@ function DisputableVoting() {
       numeric: false,
     },
     {
-      name: 'execution-delay',
+      name: 'executionDelay',
       paramName: 'EXECUTION_DELAY',
-      value: paramsValue['execution-delay'],
+      value: paramsValue.executionDelay,
       param: 'Execution Delay',
       placehoder: 'days',
       tooltipText:
@@ -214,30 +214,30 @@ function DisputableVoting() {
     const validParams = values.every((elem) => elem !== '');
     if (validParams) {
       axios
-        .post('https://test-token-lockup.herokuapp.com/disputable-voting/', {
-          ...paramsValue,
-          'support-required': Number(paramsValue['support-required']) / 100,
-          'minimum-quorum': Number(paramsValue['minimum-quorum']) / 100,
-        })
+        .post(
+          'https://dev-commons-config-backend.herokuapp.com/disputable-voting/',
+          {
+            ...paramsValue,
+            'support-required': Number(paramsValue['support-required']) / 100,
+            'minimum-quorum': Number(paramsValue['minimum-quorum']) / 100,
+          }
+        )
         .then((response) => {
           const { output } = response.data;
-          const barChart = output['bar-chart'];
-          const pieChart = output['pie-chart'];
+          const { barChart } = output;
+          const { pieChart } = output;
 
           setBarChartData({
-            'non-quiet-voting-period':
-              barChart['total-proposal-process']['non-quiet-voting-period'],
-            'delegated-voting-period':
-              barChart['delegated-voting']['delegated-voting-period'],
-            'delegated-and-non-delegated-voting': barChart['vote-duration'],
-            'quiet-ending-period':
-              barChart['total-proposal-process']['quiet-ending-period'],
-            'quiet-ending-extension':
-              barChart['proposal-process-with-extension'][
-                'quiet-ending_extension'
-              ],
-            'execution-delay':
-              barChart['proposal-process-with-extension']['execution-delay'],
+            nonQuietVotingPeriod:
+              barChart.totalProposalProcess.nonQuietVotingPeriod,
+            voteDuration: barChart.voteDuration,
+            delegatedVotingPeriod:
+              barChart.delegatedVoting.delegatedVotingPeriod,
+            quietEndingPeriod: barChart.totalProposalProcess.quietEndingPeriod,
+            quietEndingExtension:
+              barChart.proposalProcessWithExtension.quietEndingExtension,
+            executionDelay:
+              barChart.proposalProcessWithExtension.executionDelay,
           });
           setPieChartData(pieChart);
         });
@@ -253,10 +253,10 @@ function DisputableVoting() {
         <Dialog title="Disputable Voting" isOpen={isOpen}>
           <div style={{ maxWidth: '350px' }} className="py-8 m-auto">
             <PieChart
-              nonQuietVotingPeriod={pieChartData['non-quiet-voting-period']}
-              quietEndingPeriod={pieChartData['quiet-ending-period']}
-              quietEndingExtension={pieChartData['quiet-ending-extension']}
-              executionDelay={pieChartData['execution-delay']}
+              nonQuietVotingPeriod={pieChartData.nonQuietVotingPeriod}
+              quietEndingPeriod={pieChartData.quietEndingPeriod}
+              quietEndingExtension={pieChartData.quietEndingExtension}
+              executionDelay={pieChartData.executionDelay}
             />
           </div>
           <div className="grid grid-cols-2">
@@ -310,14 +310,12 @@ function DisputableVoting() {
               <Image src="/pie_icon.svg" width="24" height="24" />
             </div>
             <HorizontalBarChart
-              nonQuietVotingPeriod={barChartData['non-quiet-voting-period']}
-              delegatedVotingPeriod={barChartData['delegated-voting-period']}
-              delegatedAndNonDelegatedVoting={
-                barChartData['delegated-and-non-delegated-voting']
-              }
-              quietEndingPeriod={barChartData['quiet-ending-period']}
-              quietEndingExtension={barChartData['quiet-ending-extension']}
-              executionDelay={barChartData['execution-delay']}
+              nonQuietVotingPeriod={barChartData.nonQuietVotingPeriod}
+              delegatedVotingPeriod={barChartData.delegatedVotingPeriod}
+              delegatedAndNonDelegatedVoting={barChartData.voteDuration}
+              quietEndingPeriod={barChartData.quietEndingPeriod}
+              quietEndingExtension={barChartData.quietEndingExtension}
+              executionDelay={barChartData.executionDelay}
             />
             <div className="grid grid-rows-3 grid-flow-col text-gray">
               {barChartLegend.map((legend) => (
