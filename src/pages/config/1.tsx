@@ -10,9 +10,9 @@ import LineChart from '@/components/LineChart';
 type ParamsOptionsType = 'OPENING_PRICE' | 'TOKEN_FREEZE' | 'TOKEN_THAW';
 
 interface ParamsValues {
-  'opening-price': string;
-  'token-freeze': string;
-  'token-thaw': string;
+  openingPrice: string;
+  tokenFreeze: string;
+  tokenThaw: string;
 }
 
 interface ChartData {
@@ -22,7 +22,7 @@ interface ChartData {
 
 interface TableData {
   price: number[];
-  tokens_released: number[];
+  tokensReleased: number[];
   week: number[];
 }
 
@@ -48,9 +48,9 @@ const paramsContent = {
 
 function Dashboard() {
   const [paramsValue, setParamsValue] = useState<ParamsValues>({
-    'opening-price': '1',
-    'token-freeze': '50',
-    'token-thaw': '5',
+    openingPrice: '1',
+    tokenFreeze: '50',
+    tokenThaw: '5',
   });
   const [chartData, setChartData] = useState<ChartData>({
     price: [],
@@ -58,7 +58,7 @@ function Dashboard() {
   });
   const [tableData, setTableData] = useState<TableData>({
     price: [],
-    tokens_released: [],
+    tokensReleased: [],
     week: [],
   });
 
@@ -71,7 +71,7 @@ function Dashboard() {
     if (validParams) {
       axios
         .post(
-          'https://test-token-lockup.herokuapp.com/token-lockup/',
+          'https://commons-config-backend.herokuapp.com/token-lockup/',
           paramsValue
         )
         .then((response) => {
@@ -86,7 +86,7 @@ function Dashboard() {
 
           setTableData({
             price: table.price,
-            tokens_released: table.tokens_released,
+            tokensReleased: table.tokensReleased,
             week: table.week,
           });
         });
@@ -117,8 +117,8 @@ function Dashboard() {
             nextHref="/config/3"
           >
             <Input
-              name="opening-price"
-              value={paramsValue['opening-price']}
+              name="openingPrice"
+              value={paramsValue.openingPrice}
               param="Opening Price"
               placeholder="wxDAI"
               changeParam={() => setParamSelected('OPENING_PRICE')}
@@ -128,8 +128,8 @@ function Dashboard() {
               tooltipText="The Opening Price is the price we sell TEC tokens after the Commons Upgrade is complete."
             />
             <Input
-              name="token-freeze"
-              value={paramsValue['token-freeze']}
+              name="tokenFreeze"
+              value={paramsValue.tokenFreeze}
               param="Token Freeze"
               placeholder="weeks"
               changeParam={() => setParamSelected('TOKEN_FREEZE')}
@@ -139,8 +139,8 @@ function Dashboard() {
               tooltipText="Token Freeze is the duration from the initialization of the Commons which tokens remain fully locked."
             />
             <Input
-              name="token-thaw"
-              value={paramsValue['token-thaw']}
+              name="tokenThaw"
+              value={paramsValue.tokenThaw}
               param="Token Thaw"
               placeholder="weeks"
               changeParam={() => setParamSelected('TOKEN_THAW')}
@@ -173,7 +173,7 @@ function Dashboard() {
                     {tableData.week[index]} weeks
                   </div>
                   <div className="w-1/3 max-w-144">
-                    {Number(tableData.tokens_released[index].toFixed(2)) * 100}%
+                    {Number(tableData.tokensReleased[index].toFixed(2)) * 100}%
                   </div>
                   <div className="w-1/3 max-w-144">{elem.toFixed(2)} wxDAI</div>
                 </div>
