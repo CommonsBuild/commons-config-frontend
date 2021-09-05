@@ -1,9 +1,10 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 
-interface ConvictionGrowthData {
+interface ConvictionGrowthProps {
   convictionPercentage: number[];
   timeDays: number[];
+  dataPoints: { [key: string]: number }[];
 }
 
 const options = {
@@ -48,7 +49,8 @@ const options = {
 function ConvictionGrowthChart({
   convictionPercentage,
   timeDays,
-}: ConvictionGrowthData) {
+  dataPoints,
+}: ConvictionGrowthProps) {
   const data = {
     labels: timeDays,
     datasets: [
@@ -58,9 +60,20 @@ function ConvictionGrowthChart({
         fill: false,
         borderColor: '#DEFB48',
         pointBackgroundColor: '#DEFB48',
-        pointHoverRadius: 7,
+        pointHoverRadius: 0,
         pointRadius: 0,
         pointStyle: 'rect',
+      },
+      {
+        label: 'Data points',
+        data: dataPoints,
+        fill: false,
+        borderColor: '#DEFB48',
+        pointBackgroundColor: '#DEFB48',
+        pointHoverRadius: 7,
+        pointRadius: 7,
+        pointStyle: 'rect',
+        showLine: false,
       },
     ],
   };
