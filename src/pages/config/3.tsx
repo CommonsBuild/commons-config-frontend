@@ -21,8 +21,8 @@ type ParamsOptionsType =
   | 'EXECUTION_DELAY';
 
 interface DisputableVotingParams {
-  supportRequired: string;
-  minimumQuorum: string;
+  supportRequired: number;
+  minimumQuorum: number;
   voteDuration: string;
   delegatedVotingPeriod: string;
   quietEndingPeriod: string;
@@ -63,8 +63,8 @@ const paramsContent = {
 
 function DisputableVoting() {
   const [paramsValue, setParamsValue] = useState<DisputableVotingParams>({
-    supportRequired: '10',
-    minimumQuorum: '20',
+    supportRequired: 10,
+    minimumQuorum: 20,
     voteDuration: '20',
     delegatedVotingPeriod: '5',
     quietEndingPeriod: '5',
@@ -103,20 +103,6 @@ function DisputableVoting() {
     });
   };
 
-  const handleNumeriChange = (event) => {
-    const { name } = event.target;
-    let { value } = event.target;
-
-    if (Number(value) > 100) {
-      value = 100;
-    }
-
-    setParamsValue({
-      ...paramsValue,
-      [name]: value,
-    });
-  };
-
   const handleDialog = () => {
     setIsOpen(!isOpen);
   };
@@ -146,7 +132,6 @@ function DisputableVoting() {
       placehoder: '%',
       tooltipText:
         'The percent of votes that must be in favour of this proposal.',
-      numeric: true,
     },
     {
       name: 'minimumQuorum',
@@ -156,7 +141,6 @@ function DisputableVoting() {
       placehoder: '%',
       tooltipText:
         'The percent of all tokens that must vote on a proposal in order for it to be valid.',
-      numeric: true,
     },
     {
       name: 'voteDuration',
@@ -165,7 +149,6 @@ function DisputableVoting() {
       param: 'Vote Duration',
       placehoder: 'days',
       tooltipText: 'The amount of time a proposal is eligible to be voted on.',
-      numeric: false,
     },
     {
       name: 'delegatedVotingPeriod',
@@ -175,7 +158,6 @@ function DisputableVoting() {
       placehoder: 'days',
       tooltipText:
         'The amount of time delegates are permitted to vote on a proposal.',
-      numeric: false,
     },
     {
       name: 'quietEndingPeriod',
@@ -185,7 +167,6 @@ function DisputableVoting() {
       placehoder: 'days',
       tooltipText:
         'If the voting outcome changes during this time the Quiet Ending Extension will trigger, extending the Vote Duration.',
-      numeric: false,
     },
     {
       name: 'quietEndingExtension',
@@ -195,7 +176,6 @@ function DisputableVoting() {
       placehoder: 'days',
       tooltipText:
         'The amount of time added to the Vote Duration resulting from the vote outcome changing during the Quiet Ending.',
-      numeric: false,
     },
     {
       name: 'executionDelay',
@@ -205,7 +185,6 @@ function DisputableVoting() {
       placehoder: 'days',
       tooltipText:
         'The amount of time after a vote passes before the proposed action is executed',
-      numeric: false,
     },
   ];
 
@@ -218,8 +197,8 @@ function DisputableVoting() {
           'https://dev-commons-config-backend.herokuapp.com/disputable-voting/',
           {
             ...paramsValue,
-            'support-required': Number(paramsValue['support-required']) / 100,
-            'minimum-quorum': Number(paramsValue['minimum-quorum']) / 100,
+            supportRequired: paramsValue.supportRequired / 100,
+            minimumQuorum: paramsValue.minimumQuorum / 100,
           }
         )
         .then((response) => {
@@ -290,9 +269,7 @@ function DisputableVoting() {
                   setParamSelected(input.paramName as ParamsOptionsType)
                 }
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  input.numeric
-                    ? handleNumeriChange(event)
-                    : handleChange(event)
+                  handleChange(event)
                 }
                 placeholder={input.placehoder}
                 tooltipText={input.tooltipText}
