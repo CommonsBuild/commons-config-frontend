@@ -5,14 +5,14 @@ import axios from 'axios';
 import Card from '@/components/Card';
 import Input from '@/components/Input';
 import { ConfigNavbar as Navbar } from '@/components/Navbar';
-import LineChart from '@/components/LineChart';
+import FreezeThawChart from '@/components/FreezeThawChart';
 
 type ParamsOptionsType = 'OPENING_PRICE' | 'TOKEN_FREEZE' | 'TOKEN_THAW';
 
 interface ParamsValues {
-  openingPrice: string;
-  tokenFreeze: string;
-  tokenThaw: string;
+  openingPrice: number;
+  tokenFreeze: number;
+  tokenThaw: number;
 }
 
 interface ChartData {
@@ -48,9 +48,9 @@ const paramsContent = {
 
 function Dashboard() {
   const [paramsValue, setParamsValue] = useState<ParamsValues>({
-    openingPrice: '1',
-    tokenFreeze: '50',
-    tokenThaw: '5',
+    openingPrice: 1,
+    tokenFreeze: 10,
+    tokenThaw: 30,
   });
   const [chartData, setChartData] = useState<ChartData>({
     price: [],
@@ -78,7 +78,6 @@ function Dashboard() {
           const { output } = response.data;
           const { chart } = output;
           const { table } = output;
-
           setChartData({
             price: chart.price,
             week: chart.week,
@@ -157,7 +156,7 @@ function Dashboard() {
             <h3 className="font-inter text-gray-300 text-center text-xs px-9 pb-6 lg:text-left">
               {paramsContent[paramSelected].description}
             </h3>
-            <LineChart price={chartData.price} week={chartData.week} />
+            <FreezeThawChart price={chartData.price} week={chartData.week} />
             <div className="min-w-full px-9 pt-2 pb-2 font-bj text-neon-light text-xs">
               <div className="flex justify-between pb-2 mb-2 border-b border-gray-100 uppercase font-bold">
                 <div className="w-1/3 max-w-144 table-text"># of weeks</div>
