@@ -13,6 +13,7 @@ const options = {
   },
   scales: {
     xAxes: {
+      type: 'linear',
       grid: {
         display: false,
         borderColor: '#03B3FF',
@@ -42,13 +43,12 @@ interface ChartData {
   week: number[];
 }
 
-const LineChart = ({ price, week }: ChartData) => {
+const FreezeThawChart = ({ price, week }: ChartData) => {
   const data = {
     labels: week || ['0'],
     datasets: [
       {
         label: 'Floor price',
-        // yAxisID: "leftScale",
         data: price,
         fill: false,
         borderColor: '#DEFB48',
@@ -57,19 +57,9 @@ const LineChart = ({ price, week }: ChartData) => {
         pointRadius: 7,
         pointStyle: 'rect',
       },
-      // {
-      //   label: "Token price",
-      //   yAxisID: "rightScale",
-      //   data: [5, 5, 0.5, 0.5, 0.5, 0.5],
-      //   fill: false,
-      //   borderColor: "#DEFB48",
-      //   pointBackgroundColor: "#DEFB48",
-      //   pointHoverRadius: 7,
-      //   pointRadius: 7,
-      //   pointStyle: "rect",
-      // },
     ],
   };
+
   return (
     <div style={{ maxHeight: '400px' }} className="px-9 pb-6">
       <span
@@ -94,4 +84,4 @@ const LineChart = ({ price, week }: ChartData) => {
   );
 };
 
-export default React.memo(LineChart);
+export default React.memo(FreezeThawChart);
