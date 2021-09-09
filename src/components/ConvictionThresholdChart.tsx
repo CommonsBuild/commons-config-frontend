@@ -2,6 +2,11 @@ import React from 'react';
 import Image from 'next/image';
 import { Line } from 'react-chartjs-2';
 
+interface ConvictionThresholdProps {
+  requestedPercentage: number[];
+  thresholdPercentage: number[];
+}
+
 const options = {
   maintainAspectRatio: false,
   plugins: {
@@ -14,6 +19,7 @@ const options = {
   },
   scales: {
     xAxes: {
+      type: 'linear',
       grid: {
         display: false,
         borderColor: '#03B3FF',
@@ -43,25 +49,21 @@ const options = {
   },
 };
 
-const CurveChart = () => {
+function ConvictionThresholdChart({
+  requestedPercentage,
+  thresholdPercentage,
+}: ConvictionThresholdProps) {
   const data = {
-    labels: [
-      0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-      21, 22,
-    ],
+    labels: requestedPercentage,
     datasets: [
       {
         label: 'Floor price',
-        data: [
-          { x: 0, y: 5 },
-          { x: 18, y: 7 },
-          { x: 19, y: 95 },
-        ],
+        data: thresholdPercentage,
         fill: false,
         borderColor: '#DEFB48',
         pointBackgroundColor: '#DEFB48',
-        pointHoverRadius: 7,
-        pointRadius: 7,
+        pointHoverRadius: 0,
+        pointRadius: 0,
         pointStyle: 'rect',
       },
     ],
@@ -79,7 +81,7 @@ const CurveChart = () => {
           </p>
         </div>
         <div
-          style={{ height: 'calc(40vh - 88px)', width: '42vw' }}
+          style={{ height: 'calc(40vh - 88px)', width: '37vw' }}
           className="flex mt-12"
         >
           <Line
@@ -89,8 +91,8 @@ const CurveChart = () => {
             height={90}
           />
         </div>
-        <div className="text-right mt-auto w-36">
-          <span className="font-bj font-bold text-xs uppercase text-neon-light w-42 relative -bottom-16">
+        <div className="text-right mt-auto w-56">
+          <span className="font-bj font-bold text-xs uppercase text-neon-light relative">
             % of commons pool funds being requested
           </span>
         </div>
@@ -101,6 +103,6 @@ const CurveChart = () => {
       </div>
     </div>
   );
-};
+}
 
-export default React.memo(CurveChart);
+export default React.memo(ConvictionThresholdChart);
