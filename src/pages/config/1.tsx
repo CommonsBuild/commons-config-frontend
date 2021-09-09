@@ -6,6 +6,8 @@ import Card from '@/components/Card';
 import Input from '@/components/Input';
 import { ConfigNavbar as Navbar } from '@/components/Navbar';
 import FreezeThawChart from '@/components/FreezeThawChart';
+import Tooltip from '@/components/Tooltip';
+import useHover from '@/utils/useHover';
 
 type ParamsOptionsType = 'OPENING_PRICE' | 'TOKEN_FREEZE' | 'TOKEN_THAW';
 
@@ -47,6 +49,8 @@ const paramsContent = {
 };
 
 function Dashboard() {
+  const [paramSelected, setParamSelected] =
+    useState<ParamsOptionsType>('OPENING_PRICE');
   const [paramsValue, setParamsValue] = useState<ParamsValues>({
     openingPrice: 1,
     tokenFreeze: 10,
@@ -61,9 +65,9 @@ function Dashboard() {
     tokensReleased: [],
     week: [],
   });
-
-  const [paramSelected, setParamSelected] =
-    useState<ParamsOptionsType>('OPENING_PRICE');
+  const [weeksRef, weeksIsHovered] = useHover<HTMLDivElement>();
+  const [tokensRef, tokensIsHovered] = useHover<HTMLDivElement>();
+  const [priceRef, priceIsHovered] = useHover<HTMLDivElement>();
 
   useEffect(() => {
     const values = Object.values(paramsValue);
@@ -82,7 +86,6 @@ function Dashboard() {
             price: chart.price,
             week: chart.week,
           });
-
           setTableData({
             price: table.price,
             tokensReleased: table.tokensReleased,
@@ -157,16 +160,52 @@ function Dashboard() {
               {paramsContent[paramSelected].description}
             </h3>
             <FreezeThawChart price={chartData.price} week={chartData.week} />
-            <div className="min-w-full px-9 pt-2 pb-2 font-bj text-neon-light text-xs">
-              <div className="flex justify-between pb-2 mb-2 border-b border-gray-100 uppercase font-bold">
-                <div className="w-1/3 max-w-144 table-text"># of weeks</div>
-                <div className="w-1/3 max-w-144">% tokens released</div>
-                <div className="w-1/3 max-w-144">price floor of token</div>
+            <div className="min-w-full px-9 pt-2 pb-2 ">
+              <div className="flex justify-between pb-2 mb-2 border-b border-gray-100">
+                <div className="w-1/3 max-w-144">
+                  <Tooltip
+                    text="The initial price of the TEC token after the Commons Upgrade is complete."
+                    isHovered={weeksIsHovered}
+                  >
+                    <span
+                      ref={weeksRef}
+                      className="font-bj font-bold text-neon-light text-xs uppercase"
+                    >
+                      # of weeks
+                    </span>
+                  </Tooltip>
+                </div>
+                <div className="w-1/3 max-w-144">
+                  <Tooltip
+                    text="The percent of tokens released by the Token Thaw."
+                    isHovered={tokensIsHovered}
+                  >
+                    <span
+                      ref={tokensRef}
+                      className="font-bj font-bold text-neon-light text-xs uppercase"
+                    >
+                      % tokens released
+                    </span>
+                  </Tooltip>
+                </div>
+                <div className="w-1/3 max-w-144">
+                  <Tooltip
+                    text="The amount of weeks that have passed since the Commons Upgrade."
+                    isHovered={priceIsHovered}
+                  >
+                    <span
+                      ref={priceRef}
+                      className="font-bj font-bold text-neon-light text-xs uppercase"
+                    >
+                      price floor of token
+                    </span>
+                  </Tooltip>
+                </div>
               </div>
               {tableData.price.map((elem, index) => (
                 <div
                   key={index}
-                  className="flex justify-between py-1 hover:bg-cyan-700 cursor-pointer"
+                  className="flex justify-between py-1 hover:bg-cyan-700 cursor-pointer font-bj text-neon-light text-xs"
                 >
                   <div className="w-1/3 max-w-144">
                     {tableData.week[index]} weeks
