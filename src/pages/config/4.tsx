@@ -17,6 +17,7 @@ interface ConvictionVotingParams {
   spendingLimit: number;
   minimumConviction: number;
   convictionGrowth: string;
+  convictionVotingPeriodDays: string;
 }
 interface ConvictionGrowthData {
   convictionPercentage: number[];
@@ -49,11 +50,11 @@ const paramsContent = {
 };
 
 const radioButtons = [
-  { id: 'radio1', label: '7 Days', value: '' },
-  { id: 'radio2', label: '2 Weeks', value: '' },
-  { id: 'radio3', label: '1 Month', value: '' },
-  { id: 'radio4', label: '3 Months', value: '' },
-  { id: 'radio5', label: '6 Months', value: '' },
+  { id: 'radio5', label: '6 Months', value: '180' },
+  { id: 'radio4', label: '3 Months', value: '60' },
+  { id: 'radio3', label: '1 Month', value: '30' },
+  { id: 'radio2', label: '2 Weeks', value: '14' },
+  { id: 'radio1', label: '7 Days', value: '7' },
 ];
 
 function ConvictionVoting() {
@@ -63,6 +64,7 @@ function ConvictionVoting() {
     spendingLimit: 20,
     minimumConviction: 5,
     convictionGrowth: '2',
+    convictionVotingPeriodDays: '7',
   });
   const [dialogOpen, setDialogOpen] = useState(false);
   const [growthChartData, setGrowthChartData] = useState<ConvictionGrowthData>({
@@ -79,20 +81,6 @@ function ConvictionVoting() {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = event.target;
     const { value } = event.target;
-
-    setParamsValue({
-      ...paramsValue,
-      [name]: value,
-    });
-  };
-
-  const handleNumericChange = (event) => {
-    const { name } = event.target;
-    let { value } = event.target;
-
-    if (Number(value) > 100) {
-      value = 100;
-    }
 
     setParamsValue({
       ...paramsValue,
@@ -192,9 +180,9 @@ function ConvictionVoting() {
               name="convictionGrowth"
               type="range"
               min="1"
-              max="100"
+              max="60"
               value={paramsValue.convictionGrowth}
-              onChange={(event) => handleNumericChange(event)}
+              onChange={(event) => handleChange(event)}
             />
           </div>
           <button
@@ -229,7 +217,6 @@ function ConvictionVoting() {
                 {input.children}
               </Input>
             ))}
-            <button onClick={() => console.log(growthChartData)}>teste</button>
           </Card>
           <div className="flex flex-col w-10/12 mx-auto mt-4 shadow-2xl lg:w-7/12">
             <h1 className="font-bj text-gray-100 text-2xl text-center px-9 pt-6 pb-3 lg:text-left">
@@ -242,14 +229,19 @@ function ConvictionVoting() {
               requestedPercentage={thresholdChartData.requestedPercentage}
               thresholdPercentage={thresholdChartData.thresholdPercentage}
             />
-            <div className="flex justify-between max-w-2xl mx-auto px-2 py-6 bg-cyan-700 opacity-60">
+            <div className="flex flex-row-reverse justify-between max-w-2xl mx-auto px-2 py-6 bg-cyan-700 opacity-60">
               {radioButtons.map((button) => (
                 <p className="mx-4" key={button.id}>
                   <input
                     id={button.id}
                     type="radio"
-                    name="radio"
+                    name="convictionVotingPeriodDays"
+                    value={button.value}
                     className="hidden"
+                    onChange={(event) => handleChange(event)}
+                    checked={
+                      button.value === paramsValue.convictionVotingPeriodDays
+                    }
                   />
                   <label
                     htmlFor={button.id}

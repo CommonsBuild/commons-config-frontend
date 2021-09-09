@@ -28,7 +28,6 @@ const options = {
         autoSkip: true,
         maxTicksLimit: 10,
       },
-      beginAtZero: true,
     },
     yAxes: {
       grid: {
@@ -41,7 +40,6 @@ const options = {
         maxTicksLimit: 6,
       },
       beginAtZero: true,
-      position: 'left',
     },
   },
 };
