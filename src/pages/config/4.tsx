@@ -23,6 +23,7 @@ interface ConvictionGrowthData {
   convictionPercentage: number[];
   timeDays: number[];
   dataPoints: { [key: string]: number }[];
+  table: { [key: string]: (number | string)[] };
 }
 
 interface ConvictionThresholdData {
@@ -57,6 +58,14 @@ const radioButtons = [
   { id: 'radio1', label: '7 Days', value: '7' },
 ];
 
+const tableRowName = [
+  'Amount in Common Pool (wxDai)',
+  'Requested Amount (wxDAI)',
+  'Min. tokens needed to pass',
+  'Tokens needed to pass in 2 weeks',
+  'Total effective supply',
+];
+
 function ConvictionVoting() {
   const [paramSelected, setParamSelected] =
     useState<ParamsOptionsType>('SPENDING_LIMIT');
@@ -71,6 +80,7 @@ function ConvictionVoting() {
     convictionPercentage: [],
     timeDays: [0],
     dataPoints: [],
+    table: {},
   });
   const [thresholdChartData, setThresholdChartData] =
     useState<ConvictionThresholdData>({
@@ -129,6 +139,7 @@ function ConvictionVoting() {
     const values = Object.values(paramsValue);
     const validParams = values.every((elem) => elem !== '');
     if (validParams) {
+      console.log(paramsValue);
       axios
         .post(
           'https://dev-commons-config-backend.herokuapp.com/conviction-voting/',
@@ -146,6 +157,7 @@ function ConvictionVoting() {
               output.convictionGrowth80PercentageXY,
               output.maxConvictionGrowthXY,
             ],
+            table: output.table,
           });
           setThresholdChartData({ ...output.convictionThresholdChart });
         });
@@ -255,7 +267,7 @@ function ConvictionVoting() {
             </div>
             <div className="px-16 pt-6 pb-2 font-bj text-neon-light text-xs">
               <div className="flex justify-between pb-2 mb-2 border-b border-gray-100 uppercase font-bold">
-                <div className="w-1/6 max-w-144 table-text">variables</div>
+                <div className="w-1/6 max-w-144">variables</div>
                 <div className="w-1/6 max-w-144">scneario 1</div>
                 <div className="w-1/6 max-w-144">scneario 2</div>
                 <div className="w-1/6 max-w-144">scneario 3</div>
@@ -263,15 +275,14 @@ function ConvictionVoting() {
                 <div className="w-1/6 max-w-144">scneario 5</div>
                 <div className="w-1/6 max-w-144">scneario 6</div>
               </div>
-              <div className="flex justify-between py-1 hover:bg-cyan-700 cursor-pointer">
-                <div className="w-1/6 max-w-144">IN PROGRESS</div>
-                <div className="w-1/6 max-w-144">IN PROGRESS</div>
-                <div className="w-1/6 max-w-144">IN PROGRESS</div>
-                <div className="w-1/6 max-w-144">IN PROGRESS</div>
-                <div className="w-1/6 max-w-144">IN PROGRESS</div>
-                <div className="w-1/6 max-w-144">IN PROGRESS</div>
-                <div className="w-1/6 max-w-144">IN PROGRESS</div>
-              </div>
+              {Object.keys(growthChartData.table).map((key, index) => (
+                <div className="flex justify-between items-center mb-2 hover:bg-cyan-700 cursor-pointer">
+                  <div className="w-1/6 max-w-144">{tableRowName[index]}</div>
+                  {growthChartData.table[key].map((row) => (
+                    <span className="w-1/6 max-w-144">{row}</span>
+                  ))}
+                </div>
+              ))}
             </div>
           </div>
         </div>
