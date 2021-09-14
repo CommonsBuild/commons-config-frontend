@@ -6,7 +6,7 @@ interface InputProps {
   param: string;
   placeholder: string;
   tooltipText: string;
-  value: string;
+  value: string | number;
   changeParam?(): void;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -29,13 +29,12 @@ function Input({
           {param}
         </span>
       </Tooltip>
-      <div className="relative h-12">
+      <div className="relative h-12 bg-black-200">
         <input
           name={name}
           value={value}
           onClick={changeParam}
           onChange={onChange}
-          maxLength={5}
           max={100}
           className="font-bold text-neon-light text-xl w-full h-full pl-3 border-2 border-gray-500 focus:border-neon hover:border-gray-400 bg-transparent outline-none placeholder-right"
         />
