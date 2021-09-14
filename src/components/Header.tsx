@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 function Header() {
   return (
-    <div className="flex bg-black-one">
+    <div className="flex bg-black-100">
       <img
         className="bg-neon px-5 py-10"
         src="/assets/tec-logo-light.svg"
