@@ -21,12 +21,12 @@ function Card({
   title,
 }: CardProps) {
   return (
-    <div className="self-start flex flex-col bg-secondary-black w-10/12 mx-auto my-4 py-6 px-9 lg:w-96 lg:mt-8">
+    <div className="self-start flex flex-col bg-black-100 w-10/12 mx-auto my-4 py-6 px-9 lg:w-96 lg:mt-8">
       <h3 className="font-bj font-bold text-sm text-gray-100 mb-4 uppercase">
         {title}
       </h3>
       {children}
-      <div className="w-full mt-8">
+      <div className="w-full mt-4">
         <div className="flex justify-between">
           {previousPanel ? (
             <Link href={previousHref}>
