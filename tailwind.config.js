@@ -12,6 +12,7 @@ module.exports = {
         dash: "url('/dash.png')",
         chart: "url('/chart-bg.svg')",
         learn: "url('/assets/learn-circle-bg.png')",
+        dialog: "url('/dialog.png')",
       }),
       height: {
         144: '36rem',
@@ -157,9 +158,13 @@ module.exports = {
           700: '#002535',
         },
         magenta: '#7622A8',
-        'secondary-black': '#0B0A15',
-        'black-one': '#000001',
-        black: '#0A0A06',
+        black: {
+          DEFAULT: '#0A0A06',
+          50: '#0A0A06',
+          100: '#0B0A15',
+          200: '#191728',
+          300: '#000001',
+        },
         chart: {
           yellow: '#FBC948',
           orange: '#FB9E48',
@@ -178,6 +183,7 @@ module.exports = {
   variants: {
     extend: {
       gridColumnStart: ['last'],
+      borderColor: ['checked'],
     },
   },
   plugins: [require('@tailwindcss/forms')],

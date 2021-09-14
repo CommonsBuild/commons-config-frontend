@@ -10,7 +10,7 @@ function LearnTwo() {
       <Head>
         <title>Learn 2 | Commons Dashboard</title>
       </Head>
-      <div className="min-h-screen bg-black-one">
+      <div className="min-h-screen bg-300">
         <Navbar
           href="/learn/done"
           text="finish learning"
