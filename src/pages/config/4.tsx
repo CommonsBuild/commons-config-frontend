@@ -268,12 +268,12 @@ function ConvictionVoting() {
             <div className="px-16 pt-6 pb-2 font-bj text-neon-light text-xs">
               <div className="flex justify-between pb-2 mb-2 border-b border-gray-100 uppercase font-bold">
                 <div className="w-1/6 max-w-144">variables</div>
-                <div className="w-1/6 max-w-144">scneario 1</div>
-                <div className="w-1/6 max-w-144">scneario 2</div>
-                <div className="w-1/6 max-w-144">scneario 3</div>
-                <div className="w-1/6 max-w-144">scneario 4</div>
-                <div className="w-1/6 max-w-144">scneario 5</div>
-                <div className="w-1/6 max-w-144">scneario 6</div>
+                <div className="w-1/6 max-w-144">scenario 1</div>
+                <div className="w-1/6 max-w-144">scenario 2</div>
+                <div className="w-1/6 max-w-144">scenario 3</div>
+                <div className="w-1/6 max-w-144">scenario 4</div>
+                <div className="w-1/6 max-w-144">scenario 5</div>
+                <div className="w-1/6 max-w-144">scenario 6</div>
               </div>
               {Object.keys(growthChartData.table).map((key, index) => (
                 <div className="flex justify-between items-center mb-2 hover:bg-cyan-700 cursor-pointer">
