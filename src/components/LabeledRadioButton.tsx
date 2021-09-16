@@ -3,7 +3,7 @@ import Tooltip from '@/components/Tooltip';
 import useHover from '@/utils/useHover';
 
 interface LabeledRadioButtonProps {
-  borderColor?: boolean;
+  checked?: boolean;
   id: string;
   label: string;
   margin?: boolean;
@@ -22,7 +22,7 @@ const labelSize = {
 };
 
 function LabeledRadioButton({
-  borderColor,
+  checked,
   id,
   label,
   margin,
@@ -37,27 +37,26 @@ function LabeledRadioButton({
   return (
     <>
       <input
-        className="hidden"
+        checked={checked}
+        className="hidden labeled-radio"
         id={id}
-        type="radio"
         name={name}
-        onChange={onChange}
+        type="radio"
         value={value}
+        onChange={onChange}
       />
-      <Tooltip text={tooltipText} isHovered={isHovered}>
+      <Tooltip isHovered={isHovered} text={tooltipText}>
         <label
-          htmlFor={id}
           className={classnames(
-            'bg-black-200 border text-center hover:border-gray-400 py-1 cursor-pointer',
+            'labeled-radio bg-black-200 border text-center border-gray-500 hover:border-gray-400 py-1 cursor-pointer',
             {
-              'border-gray-500': !borderColor,
-              'border-neon': borderColor,
               'mr-1': margin,
               'px-8': pX,
               'px-1': !pX,
             },
             labelSize[size]
           )}
+          htmlFor={id}
         >
           <span
             ref={hoverRef}
