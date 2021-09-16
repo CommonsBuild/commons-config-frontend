@@ -4,7 +4,7 @@ interface DialogProps {
   bg?: boolean;
   children: React.ReactNode;
   isOpen: boolean;
-  title: string;
+  title?: string;
 }
 
 function Dialog({ bg, children, isOpen, title }: DialogProps) {
@@ -23,7 +23,14 @@ function Dialog({ bg, children, isOpen, title }: DialogProps) {
           'bg-black': !bg,
         })}
       >
-        <h1 className="font-bj font-bold text-neon-light text-4xl text-center py-6">
+        <h1
+          className={classnames(
+            'font-bj font-bold text-neon-light text-4xl text-center py-6',
+            {
+              hidden: !title,
+            }
+          )}
+        >
           {title}
         </h1>
         {children}
