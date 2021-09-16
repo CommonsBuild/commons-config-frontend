@@ -27,6 +27,10 @@
   [type='checkbox']:indeterminate:hover {
     @apply border-white;
   }
+
+  [type='radio']:checked + label {
+    border-color: #defb48;
+  }
 }
 
 .tooltip {
@@ -44,6 +48,12 @@
   width: 96%;
   margin-left: 3%;
   top: calc(-40px + -50%);
+}
+
+.abc-chart {
+  width: 94%;
+  margin-left: 4%;
+  top: calc(-23px + -50%);
 }
 
 .text-stroke {
