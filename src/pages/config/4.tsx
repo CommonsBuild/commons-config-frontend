@@ -5,7 +5,7 @@ import Card from '@/components/Card';
 import Dialog from '@/components/Dialog';
 import Input from '@/components/Input';
 import { ConfigNavbar as Navbar } from '@/components/Navbar';
-import CurveChart from '@/components/CurveChart';
+import ConvictionThresholdChart from '@/components/ConvictionThresholdChart';
 import ConvictionGrowthChart from '@/components/ConvictionGrowthChart';
 
 type ParamsOptionsType =
@@ -14,13 +14,21 @@ type ParamsOptionsType =
   | 'CONVICTION_GROWTH';
 
 interface ConvictionVotingParams {
-  spendingLimit: string;
-  minimumConviction: string;
+  spendingLimit: number;
+  minimumConviction: number;
   convictionGrowth: string;
+  convictionVotingPeriodDays: string;
 }
 interface ConvictionGrowthData {
   convictionPercentage: number[];
   timeDays: number[];
+  dataPoints: { [key: string]: number }[];
+  table: { [key: string]: (number | string)[] };
+}
+
+interface ConvictionThresholdData {
+  requestedPercentage: number[];
+  thresholdPercentage: number[];
 }
 
 const paramsContent = {
@@ -43,44 +51,46 @@ const paramsContent = {
 };
 
 const radioButtons = [
-  { id: 'radio1', label: '7 Days', value: '' },
-  { id: 'radio2', label: '2 Weeks', value: '' },
-  { id: 'radio3', label: '1 Month', value: '' },
-  { id: 'radio4', label: '3 Months', value: '' },
-  { id: 'radio5', label: '6 Months', value: '' },
+  { id: 'radio5', label: '6 Months', value: '180' },
+  { id: 'radio4', label: '3 Months', value: '60' },
+  { id: 'radio3', label: '1 Month', value: '30' },
+  { id: 'radio2', label: '2 Weeks', value: '14' },
+  { id: 'radio1', label: '7 Days', value: '7' },
+];
+
+const tableRowName = [
+  'Amount in Common Pool (wxDai)',
+  'Requested Amount (wxDAI)',
+  'Min. tokens needed to pass',
+  'Tokens needed to pass in 2 weeks',
+  'Total effective supply',
 ];
 
 function ConvictionVoting() {
   const [paramSelected, setParamSelected] =
     useState<ParamsOptionsType>('SPENDING_LIMIT');
   const [paramsValue, setParamsValue] = useState<ConvictionVotingParams>({
-    spendingLimit: '20',
-    minimumConviction: '5',
+    spendingLimit: 20,
+    minimumConviction: 5,
     convictionGrowth: '2',
+    convictionVotingPeriodDays: '7',
   });
   const [dialogOpen, setDialogOpen] = useState(false);
   const [growthChartData, setGrowthChartData] = useState<ConvictionGrowthData>({
     convictionPercentage: [],
     timeDays: [0],
+    dataPoints: [],
+    table: {},
   });
+  const [thresholdChartData, setThresholdChartData] =
+    useState<ConvictionThresholdData>({
+      requestedPercentage: [0],
+      thresholdPercentage: [],
+    });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = event.target;
     const { value } = event.target;
-
-    setParamsValue({
-      ...paramsValue,
-      [name]: value,
-    });
-  };
-
-  const handleNumeriChange = (event) => {
-    const { name } = event.target;
-    let { value } = event.target;
-
-    if (Number(value) > 100) {
-      value = 100;
-    }
 
     setParamsValue({
       ...paramsValue,
@@ -97,7 +107,6 @@ function ConvictionVoting() {
       placehoder: '%',
       tooltipText:
         'The total amount of funds in the Common Pool that can be requested by a single proposal.',
-      numeric: true,
     },
     {
       name: 'minimumConviction',
@@ -107,7 +116,6 @@ function ConvictionVoting() {
       placehoder: '%',
       tooltipText:
         'The minimum amount of tokens needed to pass a request for an infinitely small amount of funds, relative to the Effective Supply.',
-      numeric: true,
     },
     {
       name: 'convictionGrowth',
@@ -131,18 +139,27 @@ function ConvictionVoting() {
     const values = Object.values(paramsValue);
     const validParams = values.every((elem) => elem !== '');
     if (validParams) {
+      console.log(paramsValue);
       axios
         .post(
           'https://dev-commons-config-backend.herokuapp.com/conviction-voting/',
           {
             ...paramsValue,
-            'support-required': Number(paramsValue['support-required']) / 100,
-            'minimum-quorum': Number(paramsValue['minimum-quorum']) / 100,
+            spendingLimit: paramsValue.spendingLimit / 100,
+            minimumConviction: paramsValue.minimumConviction / 100,
           }
         )
         .then((response) => {
           const { output } = response.data;
-          setGrowthChartData({ ...output.convictionGrowthChart });
+          setGrowthChartData({
+            ...output.convictionGrowthChart,
+            dataPoints: [
+              output.convictionGrowth80PercentageXY,
+              output.maxConvictionGrowthXY,
+            ],
+            table: output.table,
+          });
+          setThresholdChartData({ ...output.convictionThresholdChart });
         });
     }
   }, [paramsValue]);
@@ -158,6 +175,7 @@ function ConvictionVoting() {
             <ConvictionGrowthChart
               convictionPercentage={growthChartData.convictionPercentage}
               timeDays={growthChartData.timeDays}
+              dataPoints={growthChartData.dataPoints}
             />
           </div>
           <div className="h-12 border border-gray-500 w-1/3 mx-auto flex justify-center items-center">
@@ -174,9 +192,9 @@ function ConvictionVoting() {
               name="convictionGrowth"
               type="range"
               min="1"
-              max="100"
+              max="60"
               value={paramsValue.convictionGrowth}
-              onChange={(event) => handleNumeriChange(event)}
+              onChange={(event) => handleChange(event)}
             />
           </div>
           <button
@@ -203,9 +221,7 @@ function ConvictionVoting() {
                   setParamSelected(input.paramName as ParamsOptionsType)
                 }
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  input.numeric
-                    ? handleNumeriChange(event)
-                    : handleChange(event)
+                  handleChange(event)
                 }
                 placeholder={input.placehoder}
                 tooltipText={input.tooltipText}
@@ -221,15 +237,23 @@ function ConvictionVoting() {
             <h3 className="font-inter text-gray-300 text-center text-xs px-9 pb-6 lg:text-left">
               {paramsContent[paramSelected].description}
             </h3>
-            <CurveChart />
-            <div className="flex justify-between max-w-2xl mx-auto px-8 py-6 bg-cyan-700 opacity-60">
+            <ConvictionThresholdChart
+              requestedPercentage={thresholdChartData.requestedPercentage}
+              thresholdPercentage={thresholdChartData.thresholdPercentage}
+            />
+            <div className="flex flex-row-reverse justify-between max-w-2xl mx-auto px-2 py-6 bg-cyan-700 opacity-60">
               {radioButtons.map((button) => (
                 <p className="mx-4" key={button.id}>
                   <input
                     id={button.id}
                     type="radio"
-                    name="radio"
                     className="hidden radio"
+                    name="convictionVotingPeriodDays"
+                    value={button.value}
+                    onChange={(event) => handleChange(event)}
+                    checked={
+                      button.value === paramsValue.convictionVotingPeriodDays
+                    }
                   />
                   <label
                     htmlFor={button.id}
@@ -243,23 +267,22 @@ function ConvictionVoting() {
             </div>
             <div className="px-16 pt-6 pb-2 font-bj text-neon-light text-xs">
               <div className="flex justify-between pb-2 mb-2 border-b border-gray-100 uppercase font-bold">
-                <div className="w-1/6 max-w-144 table-text">variables</div>
-                <div className="w-1/6 max-w-144">scneario 1</div>
-                <div className="w-1/6 max-w-144">scneario 2</div>
-                <div className="w-1/6 max-w-144">scneario 3</div>
-                <div className="w-1/6 max-w-144">scneario 4</div>
-                <div className="w-1/6 max-w-144">scneario 5</div>
-                <div className="w-1/6 max-w-144">scneario 6</div>
+                <div className="w-1/6 max-w-144">variables</div>
+                <div className="w-1/6 max-w-144">scenario 1</div>
+                <div className="w-1/6 max-w-144">scenario 2</div>
+                <div className="w-1/6 max-w-144">scenario 3</div>
+                <div className="w-1/6 max-w-144">scenario 4</div>
+                <div className="w-1/6 max-w-144">scenario 5</div>
+                <div className="w-1/6 max-w-144">scenario 6</div>
               </div>
-              <div className="flex justify-between py-1 hover:bg-cyan-700 cursor-pointer">
-                <div className="w-1/6 max-w-144">IN PROGRESS</div>
-                <div className="w-1/6 max-w-144">IN PROGRESS</div>
-                <div className="w-1/6 max-w-144">IN PROGRESS</div>
-                <div className="w-1/6 max-w-144">IN PROGRESS</div>
-                <div className="w-1/6 max-w-144">IN PROGRESS</div>
-                <div className="w-1/6 max-w-144">IN PROGRESS</div>
-                <div className="w-1/6 max-w-144">IN PROGRESS</div>
-              </div>
+              {Object.keys(growthChartData.table).map((key, index) => (
+                <div className="flex justify-between items-center mb-2 hover:bg-cyan-700 cursor-pointer">
+                  <div className="w-1/6 max-w-144">{tableRowName[index]}</div>
+                  {growthChartData.table[key].map((row) => (
+                    <span className="w-1/6 max-w-144">{row}</span>
+                  ))}
+                </div>
+              ))}
             </div>
           </div>
         </div>
