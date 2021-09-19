@@ -7,9 +7,16 @@ interface NeonButtonProps {
   disabled?: boolean;
   fullWidth?: boolean;
   href: string;
+  hidden?: boolean;
 }
 
-function NeonButton({ disabled, fullWidth, href, children }: NeonButtonProps) {
+function NeonButton({
+  disabled,
+  hidden,
+  fullWidth,
+  href,
+  children,
+}: NeonButtonProps) {
   return (
     <Link href={href}>
       <button
@@ -17,6 +24,7 @@ function NeonButton({ disabled, fullWidth, href, children }: NeonButtonProps) {
           'h-14 px-6 mx-auto bg-neon hover:bg-neon-light-600 disabled:opacity-50 disabled:bg-gray-400 disabled:text-gray-300',
           {
             'w-full': fullWidth,
+            hidden,
           }
         )}
         disabled={disabled}

@@ -5,19 +5,21 @@ import NeonButton from './NeonButton';
 
 interface CardProps {
   children: React.ReactNode;
+  hiddenButton?: boolean;
+  nextHref?: string;
+  nextPanel?: string;
   previousPanel?: string;
   previousHref?: string;
-  nextPanel?: string;
-  nextHref?: string;
   title: string;
 }
 
 function Card({
   children,
+  hiddenButton,
+  nextHref,
+  nextPanel,
   previousPanel,
   previousHref,
-  nextPanel,
-  nextHref,
   title,
 }: CardProps) {
   return (
@@ -59,7 +61,7 @@ function Card({
             <div />
           )}
         </div>
-        <NeonButton disabled fullWidth href="/config/2">
+        <NeonButton hidden={hiddenButton} disabled fullWidth href="/config/2">
           submit proposal
         </NeonButton>
       </div>
