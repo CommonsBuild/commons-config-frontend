@@ -3,6 +3,7 @@ import Head from 'next/head';
 import axios from 'axios';
 import Image from 'next/image';
 import Card from '@/components/Card';
+import ChartContainer from '@/components/ChartContainer';
 import Dialog from '@/components/Dialog';
 import Input from '@/components/Input';
 import LabeledRadioButton from '@/components/LabeledRadioButton';
@@ -11,43 +12,38 @@ import useHover from '@/utils/useHover';
 import Tooltip from '@/components/Tooltip';
 import AugmentedBondingCurve from '@/components/AugmentedBondingCurve';
 
-interface StepsTableProps {
-  stepList: (string | number)[][];
-  table: { [key: string]: (number | string)[] };
+interface MarketScenarioDialogProps {
+  handleClose: React.MouseEventHandler<HTMLButtonElement>;
+  isOpen: boolean;
 }
 
-function StepsTable({ stepList, table }: StepsTableProps) {
-  const headerOrder = [
-    'step',
-    'currentPriceParsed',
-    'amountIn',
-    'tributeCollected',
-    'amountOut',
-    'newPriceParsed',
-    'slippage',
-  ];
-
+function MarketScenarioDialog({
+  handleClose,
+  isOpen,
+}: MarketScenarioDialogProps) {
   return (
-    <div className="px-16 pt-6 pb-2 font-bj text-neon-light text-xs">
-      <div className="flex justify-between pb-2 mb-2 border-b border-gray-100 uppercase font-bold">
-        <div className="w-1/6 max-w-144">step</div>
-        <div className="w-1/6 max-w-144">current price (TEC)</div>
-        <div className="w-1/6 max-w-144">amount in</div>
-        <div className="w-1/6 max-w-144">tribute collected</div>
-        <div className="w-1/6 max-w-144">amount out</div>
-        <div className="w-1/6 max-w-144">new price (TEC)</div>
-        <div className="w-1/6 max-w-144">price slippage</div>
-      </div>
-      {Object.keys(stepList).map((elem, index) => (
-        <div className="flex justify-between items-center mb-2 hover:bg-cyan-700 cursor-pointer">
-          {Object.keys(table).map((key, kIndex) => (
-            <span className="w-1/6 max-w-144">
-              {table[headerOrder[kIndex]][index]}
-            </span>
-          ))}
-        </div>
-      ))}
-    </div>
+    <Dialog isOpen={isOpen} title="What is a Market Scenario?">
+      <p className="font-inter text-lg text-neon-light text-center p-4">
+        Market Scenarios have been designed as a pre-set series of 3 steps
+        (transactions) in order to aid in the digestion of ABC mechanics.
+        Simulating typical market events, there are two scenarios to choose from
+        on the ABC tool: <b>Bullish</b> or <b>Bearish</b>.
+      </p>
+      <p className="font-inter text-lg text-neon-light text-center p-4">
+        By choosing one or the other take note of any theoretical profits or
+        losses between Step 1 and Step 3 resulting from Step 2 and the funds
+        being contributed to the Common Pool.
+      </p>
+      <p className="font-inter text-lg text-neon-light text-center p-4">
+        Market Scenarios have no impact on the Commons Configuration parameters.
+      </p>
+      <button
+        className="flex m-auto uppercase font-bj font-bold text-neon text-xs py-6"
+        onClick={handleClose}
+      >
+        close
+      </button>
+    </Dialog>
   );
 }
 
@@ -61,6 +57,7 @@ interface StepValues {
   type: string;
   value: string;
 }
+
 function AddStepDialog({ handleClose, onClick, isOpen }: AddStepDialogProps) {
   const [stepData, setStepData] = useState<StepValues>({
     type: 'wxDAI',
@@ -138,6 +135,46 @@ function AddStepDialog({ handleClose, onClick, isOpen }: AddStepDialogProps) {
         </button>
       </div>
     </Dialog>
+  );
+}
+
+interface StepsTableProps {
+  stepList: (string | number)[][];
+  table: { [key: string]: (number | string)[] };
+}
+
+function StepsTable({ stepList, table }: StepsTableProps) {
+  const headerOrder = [
+    'step',
+    'currentPriceParsed',
+    'amountIn',
+    'tributeCollected',
+    'amountOut',
+    'newPriceParsed',
+    'slippage',
+  ];
+
+  return (
+    <div className="pl-16 py-6 font-bj text-neon-light text-xs">
+      <div className="flex justify-between items-end pb-2 mb-2 border-b border-gray-100 uppercase font-bold">
+        <div className="w-1/12 max-w-144">step</div>
+        <div className="w-1/5 max-w-144">current price</div>
+        <div className="w-1/5 max-w-144">amount in</div>
+        <div className="w-1/5 max-w-144">tribute collected</div>
+        <div className="w-1/5 max-w-144">amount out</div>
+        <div className="w-1/5 max-w-144">new price</div>
+        <div className="w-1/5 max-w-144">price slippage</div>
+      </div>
+      {Object.keys(stepList).map((elem, index) => (
+        <div className="flex justify-between items-center mb-2 hover:bg-cyan-700 cursor-pointer">
+          {Object.keys(table).map((key, kIndex) => (
+            <span className="w-1/5 max-w-144 first:w-1/12">
+              {table[headerOrder[kIndex]][index]}
+            </span>
+          ))}
+        </div>
+      ))}
+    </div>
   );
 }
 
@@ -313,10 +350,6 @@ function AugmentedBonding() {
     });
   };
 
-  const handleDialog = () => {
-    setMarketDialog(!marketDialog);
-  };
-
   const handleMarketScenario = (scenario: (number | string)[][]) => {
     setParamsValue({
       ...paramsValue,
@@ -327,7 +360,6 @@ function AugmentedBonding() {
   const handleAddStep = (step: (number | string)[]) => {
     const newStepList = paramsValue.stepList;
     newStepList.push(step);
-    console.log(newStepList);
     setParamsValue({
       ...paramsValue,
       stepList: newStepList,
@@ -348,7 +380,6 @@ function AugmentedBonding() {
           }
         )
         .then((response) => {
-          console.log(response);
           setChartData({ ...response.data[0] });
           setStepsTable({ ...response.data[2] });
         });
@@ -361,36 +392,17 @@ function AugmentedBonding() {
         <title>Config 2 | Commons Dashboard</title>
       </Head>
       <div className="lg:min-h-screen bg-dash bg-cover">
-        <Dialog isOpen={marketDialog} title="What is a Market Scenario?">
-          <p className="font-inter text-lg text-neon-light text-center py-4">
-            Market Scenarios have been designed as a pre-set series of 3 steps
-            (transactions) in order to aid in the digestion of ABC mechanics.
-            Simulating typical market events, there are two scenarios to choose
-            from on the ABC tool: <b>Bullish</b> or <b>Bearish</b>.
-          </p>
-          <p className="font-inter text-lg text-neon-light text-center py-4">
-            By choosing one or the other take note of any theoretical profits or
-            losses between Step 1 and Step 3 resulting from Step 2 and the funds
-            being contributed to the Common Pool.
-          </p>
-          <p className="font-inter text-lg text-neon-light text-center py-4">
-            Market Scenarios have no impact on the Commons Configuration
-            parameters.
-          </p>
-          <button
-            className="flex m-auto uppercase font-bj font-bold text-neon text-xs pt-6"
-            onClick={handleDialog}
-          >
-            close
-          </button>
-        </Dialog>
+        <MarketScenarioDialog
+          isOpen={marketDialog}
+          handleClose={() => setMarketDialog(false)}
+        />
         <AddStepDialog
           handleClose={() => setStepDialog(false)}
           isOpen={stepDialog}
           onClick={handleAddStep}
         />
         <Navbar />
-        <div className="lg:flex">
+        <div className="flex justify-center">
           <Card
             nextHref="/config/3"
             nextPanel="Modifying the Commons"
@@ -414,13 +426,13 @@ function AugmentedBonding() {
                 }
               />
             ))}
-            <div className="py-4">
+            <div className="py-2">
               <span className="font-bj font-bold text-neon-light text-xs uppercase">
                 choose your market scenario
               </span>
               <span
                 className="font-inter font-medium text-neon text-xs px-4 cursor-pointer"
-                onClick={handleDialog}
+                onClick={() => setMarketDialog(true)}
               >
                 What&apos;s this?
               </span>
@@ -438,7 +450,7 @@ function AugmentedBonding() {
                   />
                 ))}
               </div>
-              <div className="pt-4">
+              <div className="py-2">
                 <span className="font-bj text-sm text-neon-light">
                   Reserve Balance (wxDAI)
                 </span>
@@ -516,19 +528,18 @@ function AugmentedBonding() {
               </div>
             </div>
           </Card>
-          <div className="flex flex-col bg-transparent w-10/12 px-9  mx-auto mt-4 lg:w-7/12">
-            <h1 className="font-bj text-gray-100 text-2xl text-center pt-6 pb-3 lg:text-left">
-              {paramsContent[paramSelected].question}
-            </h1>
-            <h3 className="font-inter text-gray-300 text-center text-xs pb-6 lg:text-left">
-              {paramsContent[paramSelected].description}
-            </h3>
+          <ChartContainer
+            title={paramsContent[paramSelected].question}
+            subtitle={paramsContent[paramSelected].description}
+          >
             <AugmentedBondingCurve
               balanceInThousands={chartData.balanceInThousands}
               price={chartData.price}
             />
-            <span className="font-bj text-sm text-neon-light pb-2">Steps</span>
-            <div className="flex">
+            <span className="font-bj text-sm text-neon-light px-16 py-2">
+              Steps
+            </span>
+            <div className="flex px-16 py-2">
               {paramsValue.stepList.map((item, index) => (
                 <div className="flex justify-center items-center w-12 h-12 mr-4 border border-neon border-opacity-20 cursor-pointer">
                   <span className="font-bj font-medium text-2xl text-neon-light">
@@ -541,7 +552,7 @@ function AugmentedBonding() {
               stepList={paramsValue.stepList}
               table={{ ...stepsTable }}
             />
-          </div>
+          </ChartContainer>
         </div>
       </div>
     </>
