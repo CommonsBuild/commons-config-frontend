@@ -52,14 +52,15 @@ interface BarChartProps {
   executionDelay: number;
 }
 
-function HorizontalBarChart({
-  nonQuietVotingPeriod,
-  delegatedVotingPeriod,
-  delegatedAndNonDelegatedVoting,
-  quietEndingPeriod,
-  quietEndingExtension,
-  executionDelay,
-}: BarChartProps) {
+function HorizontalBarChart(barChartData: BarChartProps) {
+  const {
+    nonQuietVotingPeriod,
+    delegatedVotingPeriod,
+    delegatedAndNonDelegatedVoting,
+    quietEndingPeriod,
+    quietEndingExtension,
+    executionDelay,
+  } = barChartData;
   const [hoverRef, isHovered] = useHover<HTMLDivElement>();
 
   const data = {
