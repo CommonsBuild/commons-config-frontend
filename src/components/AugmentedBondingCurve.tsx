@@ -42,8 +42,8 @@ const options = {
 };
 
 interface AugmentedBondingProps {
-  balanceInThousands: [];
-  price: [];
+  balanceInThousands: number[];
+  price: number[];
 }
 
 function AugmentedBondingCurve({
