@@ -94,7 +94,7 @@ function ConvictionVoting() {
       paramName: 'SPENDING_LIMIT',
       value: paramsValue.spendingLimit,
       param: 'Spending Limit',
-      placehoder: '%',
+      placeholder: '%',
       tooltipText:
         'The total amount of funds in the Common Pool that can be requested by a single proposal.',
       numeric: true,
@@ -104,7 +104,7 @@ function ConvictionVoting() {
       paramName: 'MINIMUM_CONVICTION',
       value: paramsValue.minimumConviction,
       param: 'Minimum Conviction',
-      placehoder: '%',
+      placeholder: '%',
       tooltipText:
         'The minimum amount of tokens needed to pass a request for an infinitely small amount of funds, relative to the Effective Supply.',
       numeric: true,
@@ -114,7 +114,7 @@ function ConvictionVoting() {
       paramName: 'CONVICTION_GROWTH',
       value: paramsValue.convictionGrowth,
       param: 'Conviction Growth',
-      placehoder: 'days',
+      placeholder: 'days',
       tooltipText: 'The amount of time it takes to increase Conviction by 50%.',
       children: (
         <span
@@ -207,7 +207,7 @@ function ConvictionVoting() {
                     ? handleNumeriChange(event)
                     : handleChange(event)
                 }
-                placeholder={input.placehoder}
+                placeholder={input.placeholder}
                 tooltipText={input.tooltipText}
               >
                 {input.children}
