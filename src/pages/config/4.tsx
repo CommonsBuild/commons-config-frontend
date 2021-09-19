@@ -229,13 +229,13 @@ function ConvictionVoting() {
                     id={button.id}
                     type="radio"
                     name="radio"
-                    className="hidden"
+                    className="hidden radio"
                   />
                   <label
                     htmlFor={button.id}
-                    className="flex items-center cursor-pointer font-bj text-sm text-neon-light"
+                    className="flex items-center cursor-pointer font-bj text-sm text-neon-light radio"
                   >
-                    <span className="w-5 h-5 inline-block mr-2 rounded-full border border-grey flex-no-shrink" />
+                    <span className="w-5 h-5 inline-block mr-2 rounded-full border border-grey flex-no-shrink radio" />
                     {button.label}
                   </label>
                 </p>
