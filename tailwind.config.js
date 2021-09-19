@@ -14,13 +14,7 @@ module.exports = {
         learn: "url('/assets/learn-circle-bg.png')",
         dialog: "url('/dialog.png')",
       }),
-      height: {
-        144: '36rem',
-        lp: '1828px',
-      },
-      maxWidth: {
-        144: '9rem',
-      },
+
       colors: {
         neon: {
           DEFAULT: '#DEFB48',
@@ -178,12 +172,27 @@ module.exports = {
         inter: ['Inter', 'sans-serif'],
         bj: ['Bai Jamjuree', 'sans-serif'],
       },
+      fontSize: {
+        xxs: '0.625rem',
+      },
+      height: {
+        144: '36rem',
+        lp: '1828px',
+      },
+      maxWidth: {
+        144: '9rem',
+      },
+      minWidth: {
+        '2/4': '50%',
+        '3/4': '75%',
+      },
     },
   },
   variants: {
     extend: {
-      gridColumnStart: ['last'],
       borderColor: ['checked'],
+      gridColumnStart: ['last'],
+      width: ['first'],
     },
   },
   plugins: [require('@tailwindcss/forms')],

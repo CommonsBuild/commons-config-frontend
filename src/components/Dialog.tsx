@@ -18,14 +18,14 @@ function Dialog({ bg, children, isOpen, title }: DialogProps) {
       )}
     >
       <div
-        className={classnames('m-auto max-w-lg p-8', {
+        className={classnames('m-auto max-w-lg', {
           'bg-dialog': bg,
           'bg-black': !bg,
         })}
       >
         <h1
           className={classnames(
-            'font-bj font-bold text-neon-light text-4xl text-center py-6',
+            'font-bj font-bold text-neon-light text-4xl text-center p-6',
             {
               hidden: !title,
             }
