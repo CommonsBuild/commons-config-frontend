@@ -274,7 +274,7 @@ function DisputableVoting() {
         <Navbar />
         <div className="lg:flex">
           <Card
-            title="disputable voting"
+            title="tao voting"
             previousPanel="Back"
             previousHref="/config/1"
             nextPanel="Requesting Funds"

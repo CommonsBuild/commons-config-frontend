@@ -207,8 +207,8 @@ interface StepsTableParams {
 }
 
 interface ChartParams {
-  price: [];
-  balanceInThousands: [];
+  price: number[];
+  balanceInThousands: number[];
 }
 
 const marketScenarios = [
