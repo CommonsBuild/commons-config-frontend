@@ -92,7 +92,6 @@ function AugmentedBondingCurve({
         backgroundColor: 'rgba(65, 226, 130, 0.4)',
       });
     });
-    console.log(datasets);
     return datasets;
   };
 

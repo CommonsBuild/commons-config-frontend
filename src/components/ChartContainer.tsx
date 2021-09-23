@@ -8,7 +8,7 @@ interface ChartContainerProps {
 
 function ChartContainer({ children, title, subtitle }: ChartContainerProps) {
   return (
-    <div className="flex flex-col bg-transparent mx-16 mt-4 min-w-3/4 lg:min-w-2/4">
+    <div className="flex flex-col bg-transparent mx-16 mt-4 w-3/5 lg:min-w-2/4">
       <h1 className="font-bj text-gray-100 text-2xl text-center pt-6 pb-3 lg:text-left">
         {title}
       </h1>
