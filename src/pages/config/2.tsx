@@ -207,25 +207,26 @@ interface StepsTableParams {
 }
 
 interface ChartParams {
-  price: [];
-  balanceInThousands: [];
+  price: number[];
+  balanceInThousands: number[];
+  stepLinSpaces: { [key: string]: number[] }[];
 }
 
 const marketScenarios = [
   {
     id: 'bearish',
     value: [
+      [5, 'wxDAI'],
       [1000, 'TEC'],
-      [5, 'wxDAI'],
-      [5, 'wxDAI'],
+      [10, 'wxDAI'],
     ],
   },
   {
     id: 'bullish',
     value: [
+      [5, 'TEC'],
       [1000, 'wxDAI'],
-      [5, 'TEC'],
-      [5, 'TEC'],
+      [10, 'TEC'],
     ],
   },
 ];
@@ -292,6 +293,7 @@ function AugmentedBonding() {
   const [chartData, setChartData] = useState<ChartParams>({
     balanceInThousands: [],
     price: [],
+    stepLinSpaces: [],
   });
 
   const [marketDialog, setMarketDialog] = useState(false);
@@ -376,12 +378,16 @@ function AugmentedBonding() {
           'https://abcurve-backend-test.herokuapp.com/augmented-bonding-curve/',
           {
             ...paramsValue,
-            reserveBalance: Number(paramsValue.reserveBalance) / 10000,
+            reserveBalance: Number(paramsValue.reserveBalance) / 1000,
           }
         )
         .then((response) => {
-          setChartData({ ...response.data[0] });
-          setStepsTable({ ...response.data[2] });
+          setChartData({ ...response.data[0].chartData });
+          setStepsTable({ ...response.data[1].stepTable });
+        })
+        .catch((error) => {
+          console.log(error);
+          console.log(paramsValue);
         });
     }
   }, [paramsValue]);
@@ -440,7 +446,6 @@ function AugmentedBonding() {
                 {marketScenarios.map((scenario) => (
                   <LabeledRadioButton
                     key={scenario.id}
-                    checked
                     margin
                     pX
                     id={scenario.id}
@@ -535,6 +540,7 @@ function AugmentedBonding() {
             <AugmentedBondingCurve
               balanceInThousands={chartData.balanceInThousands}
               price={chartData.price}
+              stepLinSpaces={chartData.stepLinSpaces}
             />
             <span className="font-bj text-sm text-neon-light px-16 py-2">
               Steps
