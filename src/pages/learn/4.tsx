@@ -35,7 +35,6 @@ function LearnFour() {
                 TEC tokens can be staked on these proposals to signal approval
                 of the request. Staked tokens accrue voting power, or
                 Conviction, continuously over time. The amount of tokens
-
                 currently voting on all proposals in Conviction Voting is
                 represented by the term <strong>Effective Supply</strong>. The
                 logarithmic function that decides the rate at which Conviction
