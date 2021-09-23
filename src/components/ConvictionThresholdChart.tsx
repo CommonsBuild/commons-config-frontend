@@ -8,7 +8,8 @@ interface ConvictionThresholdProps {
 }
 
 const options = {
-  maintainAspectRatio: false,
+  responsive: true,
+  aspectRatio: 2.75,
   plugins: {
     legend: {
       display: false,
@@ -28,12 +29,15 @@ const options = {
         color: '#FFFFFF',
         autoSkip: true,
         maxTicksLimit: 8,
+        callback(value) {
+          return `${value}%`;
+        },
       },
       beginAtZero: true,
     },
     yAxes: {
       suggestedMin: 0,
-      max: 90,
+      max: 100,
       grid: {
         display: false,
         borderColor: '#03B3FF',
@@ -41,7 +45,10 @@ const options = {
       ticks: {
         color: '#FFFFFF',
         autoSkip: true,
-        stepSize: 15,
+        stepSize: 20,
+        callback(value) {
+          return `${value}%`;
+        },
       },
       beginAtZero: true,
       position: 'left',
@@ -69,39 +76,31 @@ function ConvictionThresholdChart({
     ],
   };
   return (
-    <div style={{ maxHeight: '43vh' }} className="px-9 pb-6">
-      <div className="flex">
-        <div className="flex flex-col justify-between mr-4">
-          <p className="font-bj font-bold text-xs text-right uppercase pb-3 text-neon-light w-28 z-10">
-            % of <span className="text-neon">effective Supply</span> voting this
-            proposal
-          </p>
-          <p className="font-bj font-bold text-xs text-center uppercase p-2 text-neon-light w-32 bg-gray-700 z-10">
-            minimum % of tokens needed to pass
-          </p>
-        </div>
-        <div
-          style={{ height: 'calc(40vh - 88px)', width: '37vw' }}
-          className="flex mt-12"
-        >
-          <Line
-            className="relative z-10"
-            data={data}
-            options={options}
-            height={90}
-          />
-        </div>
-        <div className="text-right mt-auto w-56">
-          <span className="font-bj font-bold text-xs uppercase text-neon-light relative">
-            % of commons pool funds being requested
-          </span>
+    <>
+      <div className="w-20 h-0 text-right relative -top-2 -left-14">
+        <span className="font-bj font-bold text-xxs text-neon-light uppercase">
+          % of <b>effective supply</b> voting this proposal
+        </span>
+      </div>
+      <div className="flex justify-center py-2">
+        <div className="w-11/12">
+          <Line data={data} options={options} />
+          <div className="relative h-3/5 abc-chart">
+            <Image layout="fill" src="/chart_bg.png" />
+          </div>
         </div>
       </div>
-
-      <div className="relative h-2/4 curve-chart">
-        <Image src="/chart_bg.png" layout="fill" />
+      <div className="w-24 h-0 ml-auto text-right relative bottom-12 -right-12">
+        <span className="font-bj font-bold text-xxs text-neon-light uppercase">
+          % of commons pool funds being requested
+        </span>
       </div>
-    </div>
+      <div className="w-28 h-0 text-center relative bottom-24 -left-20 ">
+        <span className="inline-block font-bj font-bold text-xxs text-neon-light uppercase p-2 bg-black-200">
+          minimum % of tokens needed to pass
+        </span>
+      </div>
+    </>
   );
 }
 

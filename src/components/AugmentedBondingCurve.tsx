@@ -4,6 +4,11 @@ import { Line } from 'react-chartjs-2';
 import Tooltip from '@/components/Tooltip';
 import useHover from '@/utils/useHover';
 
+interface AugmentedBondingProps {
+  balanceInThousands: [];
+  price: [];
+}
+
 const options = {
   responsive: true,
   aspectRatio: 2.75,
@@ -40,11 +45,6 @@ const options = {
     },
   },
 };
-
-interface AugmentedBondingProps {
-  balanceInThousands: [];
-  price: [];
-}
 
 function AugmentedBondingCurve({
   balanceInThousands,
