@@ -182,7 +182,7 @@ function DisputableVoting() {
       paramName: 'EXECUTION_DELAY',
       value: paramsValue.executionDelay,
       param: 'Execution Delay',
-      placehoder: 'days',
+      placehoder: 'hours',
       tooltipText:
         'The amount of time after a vote passes before the proposed action is executed',
     },
@@ -229,7 +229,7 @@ function DisputableVoting() {
         <title>Config 3 | Commons Dashboard</title>
       </Head>
       <div className="lg:min-h-screen bg-dash bg-cover">
-        <Dialog title="Disputable Voting" isOpen={isOpen}>
+        <Dialog title="Vote Phase Proportions" isOpen={isOpen}>
           <div style={{ maxWidth: '350px' }} className="py-8 m-auto">
             <PieChart
               nonQuietVotingPeriod={pieChartData.nonQuietVotingPeriod}
@@ -253,7 +253,7 @@ function DisputableVoting() {
         <Navbar />
         <div className="lg:flex">
           <Card
-            title="disputable voting"
+            title="tao voting"
             previousPanel="Back"
             previousHref="/config/1"
             nextPanel="Requesting Funds"
@@ -275,6 +275,14 @@ function DisputableVoting() {
                 tooltipText={input.tooltipText}
               />
             ))}
+            <a
+              href="/learn/3"
+              target="_blank"
+              rel="noreferrer"
+              className="block font-bj font-bold text-neon leading-loose uppercase"
+            >
+              confused?
+            </a>
           </Card>
           <div className="flex flex-col w-10/12 mx-auto mt-4 shadow-2xl lg:w-7/12">
             <h1 className="font-bj text-gray-100 text-2xl text-center px-9 pt-6 pb-3 lg:text-left">

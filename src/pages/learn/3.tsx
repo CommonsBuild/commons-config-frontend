@@ -74,7 +74,7 @@ function LearnThree() {
               <p className="font-bold">Delegation</p>
               <br />
               <p>
-                TEC Token holders can delegate their disputable voting powers to
+                TEC Token holders can delegate their Tao Voting powers to
                 another member who will cast votes on their behalf, these
                 members become delegates. Delegates can only vote during the
                 Delegate Voting Period, which is a specified amount of time at
