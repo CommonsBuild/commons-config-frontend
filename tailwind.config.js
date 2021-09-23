@@ -14,7 +14,6 @@ module.exports = {
         learn: "url('/assets/learn-circle-bg.png')",
         dialog: "url('/dialog.png')",
       }),
-
       colors: {
         neon: {
           DEFAULT: '#DEFB48',
