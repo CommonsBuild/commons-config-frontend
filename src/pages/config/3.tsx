@@ -308,7 +308,7 @@ function DisputableVoting() {
             subtitle={paramsContent[paramSelected].description}
           >
             <div
-              className="relative h-0 ml-96 cursor-pointer"
+              className="relative h-0 left-3/4 cursor-pointer"
               onClick={() => handleDialog()}
             >
               <Image src="/pie_icon.svg" width="24" height="24" />
