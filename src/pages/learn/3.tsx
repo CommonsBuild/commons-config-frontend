@@ -3,7 +3,7 @@ import Checkbox from '@/components/Chekbox';
 
 function LearnThree() {
   return (
-    <Learn title="Learn 4 | Commons Dashboard" nextHref="/learn/4">
+    <Learn title="Learn 3 | Commons Dashboard" nextHref="/learn/4">
       <h3 className="text-bj font-bold text-3xl">Tao Voting</h3>
       <div className="font-inter">
         <br />

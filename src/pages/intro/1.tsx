@@ -2,7 +2,7 @@ import Intro from '@/templates/Intro';
 
 function IntroOne() {
   return (
-    <Intro title="Intro 2 | Commons Dashboard" nextHref="/intro/3">
+    <Intro title="Intro 1 | Commons Dashboard" nextHref="/intro/2">
       <h3 className="text-bj font-bold text-4xl">
         Transitioning from the Hatch
       </h3>
