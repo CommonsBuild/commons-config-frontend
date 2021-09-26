@@ -9,6 +9,7 @@ interface CardProps {
   nextPanel?: string;
   nextHref?: string;
   title: string;
+  submitProposal: boolean;
 }
 
 function Card({
@@ -18,6 +19,7 @@ function Card({
   nextPanel,
   nextHref,
   title,
+  submitProposal,
 }: CardProps) {
   return (
     <div className="self-start flex flex-col bg-black-100 mx-16 my-4 pt-2 pb-6 px-9 lg:w-96 lg:mt-8">
@@ -50,7 +52,7 @@ function Card({
             <></>
           )}
         </div>
-        <NeonButton disabled fullWidth href="/config/2">
+        <NeonButton disabled={submitProposal} fullWidth href="/config/2">
           submit proposal
         </NeonButton>
       </div>
