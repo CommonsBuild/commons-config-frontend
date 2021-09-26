@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { motion, Variants } from 'framer-motion';
 import Head from 'next/head';
 import axios from 'axios';
 
@@ -6,6 +7,21 @@ import Card from '@/components/Card';
 import Input from '@/components/Input';
 import { ConfigNavbar as Navbar } from '@/components/Navbar';
 import LineChart from '@/components/LineChart';
+
+const configFade: Variants = {
+  animate: {
+    opacity: 1,
+    transition: { ease: 'easeInOut', duration: 0.6 },
+  },
+  initial: {
+    opacity: 0.8,
+    transition: { ease: 'easeInOut', duration: 0.6 },
+  },
+  exit: {
+    opacity: 0,
+    transition: { ease: 'easeInOut', duration: 0.6 },
+  },
+};
 
 type ParamsOptionsType = 'OPENING_PRICE' | 'TOKEN_FREEZE' | 'TOKEN_THAW';
 
@@ -151,34 +167,46 @@ function Dashboard() {
             />
           </Card>
           <div className="flex flex-col bg-transparent w-10/12 mx-auto mt-4 lg:w-7/12">
-            <h1 className="font-bj text-gray-100 text-2xl text-center px-9 pt-6 pb-3 lg:text-left">
-              {paramsContent[paramSelected].question}
-            </h1>
-            <h3 className="font-inter text-gray-300 text-center text-xs px-9 pb-6 lg:text-left">
-              {paramsContent[paramSelected].description}
-            </h3>
-            <LineChart price={chartData.price} week={chartData.week} />
-            <div className="min-w-full px-9 pt-2 pb-2 font-bj text-neon-light text-xs">
-              <div className="flex justify-between pb-2 mb-2 border-b border-gray-100 uppercase font-bold">
-                <div className="w-1/3 max-w-144 table-text"># of weeks</div>
-                <div className="w-1/3 max-w-144">% tokens released</div>
-                <div className="w-1/3 max-w-144">price floor of token</div>
-              </div>
-              {tableData.price.map((elem, index) => (
-                <div
-                  key={index}
-                  className="flex justify-between py-1 hover:bg-cyan-700 cursor-pointer"
-                >
-                  <div className="w-1/3 max-w-144">
-                    {tableData.week[index]} weeks
-                  </div>
-                  <div className="w-1/3 max-w-144">
-                    {Number(tableData.tokensReleased[index].toFixed(2)) * 100}%
-                  </div>
-                  <div className="w-1/3 max-w-144">{elem.toFixed(2)} wxDAI</div>
+            <motion.div
+              key={paramSelected}
+              animate={{ opacity: 1 }}
+              initial={{ opacity: 0.8 }}
+              transition={{ ease: 'easeIn' }}
+            >
+              <h1 className="font-bj text-gray-100 text-2xl text-center px-9 pt-6 pb-3 lg:text-left">
+                {paramsContent[paramSelected].question}
+              </h1>
+              <h3 className="font-inter text-gray-300 text-center text-xs px-9 pb-6 lg:text-left">
+                {paramsContent[paramSelected].description}
+              </h3>
+            </motion.div>
+            <motion.div layout>
+              <LineChart price={chartData.price} week={chartData.week} />
+              <div className="min-w-full px-9 pt-2 pb-2 font-bj text-neon-light text-xs">
+                <div className="flex justify-between pb-2 mb-2 border-b border-gray-100 uppercase font-bold">
+                  <div className="w-1/3 max-w-144 table-text"># of weeks</div>
+                  <div className="w-1/3 max-w-144">% tokens released</div>
+                  <div className="w-1/3 max-w-144">price floor of token</div>
                 </div>
-              ))}
-            </div>
+                {tableData.price.map((elem, index) => (
+                  <div
+                    key={index}
+                    className="flex justify-between py-1 hover:bg-cyan-700 cursor-pointer"
+                  >
+                    <div className="w-1/3 max-w-144">
+                      {tableData.week[index]} weeks
+                    </div>
+                    <div className="w-1/3 max-w-144">
+                      {Number(tableData.tokensReleased[index].toFixed(2)) * 100}
+                      %
+                    </div>
+                    <div className="w-1/3 max-w-144">
+                      {elem.toFixed(2)} wxDAI
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>
