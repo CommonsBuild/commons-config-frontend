@@ -10,7 +10,7 @@ function LearnOne() {
       <Head>
         <title>Learn 1 | Commons Dashboard</title>
       </Head>
-      <div className="min-h-screen bg-300">
+      <div className="min-h-screen bg-black-300">
         <Navbar
           href="/learn/done"
           text="finish learning"
