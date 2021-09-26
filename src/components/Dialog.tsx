@@ -18,7 +18,7 @@ function Dialog({ bg, children, isOpen, title }: DialogProps) {
       )}
     >
       <div
-        className={classnames('m-auto max-w-lg', {
+        className={classnames('m-auto max-w-xl w-full', {
           'bg-dialog': bg,
           'bg-black': !bg,
         })}

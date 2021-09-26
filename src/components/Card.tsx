@@ -52,7 +52,7 @@ function Card({
             <></>
           )}
         </div>
-        <NeonButton disabled={submitProposal} fullWidth href="/config/2">
+        <NeonButton disabled={submitProposal} fullWidth href="/config/submit">
           submit proposal
         </NeonButton>
       </div>
