@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import NeonButton from './NeonButton';
 
@@ -11,6 +10,7 @@ interface CardProps {
   previousPanel?: string;
   previousHref?: string;
   title: string;
+  submitProposal: boolean;
 }
 
 function Card({
@@ -21,47 +21,45 @@ function Card({
   previousPanel,
   previousHref,
   title,
+  submitProposal,
 }: CardProps) {
   return (
-    <div className="self-start flex flex-col bg-black-100 mx-16 my-4 py-6 px-9 lg:w-96 lg:mt-8">
+    <div className="self-start flex flex-col bg-black-100 mx-16 my-4 pt-2 pb-6 px-9 lg:w-96 lg:mt-8">
       <h3 className="font-bj font-bold text-sm text-gray-100 mb-4 uppercase">
         {title}
       </h3>
       {children}
-      <div className="w-full mt-4">
-        <div className="flex justify-between">
+      <div className="w-full mt-2">
+        <div className="flex justify-between gap-2 mb-2">
           {previousPanel ? (
             <Link href={previousHref}>
-              <div className="flex justify-end items-center font-bj text-right text-xs text-gray-100 cursor-pointer py-2">
-                <Image
-                  src="/assets/arrow-left.svg"
-                  alt="Left arrow icon."
-                  width="20"
-                  height="20"
-                />
-                {previousPanel}
-              </div>
+              <a className="flex justify-center w-full py-2 border border-neon">
+                <label className="font-bj font-bold text-neon uppercase">
+                  back
+                </label>
+              </a>
             </Link>
           ) : (
-            <div />
+            <></>
           )}
           {nextPanel ? (
             <Link href={nextHref}>
-              <div className="flex justify-end items-center font-bj text-right text-xs text-gray-100 cursor-pointer py-2">
-                {nextPanel}
-                <Image
-                  src="/assets/arrow-right.svg"
-                  alt="Right arrow icon."
-                  width="20"
-                  height="20"
-                />
-              </div>
+              <a className="flex justify-center w-full py-2 border border-neon">
+                <span className="font-bj font-bold text-neon uppercase">
+                  next
+                </span>
+              </a>
             </Link>
           ) : (
-            <div />
+            <></>
           )}
         </div>
-        <NeonButton hidden={hiddenButton} disabled fullWidth href="/config/2">
+        <NeonButton
+          disabled={submitProposal}
+          hidden={hiddenButton}
+          fullWidth
+          href="/config/submit"
+        >
           submit proposal
         </NeonButton>
       </div>

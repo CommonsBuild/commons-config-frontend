@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Head from 'next/head';
 import axios from 'axios';
-
+import ChartContainer from '@/components/ChartContainer';
 import Card from '@/components/Card';
 import ChartLegend from '@/components/ChartLegend';
 import HorizontalBarChart from '@/components/HorizontalBarChart';
@@ -10,6 +10,8 @@ import Input from '@/components/Input';
 import { ConfigNavbar as Navbar } from '@/components/Navbar';
 import Dialog from '@/components/Dialog';
 import PieChart from '@/components/PieChart';
+import RedirectButton from '@/components/RedirectButton';
+import { useParams } from '@/hooks/useParams';
 
 type ParamsOptionsType =
   | 'SUPPORT_REQUIRED'
@@ -19,16 +21,6 @@ type ParamsOptionsType =
   | 'QUIET_ENDING_PERIOD'
   | 'QUIET_ENDING_EXTENSION'
   | 'EXECUTION_DELAY';
-
-interface DisputableVotingParams {
-  supportRequired: string;
-  minimumQuorum: string;
-  voteDuration: string;
-  delegatedVotingPeriod: string;
-  quietEndingPeriod: string;
-  quietEndingExtension: string;
-  executionDelay: string;
-}
 
 interface BarChartParams {
   nonQuietVotingPeriod: number;
@@ -47,31 +39,60 @@ interface PieChartParams {
 }
 
 const paramsContent = {
-  SUPPORT_REQUIRED: 'What percent of yes votes are needed to pass a proposal?',
-  MINIMUM_QUORUM:
-    'What percent of all tokens are needed to vote on a proposal in order for it to be valid?',
-  VOTE_DURATION: 'How many days should voting on a proposal last?',
-  DELEGATED_VOTING_PERIOD:
-    'How many days should delegates be allowed to vote within the Vote Duration?',
-  QUIET_ENDING_PERIOD:
-    'For how many days at the latter end of the Vote Duration should a flipped voting outcome cause an extension?',
-  QUIET_ENDING_EXTENSION:
-    'How many days should be added to a Vote Duration from a vote changing outcome during the Quiet Ending Period?',
-  EXECUTION_DELAY:
-    'How much time should pass from when the vote closes until the outcome is executed?',
+  SUPPORT_REQUIRED: {
+    question: 'What percent of yes votes are needed to pass a proposal?',
+    description:
+      'The percent of votes that must be in favour of this proposal.',
+  },
+  MINIMUM_QUORUM: {
+    question:
+      'What percent of all tokens are needed to vote on a proposal in order for it to be valid?',
+    description:
+      'The percent of all tokens that must vote on a proposal in order for it to be valid.',
+  },
+  VOTE_DURATION: {
+    question: 'How many days should voting on a proposal last?',
+    description: 'The amount of time a proposal is eligible to be voted on.',
+  },
+  DELEGATED_VOTING_PERIOD: {
+    question:
+      'How many days should delegates be allowed to vote within the Vote Duration?',
+    description:
+      'The amount of time delegates are permitted to vote on a proposal.',
+  },
+  QUIET_ENDING_PERIOD: {
+    question:
+      'For how many days at the latter end of the Vote Duration should a flipped voting outcome cause an extension?',
+    description:
+      'If the voting outcome changes during this time the Quiet Ending Extension will trigger, extending the Vote Duration.',
+  },
+  QUIET_ENDING_EXTENSION: {
+    question:
+      'How many days should be added to a Vote Duration from a vote changing outcome during the Quiet Ending Period?',
+    description:
+      'The amount of time added to the Vote Duration resulting from the vote outcome changing during the Quiet Ending.',
+  },
+  EXECUTION_DELAY: {
+    question:
+      'How much time should pass from when the vote closes until the outcome is executed?',
+    description:
+      'The amount of time added to the Vote Duration resulting from the vote outcome changing during the Quiet Ending.',
+  },
 };
 
 function DisputableVoting() {
-  const [paramsValue, setParamsValue] = useState<DisputableVotingParams>({
-    supportRequired: '10',
-    minimumQuorum: '20',
-    voteDuration: '20',
-    delegatedVotingPeriod: '5',
-    quietEndingPeriod: '5',
-    quietEndingExtension: '10',
-    executionDelay: '7',
-  });
-
+  const {
+    supportRequired,
+    minimumQuorum,
+    voteDuration,
+    delegatedVotingPeriod,
+    quietEndingPeriod,
+    quietEndingExtension,
+    executionDelay,
+    submitProposal,
+    setParams,
+    handleChange,
+  } = useParams();
   const [barChartData, setBarChartData] = useState<BarChartParams>({
     nonQuietVotingPeriod: 0,
     voteDuration: 0,
@@ -80,7 +101,6 @@ function DisputableVoting() {
     quietEndingExtension: 0,
     executionDelay: 0,
   });
-
   const [pieChartData, setPieChartData] = useState<PieChartParams>({
     nonQuietVotingPeriod: 0,
     quietEndingPeriod: 0,
@@ -92,30 +112,6 @@ function DisputableVoting() {
     useState<ParamsOptionsType>('SUPPORT_REQUIRED');
 
   const [isOpen, setIsOpen] = useState(false);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name } = event.target;
-    const { value } = event.target;
-
-    setParamsValue({
-      ...paramsValue,
-      [name]: value,
-    });
-  };
-
-  const handleNumeriChange = (event) => {
-    const { name } = event.target;
-    let { value } = event.target;
-
-    if (Number(value) > 100) {
-      value = 100;
-    }
-
-    setParamsValue({
-      ...paramsValue,
-      [name]: value,
-    });
-  };
 
   const handleDialog = () => {
     setIsOpen(!isOpen);
@@ -141,108 +137,133 @@ function DisputableVoting() {
     {
       name: 'supportRequired',
       paramName: 'SUPPORT_REQUIRED',
-      value: paramsValue.supportRequired,
+      value: supportRequired,
       param: 'Support Required',
-      placehoder: '%',
+      placeholder: '%',
       tooltipText:
         'The percent of votes that must be in favour of this proposal.',
-      numeric: true,
     },
     {
       name: 'minimumQuorum',
       paramName: 'MINIMUM_QUORUM',
-      value: paramsValue.minimumQuorum,
+      value: minimumQuorum,
       param: 'Minimum Quorum',
-      placehoder: '%',
+      placeholder: '%',
       tooltipText:
         'The percent of all tokens that must vote on a proposal in order for it to be valid.',
-      numeric: true,
     },
     {
       name: 'voteDuration',
       paramName: 'VOTE_DURATION',
-      value: paramsValue.voteDuration,
+      value: voteDuration,
       param: 'Vote Duration',
-      placehoder: 'days',
+      placeholder: 'days',
       tooltipText: 'The amount of time a proposal is eligible to be voted on.',
-      numeric: false,
     },
     {
       name: 'delegatedVotingPeriod',
       paramName: 'DELEGATED_VOTING_PERIOD',
-      value: paramsValue.delegatedVotingPeriod,
+      value: delegatedVotingPeriod,
       param: 'Delegated Voting Period',
-      placehoder: 'days',
+      placeholder: 'days',
       tooltipText:
         'The amount of time delegates are permitted to vote on a proposal.',
-      numeric: false,
     },
     {
       name: 'quietEndingPeriod',
       paramName: 'QUIET_ENDING_PERIOD',
-      value: paramsValue.quietEndingPeriod,
+      value: quietEndingPeriod,
       param: 'Quiet Ending Period',
-      placehoder: 'days',
+      placeholder: 'days',
       tooltipText:
         'If the voting outcome changes during this time the Quiet Ending Extension will trigger, extending the Vote Duration.',
-      numeric: false,
     },
     {
       name: 'quietEndingExtension',
       paramName: 'QUIET_ENDING_EXTENSION',
-      value: paramsValue.quietEndingExtension,
+      value: quietEndingExtension,
       param: 'Quiet Ending Extension',
-      placehoder: 'days',
+      placeholder: 'days',
       tooltipText:
         'The amount of time added to the Vote Duration resulting from the vote outcome changing during the Quiet Ending.',
-      numeric: false,
     },
     {
       name: 'executionDelay',
       paramName: 'EXECUTION_DELAY',
-      value: paramsValue.executionDelay,
+      value: executionDelay,
       param: 'Execution Delay',
-      placehoder: 'days',
+      placeholder: 'days',
       tooltipText:
         'The amount of time after a vote passes before the proposed action is executed',
-      numeric: false,
     },
   ];
 
   useEffect(() => {
-    const values = Object.values(paramsValue);
-    const validParams = values.every((elem) => elem !== '');
-    if (validParams) {
-      axios
-        .post(
-          'https://dev-commons-config-backend.herokuapp.com/disputable-voting/',
-          {
-            ...paramsValue,
-            'support-required': Number(paramsValue['support-required']) / 100,
-            'minimum-quorum': Number(paramsValue['minimum-quorum']) / 100,
-          }
-        )
-        .then((response) => {
-          const { output } = response.data;
-          const { barChart } = output;
-          const { pieChart } = output;
-
-          setBarChartData({
-            nonQuietVotingPeriod:
-              barChart.totalProposalProcess.nonQuietVotingPeriod,
-            voteDuration: barChart.voteDuration,
-            delegatedVotingPeriod:
-              barChart.delegatedVoting.delegatedVotingPeriod,
-            quietEndingPeriod: barChart.totalProposalProcess.quietEndingPeriod,
-            quietEndingExtension:
-              barChart.proposalProcessWithExtension.quietEndingExtension,
-            executionDelay:
-              barChart.proposalProcessWithExtension.executionDelay,
-          });
-          setPieChartData(pieChart);
-        });
+    if (
+      [
+        supportRequired,
+        minimumQuorum,
+        voteDuration,
+        delegatedVotingPeriod,
+        quietEndingPeriod,
+        quietEndingExtension,
+        executionDelay,
+      ].every((elem) => elem === '')
+    ) {
+      setParams((previousParams) => ({
+        ...previousParams,
+        supportRequired: '10',
+        minimumQuorum: '20',
+        voteDuration: '20',
+        delegatedVotingPeriod: '5',
+        quietEndingPeriod: '5',
+        quietEndingExtension: '10',
+        executionDelay: '7',
+      }));
     }
-  }, [paramsValue]);
+  }, []);
+
+  useEffect(() => {
+    axios
+      .post(
+        'https://dev-commons-config-backend.herokuapp.com/disputable-voting/',
+        {
+          supportRequired: Number(supportRequired) / 100,
+          minimumQuorum: Number(minimumQuorum) / 100,
+          voteDuration,
+          delegatedVotingPeriod,
+          quietEndingPeriod,
+          quietEndingExtension,
+          executionDelay,
+        }
+      )
+      .then((response) => {
+        const { output } = response.data;
+        const { barChart } = output;
+        const { pieChart } = output;
+
+        setBarChartData({
+          nonQuietVotingPeriod:
+            barChart.totalProposalProcess.nonQuietVotingPeriod,
+          voteDuration: barChart.voteDuration,
+          delegatedVotingPeriod: barChart.delegatedVoting.delegatedVotingPeriod,
+          quietEndingPeriod: barChart.totalProposalProcess.quietEndingPeriod,
+          quietEndingExtension:
+            barChart.proposalProcessWithExtension.quietEndingExtension,
+          executionDelay: barChart.proposalProcessWithExtension.executionDelay,
+        });
+        setPieChartData(pieChart);
+      })
+      .catch((error) => console.log(error));
+  }, [
+    supportRequired,
+    minimumQuorum,
+    voteDuration,
+    delegatedVotingPeriod,
+    quietEndingPeriod,
+    quietEndingExtension,
+    executionDelay,
+  ]);
 
   return (
     <>
@@ -259,26 +280,27 @@ function DisputableVoting() {
               executionDelay={pieChartData.executionDelay}
             />
           </div>
-          <div className="grid grid-cols-2">
+          <div className="grid grid-cols-2 px-12">
             {pieChartLegend.map((legend) => (
               <ChartLegend name={legend.name} bgColor={legend.bgColor} />
             ))}
           </div>
           <button
-            className="flex m-auto uppercase font-bj font-bold text-neon text-xs pt-6"
+            className="flex m-auto uppercase font-bj font-bold text-neon text-xs py-6"
             onClick={() => handleDialog()}
           >
             close
           </button>
         </Dialog>
         <Navbar />
-        <div className="lg:flex">
+        <div className="flex justify-center">
           <Card
             title="tao voting"
             previousPanel="Back"
-            previousHref="/config/1"
+            previousHref="/config/2"
             nextPanel="Requesting Funds"
             nextHref="/config/4"
+            submitProposal={!submitProposal}
           >
             {inputs.map((input) => (
               <Input
@@ -290,21 +312,20 @@ function DisputableVoting() {
                   setParamSelected(input.paramName as ParamsOptionsType)
                 }
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  input.numeric
-                    ? handleNumeriChange(event)
-                    : handleChange(event)
+                  handleChange(event)
                 }
-                placeholder={input.placehoder}
+                placeholder={input.placeholder}
                 tooltipText={input.tooltipText}
               />
             ))}
+            <RedirectButton href="/learn/3" />
           </Card>
-          <div className="flex flex-col w-10/12 mx-auto mt-4 shadow-2xl lg:w-7/12">
-            <h1 className="font-bj text-gray-100 text-2xl text-center px-9 pt-6 pb-3 lg:text-left">
-              {paramsContent[paramSelected]}
-            </h1>
+          <ChartContainer
+            title={paramsContent[paramSelected].question}
+            subtitle={paramsContent[paramSelected].description}
+          >
             <div
-              className="ml-auto px-9 cursor-pointer"
+              className="relative h-0 w-6 -right-3/4 cursor-pointer"
               onClick={() => handleDialog()}
             >
               <Image src="/pie_icon.svg" width="24" height="24" />
@@ -326,7 +347,7 @@ function DisputableVoting() {
                 />
               ))}
             </div>
-          </div>
+          </ChartContainer>
         </div>
       </div>
     </>

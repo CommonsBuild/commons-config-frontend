@@ -10,7 +10,7 @@ function LearnDone() {
       <Head>
         <title>Learn Done | Commons Dashboard</title>
       </Head>
-      <div className="flex flex-col bg-300 min-h-screen">
+      <div className="flex flex-col bg-black-300 min-h-screen">
         <Navbar href="/learn/" text="take me back" transparentBackground />
         <div className="flex-1 bg-300 bg-learn bg-no-repeat bg-left-bottom bg-blend-hard-light	text-center">
           <div className="container mx-auto flex flex-col items-center gap-12">

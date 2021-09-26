@@ -2,7 +2,13 @@ import React from 'react';
 import Image from 'next/image';
 import { Line } from 'react-chartjs-2';
 import Tooltip from '@/components/Tooltip';
-import useHover from '@/utils/useHover';
+import useHover from '@/hooks/useHover';
+
+interface AugmentedBondingProps {
+  balanceInThousands: number[];
+  price: number[];
+  stepLinSpaces: { [key: string]: number[] }[];
+}
 
 const options = {
   responsive: true,
@@ -27,6 +33,7 @@ const options = {
       },
     },
     yAxes: {
+      type: 'linear',
       grid: {
         display: false,
         borderColor: '#03B3FF',
@@ -49,14 +56,23 @@ interface AugmentedBondingProps {
 function AugmentedBondingCurve({
   balanceInThousands,
   price,
+  stepLinSpaces,
 }: AugmentedBondingProps) {
   const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
-  const data = {
-    labels: balanceInThousands,
-    datasets: [
+
+  const handleData = (xAxesData, yAxesData) => {
+    const data = [];
+    xAxesData.forEach((elem, index) => {
+      data.push({ x: elem, y: yAxesData[index] });
+    });
+
+    return data;
+  };
+
+  const handleDatasets = () => {
+    const datasets = [
       {
         label: 'Floor price',
-        // yAxisID: "leftScale",
         data: price,
         fill: false,
         borderColor: '#DEFB48',
@@ -64,9 +80,31 @@ function AugmentedBondingCurve({
         pointHoverRadius: 7,
         pointRadius: 0,
         pointStyle: 'rect',
+        backgroundColor: '',
       },
-    ],
+    ];
+
+    stepLinSpaces.forEach((elem, index) => {
+      datasets.push({
+        label: String(index),
+        fill: true,
+        data: handleData(elem.balanceInThousands, elem.price),
+        borderColor: '#DEFB48',
+        pointBackgroundColor: '#DEFB48',
+        pointHoverRadius: 7,
+        pointRadius: 0,
+        pointStyle: 'rect',
+        backgroundColor: 'rgba(65, 226, 130, 0.4)',
+      });
+    });
+    return datasets;
   };
+
+  const data = {
+    labels: balanceInThousands,
+    datasets: handleDatasets(),
+  };
+
   return (
     <>
       <div className="w-20 h-0 text-right relative -top-2 -left-14">
@@ -81,7 +119,8 @@ function AugmentedBondingCurve({
         >
           <div
             ref={questionRef}
-            className="grid grid-flow-col gap-2 justify-between items-center px-4 py-3 bg-black-200 "
+            className="grid grid-flow-col gap-2 justify-between items-center px-4 py-3 bg-black-200"
+            onClick={() => handleDatasets()}
           >
             <span className="font-bj font-bold text-xxs text-neon-light">
               RESERVE RATIO: 20%
