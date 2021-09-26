@@ -9,6 +9,7 @@ import ConvictionGrowthChart from '@/components/ConvictionGrowthChart';
 import ConvictionThresholdChart from '@/components/ConvictionThresholdChart';
 import { ConfigNavbar as Navbar } from '@/components/Navbar';
 import RadioButton from '@/components/RadioButton';
+import { useParams } from '@/hooks/useParams';
 
 interface ConvictionGrowthDialogProps {
   convictionGrowth: string;
@@ -109,12 +110,6 @@ type ParamsOptionsType =
   | 'MINIMUM_CONVICTION'
   | 'CONVICTION_GROWTH';
 
-interface ConvictionVotingParams {
-  spendingLimit: number;
-  minimumConviction: number;
-  convictionGrowth: string;
-  convictionVotingPeriodDays: string;
-}
 interface ConvictionGrowthData {
   convictionPercentage: number[];
   timeDays: number[];
@@ -157,12 +152,15 @@ const radioButtons = [
 function ConvictionVoting() {
   const [paramSelected, setParamSelected] =
     useState<ParamsOptionsType>('SPENDING_LIMIT');
-  const [paramsValue, setParamsValue] = useState<ConvictionVotingParams>({
-    spendingLimit: 20,
-    minimumConviction: 5,
-    convictionGrowth: '2',
-    convictionVotingPeriodDays: '7',
-  });
+  const {
+    spendingLimit,
+    minimumConviction,
+    convictionGrowth,
+    convictionVotingPeriodDays,
+    submitProposal,
+    setParams,
+    handleChange,
+  } = useParams();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [growthChartData, setGrowthChartData] = useState<ConvictionGrowthData>({
     convictionPercentage: [],
@@ -176,21 +174,11 @@ function ConvictionVoting() {
       thresholdPercentage: [],
     });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name } = event.target;
-    const { value } = event.target;
-
-    setParamsValue({
-      ...paramsValue,
-      [name]: value,
-    });
-  };
-
   const inputs = [
     {
       name: 'spendingLimit',
       paramName: 'SPENDING_LIMIT',
-      value: paramsValue.spendingLimit,
+      value: spendingLimit,
       param: 'Spending Limit',
       placeholder: '%',
       tooltipText:
@@ -199,7 +187,7 @@ function ConvictionVoting() {
     {
       name: 'minimumConviction',
       paramName: 'MINIMUM_CONVICTION',
-      value: paramsValue.minimumConviction,
+      value: minimumConviction,
       param: 'Minimum Conviction',
       placeholder: '%',
       tooltipText:
@@ -208,7 +196,7 @@ function ConvictionVoting() {
     {
       name: 'convictionGrowth',
       paramName: 'CONVICTION_GROWTH',
-      value: paramsValue.convictionGrowth,
+      value: convictionGrowth,
       param: 'Conviction Growth',
       placeholder: 'days',
       tooltipText: 'The amount of time it takes to increase Conviction by 50%.',
@@ -224,32 +212,59 @@ function ConvictionVoting() {
   ];
 
   useEffect(() => {
-    const values = Object.values(paramsValue);
-    const validParams = values.every((elem) => elem !== '');
-    if (validParams) {
-      axios
-        .post(
-          'https://dev-commons-config-backend.herokuapp.com/conviction-voting/',
-          {
-            ...paramsValue,
-            spendingLimit: paramsValue.spendingLimit / 100,
-            minimumConviction: paramsValue.minimumConviction / 100,
-          }
-        )
-        .then((response) => {
-          const { output } = response.data;
-          setGrowthChartData({
-            ...output.convictionGrowthChart,
-            dataPoints: [
-              output.convictionGrowth80PercentageXY,
-              output.maxConvictionGrowthXY,
-            ],
-            table: output.table,
-          });
-          setThresholdChartData({ ...output.convictionThresholdChart });
+    console.log({
+      spendingLimit: Number(spendingLimit) / 100,
+      minimumConviction: Number(minimumConviction) / 100,
+      convictionGrowth,
+      convictionVotingPeriodDays,
+    });
+    axios
+      .post(
+        'https://dev-commons-config-backend.herokuapp.com/conviction-voting/',
+        {
+          spendingLimit: Number(spendingLimit) / 100,
+          minimumConviction: Number(minimumConviction) / 100,
+          convictionGrowth,
+          convictionVotingPeriodDays,
+        }
+      )
+      .then((response) => {
+        const { output } = response.data;
+        setGrowthChartData({
+          ...output.convictionGrowthChart,
+          dataPoints: [
+            output.convictionGrowth80PercentageXY,
+            output.maxConvictionGrowthXY,
+          ],
+          table: output.table,
         });
+        setThresholdChartData({ ...output.convictionThresholdChart });
+      });
+  }, [
+    spendingLimit,
+    minimumConviction,
+    convictionGrowth,
+    convictionVotingPeriodDays,
+  ]);
+
+  useEffect(() => {
+    if (
+      [
+        spendingLimit,
+        minimumConviction,
+        convictionGrowth,
+        convictionVotingPeriodDays,
+      ].every((elem) => elem === '')
+    ) {
+      setParams((previousParams) => ({
+        ...previousParams,
+        spendingLimit: '20',
+        minimumConviction: '5',
+        convictionGrowth: '2',
+        convictionVotingPeriodDays: '7',
+      }));
     }
-  }, [paramsValue]);
+  }, []);
 
   return (
     <>
@@ -258,7 +273,7 @@ function ConvictionVoting() {
       </Head>
       <div className="lg:min-h-screen bg-dash bg-cover">
         <ConvictionGrowthDialog
-          convictionGrowth={paramsValue.convictionGrowth}
+          convictionGrowth={convictionGrowth}
           convictionPercentage={growthChartData.convictionPercentage}
           dataPoints={growthChartData.dataPoints}
           handleClose={() => setDialogOpen(false)}
@@ -272,6 +287,7 @@ function ConvictionVoting() {
             title="conviction voting"
             previousPanel="Back"
             previousHref="/config/3"
+            submitProposal={!submitProposal}
           >
             {inputs.map((input) => (
               <Input
@@ -303,9 +319,7 @@ function ConvictionVoting() {
             <div className="flex flex-row-reverse justify-between max-w-2xl mx-auto px-2 py-6 bg-cyan-700 opacity-60">
               {radioButtons.map((button) => (
                 <RadioButton
-                  checked={
-                    button.value === paramsValue.convictionVotingPeriodDays
-                  }
+                  checked={button.value === convictionVotingPeriodDays}
                   onChange={(event) => handleChange(event)}
                   id={button.id}
                   label={button.label}

@@ -6,14 +6,9 @@ import Card from '@/components/Card';
 import Input from '@/components/Input';
 import { ConfigNavbar as Navbar } from '@/components/Navbar';
 import LineChart from '@/components/LineChart';
+import { useParams } from '@/hooks/useParams';
 
 type ParamsOptionsType = 'OPENING_PRICE' | 'TOKEN_FREEZE' | 'TOKEN_THAW';
-
-interface ParamsValues {
-  openingPrice: string;
-  tokenFreeze: string;
-  tokenThaw: string;
-}
 
 interface ChartData {
   price: number[];
@@ -47,11 +42,6 @@ const paramsContent = {
 };
 
 function Dashboard() {
-  const [paramsValue, setParamsValue] = useState<ParamsValues>({
-    openingPrice: '1',
-    tokenFreeze: '20',
-    tokenThaw: '5',
-  });
   const [chartData, setChartData] = useState<ChartData>({
     price: [],
     week: null,
@@ -61,53 +51,60 @@ function Dashboard() {
     tokensReleased: [],
     week: [],
   });
+  const {
+    openingPrice,
+    tokenFreeze,
+    tokenThaw,
+    submitProposal,
+    setParams,
+    handleChange,
+  } = useParams();
 
   const [paramSelected, setParamSelected] =
     useState<ParamsOptionsType>('OPENING_PRICE');
 
   useEffect(() => {
-    const values = Object.values(paramsValue);
-    const validParams = values.every((elem) => elem !== '');
-    if (validParams) {
-      axios
-        .post(
-          'https://commons-config-backend.herokuapp.com/token-lockup/',
-          paramsValue
-        )
-        .then((response) => {
-          const { output } = response.data;
-          const { chart } = output;
-          const { table } = output;
-
-          setChartData({
-            price: chart.price,
-            week: chart.week,
-          });
-
-          setTableData({
-            price: table.price,
-            tokensReleased: table.tokensReleased,
-            week: table.week,
-          });
-        });
+    if ([openingPrice, tokenFreeze, tokenThaw].every((elem) => elem === '')) {
+      setParams((previousParams) => ({
+        ...previousParams,
+        openingPrice: '2',
+        tokenFreeze: '30',
+        tokenThaw: '10',
+      }));
     }
-  }, [paramsValue]);
+  }, []);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name } = event.target;
-    const { value } = event.target;
+  useEffect(() => {
+    axios
+      .post('https://commons-config-backend.herokuapp.com/token-lockup/', {
+        openingPrice,
+        tokenFreeze,
+        tokenThaw,
+      })
+      .then((response) => {
+        const { output } = response.data;
+        const { chart } = output;
+        const { table } = output;
 
-    setParamsValue({
-      ...paramsValue,
-      [name]: value,
-    });
-  };
+        setChartData({
+          price: chart.price,
+          week: chart.week,
+        });
+
+        setTableData({
+          price: table.price,
+          tokensReleased: table.tokensReleased,
+          week: table.week,
+        });
+      })
+      .catch((e) => console.log(e));
+  }, [openingPrice, tokenFreeze, tokenThaw]);
 
   const inputs = [
     {
       name: 'openingPrice',
       paramName: 'OPENING_PRICE',
-      value: paramsValue.openingPrice,
+      value: openingPrice,
       param: 'Opening Price',
       placeholder: 'wxDAI',
       tooltipText:
@@ -116,7 +113,7 @@ function Dashboard() {
     {
       name: 'tokenFreeze',
       paramName: 'TOKEN_FREEZE',
-      value: paramsValue.tokenFreeze,
+      value: tokenFreeze,
       param: 'Token Freeze',
       placeholder: 'weeks',
       tooltipText:
@@ -125,7 +122,7 @@ function Dashboard() {
     {
       name: 'tokenThaw',
       paramName: 'TOKEN_THAW',
-      value: paramsValue.tokenThaw,
+      value: tokenThaw,
       param: 'Token Thaw',
       placeholder: 'weeks',
       tooltipText:
@@ -145,6 +142,7 @@ function Dashboard() {
             title="token freeze & token thaw"
             nextHref="/config/2"
             nextPanel="Modifying the Commons"
+            submitProposal={!submitProposal}
           >
             {inputs.map((input) => (
               <Input

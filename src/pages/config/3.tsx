@@ -10,6 +10,7 @@ import Input from '@/components/Input';
 import { ConfigNavbar as Navbar } from '@/components/Navbar';
 import Dialog from '@/components/Dialog';
 import PieChart from '@/components/PieChart';
+import { useParams } from '@/hooks/useParams';
 
 type ParamsOptionsType =
   | 'SUPPORT_REQUIRED'
@@ -19,16 +20,6 @@ type ParamsOptionsType =
   | 'QUIET_ENDING_PERIOD'
   | 'QUIET_ENDING_EXTENSION'
   | 'EXECUTION_DELAY';
-
-interface DisputableVotingParams {
-  supportRequired: number;
-  minimumQuorum: number;
-  voteDuration: string;
-  delegatedVotingPeriod: string;
-  quietEndingPeriod: string;
-  quietEndingExtension: string;
-  executionDelay: string;
-}
 
 interface BarChartParams {
   nonQuietVotingPeriod: number;
@@ -89,16 +80,18 @@ const paramsContent = {
 };
 
 function DisputableVoting() {
-  const [paramsValue, setParamsValue] = useState<DisputableVotingParams>({
-    supportRequired: 10,
-    minimumQuorum: 20,
-    voteDuration: '20',
-    delegatedVotingPeriod: '5',
-    quietEndingPeriod: '5',
-    quietEndingExtension: '10',
-    executionDelay: '7',
-  });
-
+  const {
+    supportRequired,
+    minimumQuorum,
+    voteDuration,
+    delegatedVotingPeriod,
+    quietEndingPeriod,
+    quietEndingExtension,
+    executionDelay,
+    submitProposal,
+    setParams,
+    handleChange,
+  } = useParams();
   const [barChartData, setBarChartData] = useState<BarChartParams>({
     nonQuietVotingPeriod: 0,
     voteDuration: 0,
@@ -107,7 +100,6 @@ function DisputableVoting() {
     quietEndingExtension: 0,
     executionDelay: 0,
   });
-
   const [pieChartData, setPieChartData] = useState<PieChartParams>({
     nonQuietVotingPeriod: 0,
     quietEndingPeriod: 0,
@@ -119,16 +111,6 @@ function DisputableVoting() {
     useState<ParamsOptionsType>('SUPPORT_REQUIRED');
 
   const [isOpen, setIsOpen] = useState(false);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name } = event.target;
-    const { value } = event.target;
-
-    setParamsValue({
-      ...paramsValue,
-      [name]: value,
-    });
-  };
 
   const handleDialog = () => {
     setIsOpen(!isOpen);
@@ -154,7 +136,7 @@ function DisputableVoting() {
     {
       name: 'supportRequired',
       paramName: 'SUPPORT_REQUIRED',
-      value: paramsValue.supportRequired,
+      value: supportRequired,
       param: 'Support Required',
       placeholder: '%',
       tooltipText:
@@ -163,7 +145,7 @@ function DisputableVoting() {
     {
       name: 'minimumQuorum',
       paramName: 'MINIMUM_QUORUM',
-      value: paramsValue.minimumQuorum,
+      value: minimumQuorum,
       param: 'Minimum Quorum',
       placeholder: '%',
       tooltipText:
@@ -172,7 +154,7 @@ function DisputableVoting() {
     {
       name: 'voteDuration',
       paramName: 'VOTE_DURATION',
-      value: paramsValue.voteDuration,
+      value: voteDuration,
       param: 'Vote Duration',
       placeholder: 'days',
       tooltipText: 'The amount of time a proposal is eligible to be voted on.',
@@ -180,7 +162,7 @@ function DisputableVoting() {
     {
       name: 'delegatedVotingPeriod',
       paramName: 'DELEGATED_VOTING_PERIOD',
-      value: paramsValue.delegatedVotingPeriod,
+      value: delegatedVotingPeriod,
       param: 'Delegated Voting Period',
       placeholder: 'days',
       tooltipText:
@@ -189,7 +171,7 @@ function DisputableVoting() {
     {
       name: 'quietEndingPeriod',
       paramName: 'QUIET_ENDING_PERIOD',
-      value: paramsValue.quietEndingPeriod,
+      value: quietEndingPeriod,
       param: 'Quiet Ending Period',
       placeholder: 'days',
       tooltipText:
@@ -198,7 +180,7 @@ function DisputableVoting() {
     {
       name: 'quietEndingExtension',
       paramName: 'QUIET_ENDING_EXTENSION',
-      value: paramsValue.quietEndingExtension,
+      value: quietEndingExtension,
       param: 'Quiet Ending Extension',
       placeholder: 'days',
       tooltipText:
@@ -207,7 +189,7 @@ function DisputableVoting() {
     {
       name: 'executionDelay',
       paramName: 'EXECUTION_DELAY',
-      value: paramsValue.executionDelay,
+      value: executionDelay,
       param: 'Execution Delay',
       placeholder: 'days',
       tooltipText:
@@ -216,39 +198,71 @@ function DisputableVoting() {
   ];
 
   useEffect(() => {
-    const values = Object.values(paramsValue);
-    const validParams = values.every((elem) => elem !== '');
-    if (validParams) {
-      axios
-        .post(
-          'https://dev-commons-config-backend.herokuapp.com/disputable-voting/',
-          {
-            ...paramsValue,
-            supportRequired: paramsValue.supportRequired / 100,
-            minimumQuorum: paramsValue.minimumQuorum / 100,
-          }
-        )
-        .then((response) => {
-          const { output } = response.data;
-          const { barChart } = output;
-          const { pieChart } = output;
-
-          setBarChartData({
-            nonQuietVotingPeriod:
-              barChart.totalProposalProcess.nonQuietVotingPeriod,
-            voteDuration: barChart.voteDuration,
-            delegatedVotingPeriod:
-              barChart.delegatedVoting.delegatedVotingPeriod,
-            quietEndingPeriod: barChart.totalProposalProcess.quietEndingPeriod,
-            quietEndingExtension:
-              barChart.proposalProcessWithExtension.quietEndingExtension,
-            executionDelay:
-              barChart.proposalProcessWithExtension.executionDelay,
-          });
-          setPieChartData(pieChart);
-        });
+    if (
+      [
+        supportRequired,
+        minimumQuorum,
+        voteDuration,
+        delegatedVotingPeriod,
+        quietEndingPeriod,
+        quietEndingExtension,
+        executionDelay,
+      ].every((elem) => elem === '')
+    ) {
+      setParams((previousParams) => ({
+        ...previousParams,
+        supportRequired: '10',
+        minimumQuorum: '20',
+        voteDuration: '20',
+        delegatedVotingPeriod: '5',
+        quietEndingPeriod: '5',
+        quietEndingExtension: '10',
+        executionDelay: '7',
+      }));
     }
-  }, [paramsValue]);
+  }, []);
+
+  useEffect(() => {
+    axios
+      .post(
+        'https://dev-commons-config-backend.herokuapp.com/disputable-voting/',
+        {
+          supportRequired: Number(supportRequired) / 100,
+          minimumQuorum: Number(minimumQuorum) / 100,
+          voteDuration,
+          delegatedVotingPeriod,
+          quietEndingPeriod,
+          quietEndingExtension,
+          executionDelay,
+        }
+      )
+      .then((response) => {
+        const { output } = response.data;
+        const { barChart } = output;
+        const { pieChart } = output;
+
+        setBarChartData({
+          nonQuietVotingPeriod:
+            barChart.totalProposalProcess.nonQuietVotingPeriod,
+          voteDuration: barChart.voteDuration,
+          delegatedVotingPeriod: barChart.delegatedVoting.delegatedVotingPeriod,
+          quietEndingPeriod: barChart.totalProposalProcess.quietEndingPeriod,
+          quietEndingExtension:
+            barChart.proposalProcessWithExtension.quietEndingExtension,
+          executionDelay: barChart.proposalProcessWithExtension.executionDelay,
+        });
+        setPieChartData(pieChart);
+      })
+      .catch((error) => console.log(error));
+  }, [
+    supportRequired,
+    minimumQuorum,
+    voteDuration,
+    delegatedVotingPeriod,
+    quietEndingPeriod,
+    quietEndingExtension,
+    executionDelay,
+  ]);
 
   return (
     <>
@@ -285,6 +299,7 @@ function DisputableVoting() {
             previousHref="/config/2"
             nextPanel="Requesting Funds"
             nextHref="/config/4"
+            submitProposal={!submitProposal}
           >
             {inputs.map((input) => (
               <Input
