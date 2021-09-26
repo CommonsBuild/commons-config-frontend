@@ -95,7 +95,6 @@ function ParamsProvider({ children }: AppParamsContextProps) {
       stepList,
       ...rest
     } = params;
-    console.log('rest', rest);
     const values = Object.keys(rest).map((key) => rest[key]);
     if (values.every((elem) => elem !== '') && stepList.length !== 0) {
       setSubmitProposal(true);
