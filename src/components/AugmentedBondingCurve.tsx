@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { Line } from 'react-chartjs-2';
 import Tooltip from '@/components/Tooltip';
-import useHover from '@/utils/useHover';
+import useHover from '@/hooks/useHover';
 
 interface AugmentedBondingProps {
   balanceInThousands: number[];

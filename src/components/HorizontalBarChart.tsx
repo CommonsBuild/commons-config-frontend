@@ -1,7 +1,7 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import Tooltip from './Tooltip';
-import useHover from '../utils/useHover';
+import useHover from '../hooks/useHover';
 
 const options = {
   responsive: true,
