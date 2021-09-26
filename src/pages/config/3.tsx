@@ -10,6 +10,7 @@ import Input from '@/components/Input';
 import { ConfigNavbar as Navbar } from '@/components/Navbar';
 import Dialog from '@/components/Dialog';
 import PieChart from '@/components/PieChart';
+import RedirectButton from '@/components/RedirectButton';
 import { useParams } from '@/hooks/useParams';
 
 type ParamsOptionsType =
@@ -279,13 +280,13 @@ function DisputableVoting() {
               executionDelay={pieChartData.executionDelay}
             />
           </div>
-          <div className="grid grid-cols-2">
+          <div className="grid grid-cols-2 px-12">
             {pieChartLegend.map((legend) => (
               <ChartLegend name={legend.name} bgColor={legend.bgColor} />
             ))}
           </div>
           <button
-            className="flex m-auto uppercase font-bj font-bold text-neon text-xs pt-6"
+            className="flex m-auto uppercase font-bj font-bold text-neon text-xs py-6"
             onClick={() => handleDialog()}
           >
             close
@@ -317,13 +318,14 @@ function DisputableVoting() {
                 tooltipText={input.tooltipText}
               />
             ))}
+            <RedirectButton href="/learn/3" />
           </Card>
           <ChartContainer
             title={paramsContent[paramSelected].question}
             subtitle={paramsContent[paramSelected].description}
           >
             <div
-              className="relative h-0 left-3/4 cursor-pointer"
+              className="relative h-0 w-6 -right-3/4 cursor-pointer"
               onClick={() => handleDialog()}
             >
               <Image src="/pie_icon.svg" width="24" height="24" />

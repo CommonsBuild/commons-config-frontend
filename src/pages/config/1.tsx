@@ -5,6 +5,7 @@ import ChartContainer from '@/components/ChartContainer';
 import Card from '@/components/Card';
 import Input from '@/components/Input';
 import { ConfigNavbar as Navbar } from '@/components/Navbar';
+import RedirectButton from '@/components/RedirectButton';
 import LineChart from '@/components/LineChart';
 import { useParams } from '@/hooks/useParams';
 
@@ -64,10 +65,10 @@ function Dashboard() {
     useState<ParamsOptionsType>('OPENING_PRICE');
 
   useEffect(() => {
-    if ([openingPrice, tokenFreeze, tokenThaw].every((elem) => elem === '')) {
+    if ([tokenFreeze, tokenThaw].every((elem) => elem === '')) {
       setParams((previousParams) => ({
         ...previousParams,
-        openingPrice: '2',
+        openingPrice: openingPrice || '2',
         tokenFreeze: '30',
         tokenThaw: '10',
       }));
@@ -160,6 +161,7 @@ function Dashboard() {
                 tooltipText={input.tooltipText}
               />
             ))}
+            <RedirectButton href="/learn/1" />
           </Card>
           <ChartContainer
             title={paramsContent[paramSelected].question}

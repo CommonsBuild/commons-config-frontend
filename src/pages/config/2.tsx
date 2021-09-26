@@ -11,7 +11,10 @@ import { ConfigNavbar as Navbar } from '@/components/Navbar';
 import useHover from '@/hooks/useHover';
 import Tooltip from '@/components/Tooltip';
 import AugmentedBondingCurve from '@/components/AugmentedBondingCurve';
+import RedirectButton from '@/components/RedirectButton';
 import { useParams } from '@/hooks/useParams';
+
+const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
 interface MarketScenarioDialogProps {
   handleClose: React.MouseEventHandler<HTMLButtonElement>;
@@ -90,6 +93,7 @@ function AddStepDialog({ handleClose, onClick, isOpen }: AddStepDialogProps) {
         <LabeledRadioButton
           margin
           pX
+          checked={stepData.type === 'wxDAI'}
           id="buy"
           label="buy"
           name="type"
@@ -100,6 +104,7 @@ function AddStepDialog({ handleClose, onClick, isOpen }: AddStepDialogProps) {
         <LabeledRadioButton
           margin
           pX
+          checked={stepData.type === 'TEC'}
           id="sell"
           label="sell"
           name="type"
@@ -333,6 +338,7 @@ function AugmentedBonding() {
   ];
 
   useEffect(() => {
+    console.log('trigger');
     axios
       .post(
         'https://abcurve-backend-test.herokuapp.com/augmented-bonding-curve/',
@@ -365,6 +371,7 @@ function AugmentedBonding() {
     initialBuy,
     ragequitPercentage,
     zoomGraph,
+    stepDialog,
   ]);
 
   useEffect(() => {
@@ -375,13 +382,14 @@ function AugmentedBonding() {
     ) {
       setParams((previousParams) => ({
         ...previousParams,
+        openingPrice: openingPrice || '2',
         commonsTribute: '5',
         entryTribute: '15',
         exitTribute: '15',
         reserveBalance: '1500000',
         stepList: [
           [5, 'TEC'],
-          [1000, 'wxDai'],
+          [1000, 'wxDAI'],
           [10, 'TEC'],
         ],
       }));
@@ -448,6 +456,7 @@ function AugmentedBonding() {
                     id={scenario.id}
                     label={scenario.id}
                     name="stepList"
+                    checked={equals(scenario.value, stepList.slice(0, 3))}
                     onChange={() => handleMarketScenario(scenario.value)}
                   />
                 ))}
@@ -529,6 +538,7 @@ function AugmentedBonding() {
                 </a>
               </div>
             </div>
+            <RedirectButton href="/learn/2" />
           </Card>
           <ChartContainer
             title={paramsContent[paramSelected].question}

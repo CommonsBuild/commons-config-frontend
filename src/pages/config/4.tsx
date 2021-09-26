@@ -9,6 +9,7 @@ import ConvictionGrowthChart from '@/components/ConvictionGrowthChart';
 import ConvictionThresholdChart from '@/components/ConvictionThresholdChart';
 import { ConfigNavbar as Navbar } from '@/components/Navbar';
 import RadioButton from '@/components/RadioButton';
+import RedirectButton from '@/components/RedirectButton';
 import { useParams } from '@/hooks/useParams';
 
 interface ConvictionGrowthDialogProps {
@@ -32,7 +33,7 @@ function ConvictionGrowthDialog({
 }: ConvictionGrowthDialogProps) {
   return (
     <Dialog title="Conviction Growth" isOpen={isOpen}>
-      <div className="py-8 m-auto">
+      <div className="py-8 m-auto w-11/12">
         <ConvictionGrowthChart
           convictionPercentage={convictionPercentage}
           timeDays={timeDays}
@@ -47,7 +48,7 @@ function ConvictionGrowthDialog({
           days
         </span>
       </div>
-      <div className="py-4">
+      <div className="py-4 px-16">
         <input
           className="slider"
           name="convictionGrowth"
@@ -59,7 +60,7 @@ function ConvictionGrowthDialog({
         />
       </div>
       <button
-        className="flex m-auto uppercase font-bj font-bold text-neon text-xs pt-6"
+        className="flex m-auto uppercase font-bj font-bold text-neon text-xs py-6"
         onClick={handleClose}
       >
         close
@@ -212,12 +213,6 @@ function ConvictionVoting() {
   ];
 
   useEffect(() => {
-    console.log({
-      spendingLimit: Number(spendingLimit) / 100,
-      minimumConviction: Number(minimumConviction) / 100,
-      convictionGrowth,
-      convictionVotingPeriodDays,
-    });
     axios
       .post(
         'https://dev-commons-config-backend.herokuapp.com/conviction-voting/',
@@ -239,7 +234,8 @@ function ConvictionVoting() {
           table: output.table,
         });
         setThresholdChartData({ ...output.convictionThresholdChart });
-      });
+      })
+      .catch((error) => console.log(error));
   }, [
     spendingLimit,
     minimumConviction,
@@ -307,6 +303,7 @@ function ConvictionVoting() {
                 {input.children}
               </Input>
             ))}
+            <RedirectButton href="/learn/4" />
           </Card>
           <ChartContainer
             title={paramsContent[paramSelected].question}
