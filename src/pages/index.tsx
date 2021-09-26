@@ -1,11 +1,10 @@
 import Head from 'next/head';
-import { motion } from 'framer-motion';
 
 import { Navbar } from '@/components/Navbar';
 import BorderedText from '@/components/BorderedText';
 import NeonButton from '@/components/NeonButton';
 import Tooltip from '@/components/Tooltip';
-import useHover from '@/utils/useHover';
+import useHover from '@/hooks/useHover';
 
 function Home() {
   const [hatchRef, hatchIsHovered] = useHover<HTMLDivElement>();

@@ -2,23 +2,115 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import axios from 'axios';
 import Card from '@/components/Card';
+import ChartContainer from '@/components/ChartContainer';
 import Dialog from '@/components/Dialog';
 import Input from '@/components/Input';
-import { ConfigNavbar as Navbar } from '@/components/Navbar';
-import ConvictionThresholdChart from '@/components/ConvictionThresholdChart';
 import ConvictionGrowthChart from '@/components/ConvictionGrowthChart';
+import ConvictionThresholdChart from '@/components/ConvictionThresholdChart';
+import { ConfigNavbar as Navbar } from '@/components/Navbar';
+import RadioButton from '@/components/RadioButton';
+import RedirectButton from '@/components/RedirectButton';
+import { useParams } from '@/hooks/useParams';
+
+interface ConvictionGrowthDialogProps {
+  convictionGrowth: string;
+  convictionPercentage: number[];
+  dataPoints: { [key: string]: number }[];
+  handleClose: React.MouseEventHandler<HTMLButtonElement>;
+  isOpen: boolean;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  timeDays: number[];
+}
+
+function ConvictionGrowthDialog({
+  convictionGrowth,
+  convictionPercentage,
+  dataPoints,
+  handleClose,
+  isOpen,
+  onChange,
+  timeDays,
+}: ConvictionGrowthDialogProps) {
+  return (
+    <Dialog title="Conviction Growth" isOpen={isOpen}>
+      <div className="py-8 m-auto w-11/12">
+        <ConvictionGrowthChart
+          convictionPercentage={convictionPercentage}
+          timeDays={timeDays}
+          dataPoints={dataPoints}
+        />
+      </div>
+      <div className="h-12 border border-gray-500 w-2/3 mx-auto flex justify-center items-center">
+        <span className="font-bj font-bold text-neon-light uppercase">
+          conviction growth: {convictionGrowth}
+        </span>
+        <span className="font-inter font-medium text-gray-200 text-xs px-1 pt-1">
+          days
+        </span>
+      </div>
+      <div className="py-4 px-16">
+        <input
+          className="slider"
+          name="convictionGrowth"
+          type="range"
+          min="1"
+          max="60"
+          value={convictionGrowth}
+          onChange={onChange}
+        />
+      </div>
+      <button
+        className="flex m-auto uppercase font-bj font-bold text-neon text-xs py-6"
+        onClick={handleClose}
+      >
+        close
+      </button>
+    </Dialog>
+  );
+}
+
+interface ScenarioTableProps {
+  table: { [key: string]: (number | string)[] };
+}
+
+function ScenarioTable({ table }: ScenarioTableProps) {
+  const scenarioTableVariables = [
+    'Amount in Common Pool (wxDai)',
+    'Requested Amount (wxDAI)',
+    'Min. tokens needed to pass',
+    'Tokens needed to pass in 2 weeks',
+    'Total effective supply',
+  ];
+  return (
+    <div className="pl-16 pt-6 pb-2 font-bj text-neon-light text-xs">
+      <div className="flex justify-between pb-2 mb-2 border-b border-gray-100 uppercase font-bold">
+        <div className="w-2/6 max-w-144">variables</div>
+        <div className="w-1/6 max-w-144">scenario 1</div>
+        <div className="w-1/6 max-w-144">scenario 2</div>
+        <div className="w-1/6 max-w-144">scenario 3</div>
+        <div className="w-1/6 max-w-144">scenario 4</div>
+        <div className="w-1/6 max-w-144">scenario 5</div>
+        <div className="w-1/6 max-w-144">scenario 6</div>
+      </div>
+      {Object.keys(table).map((key, index) => (
+        <div className="flex justify-between items-center mb-2 hover:bg-cyan-700 cursor-pointer">
+          <div className="w-1/6 max-w-144 first:w-2/6">
+            {scenarioTableVariables[index]}
+          </div>
+          {table[key].map((row) => (
+            <span className="w-1/6 max-w-144">{row}</span>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
 
 type ParamsOptionsType =
   | 'SPENDING_LIMIT'
   | 'MINIMUM_CONVICTION'
   | 'CONVICTION_GROWTH';
 
-interface ConvictionVotingParams {
-  spendingLimit: number;
-  minimumConviction: number;
-  convictionGrowth: string;
-  convictionVotingPeriodDays: string;
-}
 interface ConvictionGrowthData {
   convictionPercentage: number[];
   timeDays: number[];
@@ -58,23 +150,18 @@ const radioButtons = [
   { id: 'radio1', label: '7 Days', value: '7' },
 ];
 
-const tableRowName = [
-  'Amount in Common Pool (wxDai)',
-  'Requested Amount (wxDAI)',
-  'Min. tokens needed to pass',
-  'Tokens needed to pass in 2 weeks',
-  'Total effective supply',
-];
-
 function ConvictionVoting() {
   const [paramSelected, setParamSelected] =
     useState<ParamsOptionsType>('SPENDING_LIMIT');
-  const [paramsValue, setParamsValue] = useState<ConvictionVotingParams>({
-    spendingLimit: 20,
-    minimumConviction: 5,
-    convictionGrowth: '2',
-    convictionVotingPeriodDays: '7',
-  });
+  const {
+    spendingLimit,
+    minimumConviction,
+    convictionGrowth,
+    convictionVotingPeriodDays,
+    submitProposal,
+    setParams,
+    handleChange,
+  } = useParams();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [growthChartData, setGrowthChartData] = useState<ConvictionGrowthData>({
     convictionPercentage: [],
@@ -88,41 +175,31 @@ function ConvictionVoting() {
       thresholdPercentage: [],
     });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name } = event.target;
-    const { value } = event.target;
-
-    setParamsValue({
-      ...paramsValue,
-      [name]: value,
-    });
-  };
-
   const inputs = [
     {
       name: 'spendingLimit',
       paramName: 'SPENDING_LIMIT',
-      value: paramsValue.spendingLimit,
+      value: spendingLimit,
       param: 'Spending Limit',
-      placehoder: '%',
+      placeholder: '%',
       tooltipText:
         'The total amount of funds in the Common Pool that can be requested by a single proposal.',
     },
     {
       name: 'minimumConviction',
       paramName: 'MINIMUM_CONVICTION',
-      value: paramsValue.minimumConviction,
+      value: minimumConviction,
       param: 'Minimum Conviction',
-      placehoder: '%',
+      placeholder: '%',
       tooltipText:
         'The minimum amount of tokens needed to pass a request for an infinitely small amount of funds, relative to the Effective Supply.',
     },
     {
       name: 'convictionGrowth',
       paramName: 'CONVICTION_GROWTH',
-      value: paramsValue.convictionGrowth,
+      value: convictionGrowth,
       param: 'Conviction Growth',
-      placehoder: 'days',
+      placeholder: 'days',
       tooltipText: 'The amount of time it takes to increase Conviction by 50%.',
       children: (
         <span
@@ -136,33 +213,54 @@ function ConvictionVoting() {
   ];
 
   useEffect(() => {
-    const values = Object.values(paramsValue);
-    const validParams = values.every((elem) => elem !== '');
-    if (validParams) {
-      console.log(paramsValue);
-      axios
-        .post(
-          'https://dev-commons-config-backend.herokuapp.com/conviction-voting/',
-          {
-            ...paramsValue,
-            spendingLimit: paramsValue.spendingLimit / 100,
-            minimumConviction: paramsValue.minimumConviction / 100,
-          }
-        )
-        .then((response) => {
-          const { output } = response.data;
-          setGrowthChartData({
-            ...output.convictionGrowthChart,
-            dataPoints: [
-              output.convictionGrowth80PercentageXY,
-              output.maxConvictionGrowthXY,
-            ],
-            table: output.table,
-          });
-          setThresholdChartData({ ...output.convictionThresholdChart });
+    axios
+      .post(
+        'https://dev-commons-config-backend.herokuapp.com/conviction-voting/',
+        {
+          spendingLimit: Number(spendingLimit) / 100,
+          minimumConviction: Number(minimumConviction) / 100,
+          convictionGrowth,
+          convictionVotingPeriodDays,
+        }
+      )
+      .then((response) => {
+        const { output } = response.data;
+        setGrowthChartData({
+          ...output.convictionGrowthChart,
+          dataPoints: [
+            output.convictionGrowth80PercentageXY,
+            output.maxConvictionGrowthXY,
+          ],
+          table: output.table,
         });
+        setThresholdChartData({ ...output.convictionThresholdChart });
+      })
+      .catch((error) => console.log(error));
+  }, [
+    spendingLimit,
+    minimumConviction,
+    convictionGrowth,
+    convictionVotingPeriodDays,
+  ]);
+
+  useEffect(() => {
+    if (
+      [
+        spendingLimit,
+        minimumConviction,
+        convictionGrowth,
+        convictionVotingPeriodDays,
+      ].every((elem) => elem === '')
+    ) {
+      setParams((previousParams) => ({
+        ...previousParams,
+        spendingLimit: '20',
+        minimumConviction: '5',
+        convictionGrowth: '2',
+        convictionVotingPeriodDays: '7',
+      }));
     }
-  }, [paramsValue]);
+  }, []);
 
   return (
     <>
@@ -170,46 +268,22 @@ function ConvictionVoting() {
         <title>Config 4 | Commons Dashboard</title>
       </Head>
       <div className="lg:min-h-screen bg-dash bg-cover">
-        <Dialog title="Conviction Growth" isOpen={dialogOpen}>
-          <div className="py-8 m-auto">
-            <ConvictionGrowthChart
-              convictionPercentage={growthChartData.convictionPercentage}
-              timeDays={growthChartData.timeDays}
-              dataPoints={growthChartData.dataPoints}
-            />
-          </div>
-          <div className="h-12 border border-gray-500 w-1/3 mx-auto flex justify-center items-center">
-            <span className="font-bj font-bold text-neon-light uppercase">
-              conviction growth: {paramsValue.convictionGrowth}
-            </span>
-            <span className="font-inter font-medium text-gray-200 text-xs px-1 pt-1">
-              days
-            </span>
-          </div>
-          <div className="py-4">
-            <input
-              className="slider"
-              name="convictionGrowth"
-              type="range"
-              min="1"
-              max="60"
-              value={paramsValue.convictionGrowth}
-              onChange={(event) => handleChange(event)}
-            />
-          </div>
-          <button
-            className="flex m-auto uppercase font-bj font-bold text-neon text-xs pt-6"
-            onClick={() => setDialogOpen(false)}
-          >
-            close
-          </button>
-        </Dialog>
+        <ConvictionGrowthDialog
+          convictionGrowth={convictionGrowth}
+          convictionPercentage={growthChartData.convictionPercentage}
+          dataPoints={growthChartData.dataPoints}
+          handleClose={() => setDialogOpen(false)}
+          isOpen={dialogOpen}
+          onChange={(event) => handleChange(event)}
+          timeDays={growthChartData.timeDays}
+        />
         <Navbar />
-        <div className="lg:flex">
+        <div className="flex justify-center">
           <Card
             title="conviction voting"
             previousPanel="Back"
             previousHref="/config/3"
+            submitProposal={!submitProposal}
           >
             {inputs.map((input) => (
               <Input
@@ -223,68 +297,36 @@ function ConvictionVoting() {
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                   handleChange(event)
                 }
-                placeholder={input.placehoder}
+                placeholder={input.placeholder}
                 tooltipText={input.tooltipText}
               >
                 {input.children}
               </Input>
             ))}
+            <RedirectButton href="/learn/4" />
           </Card>
-          <div className="flex flex-col w-10/12 mx-auto mt-4 shadow-2xl lg:w-7/12">
-            <h1 className="font-bj text-gray-100 text-2xl text-center px-9 pt-6 pb-3 lg:text-left">
-              {paramsContent[paramSelected].question}
-            </h1>
-            <h3 className="font-inter text-gray-300 text-center text-xs px-9 pb-6 lg:text-left">
-              {paramsContent[paramSelected].description}
-            </h3>
+          <ChartContainer
+            title={paramsContent[paramSelected].question}
+            subtitle={paramsContent[paramSelected].description}
+          >
             <ConvictionThresholdChart
               requestedPercentage={thresholdChartData.requestedPercentage}
               thresholdPercentage={thresholdChartData.thresholdPercentage}
             />
             <div className="flex flex-row-reverse justify-between max-w-2xl mx-auto px-2 py-6 bg-cyan-700 opacity-60">
               {radioButtons.map((button) => (
-                <p className="mx-4" key={button.id}>
-                  <input
-                    id={button.id}
-                    type="radio"
-                    name="convictionVotingPeriodDays"
-                    value={button.value}
-                    className="hidden"
-                    onChange={(event) => handleChange(event)}
-                    checked={
-                      button.value === paramsValue.convictionVotingPeriodDays
-                    }
-                  />
-                  <label
-                    htmlFor={button.id}
-                    className="flex items-center cursor-pointer font-bj text-sm text-neon-light"
-                  >
-                    <span className="w-5 h-5 inline-block mr-2 rounded-full border border-grey flex-no-shrink" />
-                    {button.label}
-                  </label>
-                </p>
+                <RadioButton
+                  checked={button.value === convictionVotingPeriodDays}
+                  onChange={(event) => handleChange(event)}
+                  id={button.id}
+                  label={button.label}
+                  name="convictionVotingPeriodDays"
+                  value={button.value}
+                />
               ))}
             </div>
-            <div className="px-16 pt-6 pb-2 font-bj text-neon-light text-xs">
-              <div className="flex justify-between pb-2 mb-2 border-b border-gray-100 uppercase font-bold">
-                <div className="w-1/6 max-w-144">variables</div>
-                <div className="w-1/6 max-w-144">scenario 1</div>
-                <div className="w-1/6 max-w-144">scenario 2</div>
-                <div className="w-1/6 max-w-144">scenario 3</div>
-                <div className="w-1/6 max-w-144">scenario 4</div>
-                <div className="w-1/6 max-w-144">scenario 5</div>
-                <div className="w-1/6 max-w-144">scenario 6</div>
-              </div>
-              {Object.keys(growthChartData.table).map((key, index) => (
-                <div className="flex justify-between items-center mb-2 hover:bg-cyan-700 cursor-pointer">
-                  <div className="w-1/6 max-w-144">{tableRowName[index]}</div>
-                  {growthChartData.table[key].map((row) => (
-                    <span className="w-1/6 max-w-144">{row}</span>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
+            <ScenarioTable table={growthChartData.table} />
+          </ChartContainer>
         </div>
       </div>
     </>

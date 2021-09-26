@@ -12,14 +12,8 @@ module.exports = {
         dash: "url('/dash.png')",
         chart: "url('/chart-bg.svg')",
         learn: "url('/assets/learn-circle-bg.png')",
+        dialog: "url('/dialog.png')",
       }),
-      height: {
-        144: '36rem',
-        lp: '1828px',
-      },
-      maxWidth: {
-        144: '9rem',
-      },
       colors: {
         neon: {
           DEFAULT: '#DEFB48',
@@ -157,9 +151,13 @@ module.exports = {
           700: '#002535',
         },
         magenta: '#7622A8',
-        'secondary-black': '#0B0A15',
-        'black-one': '#000001',
-        black: '#0A0A06',
+        black: {
+          DEFAULT: '#0A0A06',
+          50: '#0A0A06',
+          100: '#0B0A15',
+          200: '#191728',
+          300: '#000001',
+        },
         chart: {
           yellow: '#FBC948',
           orange: '#FB9E48',
@@ -173,11 +171,27 @@ module.exports = {
         inter: ['Inter', 'sans-serif'],
         bj: ['Bai Jamjuree', 'sans-serif'],
       },
+      fontSize: {
+        xxs: '0.625rem',
+      },
+      height: {
+        144: '36rem',
+        lp: '1828px',
+      },
+      maxWidth: {
+        144: '9rem',
+      },
+      minWidth: {
+        '2/4': '50%',
+        '3/4': '75%',
+      },
     },
   },
   variants: {
     extend: {
+      borderColor: ['checked'],
       gridColumnStart: ['last'],
+      width: ['first'],
     },
   },
   plugins: [require('@tailwindcss/forms')],

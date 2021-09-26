@@ -20,10 +20,11 @@ function LearnTwo() {
           The magic of the Augmented Bonding Curve is that whenever a buy or
           sell order takes place on its market a percentage is sent directly to
           the funding pool. The percentage taken immediately in wxDAI from buy
-          orders to the curve is the Entry Tribute. Conversely, the percentage
-          taken from sell orders is the Exit Tribute. This means that for every
-          action on the curve the Commons receives funding to advance Token
-          Engineering.
+          orders to the curve is the
+          <strong>Entry Tribute</strong>. Conversely, the percentage taken from
+          sell orders is the <strong>Exit Tribute</strong>. This means that for
+          every action on the curve the Commons receives funding to advance
+          Token Engineering.
         </p>
         <br />
         <p>The ABC funds two pools:</p>
@@ -42,7 +43,8 @@ function LearnTwo() {
         <p>
           During the Commons Upgrade a percentage of the total funds raised from
           the Hatch is sent to the Common Pool to kick-start the Commons’
-          projects. This percentage is the Commons Tribute.
+          projects. This percentage is the
+          <strong>Commons Tribute</strong>.
         </p>
         <br />
         <p className="font-bold leading-loose">You decide:</p>

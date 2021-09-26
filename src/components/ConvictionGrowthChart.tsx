@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { Line } from 'react-chartjs-2';
 
 interface ConvictionGrowthProps {
@@ -8,6 +9,8 @@ interface ConvictionGrowthProps {
 }
 
 const options = {
+  responsive: true,
+  aspectRatio: 2.1,
   plugins: {
     legend: {
       display: false,
@@ -77,21 +80,26 @@ function ConvictionGrowthChart({
   };
 
   return (
-    <div className="flex">
-      <div className="w-32 pr-8 text-right">
-        <span className="font-bj font-bold text-xs text-neon-light uppercase">
+    <>
+      <div className="w-20 h-0 text-right relative -top-12 -left-2">
+        <span className="font-bj font-bold text-xxs text-neon-light uppercase">
           % of maximum conviction
         </span>
       </div>
-      <div className="w-4/5">
-        <Line data={data} options={options} />
+      <div className="flex justify-center py-2">
+        <div className="w-full">
+          <Line data={data} options={options} />
+          <div className="relative h-3/5 abc-chart">
+            <Image layout="fill" src="/chart_bg.png" />
+          </div>
+        </div>
       </div>
-      <div className="w-32 pl-8 mt-auto ">
-        <span className="font-bj font-bold text-xs text-neon-light uppercase">
+      <div className="w-24 h-0 ml-auto text-right relative bottom-2">
+        <span className="font-bj font-bold text-xxs text-neon-light uppercase">
           days
         </span>
       </div>
-    </div>
+    </>
   );
 }
 

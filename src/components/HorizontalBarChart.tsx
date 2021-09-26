@@ -1,11 +1,12 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import Tooltip from './Tooltip';
-import useHover from '../utils/useHover';
+import useHover from '../hooks/useHover';
 
 const options = {
-  indexAxis: 'y',
   responsive: true,
+  aspectRatio: 2,
+  indexAxis: 'y',
   plugins: {
     legend: {
       display: false,
@@ -107,7 +108,7 @@ function HorizontalBarChart(barChartData: BarChartProps) {
           Voting Process with an Extension
         </span>
       </div>
-      <div className="flex-grow" style={{ maxWidth: '700px' }}>
+      <div className="w-9/12">
         <Bar data={data} options={options} height={140} />
       </div>
       <div className="mt-auto ml-4 w-20 text-center">

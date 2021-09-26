@@ -10,13 +10,13 @@ function IntroIndex() {
       <Head>
         <title>Intro | Commons Dashboard</title>
       </Head>
-      <div className="flex flex-col min-h-screen bg-black-one">
+      <div className="flex flex-col min-h-screen bg-black-300">
         <Navbar
           href="/config/1"
           text="go to configuration"
           transparentBackground
         />
-        <div className="flex-1 bg-black-one bg-learn bg-no-repeat bg-left-bottom bg-blend-hard-light	text-center">
+        <div className="flex-1 bg-300 bg-learn bg-no-repeat bg-left-bottom bg-blend-hard-light	text-center">
           <div className="container mx-auto flex flex-col items-center gap-12">
             <GradientTitle extraLargeText>
               OUR ECONOMY, OUR CHOICE

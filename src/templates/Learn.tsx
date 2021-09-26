@@ -32,7 +32,7 @@ function Learn({ children, title, nextHref }: LearnProps) {
       <Head>
         <title>{title}</title>
       </Head>
-      <div className="min-h-screen bg-black-one">
+      <div className="min-h-screen bg-black-300">
         <Navbar
           href="/learn/done"
           text="finish learning"

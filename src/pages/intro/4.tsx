@@ -2,7 +2,7 @@ import Intro from '@/templates/Intro';
 
 function IntroFour() {
   return (
-    <Intro title="Intro 4 | Commons Dashboard" nextHref="/learn/done">
+    <Intro title="Intro 4 | Commons Dashboard" nextHref="/intro/done">
       <h3 className="text-bj font-bold text-4xl">Requesting Funds</h3>
       <div className="font-inter md:pr-48">
         <br />

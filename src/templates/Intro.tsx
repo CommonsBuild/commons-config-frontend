@@ -33,7 +33,7 @@ function Intro({ children, title, nextHref }: IntroProps) {
         <title>{title}</title>
       </Head>
       <Navbar href="/config/1" text="go to configuration" />
-      <div className="min-h-screen bg-black-one">
+      <div className="min-h-screen bg-black-300">
         <div className="container grid grid-cols-1 lg:grid-cols-4 lg:gap-24 mx-auto px-4 py-8">
           <img
             className="mb-6 lg:mt-16"
