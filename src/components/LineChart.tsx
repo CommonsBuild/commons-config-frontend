@@ -3,6 +3,8 @@ import Image from 'next/image';
 import { Line } from 'react-chartjs-2';
 
 const options = {
+  responsive: true,
+  aspectRatio: 2.75,
   plugins: {
     legend: {
       display: false,
@@ -13,6 +15,7 @@ const options = {
   },
   scales: {
     xAxes: {
+      type: 'linear',
       grid: {
         display: false,
         borderColor: '#03B3FF',
@@ -48,7 +51,6 @@ const LineChart = ({ price, week }: ChartData) => {
     datasets: [
       {
         label: 'Floor price',
-        // yAxisID: "leftScale",
         data: price,
         fill: false,
         borderColor: '#DEFB48',
@@ -57,40 +59,29 @@ const LineChart = ({ price, week }: ChartData) => {
         pointRadius: 7,
         pointStyle: 'rect',
       },
-      // {
-      //   label: "Token price",
-      //   yAxisID: "rightScale",
-      //   data: [5, 5, 0.5, 0.5, 0.5, 0.5],
-      //   fill: false,
-      //   borderColor: "#DEFB48",
-      //   pointBackgroundColor: "#DEFB48",
-      //   pointHoverRadius: 7,
-      //   pointRadius: 7,
-      //   pointStyle: "rect",
-      // },
     ],
   };
   return (
-    <div style={{ maxHeight: '400px' }} className="px-9 pb-6">
-      <span
-        style={{ maxWidth: '100px' }}
-        className="font-bj font-bold text-xs uppercase flex justify-between pb-3 text-neon-light z-10"
-      >
-        FLOOR FLOOR (wxDAI)
-      </span>
-      <Line
-        className="relative z-10"
-        data={data}
-        options={options}
-        height={90}
-      />
-      <div className="w-full font-bj font-bold text-xs text-center uppercase text-neon-light">
-        TIME (WEEKS)
+    <>
+      <div className="w-20 h-0 text-right relative -top-2 -left-14">
+        <span className="font-bj font-bold text-xxs text-neon-light uppercase">
+          price floor (wxdai)
+        </span>
       </div>
-      <div className="relative h-2/4 chart">
-        <Image src="/chart_bg.png" layout="fill" />
+      <div className="flex justify-center py-2">
+        <div className="w-11/12">
+          <Line data={data} options={options} />
+          <div className="relative h-3/5 abc-chart">
+            <Image layout="fill" src="/chart_bg.png" />
+          </div>
+        </div>
       </div>
-    </div>
+      <div className="w-24 h-0 ml-auto text-right relative bottom-12 -right-12">
+        <span className="font-bj font-bold text-xxs text-neon-light uppercase">
+          time (weeks)
+        </span>
+      </div>
+    </>
   );
 };
 

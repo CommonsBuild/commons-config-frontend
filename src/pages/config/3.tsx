@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Head from 'next/head';
 import axios from 'axios';
-
+import ChartContainer from '@/components/ChartContainer';
 import Card from '@/components/Card';
 import ChartLegend from '@/components/ChartLegend';
 import HorizontalBarChart from '@/components/HorizontalBarChart';
@@ -47,18 +47,45 @@ interface PieChartParams {
 }
 
 const paramsContent = {
-  SUPPORT_REQUIRED: 'What percent of yes votes are needed to pass a proposal?',
-  MINIMUM_QUORUM:
-    'What percent of all tokens are needed to vote on a proposal in order for it to be valid?',
-  VOTE_DURATION: 'How many days should voting on a proposal last?',
-  DELEGATED_VOTING_PERIOD:
-    'How many days should delegates be allowed to vote within the Vote Duration?',
-  QUIET_ENDING_PERIOD:
-    'For how many days at the latter end of the Vote Duration should a flipped voting outcome cause an extension?',
-  QUIET_ENDING_EXTENSION:
-    'How many days should be added to a Vote Duration from a vote changing outcome during the Quiet Ending Period?',
-  EXECUTION_DELAY:
-    'How much time should pass from when the vote closes until the outcome is executed?',
+  SUPPORT_REQUIRED: {
+    question: 'What percent of yes votes are needed to pass a proposal?',
+    description:
+      'The percent of votes that must be in favour of this proposal.',
+  },
+  MINIMUM_QUORUM: {
+    question:
+      'What percent of all tokens are needed to vote on a proposal in order for it to be valid?',
+    description:
+      'The percent of all tokens that must vote on a proposal in order for it to be valid.',
+  },
+  VOTE_DURATION: {
+    question: 'How many days should voting on a proposal last?',
+    description: 'The amount of time a proposal is eligible to be voted on.',
+  },
+  DELEGATED_VOTING_PERIOD: {
+    question:
+      'How many days should delegates be allowed to vote within the Vote Duration?',
+    description:
+      'The amount of time delegates are permitted to vote on a proposal.',
+  },
+  QUIET_ENDING_PERIOD: {
+    question:
+      'For how many days at the latter end of the Vote Duration should a flipped voting outcome cause an extension?',
+    description:
+      'If the voting outcome changes during this time the Quiet Ending Extension will trigger, extending the Vote Duration.',
+  },
+  QUIET_ENDING_EXTENSION: {
+    question:
+      'How many days should be added to a Vote Duration from a vote changing outcome during the Quiet Ending Period?',
+    description:
+      'The amount of time added to the Vote Duration resulting from the vote outcome changing during the Quiet Ending.',
+  },
+  EXECUTION_DELAY: {
+    question:
+      'How much time should pass from when the vote closes until the outcome is executed?',
+    description:
+      'The amount of time added to the Vote Duration resulting from the vote outcome changing during the Quiet Ending.',
+  },
 };
 
 function DisputableVoting() {
@@ -129,7 +156,7 @@ function DisputableVoting() {
       paramName: 'SUPPORT_REQUIRED',
       value: paramsValue.supportRequired,
       param: 'Support Required',
-      placehoder: '%',
+      placeholder: '%',
       tooltipText:
         'The percent of votes that must be in favour of this proposal.',
     },
@@ -138,7 +165,7 @@ function DisputableVoting() {
       paramName: 'MINIMUM_QUORUM',
       value: paramsValue.minimumQuorum,
       param: 'Minimum Quorum',
-      placehoder: '%',
+      placeholder: '%',
       tooltipText:
         'The percent of all tokens that must vote on a proposal in order for it to be valid.',
     },
@@ -147,7 +174,7 @@ function DisputableVoting() {
       paramName: 'VOTE_DURATION',
       value: paramsValue.voteDuration,
       param: 'Vote Duration',
-      placehoder: 'days',
+      placeholder: 'days',
       tooltipText: 'The amount of time a proposal is eligible to be voted on.',
     },
     {
@@ -155,7 +182,7 @@ function DisputableVoting() {
       paramName: 'DELEGATED_VOTING_PERIOD',
       value: paramsValue.delegatedVotingPeriod,
       param: 'Delegated Voting Period',
-      placehoder: 'days',
+      placeholder: 'days',
       tooltipText:
         'The amount of time delegates are permitted to vote on a proposal.',
     },
@@ -164,7 +191,7 @@ function DisputableVoting() {
       paramName: 'QUIET_ENDING_PERIOD',
       value: paramsValue.quietEndingPeriod,
       param: 'Quiet Ending Period',
-      placehoder: 'days',
+      placeholder: 'days',
       tooltipText:
         'If the voting outcome changes during this time the Quiet Ending Extension will trigger, extending the Vote Duration.',
     },
@@ -173,7 +200,7 @@ function DisputableVoting() {
       paramName: 'QUIET_ENDING_EXTENSION',
       value: paramsValue.quietEndingExtension,
       param: 'Quiet Ending Extension',
-      placehoder: 'days',
+      placeholder: 'days',
       tooltipText:
         'The amount of time added to the Vote Duration resulting from the vote outcome changing during the Quiet Ending.',
     },
@@ -182,7 +209,7 @@ function DisputableVoting() {
       paramName: 'EXECUTION_DELAY',
       value: paramsValue.executionDelay,
       param: 'Execution Delay',
-      placehoder: 'days',
+      placeholder: 'days',
       tooltipText:
         'The amount of time after a vote passes before the proposed action is executed',
     },
@@ -251,11 +278,11 @@ function DisputableVoting() {
           </button>
         </Dialog>
         <Navbar />
-        <div className="lg:flex">
+        <div className="flex justify-center">
           <Card
             title="disputable voting"
             previousPanel="Back"
-            previousHref="/config/1"
+            previousHref="/config/2"
             nextPanel="Requesting Funds"
             nextHref="/config/4"
           >
@@ -271,17 +298,17 @@ function DisputableVoting() {
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                   handleChange(event)
                 }
-                placeholder={input.placehoder}
+                placeholder={input.placeholder}
                 tooltipText={input.tooltipText}
               />
             ))}
           </Card>
-          <div className="flex flex-col w-10/12 mx-auto mt-4 shadow-2xl lg:w-7/12">
-            <h1 className="font-bj text-gray-100 text-2xl text-center px-9 pt-6 pb-3 lg:text-left">
-              {paramsContent[paramSelected]}
-            </h1>
+          <ChartContainer
+            title={paramsContent[paramSelected].question}
+            subtitle={paramsContent[paramSelected].description}
+          >
             <div
-              className="ml-auto px-9 cursor-pointer"
+              className="relative h-0 ml-96 cursor-pointer"
               onClick={() => handleDialog()}
             >
               <Image src="/pie_icon.svg" width="24" height="24" />
@@ -303,7 +330,7 @@ function DisputableVoting() {
                 />
               ))}
             </div>
-          </div>
+          </ChartContainer>
         </div>
       </div>
     </>

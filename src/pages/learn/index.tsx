@@ -19,7 +19,7 @@ function LearnIndex() {
       <Head>
         <title>Learn | Commons Dashboard</title>
       </Head>
-      <div className="min-h-screen bg-black-one">
+      <div className="min-h-screen bg-300">
         <Navbar href="/intro/" text="take me back" transparentBackground />
         <div className="flex container mx-auto px-4 py-8 justify-center text-center">
           <GradientTitle>

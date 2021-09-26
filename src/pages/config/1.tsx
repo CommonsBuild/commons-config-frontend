@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import axios from 'axios';
-
+import ChartContainer from '@/components/ChartContainer';
 import Card from '@/components/Card';
 import Input from '@/components/Input';
 import { ConfigNavbar as Navbar } from '@/components/Navbar';
@@ -49,7 +49,7 @@ const paramsContent = {
 function Dashboard() {
   const [paramsValue, setParamsValue] = useState<ParamsValues>({
     openingPrice: '1',
-    tokenFreeze: '50',
+    tokenFreeze: '20',
     tokenThaw: '5',
   });
   const [chartData, setChartData] = useState<ChartData>({
@@ -103,6 +103,36 @@ function Dashboard() {
     });
   };
 
+  const inputs = [
+    {
+      name: 'openingPrice',
+      paramName: 'OPENING_PRICE',
+      value: paramsValue.openingPrice,
+      param: 'Opening Price',
+      placeholder: 'wxDAI',
+      tooltipText:
+        'The Opening Price is the price we sell TEC tokens after the Commons Upgrade is complete.',
+    },
+    {
+      name: 'tokenFreeze',
+      paramName: 'TOKEN_FREEZE',
+      value: paramsValue.tokenFreeze,
+      param: 'Token Freeze',
+      placeholder: 'weeks',
+      tooltipText:
+        'Token Freeze is the duration from the initialization of the Commons which tokens remain fully locked.',
+    },
+    {
+      name: 'tokenThaw',
+      paramName: 'TOKEN_THAW',
+      value: paramsValue.tokenThaw,
+      param: 'Token Thaw',
+      placeholder: 'weeks',
+      tooltipText:
+        'TToken Thaw is designed to guarantee, for a certain period, the minimum possible price of the token, or price floor.',
+    },
+  ];
+
   return (
     <>
       <Head>
@@ -110,55 +140,35 @@ function Dashboard() {
       </Head>
       <div className="lg:min-h-screen bg-dash bg-cover">
         <Navbar />
-        <div className="lg:flex">
+        <div className="flex justify-center">
           <Card
             title="token freeze & token thaw"
+            nextHref="/config/2"
             nextPanel="Modifying the Commons"
-            nextHref="/config/3"
           >
-            <Input
-              name="openingPrice"
-              value={paramsValue.openingPrice}
-              param="Opening Price"
-              placeholder="wxDAI"
-              changeParam={() => setParamSelected('OPENING_PRICE')}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                handleChange(event)
-              }
-              tooltipText="The Opening Price is the price we sell TEC tokens after the Commons Upgrade is complete."
-            />
-            <Input
-              name="tokenFreeze"
-              value={paramsValue.tokenFreeze}
-              param="Token Freeze"
-              placeholder="weeks"
-              changeParam={() => setParamSelected('TOKEN_FREEZE')}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                handleChange(event)
-              }
-              tooltipText="Token Freeze is the duration from the initialization of the Commons which tokens remain fully locked."
-            />
-            <Input
-              name="tokenThaw"
-              value={paramsValue.tokenThaw}
-              param="Token Thaw"
-              placeholder="weeks"
-              changeParam={() => setParamSelected('TOKEN_THAW')}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                handleChange(event)
-              }
-              tooltipText="Token Thaw is designed to guarantee, for a certain period, the minimum possible price of the token, or price floor."
-            />
+            {inputs.map((input) => (
+              <Input
+                key={input.name}
+                name={input.name}
+                value={input.value}
+                param={input.param}
+                changeParam={() =>
+                  setParamSelected(input.paramName as ParamsOptionsType)
+                }
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                  handleChange(event)
+                }
+                placeholder={input.placeholder}
+                tooltipText={input.tooltipText}
+              />
+            ))}
           </Card>
-          <div className="flex flex-col bg-transparent w-10/12 mx-auto mt-4 lg:w-7/12">
-            <h1 className="font-bj text-gray-100 text-2xl text-center px-9 pt-6 pb-3 lg:text-left">
-              {paramsContent[paramSelected].question}
-            </h1>
-            <h3 className="font-inter text-gray-300 text-center text-xs px-9 pb-6 lg:text-left">
-              {paramsContent[paramSelected].description}
-            </h3>
+          <ChartContainer
+            title={paramsContent[paramSelected].question}
+            subtitle={paramsContent[paramSelected].description}
+          >
             <LineChart price={chartData.price} week={chartData.week} />
-            <div className="min-w-full px-9 pt-2 pb-2 font-bj text-neon-light text-xs">
+            <div className="pl-16 pt-6 pb-2 font-bj text-neon-light text-xs">
               <div className="flex justify-between pb-2 mb-2 border-b border-gray-100 uppercase font-bold">
                 <div className="w-1/3 max-w-144 table-text"># of weeks</div>
                 <div className="w-1/3 max-w-144">% tokens released</div>
@@ -179,7 +189,7 @@ function Dashboard() {
                 </div>
               ))}
             </div>
-          </div>
+          </ChartContainer>
         </div>
       </div>
     </>

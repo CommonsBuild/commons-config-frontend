@@ -1,12 +1,13 @@
 import classnames from 'classnames';
 
 interface DialogProps {
+  bg?: boolean;
   children: React.ReactNode;
   isOpen: boolean;
-  title: string;
+  title?: string;
 }
 
-function Dialog({ children, isOpen, title }: DialogProps) {
+function Dialog({ bg, children, isOpen, title }: DialogProps) {
   return (
     <div
       className={classnames(
@@ -16,8 +17,20 @@ function Dialog({ children, isOpen, title }: DialogProps) {
         }
       )}
     >
-      <div className="bg-black m-auto max-w-4xl p-8">
-        <h1 className="font-bj font-bold text-neon-light text-4xl text-center">
+      <div
+        className={classnames('m-auto max-w-lg', {
+          'bg-dialog': bg,
+          'bg-black': !bg,
+        })}
+      >
+        <h1
+          className={classnames(
+            'font-bj font-bold text-neon-light text-4xl text-center p-6',
+            {
+              hidden: !title,
+            }
+          )}
+        >
           {title}
         </h1>
         {children}
