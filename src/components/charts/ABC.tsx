@@ -1,14 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 import { Line } from 'react-chartjs-2';
-import Tooltip from '@/components/Tooltip';
-import useHover from '@/hooks/useHover';
-
-interface AugmentedBondingProps {
-  balanceInThousands: number[];
-  price: number[];
-  stepLinSpaces: { [key: string]: number[] }[];
-}
+import { Tooltip } from '@/components/_global';
+import { useHover } from '@/hooks';
 
 const options = {
   responsive: true,
@@ -48,16 +42,13 @@ const options = {
   },
 };
 
-interface AugmentedBondingProps {
+interface ABCProps {
   balanceInThousands: number[];
   price: number[];
+  stepLinSpaces: { [key: string]: number[] }[];
 }
 
-function AugmentedBondingCurve({
-  balanceInThousands,
-  price,
-  stepLinSpaces,
-}: AugmentedBondingProps) {
+function ABCChart({ balanceInThousands, price, stepLinSpaces }: ABCProps) {
   const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
 
   const handleData = (xAxesData, yAxesData) => {
@@ -84,7 +75,7 @@ function AugmentedBondingCurve({
       },
     ];
 
-    stepLinSpaces.forEach((elem, index) => {
+    stepLinSpaces?.forEach((elem, index) => {
       datasets.push({
         label: String(index),
         fill: true,
@@ -152,4 +143,4 @@ function AugmentedBondingCurve({
   );
 }
 
-export default React.memo(AugmentedBondingCurve);
+export default React.memo(ABCChart);

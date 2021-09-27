@@ -40,12 +40,12 @@ const options = {
   },
 };
 
-interface ChartData {
+interface TokenFreezeThawProps {
   price: number[];
   week: number[];
 }
 
-const LineChart = ({ price, week }: ChartData) => {
+const TokenFreezeThawChart = ({ price, week }: TokenFreezeThawProps) => {
   const data = {
     labels: week || ['0'],
     datasets: [
@@ -85,4 +85,4 @@ const LineChart = ({ price, week }: ChartData) => {
   );
 };
 
-export default React.memo(LineChart);
+export default React.memo(TokenFreezeThawChart);
