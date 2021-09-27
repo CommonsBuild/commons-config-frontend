@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import NeonButton from './NeonButton';
+import { NeonButton } from '@/components/btns';
 
 interface CardProps {
   children: React.ReactNode;
@@ -10,7 +10,7 @@ interface CardProps {
   previousPanel?: string;
   previousHref?: string;
   title: string;
-  submitProposal: boolean;
+  submitProposal?: boolean;
 }
 
 function Card({
