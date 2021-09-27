@@ -1,8 +1,7 @@
 import Head from 'next/head';
-
-import { CustomNavbar as Navbar } from '@/components/Navbar';
-import NeonButton from '@/components/NeonButton';
 import GradientTitle from '@/components/GradientTitle';
+import { CustomNavbar as Navbar } from '@/components/_global';
+import { NeonButton } from '@/components/btns';
 
 function IntroIndex() {
   return (

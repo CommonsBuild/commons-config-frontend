@@ -1,7 +1,6 @@
 import Head from 'next/head';
-
-import { CustomNavbar as Navbar } from '@/components/Navbar';
-import NeonButton from '@/components/NeonButton';
+import { CustomNavbar as Navbar } from '@/components/_global';
+import { NeonButton } from '@/components/btns';
 
 function IntroThree() {
   return (

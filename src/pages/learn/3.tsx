@@ -1,8 +1,6 @@
 import Head from 'next/head';
-
-import Checkbox from '@/components/Chekbox';
-import { CustomNavbar as Navbar } from '@/components/Navbar';
-import NeonButton from '@/components/NeonButton';
+import { CustomNavbar as Navbar } from '@/components/_global';
+import { Checkbox, NeonButton } from '@/components/btns';
 
 function LearnThree() {
   return (
