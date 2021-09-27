@@ -1,5 +1,5 @@
-import Tooltip from '@/components/Tooltip';
-import useHover from '@/hooks/useHover';
+import { Tooltip } from '@/components/_global';
+import { useHover } from '@/hooks';
 
 interface InputProps {
   children?: React.ReactNode;
