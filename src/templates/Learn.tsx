@@ -1,9 +1,12 @@
 import Head from 'next/head';
-import { ReactNode } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { ReactNode, useState } from 'react';
 import { motion, Variants } from 'framer-motion';
 
 import { CustomNavbar as Navbar } from '@/components/Navbar';
 import NeonButton from '@/components/NeonButton';
+import Checkbox from '@/components/Chekbox';
 
 interface LearnProps {
   children: ReactNode;
@@ -26,7 +29,29 @@ const learnFade: Variants = {
   },
 };
 
+const sections = [
+  {
+    slug: 1,
+    subtitle: 'Token and its value',
+  },
+  {
+    slug: 2,
+    subtitle: 'The Ecomonic engine',
+  },
+  {
+    slug: 3,
+    subtitle: 'Governing the Commons',
+  },
+  {
+    slug: 4,
+    subtitle: 'Projects and funding',
+  },
+];
+
 function Learn({ children, title, nextHref }: LearnProps) {
+  const [checked] = useState<boolean>(true);
+  const router = useRouter();
+
   return (
     <>
       <Head>
@@ -44,16 +69,51 @@ function Learn({ children, title, nextHref }: LearnProps) {
             src="/assets/learn-side-title.svg"
             alt="Getting familiar with the Commons configuration"
           />
-          <motion.div
-            exit="exit"
-            animate="animate"
-            initial="initial"
-            variants={learnFade}
-            className="col-span-2 text-white"
-          >
-            {children}
-          </motion.div>
-          <NeonButton href={nextHref}>
+          <div className="col-span-2">
+            <nav className="font-bj lg:mb-16">
+              <ul className="flex gap-16">
+                {sections.map(({ slug, subtitle }) => (
+                  <Link href={`/learn/${slug}`}>
+                    <li
+                      className={`cursor-pointer text-gray-50 text-8xl ${
+                        router.pathname !== `/learn/${slug}`
+                          ? 'text-opacity-20'
+                          : ''
+                      }`}
+                    >
+                      {slug}
+                      <div
+                        className={`text-base ml-4 w-28 break-words ${
+                          router.pathname === `/learn/${slug}`
+                            ? 'inline-block'
+                            : 'hidden'
+                        }`}
+                      >
+                        {subtitle}
+                      </div>
+                    </li>
+                  </Link>
+                ))}
+              </ul>
+            </nav>
+            <motion.div
+              exit="exit"
+              animate="animate"
+              initial="initial"
+              variants={learnFade}
+            >
+              <div className="text-white">{children}</div>
+              <div className="mt-6">
+                <Checkbox text="I understood everything and I’m able to configure the parameters" />
+              </div>
+              <div className="mt-10">
+                <NeonButton disabled={!checked} href={nextHref}>
+                  next
+                </NeonButton>
+              </div>
+            </motion.div>
+          </div>
+          <NeonButton disabled={!checked} href={nextHref}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 mx-1"

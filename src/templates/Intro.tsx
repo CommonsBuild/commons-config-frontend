@@ -1,4 +1,6 @@
 import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
 import { motion, Variants } from 'framer-motion';
 
@@ -26,7 +28,28 @@ const introFade: Variants = {
   },
 };
 
+const sections = [
+  {
+    slug: 1,
+    subtitle: 'module',
+  },
+  {
+    slug: 2,
+    subtitle: 'module',
+  },
+  {
+    slug: 3,
+    subtitle: 'module',
+  },
+  {
+    slug: 4,
+    subtitle: 'module',
+  },
+];
+
 function Intro({ children, title, nextHref }: IntroProps) {
+  const router = useRouter();
+
   return (
     <>
       <Head>
@@ -40,15 +63,42 @@ function Intro({ children, title, nextHref }: IntroProps) {
             src="/assets/intro-side-title.svg"
             alt="Decide how you want your token economy to function"
           />
-          <motion.div
-            exit="exit"
-            animate="animate"
-            initial="initial"
-            variants={introFade}
-            className="col-span-2 text-white"
-          >
-            {children}
-          </motion.div>
+          <div className="col-span-2 text-white">
+            <nav className="font-bj lg:mb-16">
+              <ul className="flex gap-16">
+                {sections.map(({ slug, subtitle }) => (
+                  <Link href={`/intro/${slug}`}>
+                    <li
+                      className={`cursor-pointer text-gray-50 text-8xl ${
+                        router.pathname !== `/intro/${slug}`
+                          ? 'text-opacity-20'
+                          : ''
+                      }`}
+                    >
+                      {slug}
+                      <div
+                        className={`text-base ml-4 w-18 break-words ${
+                          router.pathname === `/intro/${slug}`
+                            ? 'inline-block'
+                            : 'hidden'
+                        }`}
+                      >
+                        {subtitle}
+                      </div>
+                    </li>
+                  </Link>
+                ))}
+              </ul>
+            </nav>
+            <motion.div
+              exit="exit"
+              animate="animate"
+              initial="initial"
+              variants={introFade}
+            >
+              {children}
+            </motion.div>
+          </div>
           <NeonButton href={nextHref}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
