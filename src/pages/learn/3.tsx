@@ -1,9 +1,9 @@
+import type { ReactElement } from 'react';
 import Learn from '@/templates/Learn';
-import Checkbox from '@/components/Chekbox';
 
 function LearnThree() {
   return (
-    <Learn title="Learn 3 | Commons Dashboard" nextHref="/learn/4">
+    <>
       <h3 className="text-bj font-bold text-3xl">Tao Voting</h3>
       <div className="font-inter">
         <br />
@@ -141,12 +141,17 @@ function LearnThree() {
         >
           Vote Duration
         </a>
-        <div className="mt-6">
-          <Checkbox text="I understood everything and I’m able to configure the parameters" />
-        </div>
       </div>
-    </Learn>
+    </>
   );
 }
+
+LearnThree.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <Learn title="Learn 3 | Commons Dashboard" nextHref="/learn/4">
+      {page}
+    </Learn>
+  );
+};
 
 export default LearnThree;

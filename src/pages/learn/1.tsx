@@ -1,9 +1,9 @@
+import type { ReactElement } from 'react';
 import Learn from '@/templates/Learn';
-import Checkbox from '@/components/Chekbox';
 
 function LearnOne() {
   return (
-    <Learn title="Learn 1 | Commons Dashboard" nextHref="/learn/2">
+    <>
       <h3 className="text-bj font-bold text-3xl">Token Freeze & Token Thaw</h3>
       <div className="font-inter">
         <br />
@@ -69,12 +69,17 @@ function LearnOne() {
         >
           Token Thaw and Token Freeze
         </a>
-        <div className="mt-6">
-          <Checkbox text="I understood everything and I’m able to configure the parameters" />
-        </div>
       </div>
-    </Learn>
+    </>
   );
 }
+
+LearnOne.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <Learn title="Learn 1 | Commons Dashboard" nextHref="/learn/2">
+      {page}
+    </Learn>
+  );
+};
 
 export default LearnOne;
