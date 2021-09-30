@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
 import { motion, Variants } from 'framer-motion';
 
-import { CustomNavbar as Navbar } from '@/components/Navbar';
-import NeonButton from '@/components/NeonButton';
+import { CustomNavbar as Navbar } from '@/components/_global/Navbar';
+import { NeonButton } from '@/components/btns/';
 
 interface IntroProps {
   children: ReactNode;

@@ -4,9 +4,8 @@ import { useRouter } from 'next/router';
 import { ReactNode, useState } from 'react';
 import { motion, Variants } from 'framer-motion';
 
-import { CustomNavbar as Navbar } from '@/components/Navbar';
-import NeonButton from '@/components/NeonButton';
-import Checkbox from '@/components/Chekbox';
+import { CustomNavbar as Navbar } from '@/components/_global/Navbar';
+import { Checkbox, NeonButton } from '@/components/btns';
 
 interface LearnProps {
   children: ReactNode;
