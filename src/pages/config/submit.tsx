@@ -1,8 +1,12 @@
+import { useState } from 'react';
 import Head from 'next/head';
+import axios from 'axios';
 import Input from '@/components/Input';
 import { Card, Navbar } from '@/components/_global';
 import { NeonButton } from '@/components/btns';
 import { useParams } from '@/hooks/';
+import TextArea from '@/components/TextArea';
+import { Dialog } from '@/components/modals';
 
 interface ModuleContainerProps {
   inputList: { [key: string]: string }[];
@@ -30,17 +34,7 @@ function ModuleContainer({ inputList, title, onChange }: ModuleContainerProps) {
       </Card>
       <div className="flex flex-col flex-grow my-4 mx-16 py-6 px-9">
         <h2 className="font-bj text-sm text-neon-light py-4">Your Strategy</h2>
-        <div className="relative bg-black-200 flex-grow">
-          <textarea
-            className="font-bold text-neon-light text-xl w-full h-full pl-3 border-2 border-gray-500 focus:border-neon hover:border-gray-400 bg-transparent outline-none resize-none"
-            name="reserveBalance"
-          />
-          <div className="absolute left-3 top-6 transform -translate-y-2/4">
-            <span className="font-inter text-xs text-gray-300">
-              Why did you choose these settings ...?
-            </span>
-          </div>
-        </div>
+        <TextArea placeholder="Why did you choose these settings ... ?" />
       </div>
     </div>
   );
@@ -48,6 +42,9 @@ function ModuleContainer({ inputList, title, onChange }: ModuleContainerProps) {
 
 function SubmitConfig() {
   const { handleChange, ...params } = useParams();
+  const [title, setTitle] = useState('');
+  const [dialog, setDialog] = useState(false);
+  const [url, setUrl] = useState(undefined);
   const freezeThawInputs = [
     {
       name: 'openingPrice',
@@ -202,11 +199,90 @@ function SubmitConfig() {
     },
   ];
 
+  const handleTitle = (event) => {
+    const { value } = event.target;
+
+    setTitle(value);
+  };
+
+  const submitParams = () => {
+    const choosenParams = {
+      title,
+      tokenLockup: {
+        openingPrice: Number(params.openingPrice),
+        tokenFreeze: Number(params.tokenFreeze),
+        tokenThaw: Number(params.tokenThaw),
+      },
+      augmentedBondingCurve: {
+        commonsTribute: Number(params.commonsTribute) / 100,
+        ragequit: Number(params.ragequitPercentage),
+        initialPrice: 1,
+        entryTribute: Number(params.entryTribute) / 100,
+        exitTribute: Number(params.exitTribute) / 100,
+        hatchScenarioFunding: Number(params.reserveBalance) / 1000,
+        stepList: params.stepList,
+        zoomGraph: 0,
+      },
+      taoVoting: {
+        supportRequired: Number(params.supportRequired) / 100,
+        minimumQuorum: Number(params.minimumQuorum) / 100,
+        voteDuration: Number(params.voteDuration),
+        delegatedVotingPeriod: Number(params.delegatedVotingPeriod),
+        quietEndingPeriod: Number(params.quietEndingPeriod),
+        quietEndingExtension: Number(params.quietEndingExtension),
+        executionDelay: Number(params.executionDelay),
+      },
+      convictionVoting: {
+        spendingLimit: Number(params.spendingLimit) / 100,
+        minimumConviction: Number(params.minimumConviction) / 100,
+        convictionGrowth: Number(params.convictionGrowth),
+        votingPeriodDays: Number(params.convictionVotingPeriodDays),
+      },
+      advancedSettings: {
+        minimumEffectiveSupply: 0,
+        hatchersRageQuit: 0,
+        virtualBalance: 0,
+      },
+    };
+    axios
+      .post(
+        'https://dev-commons-config-backend.herokuapp.com/issue-generator/',
+        choosenParams
+      )
+      .then((response) => {
+        setUrl(response.data[1]);
+        setDialog(true);
+      })
+      .catch((e) => console.log(e.response, choosenParams));
+  };
+
   return (
     <>
       <Head>
         <title>Review and Submit | Commons Dashboard</title>
       </Head>
+      <Dialog isOpen={dialog && url !== undefined}>
+        <h2 className="font-bj font-bold text-xl text-neon text-center py-6">
+          Congratulations!
+        </h2>
+        <div className="font-bj text-neon-light">
+          Your proposal was created successfully! To see your submission,{' '}
+          <a
+            className="font-bj font-bold text-neon"
+            href={url}
+            target="_blank"
+            rel="noreferrer"
+          >
+            click here!
+          </a>
+        </div>
+        <button
+          className="flex m-auto uppercase font-bj font-bold text-neon text-xs py-6"
+          onClick={() => setDialog(false)}
+        >
+          close
+        </button>
+      </Dialog>
       <div className="lg:min-h-screen bg-dash bg-cover">
         <Navbar />
         <h2 className="font-bj font-bold text-3xl text-neon-light text-center py-4">
@@ -237,32 +313,17 @@ function SubmitConfig() {
             <div className="font-bj font-bold text-neon-light my-2">
               Submission Title
             </div>
-            <div className="relative h-12 bg-black-200 my-2">
-              <input
-                className="font-bold text-neon-light text-xl w-full h-full pl-3 border-2 border-gray-500 focus:border-neon hover:border-gray-400 bg-transparent outline-none placeholder-right"
-                name="reserveBalance"
-              />
-              <div className="absolute right-3 top-2/4 transform -translate-y-2/4">
-                <span className="font-inter text-xs text-gray-300">wxDAI</span>
-              </div>
-            </div>
+            <TextArea
+              name="title"
+              placeholder="Pick a good title :)"
+              value={title}
+              onChange={handleTitle}
+            />
             <div className="font-bj font-bold text-neon-light my-2">
               Overall Commons Strategy
             </div>
-            <div className="flex flex-col flex-grow pt-2 pb-4">
-              <div className="relative bg-black-200 flex-grow">
-                <textarea
-                  className="font-bold text-neon-light text-xl w-full h-full pl-3 border-2 border-gray-500 focus:border-neon hover:border-gray-400 bg-transparent outline-none resize-none"
-                  name="reserveBalance"
-                />
-                <div className="absolute left-3 top-6 transform -translate-y-2/4">
-                  <span className="font-inter text-xs text-gray-300">
-                    Why did you choose these settings ...?
-                  </span>
-                </div>
-              </div>
-            </div>
-            <NeonButton href="" fullWidth>
+            <TextArea placeholder="Explain the big picture of your Commons Configuration.. don’t forget to mention if your proposal is a fork of another..." />
+            <NeonButton href="" onClick={submitParams} fullWidth>
               <span>SUBMIT PROPOSAL</span>
             </NeonButton>
           </div>
