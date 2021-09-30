@@ -4,7 +4,6 @@ import { motion, Variants } from 'framer-motion';
 interface ChartContainerProps {
   children: React.ReactNode;
   title: string;
-  subtitle: string;
 }
 
 const titlesFade: Variants = {
@@ -18,7 +17,7 @@ const titlesFade: Variants = {
   },
 };
 
-function ChartContainer({ children, title, subtitle }: ChartContainerProps) {
+function ChartContainer({ children, title }: ChartContainerProps) {
   return (
     <div className="flex flex-col bg-transparent mx-16 mt-4 w-3/5 lg:min-w-2/4">
       <motion.div
@@ -30,9 +29,6 @@ function ChartContainer({ children, title, subtitle }: ChartContainerProps) {
         <h1 className="font-bj text-gray-100 text-2xl text-center pt-6 pb-3 lg:text-left">
           {title}
         </h1>
-        <h3 className="font-inter text-gray-300 text-center text-xs pb-6 lg:text-left">
-          {subtitle}
-        </h3>
       </motion.div>
       <motion.div layout>{children}</motion.div>
     </div>

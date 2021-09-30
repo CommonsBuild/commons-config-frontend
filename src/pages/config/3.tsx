@@ -38,48 +38,6 @@ interface PieChartParams {
   executionDelay: number;
 }
 
-const paramsContent = {
-  SUPPORT_REQUIRED: {
-    question: 'What percent of yes votes are needed to pass a proposal?',
-    description:
-      'The percent of votes that must be in favour of this proposal.',
-  },
-  MINIMUM_QUORUM: {
-    question:
-      'What percent of all tokens are needed to vote on a proposal in order for it to be valid?',
-    description:
-      'The percent of all tokens that must vote on a proposal in order for it to be valid.',
-  },
-  VOTE_DURATION: {
-    question: 'How many days should voting on a proposal last?',
-    description: 'The amount of time a proposal is eligible to be voted on.',
-  },
-  DELEGATED_VOTING_PERIOD: {
-    question:
-      'How many days should delegates be allowed to vote within the Vote Duration?',
-    description:
-      'The amount of time delegates are permitted to vote on a proposal.',
-  },
-  QUIET_ENDING_PERIOD: {
-    question:
-      'For how many days at the latter end of the Vote Duration should a flipped voting outcome cause an extension?',
-    description:
-      'If the voting outcome changes during this time the Quiet Ending Extension will trigger, extending the Vote Duration.',
-  },
-  QUIET_ENDING_EXTENSION: {
-    question:
-      'How many days should be added to a Vote Duration from a vote changing outcome during the Quiet Ending Period?',
-    description:
-      'The amount of time added to the Vote Duration resulting from the vote outcome changing during the Quiet Ending.',
-  },
-  EXECUTION_DELAY: {
-    question:
-      'How much time should pass from when the vote closes until the outcome is executed?',
-    description:
-      'The amount of time added to the Vote Duration resulting from the vote outcome changing during the Quiet Ending.',
-  },
-};
-
 function DisputableVoting() {
   const {
     supportRequired,
@@ -108,8 +66,7 @@ function DisputableVoting() {
     executionDelay: 0,
   });
 
-  const [paramSelected, setParamSelected] =
-    useState<ParamsOptionsType>('SUPPORT_REQUIRED');
+  const [, setParamSelected] = useState<ParamsOptionsType>('SUPPORT_REQUIRED');
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -320,10 +277,7 @@ function DisputableVoting() {
             ))}
             <RedirectButton href="/learn/3" />
           </Card>
-          <ChartContainer
-            title={paramsContent[paramSelected].question}
-            subtitle={paramsContent[paramSelected].description}
-          >
+          <ChartContainer title="See the relative distribution of each phase of Tao Voting, based on your parameters, in the graph below.">
             <div
               className="relative h-0 w-6 -right-3/4 cursor-pointer"
               onClick={() => handleDialog()}
