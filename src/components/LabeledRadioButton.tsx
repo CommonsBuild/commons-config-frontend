@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 import Tooltip from '@/components/Tooltip';
-import useHover from '@/utils/useHover';
+import useHover from '@/hooks/useHover';
 
 interface LabeledRadioButtonProps {
   checked?: boolean;

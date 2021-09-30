@@ -8,9 +8,13 @@ import Dialog from '@/components/Dialog';
 import Input from '@/components/Input';
 import LabeledRadioButton from '@/components/LabeledRadioButton';
 import { ConfigNavbar as Navbar } from '@/components/Navbar';
-import useHover from '@/utils/useHover';
+import useHover from '@/hooks/useHover';
 import Tooltip from '@/components/Tooltip';
 import AugmentedBondingCurve from '@/components/AugmentedBondingCurve';
+import RedirectButton from '@/components/RedirectButton';
+import { useParams } from '@/hooks/useParams';
+
+const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
 interface MarketScenarioDialogProps {
   handleClose: React.MouseEventHandler<HTMLButtonElement>;
@@ -89,6 +93,7 @@ function AddStepDialog({ handleClose, onClick, isOpen }: AddStepDialogProps) {
         <LabeledRadioButton
           margin
           pX
+          checked={stepData.type === 'wxDAI'}
           id="buy"
           label="buy"
           name="type"
@@ -99,6 +104,7 @@ function AddStepDialog({ handleClose, onClick, isOpen }: AddStepDialogProps) {
         <LabeledRadioButton
           margin
           pX
+          checked={stepData.type === 'TEC'}
           id="sell"
           label="sell"
           name="type"
@@ -184,18 +190,6 @@ type ParamsOptionsType =
   | 'ENTRY_TRIBUTE'
   | 'EXIT_TRIBUTE';
 
-interface AugmentedBondingParams {
-  openingPrice: number;
-  commonsTribute: number;
-  entryTribute: number;
-  exitTribute: number;
-  initialBuy: number;
-  reserveBalance: string;
-  ragequitPercentage: number;
-  stepList: (number | string)[][];
-  zoomGraph: number;
-}
-
 interface StepsTableParams {
   currentPriceParsed: number[];
   amountIn: string[];
@@ -231,7 +225,7 @@ const marketScenarios = [
   },
 ];
 
-const reserveBalance = [
+const reserveBalanceButtons = [
   { id: '100k', size: 'medium', value: '100000' },
   { id: '500k', size: 'medium', value: '500000' },
   { id: '1m', size: 'small', value: '1000000' },
@@ -266,21 +260,6 @@ const paramsContent = {
 };
 
 function AugmentedBonding() {
-  const [paramsValue, setParamsValue] = useState<AugmentedBondingParams>({
-    commonsTribute: 5,
-    ragequitPercentage: 0,
-    openingPrice: 2,
-    entryTribute: 15,
-    exitTribute: 15,
-    initialBuy: 0,
-    reserveBalance: '1500000',
-    stepList: [
-      [5, 'TEC'],
-      [1000, 'wxDai'],
-      [10, 'TEC'],
-    ],
-    zoomGraph: 0,
-  });
   const [stepsTable, setStepsTable] = useState<StepsTableParams>({
     currentPriceParsed: [],
     amountIn: [],
@@ -301,13 +280,29 @@ function AugmentedBonding() {
   const [paramSelected, setParamSelected] =
     useState<ParamsOptionsType>('OPENING_PRICE');
 
+  const {
+    openingPrice,
+    commonsTribute,
+    entryTribute,
+    exitTribute,
+    reserveBalance,
+    stepList,
+    initialBuy,
+    ragequitPercentage,
+    zoomGraph,
+    submitProposal,
+    setParams,
+    handleChange,
+    handleMarketScenario,
+    handleAddStep,
+  } = useParams();
   const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
 
   const inputs = [
     {
       name: 'openingPrice',
       paramName: 'OPENING_PRICE',
-      value: paramsValue.openingPrice,
+      value: openingPrice,
       param: 'Opening Price',
       placeholder: 'wxDAI',
       tooltipText:
@@ -316,7 +311,7 @@ function AugmentedBonding() {
     {
       name: 'commonsTribute',
       paramName: 'COMMONS_TRIBUTE',
-      value: paramsValue.commonsTribute,
+      value: commonsTribute,
       param: 'Commons Tribute',
       placeholder: '%',
       tooltipText:
@@ -325,7 +320,7 @@ function AugmentedBonding() {
     {
       name: 'entryTribute',
       paramName: 'ENTRY_TRIBUTE',
-      value: paramsValue.entryTribute,
+      value: entryTribute,
       param: 'Entry Tribute',
       placeholder: '%',
       tooltipText:
@@ -334,7 +329,7 @@ function AugmentedBonding() {
     {
       name: 'exitTribute',
       paramName: 'EXIT_TRIBUTE',
-      value: paramsValue.exitTribute,
+      value: exitTribute,
       param: 'Exit Tribute',
       placeholder: '%',
       tooltipText:
@@ -342,55 +337,64 @@ function AugmentedBonding() {
     },
   ];
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name } = event.target;
-    const { value } = event.target;
-
-    setParamsValue({
-      ...paramsValue,
-      [name]: value,
-    });
-  };
-
-  const handleMarketScenario = (scenario: (number | string)[][]) => {
-    setParamsValue({
-      ...paramsValue,
-      stepList: scenario,
-    });
-  };
-
-  const handleAddStep = (step: (number | string)[]) => {
-    const newStepList = paramsValue.stepList;
-    newStepList.push(step);
-    setParamsValue({
-      ...paramsValue,
-      stepList: newStepList,
-    });
-    setStepDialog(false);
-  };
+  useEffect(() => {
+    console.log('trigger');
+    axios
+      .post(
+        'https://abcurve-backend-test.herokuapp.com/augmented-bonding-curve/',
+        {
+          openingPrice,
+          commonsTribute,
+          entryTribute,
+          exitTribute,
+          reserveBalance: Number(reserveBalance) / 1000,
+          stepList,
+          initialBuy,
+          ragequitPercentage,
+          zoomGraph,
+        }
+      )
+      .then((response) => {
+        setChartData({ ...response.data[0].chartData });
+        setStepsTable({ ...response.data[1].stepTable });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [
+    openingPrice,
+    commonsTribute,
+    entryTribute,
+    exitTribute,
+    reserveBalance,
+    stepList,
+    initialBuy,
+    ragequitPercentage,
+    zoomGraph,
+    stepDialog,
+  ]);
 
   useEffect(() => {
-    const values = Object.values(paramsValue);
-    const validParams = values.every((elem) => elem !== '');
-    if (validParams) {
-      axios
-        .post(
-          'https://abcurve-backend-test.herokuapp.com/augmented-bonding-curve/',
-          {
-            ...paramsValue,
-            reserveBalance: Number(paramsValue.reserveBalance) / 1000,
-          }
-        )
-        .then((response) => {
-          setChartData({ ...response.data[0].chartData });
-          setStepsTable({ ...response.data[1].stepTable });
-        })
-        .catch((error) => {
-          console.log(error);
-          console.log(paramsValue);
-        });
+    if (
+      [commonsTribute, entryTribute, exitTribute, reserveBalance].every(
+        (elem) => elem === '' && stepList.length === 0
+      )
+    ) {
+      setParams((previousParams) => ({
+        ...previousParams,
+        openingPrice: openingPrice || '2',
+        commonsTribute: '5',
+        entryTribute: '15',
+        exitTribute: '15',
+        reserveBalance: '1500000',
+        stepList: [
+          [5, 'TEC'],
+          [1000, 'wxDAI'],
+          [10, 'TEC'],
+        ],
+      }));
     }
-  }, [paramsValue]);
+  }, []);
 
   return (
     <>
@@ -415,6 +419,7 @@ function AugmentedBonding() {
             previousHref="/config/1"
             previousPanel="Back"
             title="augmented bonding curve"
+            submitProposal={!submitProposal}
           >
             {inputs.map((input) => (
               <Input
@@ -451,6 +456,7 @@ function AugmentedBonding() {
                     id={scenario.id}
                     label={scenario.id}
                     name="stepList"
+                    checked={equals(scenario.value, stepList.slice(0, 3))}
                     onChange={() => handleMarketScenario(scenario.value)}
                   />
                 ))}
@@ -479,7 +485,7 @@ function AugmentedBonding() {
                   <input
                     className="font-bold text-neon-light text-xl w-full h-full pl-3 border-2 border-gray-500 focus:border-neon hover:border-gray-400 bg-transparent outline-none placeholder-right"
                     name="reserveBalance"
-                    value={paramsValue.reserveBalance}
+                    value={reserveBalance}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                       handleChange(event)
                     }
@@ -493,19 +499,19 @@ function AugmentedBonding() {
                 <div className="flex justify-between text-neon-light py-2">
                   <LabeledRadioButton
                     checked={
-                      Number(paramsValue.reserveBalance) ===
-                      1500000 * (1 - Number(paramsValue.commonsTribute) / 100)
+                      Number(reserveBalance) ===
+                      1500000 * (1 - Number(commonsTribute) / 100)
                     }
                     id="launch"
                     label="launch"
                     name="reserveBalance"
                     size="big"
-                    value={1500000 * (1 - paramsValue.commonsTribute / 100)}
+                    value={1500000 * (1 - Number(commonsTribute) / 100)}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                       handleChange(event)
                     }
                   />
-                  {reserveBalance.map((balance) => (
+                  {reserveBalanceButtons.map((balance) => (
                     <LabeledRadioButton
                       key={balance.id}
                       id={balance.id}
@@ -532,6 +538,7 @@ function AugmentedBonding() {
                 </a>
               </div>
             </div>
+            <RedirectButton href="/learn/2" />
           </Card>
           <ChartContainer
             title={paramsContent[paramSelected].question}
@@ -546,7 +553,7 @@ function AugmentedBonding() {
               Steps
             </span>
             <div className="flex px-16 py-2">
-              {paramsValue.stepList.map((item, index) => (
+              {stepList.map((item, index) => (
                 <div className="flex justify-center items-center w-12 h-12 mr-4 border border-neon border-opacity-20 cursor-pointer">
                   <span className="font-bj font-medium text-2xl text-neon-light">
                     {index + 1}
@@ -554,10 +561,7 @@ function AugmentedBonding() {
                 </div>
               ))}
             </div>
-            <StepsTable
-              stepList={paramsValue.stepList}
-              table={{ ...stepsTable }}
-            />
+            <StepsTable stepList={stepList} table={{ ...stepsTable }} />
           </ChartContainer>
         </div>
       </div>
