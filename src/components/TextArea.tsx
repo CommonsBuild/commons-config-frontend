@@ -17,7 +17,7 @@ function TextArea({ name, placeholder, value, onChange }: TextAreaProps) {
         />
         <div className="absolute left-3 top-6 transform -translate-y-2/4">
           <span className="font-inter text-xs text-gray-300">
-            {placeholder}
+            {value ? '' : placeholder}
           </span>
         </div>
       </div>
