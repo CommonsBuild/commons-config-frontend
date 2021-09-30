@@ -17,25 +17,6 @@ type ParamsOptionsType =
   | 'MINIMUM_CONVICTION'
   | 'CONVICTION_GROWTH';
 
-const paramsContent = {
-  SPENDING_LIMIT: {
-    question:
-      'How much of the Common Pool’s funds can be requested in a single proposal?',
-    description:
-      'The total amount of funds in the Common Pool that can be requested by a single proposal.',
-  },
-  MINIMUM_CONVICTION: {
-    question: 'How quickly should staked TEC tokens accrue Conviction?',
-    description: 'The amount of time it takes to increase Conviction by 50%.',
-  },
-  CONVICTION_GROWTH: {
-    question:
-      "What's the minimum percent of the Effective Supply needed to pass a proposal request?",
-    description:
-      'The minimum amount of tokens needed to pass a request for an infinitely small amount of funds, relative to the Effective Supply.',
-  },
-};
-
 const radioButtons = [
   { id: 'radio5', label: '6 Months', value: '180' },
   { id: 'radio4', label: '3 Months', value: '60' },
@@ -47,6 +28,7 @@ const radioButtons = [
 function ConvictionVoting() {
   const { convictionGrowthChart, convictionThresholdChart, dataPoints, table } =
     useConvictionVoting();
+
   const {
     spendingLimit,
     minimumConviction,
@@ -56,8 +38,8 @@ function ConvictionVoting() {
     setParams,
     handleChange,
   } = useParams();
-  const [paramSelected, setParamSelected] =
-    useState<ParamsOptionsType>('SPENDING_LIMIT');
+
+  const [, setParamSelected] = useState<ParamsOptionsType>('SPENDING_LIMIT');
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const inputs = [
@@ -159,10 +141,7 @@ function ConvictionVoting() {
             ))}
             <RedirectButton href="/learn/4" />
           </Card>
-          <ChartContainer
-            title={paramsContent[paramSelected].question}
-            subtitle={paramsContent[paramSelected].description}
-          >
+          <ChartContainer title="Visualize the unique dynamics of Conviction and the relative requirements for successfully requesting funds.">
             <ConvictionThresholdChart
               requestedPercentage={convictionThresholdChart.requestedPercentage}
               thresholdPercentage={convictionThresholdChart.thresholdPercentage}

@@ -9,7 +9,7 @@ function IntroIndex() {
       <Head>
         <title>Intro | Commons Dashboard</title>
       </Head>
-      <div className="flex flex-col min-h-screen bg-300">
+      <div className="flex flex-col min-h-screen bg-black-300">
         <Navbar
           href="/config/1"
           text="go to configuration"

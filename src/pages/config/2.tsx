@@ -49,34 +49,9 @@ const reserveBalanceButtons = [
   { id: '5m', size: 'small', value: '5000000' },
 ];
 
-const paramsContent = {
-  OPENING_PRICE: {
-    question: 'What price should we set the TEC token at launch?',
-    description:
-      'The Opening Price is the price we sell TEC tokens after Commons Upgrade is complete.',
-  },
-  COMMONS_TRIBUTE: {
-    question:
-      'What percentage of Hatch funds should go immediately to funding TEC projects?',
-    description:
-      'A percentage of the total funds raised from the Hatch is sent to the Common Pool to kick-start the Commons’ projects.',
-  },
-  ENTRY_TRIBUTE: {
-    question:
-      'What percentage of every BUY order on the ABC should go to funding the TEC?',
-    description:
-      'The percentage taken off BUY orders and sent to the Common Pool.',
-  },
-  EXIT_TRIBUTE: {
-    question:
-      'What percentage of every SELL order on the ABC should go to funding the TEC?',
-    description:
-      'The percentage taken off SELL orders and sent to the Common Pool.',
-  },
-};
-
 function ABC() {
   const { chart, stepLinSpaces, table } = useABC();
+
   const {
     openingPrice,
     commonsTribute,
@@ -93,8 +68,7 @@ function ABC() {
 
   const [marketDialog, setMarketDialog] = useState(false);
   const [stepDialog, setStepDialog] = useState(false);
-  const [paramSelected, setParamSelected] =
-    useState<ParamsOptionsType>('OPENING_PRICE');
+  const [, setParamSelected] = useState<ParamsOptionsType>('OPENING_PRICE');
 
   const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
 
@@ -303,10 +277,7 @@ function ABC() {
             </div>
             <RedirectButton href="/learn/2" />
           </Card>
-          <ChartContainer
-            title={paramsContent[paramSelected].question}
-            subtitle={paramsContent[paramSelected].description}
-          >
+          <ChartContainer title="Experience your Augmented Bonding Curve by adjusting your parameters and experimenting with the Step Simulator.">
             <ABCChart
               balanceInThousands={chart.balanceInThousands}
               price={chart.price}

@@ -16,7 +16,7 @@ function Home() {
         <title>Commons Config Dashboard</title>
       </Head>
       <div className="bg-lp bg-lp-size h-lp">
-        <Navbar transparentBackground />
+        <Navbar transparentBackground sticky={false} />
         <BorderedText>
           <span className="inline-block font-bj font-bold text-5xl text-center leading-relaxed px-12 pt-9 lg:text-8xl">
             the token engineering commons enters the next phase

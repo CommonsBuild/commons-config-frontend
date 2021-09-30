@@ -9,7 +9,7 @@ function IntroDone() {
       <Head>
         <title>Intro Done | Commons Dashboard</title>
       </Head>
-      <div className="min-h-screen bg-300">
+      <div className="min-h-screen bg-black-300">
         <Navbar href="" transparentBackground />
         <div className="flex container mx-auto px-4 py-8 justify-center text-center">
           <div className="max-w-screen-lg">

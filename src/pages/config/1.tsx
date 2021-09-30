@@ -13,26 +13,6 @@ import { TokenFreezeThawTable } from '@/components/tables';
 
 type ParamsOptionsType = 'OPENING_PRICE' | 'TOKEN_FREEZE' | 'TOKEN_THAW';
 
-const paramsContent = {
-  OPENING_PRICE: {
-    question: 'What price should we set the TEC token at launch?',
-    description:
-      'The Opening Price is the price we sell TEC tokens after Commons Upgrade is complete.',
-  },
-  TOKEN_FREEZE: {
-    question:
-      "How long should the Hatcher's TEC tokens be frozen to maintain the price floor?",
-    description:
-      'Token Freeze is the duration from the initialization of the Commons which tokens remain fully locked.',
-  },
-  TOKEN_THAW: {
-    question:
-      'How long should it take for 100% of the Hatcher’s TEC tokens to be released?',
-    description:
-      'Token Thaw is designed to guarantee, for a certain period, the minimum possible price of the token or, price floor.',
-  },
-};
-
 function TokenFreezeThaw() {
   const { chart, table } = useTokenFreezeThaw();
   const {
@@ -43,8 +23,8 @@ function TokenFreezeThaw() {
     setParams,
     handleChange,
   } = useParams();
-  const [paramSelected, setParamSelected] =
-    useState<ParamsOptionsType>('OPENING_PRICE');
+
+  const [, setParamSelected] = useState<ParamsOptionsType>('OPENING_PRICE');
 
   useEffect(() => {
     if ([tokenFreeze, tokenThaw].every((elem) => elem === '')) {
@@ -119,10 +99,7 @@ function TokenFreezeThaw() {
             ))}
             <RedirectButton href="/learn/1" />
           </Card>
-          <ChartContainer
-            title={paramsContent[paramSelected].question}
-            subtitle={paramsContent[paramSelected].description}
-          >
+          <ChartContainer title="Analyze how the price floor of the TEC token reacts with changes made to parameters in this module.">
             <TokenFreezeThawChart price={chart.price} week={chart.week} />
             <TokenFreezeThawTable table={table} />
           </ChartContainer>
