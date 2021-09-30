@@ -43,28 +43,18 @@ function ABCProvider({ children }: AppABCContextProps) {
     initialBuy,
     ragequitPercentage,
     zoomGraph,
+    setParams,
   } = useParams();
 
   useEffect(() => {
-    console.log({
-      openingPrice,
-      commonsTribute,
-      entryTribute,
-      exitTribute,
-      reserveBalance: Number(reserveBalance) / 1000,
-      stepList,
-      initialBuy,
-      ragequitPercentage,
-      zoomGraph,
-    });
     axios
       .post(
         'https://abcurve-backend-test.herokuapp.com/augmented-bonding-curve/',
         {
-          openingPrice,
-          commonsTribute,
-          entryTribute,
-          exitTribute,
+          openingPrice: Number(openingPrice),
+          commonsTribute: Number(commonsTribute) / 100,
+          entryTribute: Number(entryTribute) / 100,
+          exitTribute: Number(exitTribute) / 100,
           reserveBalance: Number(reserveBalance) / 1000,
           stepList,
           initialBuy,
@@ -74,24 +64,32 @@ function ABCProvider({ children }: AppABCContextProps) {
       )
       .then((response) => {
         const { data } = response;
+        data.chartData.stepLinSpaces.forEach((elem, index) => {
+          console.log(
+            `elem ${index}: (${elem.balanceInThousands[0]}, ${
+              elem.price[0]
+            }) - (${elem.balanceInThousands.at(-1)}, ${elem.price.at(-1)})`
+          );
+        });
         setContext((previousContext) => ({
           ...previousContext,
-          chart: data[0].chartData as { [key: string]: number[] },
-          stepLinSpaces: data[0].chartData.stepLinSpaces,
-          table: data[1].stepTable as { [key: string]: number[] },
+          chart: data.chartData as { [key: string]: number[] },
+          stepLinSpaces: data.chartData.stepLinSpaces,
+          table: data.stepTable as { [key: string]: number[] },
         }));
       })
-      .catch((e) => console.log(e));
+      .catch((e) => console.log(e.response));
   }, [
     openingPrice,
     commonsTribute,
     entryTribute,
     exitTribute,
     reserveBalance,
-    stepList,
+    JSON.stringify(stepList),
     initialBuy,
     ragequitPercentage,
     zoomGraph,
+    setParams,
   ]);
 
   return (
