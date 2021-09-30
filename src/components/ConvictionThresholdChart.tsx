@@ -92,7 +92,7 @@ function ConvictionThresholdChart({
       </div>
       <div className="w-24 h-0 ml-auto text-right relative bottom-12 -right-12">
         <span className="font-bj font-bold text-xxs text-neon-light uppercase">
-          % of commons pool funds being requested
+          % of common pool funds being requested
         </span>
       </div>
       <div className="w-28 h-0 text-center relative bottom-24 -left-20 ">
