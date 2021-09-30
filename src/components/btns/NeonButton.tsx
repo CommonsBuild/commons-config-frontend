@@ -8,6 +8,7 @@ interface NeonButtonProps {
   fullWidth?: boolean;
   href: string;
   hidden?: boolean;
+  onClick: () => void;
 }
 
 function NeonButton({
@@ -16,6 +17,7 @@ function NeonButton({
   fullWidth,
   href,
   children,
+  onClick,
 }: NeonButtonProps) {
   return (
     <Link href={href}>
@@ -28,6 +30,7 @@ function NeonButton({
           }
         )}
         disabled={disabled}
+        onClick={onClick}
       >
         <span className="font-bj font-bold text-lg uppercase">{children}</span>
       </button>
