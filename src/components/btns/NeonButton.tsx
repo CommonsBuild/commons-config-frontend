@@ -8,7 +8,7 @@ interface NeonButtonProps {
   fullWidth?: boolean;
   href: string;
   hidden?: boolean;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 function NeonButton({
