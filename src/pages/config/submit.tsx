@@ -11,10 +11,20 @@ import { Dialog } from '@/components/modals';
 interface ModuleContainerProps {
   inputList: { [key: string]: string }[];
   title: string;
+  textAreaName: string;
+  textAreaValue: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onTextAreaChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-function ModuleContainer({ inputList, title, onChange }: ModuleContainerProps) {
+function ModuleContainer({
+  inputList,
+  title,
+  textAreaName,
+  textAreaValue,
+  onChange,
+  onTextAreaChange,
+}: ModuleContainerProps) {
   return (
     <div className="flex justify-center">
       <Card title={title} hiddenButton>
@@ -34,7 +44,12 @@ function ModuleContainer({ inputList, title, onChange }: ModuleContainerProps) {
       </Card>
       <div className="flex flex-col flex-grow my-4 mx-16 py-6 px-9">
         <h2 className="font-bj text-sm text-neon-light py-4">Your Strategy</h2>
-        <TextArea placeholder="Why did you choose these settings ... ?" />
+        <TextArea
+          name={textAreaName}
+          placeholder="Why did you choose these settings ... ?"
+          value={textAreaValue}
+          onChange={onTextAreaChange}
+        />
       </div>
     </div>
   );
@@ -45,6 +60,13 @@ function SubmitConfig() {
   const [title, setTitle] = useState('');
   const [dialog, setDialog] = useState(false);
   const [url, setUrl] = useState(undefined);
+  const [textAreaContent, setTextAreaContent] = useState({
+    freeze: '',
+    abc: '',
+    tao: '',
+    conviction: '',
+    overall: '',
+  });
   const freezeThawInputs = [
     {
       name: 'openingPrice',
@@ -205,6 +227,15 @@ function SubmitConfig() {
     setTitle(value);
   };
 
+  const handleTextArea = (event) => {
+    const { name, value } = event.target;
+
+    setTextAreaContent({
+      ...textAreaContent,
+      [name]: value,
+    });
+  };
+
   const submitParams = () => {
     const choosenParams = {
       title,
@@ -293,21 +324,33 @@ function SubmitConfig() {
             inputList={freezeThawInputs}
             title="token freeze & token thaw"
             onChange={handleChange}
+            textAreaName="freeze"
+            textAreaValue={textAreaContent.freeze}
+            onTextAreaChange={(event) => handleTextArea(event)}
           />
           <ModuleContainer
             inputList={augmentedBondingInputs}
             title="augmented bonding curve"
             onChange={handleChange}
+            textAreaName="abc"
+            textAreaValue={textAreaContent.abc}
+            onTextAreaChange={(event) => handleTextArea(event)}
           />
           <ModuleContainer
             inputList={taoVoting}
             title="tao voting"
             onChange={handleChange}
+            textAreaName="tao"
+            textAreaValue={textAreaContent.tao}
+            onTextAreaChange={(event) => handleTextArea(event)}
           />
           <ModuleContainer
             inputList={disputableConvictionVoting}
             title="disputable conviction voting"
             onChange={handleChange}
+            textAreaName="conviction"
+            textAreaValue={textAreaContent.conviction}
+            onTextAreaChange={(event) => handleTextArea(event)}
           />
           <div className="flex flex-col justify-center mx-16 pr-9">
             <div className="font-bj font-bold text-neon-light my-2">
@@ -322,7 +365,12 @@ function SubmitConfig() {
             <div className="font-bj font-bold text-neon-light my-2">
               Overall Commons Strategy
             </div>
-            <TextArea placeholder="Explain the big picture of your Commons Configuration.. don’t forget to mention if your proposal is a fork of another..." />
+            <TextArea
+              name="overall"
+              placeholder="Explain the big picture of your Commons Configuration.. don’t forget to mention if your proposal is a fork of another..."
+              value={textAreaContent.overall}
+              onChange={(event) => handleTextArea(event)}
+            />
             <NeonButton href="" onClick={submitParams} fullWidth>
               <span>SUBMIT PROPOSAL</span>
             </NeonButton>
