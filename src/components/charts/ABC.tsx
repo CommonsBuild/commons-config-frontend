@@ -60,6 +60,14 @@ function ABCChart({ balanceInThousands, price, stepLinSpaces }: ABCProps) {
     return data;
   };
 
+  const getColor = (array) => {
+    if (array[0] > array.at(-1)) {
+      return 'rgba(226, 65, 65, 0.7)';
+    }
+
+    return 'rgba(65, 226, 130, 0.7)';
+  };
+
   const handleDatasets = () => {
     const datasets = [
       {
@@ -71,7 +79,7 @@ function ABCChart({ balanceInThousands, price, stepLinSpaces }: ABCProps) {
         pointHoverRadius: 7,
         pointRadius: 0,
         pointStyle: 'rect',
-        backgroundColor: '',
+        backgroundColor: 'transparent',
       },
     ];
 
@@ -85,7 +93,7 @@ function ABCChart({ balanceInThousands, price, stepLinSpaces }: ABCProps) {
         pointHoverRadius: 7,
         pointRadius: 0,
         pointStyle: 'rect',
-        backgroundColor: 'rgba(65, 226, 130, 0.4)',
+        backgroundColor: getColor(elem.balanceInThousands),
       });
     });
     return datasets;
