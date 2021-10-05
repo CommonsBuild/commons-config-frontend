@@ -6,8 +6,8 @@ import {
   useEffect,
   useState,
 } from 'react';
-import axios from 'axios';
 import { useParams } from '@/hooks/useParams';
+import api from '@/services/api';
 
 type TokenFreezeThawContextType = {
   chart: { [key: string]: number[] };
@@ -36,8 +36,8 @@ function TokenFreezeThawProvider({ children }: AppTokenFreezeThawContextProps) {
   const { openingPrice, tokenFreeze, tokenThaw } = useParams();
 
   useEffect(() => {
-    axios
-      .post('https://commons-config-backend.herokuapp.com/token-lockup/', {
+    api
+      .post('/token-lockup/', {
         openingPrice,
         tokenFreeze,
         tokenThaw,

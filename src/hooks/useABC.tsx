@@ -6,8 +6,8 @@ import {
   useEffect,
   useState,
 } from 'react';
-import axios from 'axios';
 import { useParams } from '@/hooks/useParams';
+import api from '@/services/api';
 
 type ABCContextType = {
   chart: { [key: string]: number[] };
@@ -47,21 +47,18 @@ function ABCProvider({ children }: AppABCContextProps) {
   } = useParams();
 
   useEffect(() => {
-    axios
-      .post(
-        'https://abcurve-backend-test.herokuapp.com/augmented-bonding-curve/',
-        {
-          openingPrice: Number(openingPrice),
-          commonsTribute: Number(commonsTribute) / 100,
-          entryTribute: Number(entryTribute) / 100,
-          exitTribute: Number(exitTribute) / 100,
-          reserveBalance: Number(reserveBalance) / 1000,
-          stepList,
-          initialBuy,
-          ragequitPercentage,
-          zoomGraph,
-        }
-      )
+    api
+      .post('/augmented-bonding-curve/', {
+        openingPrice: Number(openingPrice),
+        commonsTribute: Number(commonsTribute) / 100,
+        entryTribute: Number(entryTribute) / 100,
+        exitTribute: Number(exitTribute) / 100,
+        reserveBalance: Number(reserveBalance) / 1000,
+        stepList,
+        initialBuy,
+        ragequitPercentage,
+        zoomGraph,
+      })
       .then((response) => {
         const { data } = response;
         data.chartData.stepLinSpaces.forEach((elem, index) => {

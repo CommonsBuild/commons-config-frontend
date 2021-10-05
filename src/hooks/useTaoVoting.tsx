@@ -6,8 +6,8 @@ import {
   useEffect,
   useState,
 } from 'react';
-import axios from 'axios';
 import { useParams } from '@/hooks/useParams';
+import api from '@/services/api';
 
 type TaoVotingContextType = {
   barChart: { [key: string]: { [key: string]: number } };
@@ -42,19 +42,16 @@ function TaoVotingProvider({ children }: AppTaoVotingContextProps) {
   } = useParams();
 
   useEffect(() => {
-    axios
-      .post(
-        'https://dev-commons-config-backend.herokuapp.com/disputable-voting/',
-        {
-          supportRequired: Number(supportRequired) / 100,
-          minimumQuorum: Number(minimumQuorum) / 100,
-          voteDuration,
-          delegatedVotingPeriod,
-          quietEndingPeriod,
-          quietEndingExtension,
-          executionDelay,
-        }
-      )
+    api
+      .post('/disputable-voting/', {
+        supportRequired: Number(supportRequired) / 100,
+        minimumQuorum: Number(minimumQuorum) / 100,
+        voteDuration,
+        delegatedVotingPeriod,
+        quietEndingPeriod,
+        quietEndingExtension,
+        executionDelay,
+      })
       .then((response) => {
         const { output } = response.data;
         setContext({ ...output });
