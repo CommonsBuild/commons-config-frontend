@@ -92,7 +92,7 @@ function ConfigNavbar() {
         ))}
       </div>
       <button className="font-bj font-bold text-xs text-neon uppercase ml-auto">
-        ADVANCED SETTINGS
+        QUICK CONFIGURATION
       </button>
     </Navbar>
   );
