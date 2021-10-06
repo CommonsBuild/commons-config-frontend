@@ -72,7 +72,7 @@ function TokenFreezeThaw() {
       <Head>
         <title>Config 1 | Commons Dashboard</title>
       </Head>
-      <div className="lg:min-h-screen bg-dash bg-cover">
+      <div className="min-h-screen h-full bg-dash bg-cover">
         <Navbar />
         <div className="flex justify-center">
           <Card

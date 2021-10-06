@@ -318,7 +318,7 @@ function SubmitConfig() {
       <Backdrop isOpen={loading}>
         <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-neon" />
       </Backdrop>
-      <div className="lg:min-h-screen bg-dash bg-cover">
+      <div className="min-h-screen h-full bg-dash bg-cover">
         <Navbar />
         <h2 className="font-bj font-bold text-3xl text-neon-light text-center py-4">
           Configuration Summary

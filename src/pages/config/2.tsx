@@ -138,7 +138,7 @@ function ABC() {
       <Head>
         <title>Config 2 | Commons Dashboard</title>
       </Head>
-      <div className="lg:min-h-screen bg-dash bg-cover">
+      <div className="min-h-screen h-full bg-dash bg-cover">
         <ABCScenarioDialog
           isOpen={marketDialog}
           handleClose={() => setMarketDialog(false)}
@@ -243,6 +243,7 @@ function ABC() {
                     label="launch"
                     name="reserveBalance"
                     size="big"
+                    tooltipText="Simulate the Reserve Balance using the amount raised by the Hatch, adjusted by the Commons Tribute"
                     value={1500000 * (1 - Number(commonsTribute) / 100)}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                       handleChange(event)
@@ -283,15 +284,12 @@ function ABC() {
               price={chart.price}
               stepLinSpaces={stepLinSpaces}
             />
-            <span
-              className="font-bj text-sm text-neon-light px-16 py-2"
-              onClick={() => console.log(table)}
-            >
+            <span className="font-bj text-sm text-neon-light px-16 py-2">
               Steps
             </span>
             <div className="flex px-16 py-2">
               {stepList.map((item, index) => (
-                <div className="flex justify-center items-center w-12 h-12 mr-4 border border-neon border-opacity-20 cursor-pointer">
+                <div className="flex justify-center items-center w-12 h-12 mr-4 border border-neon border-opacity-20 cursor-pointer hover:border-gray-400">
                   <span className="font-bj font-medium text-2xl text-neon-light">
                     {index + 1}
                   </span>
