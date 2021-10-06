@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Tooltip } from '@/components/_global';
 import { useHover } from '@/hooks';
 
@@ -25,16 +26,21 @@ function Input({
   const [hoverRef, isHovered] = useHover<HTMLDivElement>();
 
   return (
-    <div className="py-1 lg:grid lg:grid-cols-2 justify-between">
-      <Tooltip text={tooltipText} isHovered={isHovered}>
-        <div className="flex flex-col justify-center">
-          <span ref={hoverRef} className="font-bj text-gray-100 self-center">
-            {param}
-          </span>
-          {children}
-        </div>
-      </Tooltip>
-      <div className="relative h-12 bg-black-200">
+    <div className="py-1 lg:grid lg:grid-cols-5 justify-between">
+      <div className="col-span-3">
+        <Tooltip text={tooltipText} isHovered={isHovered}>
+          <div className="flex flex-col justify-center">
+            <span ref={hoverRef} className="font-bj text-gray-100 self-center">
+              {param}{' '}
+              <div className="inline-block mt-1 ml-1">
+                <Image src="/questionMark.svg" height="12px" width="12px" />
+              </div>
+            </span>
+            {children}
+          </div>
+        </Tooltip>
+      </div>
+      <div className="relative h-12 bg-black-200 col-span-2">
         <input
           name={name}
           value={value}
