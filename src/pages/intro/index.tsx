@@ -1,8 +1,7 @@
 import Head from 'next/head';
-
-import { CustomNavbar as Navbar } from '@/components/Navbar';
-import NeonButton from '@/components/NeonButton';
 import GradientTitle from '@/components/GradientTitle';
+import { CustomNavbar as Navbar } from '@/components/_global';
+import { NeonButton } from '@/components/btns';
 
 function IntroIndex() {
   return (
@@ -10,7 +9,7 @@ function IntroIndex() {
       <Head>
         <title>Intro | Commons Dashboard</title>
       </Head>
-      <div className="flex flex-col min-h-screen bg-300">
+      <div className="flex flex-col min-h-screen bg-black-300">
         <Navbar
           href="/config/1"
           text="go to configuration"

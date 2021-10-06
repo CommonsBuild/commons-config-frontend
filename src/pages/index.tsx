@@ -1,10 +1,9 @@
 import Head from 'next/head';
 
-import { Navbar } from '@/components/Navbar';
 import BorderedText from '@/components/BorderedText';
-import NeonButton from '@/components/NeonButton';
-import Tooltip from '@/components/Tooltip';
-import useHover from '@/hooks/useHover';
+import { Navbar, Tooltip } from '@/components/_global';
+import { NeonButton } from '@/components/btns';
+import { useHover } from '@/hooks';
 
 function Home() {
   const [hatchRef, hatchIsHovered] = useHover<HTMLDivElement>();
@@ -17,7 +16,7 @@ function Home() {
         <title>Commons Config Dashboard</title>
       </Head>
       <div className="bg-lp bg-lp-size h-lp">
-        <Navbar transparentBackground />
+        <Navbar transparentBackground sticky={false} />
         <BorderedText>
           <span className="inline-block font-bj font-bold text-5xl text-center leading-relaxed px-12 pt-9 lg:text-8xl">
             the token engineering commons enters the next phase

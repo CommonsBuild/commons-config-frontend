@@ -5,11 +5,13 @@ import classnames from 'classnames';
 interface NavbarProps {
   children?: React.ReactNode;
   transparentBackground?: boolean;
+  sticky?: boolean;
 }
 
 interface CustomNavbarProps {
   text?: string;
   href?: string;
+  sticky?: boolean;
   transparentBackground?: boolean;
 }
 
@@ -40,11 +42,16 @@ const configModules = [
   },
 ];
 
-function Navbar({ children, transparentBackground }: NavbarProps) {
+function Navbar({
+  children,
+  sticky = true,
+  transparentBackground,
+}: NavbarProps) {
   return (
     <div
-      className={classnames('flex items-center sticky top-0 z-40', {
+      className={classnames('flex items-center top-0 z-40', {
         'bg-black': !transparentBackground,
+        sticky,
       })}
     >
       <div className="bg-neon px-5 py-10">
@@ -65,10 +72,11 @@ function Navbar({ children, transparentBackground }: NavbarProps) {
 function CustomNavbar({
   href,
   text,
+  sticky,
   transparentBackground,
 }: CustomNavbarProps) {
   return (
-    <Navbar transparentBackground={transparentBackground}>
+    <Navbar sticky={sticky} transparentBackground={transparentBackground}>
       <Link href={href}>
         <button className="flex ml-auto uppercase font-bj font-bold text-neon text-xs pt-6">
           {text}

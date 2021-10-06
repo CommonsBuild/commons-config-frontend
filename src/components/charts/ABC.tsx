@@ -1,14 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 import { Line } from 'react-chartjs-2';
-import Tooltip from '@/components/Tooltip';
-import useHover from '@/hooks/useHover';
-
-interface AugmentedBondingProps {
-  balanceInThousands: number[];
-  price: number[];
-  stepLinSpaces: { [key: string]: number[] }[];
-}
+import { Tooltip } from '@/components/_global';
+import { useHover } from '@/hooks';
 
 const options = {
   responsive: true,
@@ -48,11 +42,13 @@ const options = {
   },
 };
 
-function AugmentedBondingCurve({
-  balanceInThousands,
-  price,
-  stepLinSpaces,
-}: AugmentedBondingProps) {
+interface ABCProps {
+  balanceInThousands: number[];
+  price: number[];
+  stepLinSpaces: { [key: string]: number[] }[];
+}
+
+function ABCChart({ balanceInThousands, price, stepLinSpaces }: ABCProps) {
   const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
 
   const handleData = (xAxesData, yAxesData) => {
@@ -62,6 +58,14 @@ function AugmentedBondingCurve({
     });
 
     return data;
+  };
+
+  const getColor = (array) => {
+    if (array[0] > array.at(-1)) {
+      return 'rgba(226, 65, 65, 0.7)';
+    }
+
+    return 'rgba(65, 226, 130, 0.7)';
   };
 
   const handleDatasets = () => {
@@ -75,11 +79,11 @@ function AugmentedBondingCurve({
         pointHoverRadius: 7,
         pointRadius: 0,
         pointStyle: 'rect',
-        backgroundColor: '',
+        backgroundColor: 'transparent',
       },
     ];
 
-    stepLinSpaces.forEach((elem, index) => {
+    stepLinSpaces?.forEach((elem, index) => {
       datasets.push({
         label: String(index),
         fill: true,
@@ -89,7 +93,7 @@ function AugmentedBondingCurve({
         pointHoverRadius: 7,
         pointRadius: 0,
         pointStyle: 'rect',
-        backgroundColor: 'rgba(65, 226, 130, 0.4)',
+        backgroundColor: getColor(elem.balanceInThousands),
       });
     });
     return datasets;
@@ -147,4 +151,4 @@ function AugmentedBondingCurve({
   );
 }
 
-export default React.memo(AugmentedBondingCurve);
+export default React.memo(ABCChart);

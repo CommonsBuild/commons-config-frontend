@@ -2,6 +2,7 @@ module.exports = {
   mode: 'jit',
   purge: [
     './src/pages/**/*.{js,ts,jsx,tsx}',
+    './src/templates/**/*.{js,ts,jsx,tsx}',
     './src/components/**/*.{js,ts,jsx,tsx}',
   ],
   darkMode: false,
@@ -180,6 +181,8 @@ module.exports = {
       },
       maxWidth: {
         144: '9rem',
+        192: '18rem',
+        '1/3': '33%',
       },
       minWidth: {
         '2/4': '50%',

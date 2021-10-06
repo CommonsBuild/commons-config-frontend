@@ -11,7 +11,7 @@ function Dialog({ bg, children, isOpen, title }: DialogProps) {
   return (
     <div
       className={classnames(
-        'absolute h-screen w-screen z-50 bg-black bg-opacity-75 flex justify-center',
+        'absolute top-0 left-0 h-screen w-screen z-50 bg-black bg-opacity-75 flex justify-center',
         {
           hidden: !isOpen,
         }

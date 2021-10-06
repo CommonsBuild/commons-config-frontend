@@ -1,8 +1,7 @@
 import Head from 'next/head';
-
-import { CustomNavbar as Navbar } from '@/components/Navbar';
 import GradientTitle from '@/components/GradientTitle';
-import NeonButton from '@/components/NeonButton';
+import { CustomNavbar as Navbar } from '@/components/_global';
+import { NeonButton } from '@/components/btns';
 
 function IntroDone() {
   return (
@@ -10,7 +9,7 @@ function IntroDone() {
       <Head>
         <title>Intro Done | Commons Dashboard</title>
       </Head>
-      <div className="min-h-screen bg-300">
+      <div className="min-h-screen bg-black-300">
         <Navbar href="" transparentBackground />
         <div className="flex container mx-auto px-4 py-8 justify-center text-center">
           <div className="max-w-screen-lg">

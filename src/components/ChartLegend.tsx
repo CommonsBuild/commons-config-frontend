@@ -1,6 +1,7 @@
 import classnames from 'classnames';
-import Tooltip from './Tooltip';
-import useHover from '../hooks/useHover';
+
+import { Tooltip } from '@/components/_global';
+import useHover from '@/hooks/useHover';
 
 interface ChartLegendProps {
   name: string;
