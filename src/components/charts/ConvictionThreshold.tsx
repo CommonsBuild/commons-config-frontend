@@ -2,6 +2,11 @@ import React from 'react';
 import Image from 'next/image';
 import { Line } from 'react-chartjs-2';
 
+interface ConvictionThresholdProps {
+  requestedPercentage: number[];
+  thresholdPercentage: number[];
+}
+
 const options = {
   responsive: true,
   aspectRatio: 2.75,
@@ -22,17 +27,28 @@ const options = {
       },
       ticks: {
         color: '#FFFFFF',
+        autoSkip: true,
+        maxTicksLimit: 8,
+        callback(value) {
+          return `${value}%`;
+        },
       },
       beginAtZero: true,
     },
     yAxes: {
+      suggestedMin: 0,
+      max: 100,
       grid: {
         display: false,
         borderColor: '#03B3FF',
       },
       ticks: {
         color: '#FFFFFF',
-        stepSize: 0.2,
+        autoSkip: true,
+        stepSize: 20,
+        callback(value) {
+          return `${value}%`;
+        },
       },
       beginAtZero: true,
       position: 'left',
@@ -40,23 +56,21 @@ const options = {
   },
 };
 
-interface ChartData {
-  price: number[];
-  week: number[];
-}
-
-const LineChart = ({ price, week }: ChartData) => {
+function ConvictionThresholdChart({
+  requestedPercentage,
+  thresholdPercentage,
+}: ConvictionThresholdProps) {
   const data = {
-    labels: week || ['0'],
+    labels: requestedPercentage,
     datasets: [
       {
         label: 'Floor price',
-        data: price,
+        data: thresholdPercentage,
         fill: false,
         borderColor: '#DEFB48',
         pointBackgroundColor: '#DEFB48',
-        pointHoverRadius: 7,
-        pointRadius: 7,
+        pointHoverRadius: 0,
+        pointRadius: 0,
         pointStyle: 'rect',
       },
     ],
@@ -65,7 +79,7 @@ const LineChart = ({ price, week }: ChartData) => {
     <>
       <div className="w-20 h-0 text-right relative -top-2 -left-14">
         <span className="font-bj font-bold text-xxs text-neon-light uppercase">
-          price floor (wxdai)
+          % of <b>effective supply</b> voting this proposal
         </span>
       </div>
       <div className="flex justify-center py-2">
@@ -78,11 +92,16 @@ const LineChart = ({ price, week }: ChartData) => {
       </div>
       <div className="w-24 h-0 ml-auto text-right relative bottom-12 -right-12">
         <span className="font-bj font-bold text-xxs text-neon-light uppercase">
-          time (weeks)
+          % of common pool funds being requested
+        </span>
+      </div>
+      <div className="w-28 h-0 text-center relative bottom-24 -left-20 ">
+        <span className="inline-block font-bj font-bold text-xxs text-neon-light uppercase p-2 bg-black-200">
+          minimum % of tokens needed to pass
         </span>
       </div>
     </>
   );
-};
+}
 
-export default React.memo(LineChart);
+export default React.memo(ConvictionThresholdChart);

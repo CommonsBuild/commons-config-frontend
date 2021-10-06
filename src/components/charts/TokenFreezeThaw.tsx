@@ -2,11 +2,6 @@ import React from 'react';
 import Image from 'next/image';
 import { Line } from 'react-chartjs-2';
 
-interface ConvictionThresholdProps {
-  requestedPercentage: number[];
-  thresholdPercentage: number[];
-}
-
 const options = {
   responsive: true,
   aspectRatio: 2.75,
@@ -27,28 +22,17 @@ const options = {
       },
       ticks: {
         color: '#FFFFFF',
-        autoSkip: true,
-        maxTicksLimit: 8,
-        callback(value) {
-          return `${value}%`;
-        },
       },
       beginAtZero: true,
     },
     yAxes: {
-      suggestedMin: 0,
-      max: 100,
       grid: {
         display: false,
         borderColor: '#03B3FF',
       },
       ticks: {
         color: '#FFFFFF',
-        autoSkip: true,
-        stepSize: 20,
-        callback(value) {
-          return `${value}%`;
-        },
+        stepSize: 0.2,
       },
       beginAtZero: true,
       position: 'left',
@@ -56,21 +40,23 @@ const options = {
   },
 };
 
-function ConvictionThresholdChart({
-  requestedPercentage,
-  thresholdPercentage,
-}: ConvictionThresholdProps) {
+interface TokenFreezeThawProps {
+  price: number[];
+  week: number[];
+}
+
+const TokenFreezeThawChart = ({ price, week }: TokenFreezeThawProps) => {
   const data = {
-    labels: requestedPercentage,
+    labels: week || ['0'],
     datasets: [
       {
         label: 'Floor price',
-        data: thresholdPercentage,
+        data: price,
         fill: false,
         borderColor: '#DEFB48',
         pointBackgroundColor: '#DEFB48',
-        pointHoverRadius: 0,
-        pointRadius: 0,
+        pointHoverRadius: 7,
+        pointRadius: 7,
         pointStyle: 'rect',
       },
     ],
@@ -79,7 +65,7 @@ function ConvictionThresholdChart({
     <>
       <div className="w-20 h-0 text-right relative -top-2 -left-14">
         <span className="font-bj font-bold text-xxs text-neon-light uppercase">
-          % of <b>effective supply</b> voting this proposal
+          price floor (wxdai)
         </span>
       </div>
       <div className="flex justify-center py-2">
@@ -92,16 +78,11 @@ function ConvictionThresholdChart({
       </div>
       <div className="w-24 h-0 ml-auto text-right relative bottom-12 -right-12">
         <span className="font-bj font-bold text-xxs text-neon-light uppercase">
-          % of commons pool funds being requested
-        </span>
-      </div>
-      <div className="w-28 h-0 text-center relative bottom-24 -left-20 ">
-        <span className="inline-block font-bj font-bold text-xxs text-neon-light uppercase p-2 bg-black-200">
-          minimum % of tokens needed to pass
+          time (weeks)
         </span>
       </div>
     </>
   );
-}
+};
 
-export default React.memo(ConvictionThresholdChart);
+export default React.memo(TokenFreezeThawChart);

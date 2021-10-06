@@ -1,10 +1,8 @@
 import Head from 'next/head';
-
-import { CustomNavbar as Navbar } from '@/components/Navbar';
-import NeonButton from '@/components/NeonButton';
-import Checkbox from '@/components/Chekbox';
 import GradientTitle from '@/components/GradientTitle';
 import ListItem from '@/components/ListItem';
+import { CustomNavbar as Navbar } from '@/components/_global';
+import { Checkbox, NeonButton } from '@/components/btns';
 
 const learnings = [
   'Distribution of TEC tokens and Governance power to Hatchers',

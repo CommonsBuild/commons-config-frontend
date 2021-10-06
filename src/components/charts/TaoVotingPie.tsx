@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pie } from 'react-chartjs-2';
 
-interface PieChartProps {
+interface TaoVotingPieProps {
   nonQuietVotingPeriod: number;
   quietEndingPeriod: number;
   quietEndingExtension: number;
@@ -20,12 +20,12 @@ const options = {
   },
 };
 
-function PieChart({
+function TaoVotingPie({
   nonQuietVotingPeriod,
   quietEndingPeriod,
   quietEndingExtension,
   executionDelay,
-}: PieChartProps) {
+}: TaoVotingPieProps) {
   const data = {
     labels: [
       'Non-Quiet Voting Period',
@@ -49,4 +49,4 @@ function PieChart({
   return <Pie data={data} options={options} />;
 }
 
-export default React.memo(PieChart);
+export default React.memo(TaoVotingPie);

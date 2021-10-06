@@ -62,7 +62,7 @@ const initialContext: ParamsContextType = {
   convictionVotingPeriodDays: '',
   submitProposal: false,
   setParams: (): void => {
-    throw new Error('setContext must be overridden');
+    throw new Error('setParams must be overridden');
   },
   handleChange: (): void => {
     throw new Error('handleChange must be overridden');
