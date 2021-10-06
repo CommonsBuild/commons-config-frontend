@@ -93,8 +93,8 @@ function ConvictionVoting() {
       setParams((previousParams) => ({
         ...previousParams,
         spendingLimit: '20',
-        minimumConviction: '5',
-        convictionGrowth: '2',
+        minimumConviction: '0.5',
+        convictionGrowth: '5',
         convictionVotingPeriodDays: '7',
       }));
     }

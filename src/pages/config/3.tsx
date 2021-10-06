@@ -7,10 +7,12 @@ import {
   ChartContainer,
   ConfigNavbar as Navbar,
 } from '@/components/_global';
+
 import { RedirectButton } from '@/components/btns';
 import { TaoVotingBar } from '@/components/charts';
 import { useParams, useTaoVoting } from '@/hooks';
 import { TaoVotingPieDialog } from '@/components/modals';
+import ChartLegend from '@/components/ChartLegend';
 
 type ParamsOptionsType =
   | 'SUPPORT_REQUIRED'
@@ -44,6 +46,44 @@ function DisputableVoting() {
     setIsOpen(!isOpen);
   };
 
+  const barChartLegend = [
+    {
+      name: 'non-quiet voting period',
+      bgColor: 'yellow',
+      tooltipText:
+        'The initial portion of the Vote Duration that will NOT trigger the Quiet Ending Extension',
+    },
+    {
+      name: 'delegated voting period',
+      bgColor: 'purple',
+      tooltipText:
+        'The amount of time delegates are permitted to vote on a proposal.',
+    },
+    {
+      name: 'vote duration',
+      bgColor: 'dark-blue',
+      tooltipText: 'The amount of time a proposal is eligible to be voted on.',
+    },
+    {
+      name: 'quiet ending period',
+      bgColor: 'orange',
+      tooltipText:
+        'If the voting outcome changes during this time the Quiet Ending Extension will trigger, extending the Vote Duration.',
+    },
+    {
+      name: 'quiet ending extension',
+      bgColor: 'blue',
+      tooltipText:
+        'The amount of time added to the Vote Duration resulting from the vote outcome changing during the Quiet Ending.',
+    },
+    {
+      name: 'execution delay',
+      bgColor: 'turquoise',
+      tooltipText:
+        'The amount of time after a vote passes before the proposed action is executed',
+    },
+  ];
+
   const inputs = [
     {
       name: 'supportRequired',
@@ -53,6 +93,7 @@ function DisputableVoting() {
       placeholder: '%',
       tooltipText:
         'The percent of votes that must be in favour of this proposal.',
+      interval: { min: 50, max: 100 },
     },
     {
       name: 'minimumQuorum',
@@ -123,13 +164,13 @@ function DisputableVoting() {
     ) {
       setParams((previousParams) => ({
         ...previousParams,
-        supportRequired: '10',
-        minimumQuorum: '20',
-        voteDuration: '20',
+        supportRequired: '88',
+        minimumQuorum: '8',
+        voteDuration: '7',
         delegatedVotingPeriod: '5',
-        quietEndingPeriod: '5',
-        quietEndingExtension: '10',
-        executionDelay: '7',
+        quietEndingPeriod: '3',
+        quietEndingExtension: '2',
+        executionDelay: '1',
       }));
     }
   }, []);
@@ -158,6 +199,8 @@ function DisputableVoting() {
             {inputs.map((input) => (
               <Input
                 key={input.name}
+                min={input.interval?.min}
+                max={input.interval?.max}
                 name={input.name}
                 value={input.value}
                 param={input.param}
@@ -200,6 +243,17 @@ function DisputableVoting() {
                 barChart.proposalProcessWithExtension?.executionDelay
               }
             />
+            <div className="grid grid-rows-3 grid-flow-col text-gray">
+              {barChartLegend.map((legend, index) => (
+                <ChartLegend
+                  key={index}
+                  name={legend.name}
+                  bgColor={legend.bgColor}
+                  colAlign
+                  tooltipText={legend.tooltipText}
+                />
+              ))}
+            </div>
           </ChartContainer>
         </div>
       </div>
