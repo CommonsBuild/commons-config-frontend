@@ -27,8 +27,8 @@ const marketScenarios = [
     id: 'bearish',
     value: [
       [5, 'wxDAI'],
-      [1000, 'TEC'],
-      [10, 'wxDAI'],
+      [50, 'TEC'],
+      [3, 'wxDAI'],
     ],
   },
   {
