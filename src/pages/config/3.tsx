@@ -139,13 +139,13 @@ function DisputableVoting() {
       <Head>
         <title>Config 3 | Commons Dashboard</title>
       </Head>
+      <TaoVotingPieDialog
+        data={pieChart}
+        isOpen={isOpen}
+        handleClose={() => setIsOpen(false)}
+      />
       <div className="lg:min-h-screen bg-dash bg-cover">
         <Navbar />
-        <TaoVotingPieDialog
-          data={pieChart}
-          isOpen={isOpen}
-          handleClose={() => setIsOpen(false)}
-        />
         <div className="flex justify-center">
           <Card
             title="tao voting"

@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import Head from 'next/head';
-import axios from 'axios';
 import Input from '@/components/Input';
 import { Card, Navbar } from '@/components/_global';
 import { NeonButton } from '@/components/btns';
 import { useParams } from '@/hooks/';
 import TextArea from '@/components/TextArea';
-import { Dialog } from '@/components/modals';
+import { Backdrop, Dialog } from '@/components/modals';
+import api from '@/services/api';
 
 interface ModuleContainerProps {
   inputList: { [key: string]: string }[];
@@ -60,6 +60,7 @@ function SubmitConfig() {
   const [title, setTitle] = useState('');
   const [dialog, setDialog] = useState(false);
   const [url, setUrl] = useState(undefined);
+  const [loading, setLoading] = useState(false);
   const [textAreaContent, setTextAreaContent] = useState({
     freeze: '',
     abc: '',
@@ -236,8 +237,9 @@ function SubmitConfig() {
     });
   };
 
-  const submitParams = () => {
-    const choosenParams = {
+  function submitParams() {
+    setLoading(true);
+    const chosenParams = {
       title,
       tokenLockup: {
         openingPrice: Number(params.openingPrice),
@@ -275,17 +277,16 @@ function SubmitConfig() {
         virtualBalance: 0,
       },
     };
-    axios
-      .post(
-        'https://dev-commons-config-backend.herokuapp.com/issue-generator/',
-        choosenParams
-      )
+    api
+      .post('/issue-generator/', chosenParams)
       .then((response) => {
-        setUrl(response.data[1]);
+        console.log(response);
+        setUrl(response.data.url);
+        setLoading(false);
         setDialog(true);
       })
-      .catch((e) => console.log(e.response, choosenParams));
-  };
+      .catch((e) => console.log(e.response, chosenParams));
+  }
 
   return (
     <>
@@ -293,10 +294,10 @@ function SubmitConfig() {
         <title>Review and Submit | Commons Dashboard</title>
       </Head>
       <Dialog isOpen={dialog && url !== undefined}>
-        <h2 className="font-bj font-bold text-xl text-neon text-center py-6">
+        <h2 className="font-bj font-bold text-xl text-neon text-center py-6 px-4">
           Congratulations!
         </h2>
-        <div className="font-bj text-neon-light">
+        <div className="font-bj text-neon-light px-16 text-center">
           Your proposal was created successfully! To see your submission,{' '}
           <a
             className="font-bj font-bold text-neon"
@@ -314,6 +315,9 @@ function SubmitConfig() {
           close
         </button>
       </Dialog>
+      <Backdrop isOpen={loading}>
+        <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-neon" />
+      </Backdrop>
       <div className="lg:min-h-screen bg-dash bg-cover">
         <Navbar />
         <h2 className="font-bj font-bold text-3xl text-neon-light text-center py-4">
