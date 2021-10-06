@@ -9,6 +9,9 @@
   a {
     @apply cursor-pointer;
   }
+  span {
+    @apply cursor-default;
+  }
 }
 
 @layer components {
