@@ -30,9 +30,9 @@ function TokenFreezeThaw() {
     if ([tokenFreeze, tokenThaw].every((elem) => elem === '')) {
       setParams((previousParams) => ({
         ...previousParams,
-        openingPrice: openingPrice || '2',
+        openingPrice: openingPrice || '1.65',
         tokenFreeze: '30',
-        tokenThaw: '10',
+        tokenThaw: '100',
       }));
     }
   }, []);

@@ -53,6 +53,7 @@ function DisputableVoting() {
       placeholder: '%',
       tooltipText:
         'The percent of votes that must be in favour of this proposal.',
+      interval: { min: 50, max: 100 },
     },
     {
       name: 'minimumQuorum',
@@ -123,13 +124,13 @@ function DisputableVoting() {
     ) {
       setParams((previousParams) => ({
         ...previousParams,
-        supportRequired: '10',
-        minimumQuorum: '20',
-        voteDuration: '20',
+        supportRequired: '88',
+        minimumQuorum: '8',
+        voteDuration: '7',
         delegatedVotingPeriod: '5',
-        quietEndingPeriod: '5',
-        quietEndingExtension: '10',
-        executionDelay: '7',
+        quietEndingPeriod: '3',
+        quietEndingExtension: '2',
+        executionDelay: '1',
       }));
     }
   }, []);
@@ -158,6 +159,8 @@ function DisputableVoting() {
             {inputs.map((input) => (
               <Input
                 key={input.name}
+                min={input.interval?.min}
+                max={input.interval?.max}
                 name={input.name}
                 value={input.value}
                 param={input.param}
