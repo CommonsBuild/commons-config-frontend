@@ -46,15 +46,6 @@ const options = {
   },
 };
 
-const barChartLegend = [
-  { name: 'non-quiet voting period', bgColor: 'yellow' },
-  { name: 'delegated voting period', bgColor: 'purple' },
-  { name: 'delegated and non-delegated voting', bgColor: 'dark-blue' },
-  { name: 'quiet ending period', bgColor: 'orange' },
-  { name: 'quiet ending extension', bgColor: 'blue' },
-  { name: 'execution delay', bgColor: 'turquoise' },
-];
-
 interface TaoVotingBarProps {
   nonQuietVotingPeriod: number;
   delegatedVotingPeriod: number;
@@ -135,11 +126,6 @@ function TaoVotingBar({
             </span>
           </Tooltip>
         </div>
-      </div>
-      <div className="grid grid-rows-3 grid-flow-col text-gray">
-        {barChartLegend.map((legend) => (
-          <ChartLegend name={legend.name} bgColor={legend.bgColor} colAlign />
-        ))}
       </div>
     </>
   );

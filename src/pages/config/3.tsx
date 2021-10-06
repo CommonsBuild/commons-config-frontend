@@ -244,8 +244,9 @@ function DisputableVoting() {
               }
             />
             <div className="grid grid-rows-3 grid-flow-col text-gray">
-              {barChartLegend.map((legend) => (
+              {barChartLegend.map((legend, index) => (
                 <ChartLegend
+                  key={index}
                   name={legend.name}
                   bgColor={legend.bgColor}
                   colAlign
