@@ -99,9 +99,11 @@ function ConfigNavbar() {
           </Link>
         ))}
       </div>
-      <button className="font-bj font-bold text-xs text-neon uppercase ml-auto">
-        ADVANCED SETTINGS
-      </button>
+      <Link href="/config/submit">
+        <button className="font-bj font-bold text-xs text-neon uppercase ml-auto">
+          QUICK CONFIGURATION
+        </button>
+      </Link>
     </Navbar>
   );
 }
