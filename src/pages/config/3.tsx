@@ -124,13 +124,13 @@ function DisputableVoting() {
     ) {
       setParams((previousParams) => ({
         ...previousParams,
-        supportRequired: '50',
-        minimumQuorum: '20',
-        voteDuration: '20',
+        supportRequired: '88',
+        minimumQuorum: '8',
+        voteDuration: '7',
         delegatedVotingPeriod: '5',
-        quietEndingPeriod: '5',
-        quietEndingExtension: '10',
-        executionDelay: '7',
+        quietEndingPeriod: '3',
+        quietEndingExtension: '2',
+        executionDelay: '1',
       }));
     }
   }, []);

@@ -119,9 +119,9 @@ function ABC() {
     ) {
       setParams((previousParams) => ({
         ...previousParams,
-        openingPrice: openingPrice || '2',
-        commonsTribute: '5',
-        entryTribute: '15',
+        openingPrice: openingPrice || '1.65',
+        commonsTribute: '50',
+        entryTribute: '3',
         exitTribute: '15',
         reserveBalance: '1500000',
         stepList: [
