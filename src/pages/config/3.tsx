@@ -159,8 +159,8 @@ function DisputableVoting() {
             {inputs.map((input) => (
               <Input
                 key={input.name}
-                inputMin={input.interval?.min}
-                inputMax={input.interval?.max}
+                min={input.interval?.min}
+                max={input.interval?.max}
                 name={input.name}
                 value={input.value}
                 param={input.param}

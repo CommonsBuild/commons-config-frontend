@@ -3,8 +3,8 @@ import { useHover } from '@/hooks';
 
 interface InputProps {
   children?: React.ReactNode;
-  inputMin?: number;
-  inputMax?: number;
+  min?: number;
+  max?: number;
   name: string;
   param: string;
   placeholder: string;
@@ -16,8 +16,8 @@ interface InputProps {
 
 function Input({
   children,
-  inputMin,
-  inputMax,
+  min,
+  max,
   name,
   param,
   placeholder,
@@ -41,8 +41,8 @@ function Input({
       <div className="relative h-12 bg-black-200">
         <input
           type="numeric"
-          min={inputMin}
-          max={inputMax}
+          min={min}
+          max={max}
           name={name}
           value={value}
           onClick={changeParam}
