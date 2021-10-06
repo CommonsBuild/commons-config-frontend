@@ -1,12 +1,21 @@
 import classnames from 'classnames';
+import Tooltip from './Tooltip';
+import useHover from '../hooks/useHover';
 
 interface ChartLegendProps {
   name: string;
   bgColor?: string;
   colAlign?: boolean;
+  tooltipText?: string;
 }
 
-function ChartLegend({ name, bgColor, colAlign }: ChartLegendProps) {
+function ChartLegend({
+  name,
+  bgColor,
+  colAlign,
+  tooltipText,
+}: ChartLegendProps) {
+  const [hoverRef, isHovered] = useHover<HTMLDivElement>();
   const legendColors = {
     yellow: 'bg-chart-yellow',
     orange: 'bg-chart-orange',
@@ -22,10 +31,15 @@ function ChartLegend({ name, bgColor, colAlign }: ChartLegendProps) {
         'last:col-start-3': colAlign,
       })}
     >
-      <div className={classnames('h-4 w-4 mr-4', legendColors[bgColor])} />
-      <span className="font-bj font-bold text-neon-light text-xs uppercase">
-        {name}
-      </span>
+      <Tooltip text={tooltipText} isHovered={isHovered}>
+        <div className={classnames('h-4 w-4 mr-4', legendColors[bgColor])} />
+        <span
+          ref={hoverRef}
+          className="font-bj font-bold text-neon-light text-xs uppercase"
+        >
+          {name}
+        </span>
+      </Tooltip>
     </div>
   );
 }

@@ -91,7 +91,7 @@ function ConfigNavbar() {
           </Link>
         ))}
       </div>
-      <Link href="/config/submit" >
+      <Link href="/config/submit">
         <button className="font-bj font-bold text-xs text-neon uppercase ml-auto">
           QUICK CONFIGURATION
         </button>
