@@ -3,6 +3,8 @@ import { useHover } from '@/hooks';
 
 interface InputProps {
   children?: React.ReactNode;
+  inputMin?: number;
+  inputMax?: number;
   name: string;
   param: string;
   placeholder: string;
@@ -14,6 +16,8 @@ interface InputProps {
 
 function Input({
   children,
+  inputMin,
+  inputMax,
   name,
   param,
   placeholder,
@@ -36,11 +40,13 @@ function Input({
       </Tooltip>
       <div className="relative h-12 bg-black-200">
         <input
+          type="numeric"
+          min={inputMin}
+          max={inputMax}
           name={name}
           value={value}
           onClick={changeParam}
           onChange={onChange}
-          max={100}
           className="font-bold text-neon-light text-xl w-full h-full pl-3 border-2 border-gray-500 focus:border-neon hover:border-gray-400 bg-transparent outline-none"
         />
         <div className="absolute right-3 top-2/4 transform -translate-y-2/4">
