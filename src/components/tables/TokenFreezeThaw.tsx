@@ -16,7 +16,7 @@ function TokenFreezeThawTable({ table }: PriceTableProps) {
         <div className="w-1/3 max-w-192 table-text">
           <Tooltip
             isHovered={firstHeaderIsHovered}
-            text="The initial price of the TEC token after the Commons Upgrade is complete."
+            text="The amount of weeks that have passed since the Commons Upgrade."
           >
             <span ref={firstHeader}>
               # of weeks{' '}
@@ -29,7 +29,7 @@ function TokenFreezeThawTable({ table }: PriceTableProps) {
         <div className="w-1/3 max-w-192">
           <Tooltip
             isHovered={secondHeaderIsHovered}
-            text="The initial price of the TEC token after the Commons Upgrade is complete."
+            text="The percentage of Hatchers' TEC tokens that have become liquid from the Token Thaw."
           >
             <span ref={secondHeader}>
               % tokens released{' '}
@@ -42,7 +42,7 @@ function TokenFreezeThawTable({ table }: PriceTableProps) {
         <div className="w-1/3 max-w-192">
           <Tooltip
             isHovered={thirdHeaderIsHovered}
-            text="The initial price of the TEC token after the Commons Upgrade is complete."
+            text="The minimum possible price of the TEC token, assuming all liquid TEC tokens are sold."
           >
             <span ref={thirdHeader}>
               price floor of token{' '}
