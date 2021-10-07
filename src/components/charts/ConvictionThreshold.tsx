@@ -103,7 +103,7 @@ function ConvictionThresholdChart({
           </div>
         </div>
       </div>
-      <div className="w-24 h-0 ml-auto text-right relative -bottom right-4">
+      <div className="w-24 h-0 ml-auto text-right relative -bottom right-4 z-10">
         <Tooltip
           isHovered={xAxisIsHovered}
           text="The Common Pool holds funds that will be used for realizing the initiatives of the TEC."

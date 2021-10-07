@@ -26,17 +26,17 @@ const marketScenarios = [
   {
     id: 'bearish',
     value: [
-      [5, 'wxDAI'],
-      [50, 'TEC'],
-      [3, 'wxDAI'],
+      [5000, 'wxDAI'],
+      [50000, 'TEC'],
+      [3000, 'wxDAI'],
     ],
   },
   {
     id: 'bullish',
     value: [
-      [5, 'TEC'],
-      [1000, 'wxDAI'],
-      [10, 'TEC'],
+      [5000, 'wxDAI'],
+      [100000, 'wxDAI'],
+      [3000, 'TEC'],
     ],
   },
 ];
@@ -50,7 +50,7 @@ const reserveBalanceButtons = [
 ];
 
 function ABC() {
-  const { chart, stepLinSpaces, table } = useABC();
+  const { chart, stepLinSpaces, reserveRatio, table } = useABC();
 
   const {
     openingPrice,
@@ -125,9 +125,9 @@ function ABC() {
         exitTribute: '15',
         reserveBalance: '1500000',
         stepList: [
-          [5, 'TEC'],
-          [1000, 'wxDAI'],
-          [10, 'TEC'],
+          [5000, 'wxDAI'],
+          [100000, 'wxDAI'],
+          [3000, 'TEC'],
         ],
       }));
     }
@@ -282,6 +282,7 @@ function ABC() {
             <ABCChart
               balanceInThousands={chart.balanceInThousands}
               price={chart.price}
+              reserveRatio={(reserveRatio * 100).toFixed(2)}
               stepLinSpaces={stepLinSpaces}
             />
             <span className="font-bj text-sm text-neon-light px-16 py-2">

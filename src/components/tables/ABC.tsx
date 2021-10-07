@@ -8,7 +8,10 @@ interface ABCProps {
 }
 function ABCTable({ stepList, table }: ABCProps) {
   const [stepHeader, stepHeaderIsHovered] = useHover<HTMLDivElement>();
-  const [currentHeader, currentHeaderIsHovered] = useHover<HTMLDivElement>();
+  const [currentPriceHeader, currentPriceHeaderIsHovered] =
+    useHover<HTMLDivElement>();
+  const [currentSupplyHeader, currentSupplyHeaderIsHovered] =
+    useHover<HTMLDivElement>();
   const [amountInHeader, amountInHeaderIsHovered] = useHover<HTMLDivElement>();
   const [tributeHeader, tributeHeaderIsHovered] = useHover<HTMLDivElement>();
   const [amountOutHeader, amountOutHeaderIsHovered] =
@@ -19,6 +22,7 @@ function ABCTable({ stepList, table }: ABCProps) {
   const headerOrder = [
     'step',
     'currentPriceParsed',
+    'currentSupplyParsed',
     'amountIn',
     'tributeCollected',
     'amountOut',
@@ -36,7 +40,7 @@ function ABCTable({ stepList, table }: ABCProps) {
           >
             <span ref={stepHeader}>
               step{' '}
-              <div className="inline-block mt-1 ml-1">
+              <div className="inline-block mt-1">
                 <Image src="/questionMark.svg" height="12px" width="12px" />
               </div>
             </span>
@@ -44,12 +48,25 @@ function ABCTable({ stepList, table }: ABCProps) {
         </div>
         <div className="w-1/5 max-w-144">
           <Tooltip
-            isHovered={currentHeaderIsHovered}
+            isHovered={currentPriceHeaderIsHovered}
             text="The price of the TEC token at the beginning of the transaction."
           >
-            <span ref={currentHeader}>
+            <span ref={currentPriceHeader}>
               current price{' '}
-              <div className="inline-block mt-1 ml-1">
+              <div className="inline-block mt-1">
+                <Image src="/questionMark.svg" height="12px" width="12px" />
+              </div>
+            </span>
+          </Tooltip>
+        </div>
+        <div className="w-1/5 max-w-144">
+          <Tooltip
+            isHovered={currentSupplyHeaderIsHovered}
+            text="The price of the TEC token at the beginning of the transaction."
+          >
+            <span ref={currentSupplyHeader}>
+              current supply{' '}
+              <div className="inline-block mt-1">
                 <Image src="/questionMark.svg" height="12px" width="12px" />
               </div>
             </span>
@@ -62,7 +79,7 @@ function ABCTable({ stepList, table }: ABCProps) {
           >
             <span ref={amountInHeader}>
               amount in{' '}
-              <div className="inline-block mt-1 ml-1">
+              <div className="inline-block mt-1">
                 <Image src="/questionMark.svg" height="12px" width="12px" />
               </div>
             </span>
@@ -75,7 +92,7 @@ function ABCTable({ stepList, table }: ABCProps) {
           >
             <span ref={tributeHeader}>
               tribute collected{' '}
-              <div className="inline-block mt-1 ml-1">
+              <div className="inline-block mt-1">
                 <Image src="/questionMark.svg" height="12px" width="12px" />
               </div>
             </span>
@@ -88,7 +105,7 @@ function ABCTable({ stepList, table }: ABCProps) {
           >
             <span ref={amountOutHeader}>
               amount out{' '}
-              <div className="inline-block mt-1 ml-1">
+              <div className="inline-block mt-1">
                 <Image src="/questionMark.svg" height="12px" width="12px" />
               </div>
             </span>
@@ -101,7 +118,7 @@ function ABCTable({ stepList, table }: ABCProps) {
           >
             <span ref={newPriceHeader}>
               new price{' '}
-              <div className="inline-block mt-1 ml-1">
+              <div className="inline-block mt-1">
                 <Image src="/questionMark.svg" height="12px" width="12px" />
               </div>
             </span>
@@ -114,7 +131,7 @@ function ABCTable({ stepList, table }: ABCProps) {
           >
             <span ref={slippageHeader}>
               price slippage{' '}
-              <div className="inline-block mt-1 ml-1">
+              <div className="inline-block mt-1">
                 <Image src="/questionMark.svg" height="12px" width="12px" />
               </div>
             </span>

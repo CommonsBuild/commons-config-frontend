@@ -241,31 +241,37 @@ function SubmitConfig() {
     setLoading(true);
     const chosenParams = {
       title,
+      overallStrategy: textAreaContent.overall,
       tokenLockup: {
+        strategy: textAreaContent.freeze,
         openingPrice: Number(params.openingPrice),
         tokenFreeze: Number(params.tokenFreeze),
         tokenThaw: Number(params.tokenThaw),
       },
       augmentedBondingCurve: {
+        strategy: textAreaContent.abc,
+        openingPrice: Number(params.openingPrice),
         commonsTribute: Number(params.commonsTribute) / 100,
-        ragequit: Number(params.ragequitPercentage),
-        initialPrice: 1,
+        ragequitAmount: Number(params.ragequitAmount),
+        initialBuy: Number(params.initialBuy),
         entryTribute: Number(params.entryTribute) / 100,
         exitTribute: Number(params.exitTribute) / 100,
-        hatchScenarioFunding: Number(params.reserveBalance) / 1000,
+        reserveBalance: Number(params.reserveBalance) / 1000,
         stepList: params.stepList,
         zoomGraph: 0,
       },
       taoVoting: {
-        supportRequired: Number(params.supportRequired) / 100,
-        minimumQuorum: Number(params.minimumQuorum) / 100,
-        voteDuration: Number(params.voteDuration),
+        strategy: textAreaContent.tao,
+        supportRequired: params.supportRequired,
+        minimumQuorum: params.minimumQuorum,
         delegatedVotingPeriod: Number(params.delegatedVotingPeriod),
         quietEndingPeriod: Number(params.quietEndingPeriod),
         quietEndingExtension: Number(params.quietEndingExtension),
         executionDelay: Number(params.executionDelay),
+        voteDuration: Number(params.voteDuration),
       },
       convictionVoting: {
+        strategy: textAreaContent.conviction,
         spendingLimit: Number(params.spendingLimit) / 100,
         minimumConviction: Number(params.minimumConviction) / 100,
         convictionGrowth: Number(params.convictionGrowth),
@@ -285,7 +291,11 @@ function SubmitConfig() {
         setLoading(false);
         setDialog(true);
       })
-      .catch((e) => console.log(e.response, chosenParams));
+      .catch((e) => {
+        console.dir(chosenParams);
+        setLoading(false);
+        alert('Something went wrong');
+      });
   }
 
   return (
