@@ -27,8 +27,10 @@ function ConvictionVotingTable({ table }: ConvictionVotingTableProps) {
         <div className="w-1/6 max-w-144">scenario 6</div>
       </div>
       {scenarioTableVariables.map((elem) => (
-        <div className="flex justify-between items-center mb-2 hover:bg-cyan-700 cursor-pointer">
-          <div className="w-1/6 max-w-192 first:w-4/12">{elem.header}</div>
+        <div className="flex justify-between items-center hover:bg-cyan-700 cursor-pointer">
+          <div className="w-1/6 max-w-192 py-1 first:pl-2 first:w-4/12">
+            {elem.header}
+          </div>
           {table[elem.id]?.map((row) => (
             <span
               className={classnames('w-1/6 max-w-144', {
