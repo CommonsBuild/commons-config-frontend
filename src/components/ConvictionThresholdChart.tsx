@@ -1,6 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 import { Line } from 'react-chartjs-2';
+import Tooltip from './Tooltip';
+import useHover from '../hooks/useHover';
 
 interface ConvictionThresholdProps {
   requestedPercentage: number[];
@@ -12,18 +14,18 @@ const options = {
   aspectRatio: 2.75,
   plugins: {
     legend: {
-      display: false,
+      display: false
     },
     tooltip: {
-      enabled: false,
-    },
+      enabled: false
+    }
   },
   scales: {
     xAxes: {
       type: 'linear',
       grid: {
         display: false,
-        borderColor: '#03B3FF',
+        borderColor: '#03B3FF'
       },
       ticks: {
         color: '#FFFFFF',
@@ -31,16 +33,16 @@ const options = {
         maxTicksLimit: 8,
         callback(value) {
           return `${value}%`;
-        },
+        }
       },
-      beginAtZero: true,
+      beginAtZero: true
     },
     yAxes: {
       suggestedMin: 0,
       max: 100,
       grid: {
         display: false,
-        borderColor: '#03B3FF',
+        borderColor: '#03B3FF'
       },
       ticks: {
         color: '#FFFFFF',
@@ -48,18 +50,19 @@ const options = {
         stepSize: 20,
         callback(value) {
           return `${value}%`;
-        },
+        }
       },
       beginAtZero: true,
-      position: 'left',
-    },
-  },
+      position: 'left'
+    }
+  }
 };
 
 function ConvictionThresholdChart({
   requestedPercentage,
-  thresholdPercentage,
+  thresholdPercentage
 }: ConvictionThresholdProps) {
+  const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
   const data = {
     labels: requestedPercentage,
     datasets: [
@@ -71,16 +74,24 @@ function ConvictionThresholdChart({
         pointBackgroundColor: '#DEFB48',
         pointHoverRadius: 0,
         pointRadius: 0,
-        pointStyle: 'rect',
-      },
-    ],
+        pointStyle: 'rect'
+      }
+    ]
   };
   return (
     <>
       <div className="w-20 h-0 text-right relative -top-2 -left-14">
-        <span className="font-bj font-bold text-xxs text-neon-light uppercase">
-          % of <b>effective supply</b> voting this proposal
-        </span>
+        <Tooltip
+          isHovered={questionIsHovered}
+          text="Effective Supply is the amount of tokens currently voting on all proposals in Conviction Voting. This percentage is the relative amount of TEC tokens staked on this proposal."
+        >
+          <span
+            ref={questionRef}
+            className="font-bj font-bold text-xxs text-neon-light uppercase"
+          >
+            % of <b>effective supply</b> voting on this proposal
+          </span>
+        </Tooltip>
       </div>
       <div className="flex justify-center py-2">
         <div className="w-11/12">
