@@ -1,6 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 import { Line } from 'react-chartjs-2';
+import { Tooltip } from '@/components/_global';
+import { useHover } from '@/hooks';
 
 interface ConvictionThresholdProps {
   requestedPercentage: number[];
@@ -60,6 +62,7 @@ function ConvictionThresholdChart({
   requestedPercentage,
   thresholdPercentage,
 }: ConvictionThresholdProps) {
+  const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
   const data = {
     labels: requestedPercentage,
     datasets: [
@@ -78,9 +81,17 @@ function ConvictionThresholdChart({
   return (
     <>
       <div className="w-20 h-0 text-right relative -top-2 -left-14">
-        <span className="font-bj font-bold text-xxs text-neon-light uppercase">
-          % of <b>effective supply</b> voting this proposal
-        </span>
+        <Tooltip
+          isHovered={questionIsHovered}
+          text="Effective Supply is the amount of tokens currently voting on all proposals in Conviction Voting. This percentage is the relative amount of TEC tokens staked on this proposal."
+        >
+          <span
+            ref={questionRef}
+            className="font-bj font-bold text-xxs text-neon-light uppercase"
+          >
+            % of <b>effective supply</b> voting this proposal
+          </span>
+        </Tooltip>
       </div>
       <div className="flex justify-center py-2">
         <div className="w-11/12">

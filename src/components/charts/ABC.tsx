@@ -114,7 +114,7 @@ function ABCChart({ balanceInThousands, price, stepLinSpaces }: ABCProps) {
       <div className="w-44 h-0 ml-auto text-center relative -top-4 -right-6">
         <Tooltip
           isHovered={questionIsHovered}
-          text="Setting the Reserve Balance zooms in on a section of the curve to perform transaction simulations."
+          text="Reserve Ratio is an output of the Opening Price and Commons Tribute, it defines the shape of the ABC. Learn more about the Reserve Ratio on the Forum."
         >
           <div
             ref={questionRef}
