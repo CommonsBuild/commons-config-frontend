@@ -56,10 +56,10 @@ function TokenFreezeThawTable({ table }: PriceTableProps) {
       {table.price?.map((elem, index) => (
         <div
           key={index}
-          className="flex justify-between py-1 hover:bg-cyan-700 cursor-pointer"
+          className="flex justify-between py-1 hover:bg-cyan-700 cursor-default"
         >
-          <div className="w-1/3 max-w-192">{table.week[index]} weeks</div>
-          <div className="w-1/3 max-w-192">
+          <div className="w-1/3 max-w-144 pl-2">{table.week[index]} weeks</div>
+          <div className="w-1/3 max-w-144">
             {Number(table.tokensReleased[index].toFixed(2)) * 100}%
           </div>
           <div className="w-1/3 max-w-192">{elem.toFixed(2)} wxDAI</div>

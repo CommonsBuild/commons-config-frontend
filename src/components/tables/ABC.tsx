@@ -139,9 +139,9 @@ function ABCTable({ stepList, table }: ABCProps) {
         </div>
       </div>
       {Object.keys(stepList).map((elem, index) => (
-        <div className="flex justify-between items-center mb-2 hover:bg-cyan-700 cursor-pointer">
+        <div className="flex justify-between items-center hover:bg-cyan-700 cursor-pointer">
           {Object.keys(table).map((key, kIndex) => (
-            <span className="w-1/5 max-w-144 first:w-1/12">
+            <span className="w-1/5 max-w-144 py-1 first:w-1/12 first:pl-2">
               {table[headerOrder[kIndex]][index]}
             </span>
           ))}

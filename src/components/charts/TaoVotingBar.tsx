@@ -63,7 +63,6 @@ function TaoVotingBar({
   executionDelay,
 }: TaoVotingBarProps) {
   const [hoverRef, isHovered] = useHover<HTMLDivElement>();
-
   const data = {
     labels: [[], [], []],
     datasets: [
