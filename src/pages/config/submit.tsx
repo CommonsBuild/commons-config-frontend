@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import Head from 'next/head';
-import axios from 'axios';
+import Link from 'next/link';
 import Input from '@/components/Input';
 import { Card, Navbar } from '@/components/_global';
 import { NeonButton } from '@/components/btns';
 import { useParams } from '@/hooks/';
 import TextArea from '@/components/TextArea';
-import { Dialog } from '@/components/modals';
+import { Backdrop, Dialog } from '@/components/modals';
+import api from '@/services/api';
 
 interface ModuleContainerProps {
   inputList: { [key: string]: string }[];
@@ -60,6 +61,7 @@ function SubmitConfig() {
   const [title, setTitle] = useState('');
   const [dialog, setDialog] = useState(false);
   const [url, setUrl] = useState(undefined);
+  const [loading, setLoading] = useState(false);
   const [textAreaContent, setTextAreaContent] = useState({
     freeze: '',
     abc: '',
@@ -236,34 +238,41 @@ function SubmitConfig() {
     });
   };
 
-  const submitParams = () => {
-    const choosenParams = {
+  function submitParams() {
+    setLoading(true);
+    const chosenParams = {
       title,
+      overallStrategy: textAreaContent.overall,
       tokenLockup: {
+        strategy: textAreaContent.freeze,
         openingPrice: Number(params.openingPrice),
         tokenFreeze: Number(params.tokenFreeze),
         tokenThaw: Number(params.tokenThaw),
       },
       augmentedBondingCurve: {
+        strategy: textAreaContent.abc,
+        openingPrice: Number(params.openingPrice),
         commonsTribute: Number(params.commonsTribute) / 100,
-        ragequit: Number(params.ragequitPercentage),
-        initialPrice: 1,
+        ragequitAmount: Number(params.ragequitAmount),
+        initialBuy: Number(params.initialBuy),
         entryTribute: Number(params.entryTribute) / 100,
         exitTribute: Number(params.exitTribute) / 100,
-        hatchScenarioFunding: Number(params.reserveBalance) / 1000,
+        reserveBalance: Number(params.reserveBalance) / 1000,
         stepList: params.stepList,
         zoomGraph: 0,
       },
       taoVoting: {
-        supportRequired: Number(params.supportRequired) / 100,
-        minimumQuorum: Number(params.minimumQuorum) / 100,
-        voteDuration: Number(params.voteDuration),
+        strategy: textAreaContent.tao,
+        supportRequired: params.supportRequired,
+        minimumQuorum: params.minimumQuorum,
         delegatedVotingPeriod: Number(params.delegatedVotingPeriod),
         quietEndingPeriod: Number(params.quietEndingPeriod),
         quietEndingExtension: Number(params.quietEndingExtension),
         executionDelay: Number(params.executionDelay),
+        voteDuration: Number(params.voteDuration),
       },
       convictionVoting: {
+        strategy: textAreaContent.conviction,
         spendingLimit: Number(params.spendingLimit) / 100,
         minimumConviction: Number(params.minimumConviction) / 100,
         convictionGrowth: Number(params.convictionGrowth),
@@ -275,17 +284,20 @@ function SubmitConfig() {
         virtualBalance: 0,
       },
     };
-    axios
-      .post(
-        'https://dev-commons-config-backend.herokuapp.com/issue-generator/',
-        choosenParams
-      )
+    api
+      .post('/issue-generator/', chosenParams)
       .then((response) => {
-        setUrl(response.data[1]);
+        console.log(response);
+        setUrl(response.data.url);
+        setLoading(false);
         setDialog(true);
       })
-      .catch((e) => console.log(e.response, choosenParams));
-  };
+      .catch(() => {
+        console.dir(chosenParams);
+        setLoading(false);
+        alert('Something went wrong');
+      });
+  }
 
   return (
     <>
@@ -293,10 +305,10 @@ function SubmitConfig() {
         <title>Review and Submit | Commons Dashboard</title>
       </Head>
       <Dialog isOpen={dialog && url !== undefined}>
-        <h2 className="font-bj font-bold text-xl text-neon text-center py-6">
+        <h2 className="font-bj font-bold text-xl text-neon text-center py-6 px-4">
           Congratulations!
         </h2>
-        <div className="font-bj text-neon-light">
+        <div className="font-bj text-neon-light px-16 text-center">
           Your proposal was created successfully! To see your submission,{' '}
           <a
             className="font-bj font-bold text-neon"
@@ -314,7 +326,10 @@ function SubmitConfig() {
           close
         </button>
       </Dialog>
-      <div className="lg:min-h-screen bg-dash bg-cover">
+      <Backdrop isOpen={loading}>
+        <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-neon" />
+      </Backdrop>
+      <div className="min-h-screen h-full bg-dash bg-cover">
         <Navbar />
         <h2 className="font-bj font-bold text-3xl text-neon-light text-center py-4">
           Configuration Summary
@@ -371,6 +386,13 @@ function SubmitConfig() {
               value={textAreaContent.overall}
               onChange={(event) => handleTextArea(event)}
             />
+            <Link href="/config/1">
+              <a className="h-14 flex justify-center items-center w-full py-2 border border-neon my-2">
+                <span className="font-bj font-bold text-neon uppercase">
+                  return to configuration
+                </span>
+              </a>
+            </Link>
             <NeonButton href="" onClick={submitParams} fullWidth>
               <span>SUBMIT PROPOSAL</span>
             </NeonButton>

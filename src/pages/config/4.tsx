@@ -5,12 +5,14 @@ import {
   Card,
   ChartContainer,
   ConfigNavbar as Navbar,
+  Tooltip,
 } from '@/components/_global';
 import { RadioButton, RedirectButton } from '@/components/btns';
 import { ConvictionThresholdChart } from '@/components/charts';
 import { useConvictionVoting, useParams } from '@/hooks';
 import { ConvictionGrowthDialog } from '@/components/modals';
 import { ConvictionVotingTable } from '@/components/tables';
+import useHover from '@/hooks/useHover';
 
 type ParamsOptionsType =
   | 'SPENDING_LIMIT'
@@ -26,9 +28,9 @@ const radioButtons = [
 ];
 
 function ConvictionVoting() {
+  const [tableHover, tableIsHovered] = useHover<HTMLDivElement>();
   const { convictionGrowthChart, convictionThresholdChart, dataPoints, table } =
     useConvictionVoting();
-
   const {
     spendingLimit,
     minimumConviction,
@@ -103,7 +105,7 @@ function ConvictionVoting() {
       <Head>
         <title>Config 4 | Commons Dashboard</title>
       </Head>
-      <div className="lg:min-h-screen bg-dash bg-cover">
+      <div className="min-h-screen h-full bg-dash bg-cover">
         <ConvictionGrowthDialog
           convictionGrowth={convictionGrowth}
           convictionPercentage={convictionGrowthChart.convictionPercentage}
@@ -146,18 +148,26 @@ function ConvictionVoting() {
               requestedPercentage={convictionThresholdChart.requestedPercentage}
               thresholdPercentage={convictionThresholdChart.thresholdPercentage}
             />
-            <div className="flex flex-row-reverse justify-between max-w-2xl mx-auto px-2 py-6 bg-cyan-700 opacity-60">
-              {radioButtons.map((button) => (
-                <RadioButton
-                  checked={button.value === convictionVotingPeriodDays}
-                  onChange={(event) => handleChange(event)}
-                  id={button.id}
-                  label={button.label}
-                  name="convictionVotingPeriodDays"
-                  value={button.value}
-                />
-              ))}
-            </div>
+            <Tooltip
+              isHovered={tableIsHovered}
+              text="Select a timeframe in which you want to pass a proposal."
+            >
+              <div
+                ref={tableHover}
+                className="flex flex-row-reverse justify-between max-w-2xl mx-auto px-2 py-6 bg-cyan-700 opacity-60"
+              >
+                {radioButtons.map((button) => (
+                  <RadioButton
+                    checked={button.value === convictionVotingPeriodDays}
+                    onChange={(event) => handleChange(event)}
+                    id={button.id}
+                    label={button.label}
+                    name="convictionVotingPeriodDays"
+                    value={button.value}
+                  />
+                ))}
+              </div>
+            </Tooltip>
             <ConvictionVotingTable table={table} />
           </ChartContainer>
         </div>

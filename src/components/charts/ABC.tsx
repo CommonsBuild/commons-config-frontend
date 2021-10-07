@@ -45,15 +45,21 @@ const options = {
 interface ABCProps {
   balanceInThousands: number[];
   price: number[];
+  reserveRatio: string;
   stepLinSpaces: { [key: string]: number[] }[];
 }
 
-function ABCChart({ balanceInThousands, price, stepLinSpaces }: ABCProps) {
+function ABCChart({
+  balanceInThousands,
+  price,
+  reserveRatio,
+  stepLinSpaces,
+}: ABCProps) {
   const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
 
   const handleData = (xAxesData, yAxesData) => {
     const data = [];
-    xAxesData.forEach((elem, index) => {
+    xAxesData?.forEach((elem, index) => {
       data.push({ x: elem, y: yAxesData[index] });
     });
 
@@ -87,13 +93,13 @@ function ABCChart({ balanceInThousands, price, stepLinSpaces }: ABCProps) {
       datasets.push({
         label: String(index),
         fill: true,
-        data: handleData(elem.balanceInThousands, elem.price),
+        data: handleData(elem.x, elem.y),
         borderColor: '#DEFB48',
         pointBackgroundColor: '#DEFB48',
         pointHoverRadius: 7,
         pointRadius: 0,
         pointStyle: 'rect',
-        backgroundColor: getColor(elem.balanceInThousands),
+        backgroundColor: getColor(elem.x),
       });
     });
     return datasets;
@@ -122,7 +128,7 @@ function ABCChart({ balanceInThousands, price, stepLinSpaces }: ABCProps) {
             onClick={() => handleDatasets()}
           >
             <span className="font-bj font-bold text-xxs text-neon-light">
-              RESERVE RATIO: 20%
+              RESERVE RATIO: {reserveRatio}%
             </span>
             <Image
               className="m-1"

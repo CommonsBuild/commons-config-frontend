@@ -1,14 +1,57 @@
+import Image from 'next/image';
+import { Tooltip } from '@/components/_global';
+import useHover from '@/hooks/useHover';
+
 interface PriceTableProps {
   table: { [key: string]: number[] };
 }
 
 function TokenFreezeThawTable({ table }: PriceTableProps) {
+  const [firstHeader, firstHeaderIsHovered] = useHover<HTMLDivElement>();
+  const [secondHeader, secondHeaderIsHovered] = useHover<HTMLDivElement>();
+  const [thirdHeader, thirdHeaderIsHovered] = useHover<HTMLDivElement>();
   return (
     <div className="pl-16 pt-6 pb-2 font-bj text-neon-light text-xs">
       <div className="flex justify-between pb-2 mb-2 border-b border-gray-100 uppercase font-bold">
-        <div className="w-1/3 max-w-144 table-text"># of weeks</div>
-        <div className="w-1/3 max-w-144">% tokens released</div>
-        <div className="w-1/3 max-w-144">price floor of token</div>
+        <div className="w-1/3 max-w-192 table-text">
+          <Tooltip
+            isHovered={firstHeaderIsHovered}
+            text="The amount of weeks that have passed since the Commons Upgrade."
+          >
+            <span ref={firstHeader}>
+              # of weeks{' '}
+              <div className="inline-block mt-1 ml-1">
+                <Image src="/questionMark.svg" height="12px" width="12px" />
+              </div>
+            </span>
+          </Tooltip>
+        </div>
+        <div className="w-1/3 max-w-192">
+          <Tooltip
+            isHovered={secondHeaderIsHovered}
+            text="The percentage of Hatchers' TEC tokens that have become liquid from the Token Thaw."
+          >
+            <span ref={secondHeader}>
+              % tokens released{' '}
+              <div className="inline-block mt-1 ml-1">
+                <Image src="/questionMark.svg" height="12px" width="12px" />
+              </div>
+            </span>
+          </Tooltip>
+        </div>
+        <div className="w-1/3 max-w-192">
+          <Tooltip
+            isHovered={thirdHeaderIsHovered}
+            text="The minimum possible price of the TEC token, assuming all liquid TEC tokens are sold."
+          >
+            <span ref={thirdHeader}>
+              price floor of token{' '}
+              <div className="inline-block mt-1 ml-1">
+                <Image src="/questionMark.svg" height="12px" width="12px" />
+              </div>
+            </span>
+          </Tooltip>
+        </div>
       </div>
       {table.price?.map((elem, index) => (
         <div
@@ -19,7 +62,7 @@ function TokenFreezeThawTable({ table }: PriceTableProps) {
           <div className="w-1/3 max-w-144">
             {Number(table.tokensReleased[index].toFixed(2)) * 100}%
           </div>
-          <div className="w-1/3 max-w-144">{elem.toFixed(2)} wxDAI</div>
+          <div className="w-1/3 max-w-192">{elem.toFixed(2)} wxDAI</div>
         </div>
       ))}
     </div>

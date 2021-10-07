@@ -24,7 +24,7 @@ function Card({
   submitProposal,
 }: CardProps) {
   return (
-    <div className="self-start flex flex-col bg-black-100 mx-16 my-4 pt-2 pb-6 px-9 lg:w-96 lg:mt-8">
+    <div className="self-start flex flex-col bg-black-100 mx-16 my-4 pb-8 pt-2 px-8 lg:w-1/4 lg:mt-8">
       <h3 className="font-bj font-bold text-sm text-gray-100 mb-4 uppercase">
         {title}
       </h3>

@@ -1,4 +1,5 @@
 import classnames from 'classnames';
+import Backdrop from './Backdrop';
 
 interface DialogProps {
   bg?: boolean;
@@ -9,14 +10,7 @@ interface DialogProps {
 
 function Dialog({ bg, children, isOpen, title }: DialogProps) {
   return (
-    <div
-      className={classnames(
-        'absolute top-0 left-0 h-screen w-screen z-50 bg-black bg-opacity-75 flex justify-center',
-        {
-          hidden: !isOpen,
-        }
-      )}
-    >
+    <Backdrop isOpen={isOpen}>
       <div
         className={classnames('m-auto max-w-xl w-full', {
           'bg-dialog': bg,
@@ -35,7 +29,7 @@ function Dialog({ bg, children, isOpen, title }: DialogProps) {
         </h1>
         {children}
       </div>
-    </div>
+    </Backdrop>
   );
 }
 

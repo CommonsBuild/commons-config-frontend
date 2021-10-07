@@ -16,9 +16,9 @@ interface LabeledRadioButtonProps {
 }
 
 const labelSize = {
-  big: 'w-16',
-  medium: 'w-12',
-  small: 'w-10',
+  big: 'w-24',
+  medium: 'w-16',
+  small: 'w-12',
 };
 
 function LabeledRadioButton({

@@ -16,7 +16,7 @@ type ParamsContextType = {
   exitTribute: string;
   initialBuy: string;
   reserveBalance: string;
-  ragequitPercentage: string;
+  ragequitAmount: string;
   stepList: (number | string)[][];
   zoomGraph: string;
   supportRequired: string;
@@ -47,7 +47,7 @@ const initialContext: ParamsContextType = {
   reserveBalance: '',
   stepList: [],
   initialBuy: '0',
-  ragequitPercentage: '0',
+  ragequitAmount: '0',
   zoomGraph: '0',
   supportRequired: '',
   minimumQuorum: '',

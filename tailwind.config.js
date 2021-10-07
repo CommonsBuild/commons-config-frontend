@@ -167,6 +167,7 @@ module.exports = {
           blue: '#03D2FF',
           purple: '#8D15C5',
         },
+        background: 'rgba(0, 0, 0, 0.5)',
       },
       fontFamily: {
         inter: ['Inter', 'sans-serif'],

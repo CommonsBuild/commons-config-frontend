@@ -12,6 +12,7 @@ import api from '@/services/api';
 type ABCContextType = {
   chart: { [key: string]: number[] };
   stepLinSpaces: { [key: string]: number[] }[];
+  reserveRatio: number;
   table: { [key: string]: number[] };
   setContext: Dispatch<SetStateAction<ABCContextType>>;
 };
@@ -19,6 +20,7 @@ type ABCContextType = {
 const initialContext: ABCContextType = {
   chart: {},
   stepLinSpaces: [],
+  reserveRatio: 0,
   table: {},
   setContext: (): void => {
     throw new Error('setContext must be overridden');
@@ -41,7 +43,7 @@ function ABCProvider({ children }: AppABCContextProps) {
     reserveBalance,
     stepList,
     initialBuy,
-    ragequitPercentage,
+    ragequitAmount,
     zoomGraph,
     setParams,
   } = useParams();
@@ -56,26 +58,20 @@ function ABCProvider({ children }: AppABCContextProps) {
         reserveBalance: Number(reserveBalance) / 1000,
         stepList,
         initialBuy,
-        ragequitPercentage,
+        ragequitAmount,
         zoomGraph,
       })
       .then((response) => {
         const { data } = response;
-        data.chartData.stepLinSpaces.forEach((elem, index) => {
-          console.log(
-            `elem ${index}: (${elem.balanceInThousands[0]}, ${
-              elem.price[0]
-            }) - (${elem.balanceInThousands.at(-1)}, ${elem.price.at(-1)})`
-          );
-        });
         setContext((previousContext) => ({
           ...previousContext,
           chart: data.chartData as { [key: string]: number[] },
           stepLinSpaces: data.chartData.stepLinSpaces,
+          reserveRatio: data.chartData.reserveRatio,
           table: data.stepTable as { [key: string]: number[] },
         }));
       })
-      .catch((e) => console.log(e.response));
+      .catch((e) => console.log('error', e));
   }, [
     openingPrice,
     commonsTribute,
@@ -84,7 +80,7 @@ function ABCProvider({ children }: AppABCContextProps) {
     reserveBalance,
     JSON.stringify(stepList),
     initialBuy,
-    ragequitPercentage,
+    ragequitAmount,
     zoomGraph,
     setParams,
   ]);

@@ -1,6 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 import { Line } from 'react-chartjs-2';
+import { Tooltip } from '@/components/_global';
+import { useHover } from '@/hooks';
 
 const options = {
   responsive: true,
@@ -46,6 +48,7 @@ interface TokenFreezeThawProps {
 }
 
 const TokenFreezeThawChart = ({ price, week }: TokenFreezeThawProps) => {
+  const [hoverRef, isHovered] = useHover<HTMLDivElement>();
   const data = {
     labels: week || ['0'],
     datasets: [
@@ -64,9 +67,20 @@ const TokenFreezeThawChart = ({ price, week }: TokenFreezeThawProps) => {
   return (
     <>
       <div className="w-20 h-0 text-right relative -top-2 -left-14">
-        <span className="font-bj font-bold text-xxs text-neon-light uppercase">
-          price floor (wxdai)
-        </span>
+        <Tooltip
+          isHovered={isHovered}
+          text="The price floor is the minimum possible price of the token. This value would only be possible with two conditions:"
+        >
+          <span
+            ref={hoverRef}
+            className="font-bj font-bold text-xxs text-neon-light uppercase"
+          >
+            price floor (wxdai)
+            <div className="inline-block mt-1 ml-1">
+              <Image src="/questionMark.svg" height="12px" width="12px" />
+            </div>
+          </span>
+        </Tooltip>
       </div>
       <div className="flex justify-center py-2">
         <div className="w-11/12">
