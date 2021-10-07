@@ -291,7 +291,7 @@ function SubmitConfig() {
         setLoading(false);
         setDialog(true);
       })
-      .catch((e) => {
+      .catch(() => {
         console.dir(chosenParams);
         setLoading(false);
         alert('Something went wrong');

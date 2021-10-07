@@ -30,7 +30,10 @@ function ConvictionVotingTable({ table }: ConvictionVotingTableProps) {
     <div className="pl-16 pt-6 pb-2 font-bj text-neon-light text-xs">
       <div className="flex justify-between pb-2 mb-2 border-b border-gray-100 uppercase font-bold">
         <div className="w-4/12 max-w-192">
-          <Tooltip isHovered={variablesIsHovered} text="Take note of these variables as we simulate some of the requirements for successfully passing a funding request">
+          <Tooltip
+            isHovered={variablesIsHovered}
+            text="Take note of these variables as we simulate some of the requirements for successfully passing a funding request"
+          >
             <span ref={variablesRef}>
               variables{' '}
               <div className="inline-block mt-1 ml-1">
@@ -40,7 +43,10 @@ function ConvictionVotingTable({ table }: ConvictionVotingTableProps) {
           </Tooltip>
         </div>
         <div className="w-1/6 max-w-144">
-          <Tooltip isHovered={scenarioOneIsHovered} text="These scenarios combine imagined Common Pool and Effective Supply values with your Conviction Voting settings.">
+          <Tooltip
+            isHovered={scenarioOneIsHovered}
+            text="These scenarios combine imagined Common Pool and Effective Supply values with your Conviction Voting settings."
+          >
             <span ref={scenarioOneRef}>
               scenario 1{' '}
               <div className="inline-block mt-1 ml-1">
@@ -50,7 +56,10 @@ function ConvictionVotingTable({ table }: ConvictionVotingTableProps) {
           </Tooltip>
         </div>
         <div className="w-1/6 max-w-144">
-          <Tooltip isHovered={scenarioTwoIsHovered} text="These scenarios combine imagined Common Pool and Effective Supply values with your Conviction Voting settings.">
+          <Tooltip
+            isHovered={scenarioTwoIsHovered}
+            text="These scenarios combine imagined Common Pool and Effective Supply values with your Conviction Voting settings."
+          >
             <span ref={scenarioTwoRef}>
               scenario 2{' '}
               <div className="inline-block mt-1 ml-1">
@@ -99,7 +108,10 @@ function ConvictionVotingTable({ table }: ConvictionVotingTableProps) {
           </Tooltip>
         </div>
         <div className="w-1/6 max-w-144">
-          <Tooltip isHovered={scenarioSixIsHovered} text="These scenarios combine imagined Common Pool and Effective Supply values with your Conviction Voting settings.">
+          <Tooltip
+            isHovered={scenarioSixIsHovered}
+            text="These scenarios combine imagined Common Pool and Effective Supply values with your Conviction Voting settings."
+          >
             <span ref={scenarioSixRef}>
               scenario 6{' '}
               <div className="inline-block mt-1 ml-1">

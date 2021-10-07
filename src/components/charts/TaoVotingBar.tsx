@@ -1,6 +1,5 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-import ChartLegend from '@/components/ChartLegend';
 import { Tooltip } from '@/components/_global';
 import { useHover } from '@/hooks';
 
