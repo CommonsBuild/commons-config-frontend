@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
 import Input from '@/components/Input';
 import { Card, Navbar } from '@/components/_global';
 import { NeonButton } from '@/components/btns';
@@ -385,6 +386,13 @@ function SubmitConfig() {
               value={textAreaContent.overall}
               onChange={(event) => handleTextArea(event)}
             />
+            <Link href="/config/1">
+              <a className="h-14 flex justify-center items-center w-full py-2 border border-neon my-2">
+                <span className="font-bj font-bold text-neon uppercase">
+                  return to configuration
+                </span>
+              </a>
+            </Link>
             <NeonButton href="" onClick={submitParams} fullWidth>
               <span>SUBMIT PROPOSAL</span>
             </NeonButton>
