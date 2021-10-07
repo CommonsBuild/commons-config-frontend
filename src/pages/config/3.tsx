@@ -60,7 +60,7 @@ function DisputableVoting() {
         'The amount of time delegates are permitted to vote on a proposal.',
     },
     {
-      name: 'vote duration',
+      name: 'normal vote duration',
       bgColor: 'dark-blue',
       tooltipText: 'The amount of time a proposal is eligible to be voted on.',
     },
