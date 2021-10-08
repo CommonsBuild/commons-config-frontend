@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
+
 import Input from '@/components/Input';
 import { Card, Navbar } from '@/components/_global';
 import { NeonButton } from '@/components/btns';
@@ -61,6 +63,7 @@ function SubmitConfig() {
   const { submitProposal, handleChange, ...params } = useParams();
   const [title, setTitle] = useState('');
   const [dialog, setDialog] = useState(false);
+  const [advancedDialog, setAdvancedDialog] = useState(false);
   const [url, setUrl] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const [advancedParams, setAdvancedParams] = useState(false);
@@ -428,17 +431,70 @@ function SubmitConfig() {
           close
         </button>
       </Dialog>
+      <Dialog isOpen={advancedDialog} title="Advanced Settings">
+        <div className="py-4 px-10">
+          <p className="font-bj text-base text-neon-light pb-4">
+            In the Advanced Settings there are many parameters that could have
+            severe impacts on the Commons. Advanced Settings are for power-users
+            who have in-depth knowledge on Commons Configurations.
+          </p>
+          <p className="font-bj font-bold text-base text-neon-light pb-4">
+            Follow these links if you desire to learn more about Advanced
+            Settings:
+          </p>
+          <a
+            href="https://forum.tecommons.org/t/the-power-of-defaults-in-the-commons-configuration-dashboard/511"
+            target="_blank"
+            rel="noreferrer"
+            className="block font-bj font-bold text-neon leading-loose"
+          >
+            The Power of Defaults
+          </a>
+          <a
+            href="https://1hive.gitbook.io/gardens/"
+            target="_blank"
+            rel="noreferrer"
+            className="block font-bj font-bold text-neon leading-loose"
+          >
+            Gardens Overview
+          </a>
+          <a
+            href="https://1hive.gitbook.io/celeste/"
+            target="_blank"
+            rel="noreferrer"
+            className="block font-bj font-bold text-neon leading-loose"
+          >
+            Disputability & Celeste
+          </a>
+          <a
+            href="https://forum.tecommons.org/c/defi-legos-and-how-they-work-together/adv-ccd-params/27"
+            target="_blank"
+            rel="noreferrer"
+            className="block font-bj font-bold text-neon leading-loose"
+          >
+            Advanced CCD Settings (TEC Forum)
+          </a>
+        </div>
+        <div className="flex justify-center py-8 mx-36">
+          <NeonButton fullWidth onClick={() => setAdvancedDialog(false)}>
+            OK
+          </NeonButton>
+        </div>
+      </Dialog>
       <Backdrop isOpen={loading}>
         <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-neon" />
       </Backdrop>
       <div className="min-h-screen h-full bg-dash bg-cover">
         <Navbar />
-        <div className="flex justify-between px-32">
-          <div>back</div>
+        <div className="flex justify-between items-center px-32 py-12">
+          <div className="font-bj text-sm text-neon-light">Back</div>
           <h2 className="font-bj font-bold text-3xl text-neon-light text-center py-4">
             Configuration Summary
           </h2>
           <label htmlFor="toggleB" className="flex items-center cursor-pointer">
+            <div className="text-neon-light text-sm mr-3">
+              Advanced Settings
+            </div>
             <div className="squared-input relative">
               <input
                 type="checkbox"
@@ -451,16 +507,33 @@ function SubmitConfig() {
             </div>
           </label>
         </div>
-        <div className="max-w-screen-xl mx-auto bg-black py-16">
+        <div className="max-w-screen-xl mx-auto bg-black pb-16">
           {advancedParams ? (
-            <ModuleContainer
-              inputList={advancedParameters}
-              title="advanced parameters"
-              onChange={handleChange}
-              textAreaName="advanced"
-              textAreaValue=""
-              onTextAreaChange={(event) => handleTextArea(event)}
-            />
+            <>
+              <div className="flex container bg-gray-500 max-w-screen-lg p-8 mb-4 mx-auto border border-warn">
+                <Image src="/icons/warning.svg" width={48} height={48} />
+                <div className="ml-8 font-bj text-warn">
+                  <h3 className="font-bold">WARNING!</h3>
+                  <p>
+                    Use <b>ONLY</b> if you absolutely know what you’re doing.{' '}
+                    <b
+                      className="text-white cursor-pointer"
+                      onClick={() => setAdvancedDialog(true)}
+                    >
+                      Learn more about Advanced Settings.
+                    </b>
+                  </p>
+                </div>
+              </div>
+              <ModuleContainer
+                inputList={advancedParameters}
+                title="advanced settings"
+                onChange={handleChange}
+                textAreaName="advanced"
+                textAreaValue=""
+                onTextAreaChange={(event) => handleTextArea(event)}
+              />
+            </>
           ) : (
             <></>
           )}
