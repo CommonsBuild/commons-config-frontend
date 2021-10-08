@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Head from 'next/head';
 import Input from '@/components/Input';
 import {
@@ -11,31 +11,10 @@ import { TokenFreezeThawChart } from '@/components/charts';
 import { useParams, useTokenFreezeThaw } from '@/hooks';
 import { TokenFreezeThawTable } from '@/components/tables';
 
-type ParamsOptionsType = 'OPENING_PRICE' | 'TOKEN_FREEZE' | 'TOKEN_THAW';
-
 function TokenFreezeThaw() {
   const { chart, table } = useTokenFreezeThaw();
-  const {
-    openingPrice,
-    tokenFreeze,
-    tokenThaw,
-    submitProposal,
-    setParams,
-    handleChange,
-  } = useParams();
-
-  const [, setParamSelected] = useState<ParamsOptionsType>('OPENING_PRICE');
-
-  useEffect(() => {
-    if ([tokenFreeze, tokenThaw].every((elem) => elem === '')) {
-      setParams((previousParams) => ({
-        ...previousParams,
-        openingPrice: openingPrice || '1.65',
-        tokenFreeze: '30',
-        tokenThaw: '100',
-      }));
-    }
-  }, []);
+  const { openingPrice, tokenFreeze, tokenThaw, submitProposal, handleChange } =
+    useParams();
 
   const inputs = [
     {
@@ -63,7 +42,7 @@ function TokenFreezeThaw() {
       param: 'Token Thaw',
       placeholder: 'weeks',
       tooltipText:
-        'TToken Thaw is designed to guarantee, for a certain period, the minimum possible price of the token, or price floor.',
+        'Token Thaw is designed to guarantee, for a certain period, the minimum possible price of the token, or price floor.',
     },
   ];
 
@@ -87,9 +66,6 @@ function TokenFreezeThaw() {
                 name={input.name}
                 value={input.value}
                 param={input.param}
-                changeParam={() =>
-                  setParamSelected(input.paramName as ParamsOptionsType)
-                }
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                   handleChange(event)
                 }
