@@ -206,14 +206,14 @@ function ABC() {
                   <LabeledRadioButton
                     checked={
                       Number(reserveBalance) ===
-                      1500000 * (1 - Number(commonsTribute) / 100)
+                      1571223.57 * (1 - Number(commonsTribute) / 100)
                     }
                     id="launch"
                     label="launch"
                     name="reserveBalance"
                     size="big"
                     tooltipText="Simulate the Reserve Balance using the amount raised by the Hatch, adjusted by the Commons Tribute"
-                    value={1500000 * (1 - Number(commonsTribute) / 100)}
+                    value={1571223.57 * (1 - Number(commonsTribute) / 100)}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                       handleChange(event)
                     }
