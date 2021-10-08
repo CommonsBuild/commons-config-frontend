@@ -6,7 +6,7 @@ interface NeonButtonProps {
   children: ReactNode;
   disabled?: boolean;
   fullWidth?: boolean;
-  href: string;
+  href?: string;
   hidden?: boolean;
   onClick?: () => void;
 }
@@ -15,7 +15,7 @@ function NeonButton({
   disabled,
   hidden,
   fullWidth,
-  href,
+  href = '',
   children,
   onClick,
 }: NeonButtonProps) {
@@ -32,7 +32,9 @@ function NeonButton({
         disabled={disabled}
         onClick={onClick}
       >
-        <span className="font-bj font-bold text-lg uppercase">{children}</span>
+        <span className="font-bj font-bold text-lg uppercase cursor-pointer">
+          {children}
+        </span>
       </button>
     </Link>
   );

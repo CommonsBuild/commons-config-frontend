@@ -167,6 +167,7 @@ module.exports = {
           blue: '#03D2FF',
           purple: '#8D15C5',
         },
+        warn: '#FFDD0F',
         background: 'rgba(0, 0, 0, 0.5)',
       },
       fontFamily: {
@@ -186,6 +187,7 @@ module.exports = {
         '1/3': '33%',
       },
       minWidth: {
+        '2/5': '40%',
         '2/4': '50%',
         '3/4': '75%',
       },
