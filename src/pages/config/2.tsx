@@ -239,9 +239,12 @@ function ABC() {
                   className="flex justify-center border border-neon-light mt-1"
                   onClick={() => setStepDialog(true)}
                 >
-                  <span className="font-bj font-bold text-xs text-neon-light uppercase p-2 cursor-pointer">
+                  <button
+                    disabled={stepList.length >= 6}
+                    className="font-bj font-bold text-xs text-neon-light uppercase p-2 cursor-pointer"
+                  >
                     add a step
-                  </span>
+                  </button>
                 </a>
               </div>
             </div>
