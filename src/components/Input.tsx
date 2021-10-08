@@ -31,10 +31,10 @@ function Input({
 
   return (
     <div className="py-1 lg:grid lg:grid-cols-5 justify-between">
-      <div className="col-span-3">
+      <div className="col-span-3 self-center">
         <Tooltip text={tooltipText} isHovered={isHovered}>
           <div className="flex flex-col justify-center">
-            <span ref={hoverRef} className="font-bj text-gray-100 self-center">
+            <span ref={hoverRef} className="font-bj text-gray-100">
               {param}{' '}
               <div className="inline-block mt-1 ml-1">
                 <Image src="/questionMark.svg" height="12px" width="12px" />

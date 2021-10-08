@@ -39,6 +39,23 @@
     -webkit-appearance: none;
     margin: 0;
   }
+
+  .squared-input {
+    border: 1px solid #6b6b6b;
+  }
+
+  input ~ .box {
+    background-color: #6b6b6b;
+  }
+
+  input:checked ~ .dot {
+    @apply bg-neon;
+    transform: translateX(100%);
+  }
+
+  input:checked ~ .box {
+    background-color: #191728;
+  }
 }
 
 .radio + label span {

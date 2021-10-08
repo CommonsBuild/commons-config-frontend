@@ -1,10 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
+import classnames from 'classnames';
 import { NeonButton } from '@/components/btns';
 
 interface CardProps {
   children: React.ReactNode;
   hiddenButton?: boolean;
+  minWidth?: boolean;
   nextHref?: string;
   nextPanel?: string;
   previousPanel?: string;
@@ -16,6 +18,7 @@ interface CardProps {
 function Card({
   children,
   hiddenButton,
+  minWidth,
   nextHref,
   nextPanel,
   previousPanel,
@@ -24,7 +27,14 @@ function Card({
   submitProposal,
 }: CardProps) {
   return (
-    <div className="self-start flex flex-col bg-black-100 mx-16 my-4 pb-8 pt-2 px-8 lg:w-1/4 lg:mt-8">
+    <div
+      className={classnames(
+        'self-start flex flex-col bg-black-100 mx-16 my-4 pb-8 pt-2 px-8 lg:w-1/4 lg:mt-8',
+        {
+          'min-w-2/5': minWidth,
+        }
+      )}
+    >
       <h3 className="font-bj font-bold text-sm text-gray-100 mb-4 uppercase">
         {title}
       </h3>

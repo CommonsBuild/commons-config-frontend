@@ -12,7 +12,7 @@ import api from '@/services/api';
 type ABCContextType = {
   chart: { [key: string]: number[] };
   stepLinSpaces: { [key: string]: number[] }[];
-  singlePoints: { [key: string]: number[] }[];
+  singlePoints: { [key: string]: number }[];
   reserveRatio: number;
   table: { [key: string]: number[] };
   setContext: Dispatch<SetStateAction<ABCContextType>>;

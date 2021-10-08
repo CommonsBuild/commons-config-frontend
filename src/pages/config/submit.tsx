@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import Input from '@/components/Input';
 import { Card, Navbar } from '@/components/_global';
 import { NeonButton } from '@/components/btns';
-import { useParams } from '@/hooks/';
-import TextArea from '@/components/TextArea';
 import { Backdrop, Dialog } from '@/components/modals';
+import TextArea from '@/components/TextArea';
+import { useParams } from '@/hooks/';
 import api from '@/services/api';
 
 interface ModuleContainerProps {
@@ -27,8 +28,8 @@ function ModuleContainer({
   onTextAreaChange,
 }: ModuleContainerProps) {
   return (
-    <div className="flex justify-center">
-      <Card title={title} hiddenButton>
+    <div className="flex justify-around">
+      <Card title={title} hiddenButton minWidth>
         {inputList.map((input) => (
           <Input
             key={input.name}
@@ -43,7 +44,7 @@ function ModuleContainer({
           />
         ))}
       </Card>
-      <div className="flex flex-col flex-grow my-4 mx-16 py-6 px-9">
+      <div className="flex flex-col flex-grow my-4 mx-8 py-6 px-9 max-w-xl">
         <h2 className="font-bj text-sm text-neon-light py-4">Your Strategy</h2>
         <TextArea
           name={textAreaName}
@@ -57,11 +58,12 @@ function ModuleContainer({
 }
 
 function SubmitConfig() {
-  const { handleChange, ...params } = useParams();
+  const { submitProposal, handleChange, ...params } = useParams();
   const [title, setTitle] = useState('');
   const [dialog, setDialog] = useState(false);
   const [url, setUrl] = useState(undefined);
   const [loading, setLoading] = useState(false);
+  const [advancedParams, setAdvancedParams] = useState(false);
   const [textAreaContent, setTextAreaContent] = useState({
     freeze: '',
     abc: '',
@@ -223,6 +225,107 @@ function SubmitConfig() {
     },
   ];
 
+  const advancedParameters = [
+    {
+      name: 'commonPoolAmount',
+      value: '0',
+      param: 'Common Pool Amount',
+      placeholder: 'wxDAI',
+      tooltipText: '',
+    },
+    {
+      name: 'HNYLiquidity',
+      value: '100',
+      param: 'HNY Liquidity',
+      placeholder: 'wxDAI',
+      tooltipText: '',
+    },
+    {
+      name: 'gardenLiquidity',
+      value: '1',
+      param: 'Garden Liquidity',
+      placeholder: 'TEC',
+      tooltipText: '',
+    },
+    {
+      name: 'virtualSupply',
+      value: '1',
+      param: 'Virtual Supply',
+      placeholder: 'TEC',
+      tooltipText: '',
+    },
+    {
+      name: 'virtualBalance',
+      value: '1',
+      param: 'Virtual Balance',
+      placeholder: 'wxDAI',
+      tooltipText: '',
+    },
+    {
+      name: 'transferability',
+      value: '',
+      param: 'Transferability',
+      placeholder: '',
+      tooltipText: '',
+    },
+    {
+      name: 'tokenName',
+      value: 'Token Engineering Commons',
+      param: 'Token Name',
+      placeholder: '',
+      tooltipText: '',
+    },
+    {
+      name: 'tokenSymbol',
+      value: 'TEC',
+      param: 'Token Symbol',
+      placeholder: '',
+      tooltipText: '',
+    },
+    {
+      name: 'proposalDeposit',
+      value: '200',
+      param: 'Proposal Deposit',
+      placeholder: 'wxDAI',
+      tooltipText: '',
+    },
+    {
+      name: 'challengeDeposit',
+      value: '400',
+      param: 'Challenge Deposit',
+      placeholder: 'wxDAI',
+      tooltipText: '',
+    },
+    {
+      name: 'settlementPeriod',
+      value: '5',
+      param: 'Settlement Period',
+      placeholder: 'days',
+      tooltipText: '',
+    },
+    {
+      name: 'minimumEffectiveSupply',
+      value: '1%',
+      param: 'Minimum Effective Supply',
+      placeholder: '%',
+      tooltipText: '',
+    },
+    {
+      name: 'hatchersRageQuit',
+      value: '60000',
+      param: 'Hatchers Rage Quit',
+      placeholder: 'wxDAI',
+      tooltipText: '',
+    },
+    {
+      name: 'initialBuy',
+      value: '200000',
+      param: 'Initial Buy',
+      placeholder: 'wxDAI',
+      tooltipText: '',
+    },
+  ];
+
   const handleTitle = (event) => {
     const { value } = event.target;
 
@@ -330,10 +433,39 @@ function SubmitConfig() {
       </Backdrop>
       <div className="min-h-screen h-full bg-dash bg-cover">
         <Navbar />
-        <h2 className="font-bj font-bold text-3xl text-neon-light text-center py-4">
-          Configuration Summary
-        </h2>
+        <div className="flex justify-between px-32">
+          <div>back</div>
+          <h2 className="font-bj font-bold text-3xl text-neon-light text-center py-4">
+            Configuration Summary
+          </h2>
+          <label htmlFor="toggleB" className="flex items-center cursor-pointer">
+            <div className="squared-input relative">
+              <input
+                type="checkbox"
+                id="toggleB"
+                className="sr-only"
+                onChange={() => setAdvancedParams(!advancedParams)}
+              />
+              <div className="box block squared-input w-14 h-8" />
+              <div className="dot absolute left-1 top-1 bg-gray-50 w-6 h-6 transition" />
+            </div>
+          </label>
+        </div>
         <div className="max-w-screen-xl mx-auto bg-black py-16">
+          {advancedParams ? (
+            <motion.div layout>
+              <ModuleContainer
+                inputList={advancedParameters}
+                title="advanced parameters"
+                onChange={handleChange}
+                textAreaName="advanced"
+                textAreaValue=""
+                onTextAreaChange={(event) => handleTextArea(event)}
+              />
+            </motion.div>
+          ) : (
+            <></>
+          )}
           <ModuleContainer
             inputList={freezeThawInputs}
             title="token freeze & token thaw"
@@ -392,7 +524,12 @@ function SubmitConfig() {
                 </span>
               </a>
             </Link>
-            <NeonButton href="" onClick={submitParams} fullWidth>
+            <NeonButton
+              href=""
+              onClick={submitParams}
+              fullWidth
+              disabled={!submitProposal}
+            >
               <span>SUBMIT PROPOSAL</span>
             </NeonButton>
           </div>
