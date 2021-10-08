@@ -487,11 +487,18 @@ function SubmitConfig() {
       <div className="min-h-screen h-full bg-dash bg-cover">
         <Navbar />
         <div className="flex justify-between items-center px-32 py-12">
-          <div className="font-bj text-sm text-neon-light">Back</div>
+          <Link href="/config/4">
+            <div className="flex flex-1 font-bj text-sm text-neon-light cursor-pointer">
+              Back
+            </div>
+          </Link>
           <h2 className="font-bj font-bold text-3xl text-neon-light text-center py-4">
             Configuration Summary
           </h2>
-          <label htmlFor="toggleB" className="flex items-center cursor-pointer">
+          <label
+            htmlFor="toggleB"
+            className="flex flex-1 justify-end items-center cursor-pointer"
+          >
             <div className="text-neon-light text-sm mr-3">
               Advanced Settings
             </div>
