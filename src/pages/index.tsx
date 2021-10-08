@@ -65,7 +65,7 @@ function Home() {
         <div style={{ top: '1600px', left: '22.5%' }} className="absolute">
           <Tooltip
             isHovered={launchIsHovered}
-            text="The Commons Launch implements the Commons Configuration that has been voted and passes by the community."
+            text="The Commons Launch implements the Commons Configuration that has been voted and passed by the community."
           >
             <span
               ref={launchRef}
