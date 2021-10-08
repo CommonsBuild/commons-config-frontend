@@ -28,7 +28,7 @@ function ModuleContainer({
   onTextAreaChange,
 }: ModuleContainerProps) {
   return (
-    <div className="flex justify-around">
+    <motion.div layout className="flex justify-around">
       <Card title={title} hiddenButton minWidth>
         {inputList.map((input) => (
           <Input
@@ -53,7 +53,7 @@ function ModuleContainer({
           onChange={onTextAreaChange}
         />
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -446,23 +446,21 @@ function SubmitConfig() {
                 className="sr-only"
                 onChange={() => setAdvancedParams(!advancedParams)}
               />
-              <div className="box block squared-input w-14 h-8" />
-              <div className="dot absolute left-1 top-1 bg-gray-50 w-6 h-6 transition" />
+              <div className="box block squared-input w-10 h-6" />
+              <div className="dot absolute left-1 top-1 bg-gray-50 w-4 h-4 transition" />
             </div>
           </label>
         </div>
         <div className="max-w-screen-xl mx-auto bg-black py-16">
           {advancedParams ? (
-            <motion.div layout>
-              <ModuleContainer
-                inputList={advancedParameters}
-                title="advanced parameters"
-                onChange={handleChange}
-                textAreaName="advanced"
-                textAreaValue=""
-                onTextAreaChange={(event) => handleTextArea(event)}
-              />
-            </motion.div>
+            <ModuleContainer
+              inputList={advancedParameters}
+              title="advanced parameters"
+              onChange={handleChange}
+              textAreaName="advanced"
+              textAreaValue=""
+              onTextAreaChange={(event) => handleTextArea(event)}
+            />
           ) : (
             <></>
           )}
