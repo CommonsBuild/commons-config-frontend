@@ -14,11 +14,6 @@ import { ConvictionGrowthDialog } from '@/components/modals';
 import { ConvictionVotingTable } from '@/components/tables';
 import useHover from '@/hooks/useHover';
 
-type ParamsOptionsType =
-  | 'SPENDING_LIMIT'
-  | 'MINIMUM_CONVICTION'
-  | 'CONVICTION_GROWTH';
-
 const radioButtons = [
   { id: 'radio5', label: '6 Months', value: '180' },
   { id: 'radio4', label: '3 Months', value: '60' },
@@ -41,7 +36,6 @@ function ConvictionVoting() {
     handleChange,
   } = useParams();
 
-  const [, setParamSelected] = useState<ParamsOptionsType>('SPENDING_LIMIT');
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const inputs = [
@@ -82,19 +76,9 @@ function ConvictionVoting() {
   ];
 
   useEffect(() => {
-    if (
-      [
-        spendingLimit,
-        minimumConviction,
-        convictionGrowth,
-        convictionVotingPeriodDays,
-      ].every((elem) => elem === '')
-    ) {
+    if (convictionVotingPeriodDays === '') {
       setParams((previousParams) => ({
         ...previousParams,
-        spendingLimit: '20',
-        minimumConviction: '0.5',
-        convictionGrowth: '5',
         convictionVotingPeriodDays: '7',
       }));
     }
@@ -129,9 +113,6 @@ function ConvictionVoting() {
                 name={input.name}
                 value={input.value}
                 param={input.param}
-                changeParam={() =>
-                  setParamSelected(input.paramName as ParamsOptionsType)
-                }
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                   handleChange(event)
                 }
@@ -150,7 +131,7 @@ function ConvictionVoting() {
             />
             <Tooltip
               isHovered={tableIsHovered}
-              text="Select a timeframe in which you want to pass a proposal."
+              text="Select a time frame in which you want to pass a proposal."
             >
               <div
                 ref={tableHover}

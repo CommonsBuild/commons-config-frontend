@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Head from 'next/head';
 import Input from '@/components/Input';
@@ -14,15 +14,6 @@ import { useParams, useTaoVoting } from '@/hooks';
 import { TaoVotingPieDialog } from '@/components/modals';
 import ChartLegend from '@/components/ChartLegend';
 
-type ParamsOptionsType =
-  | 'SUPPORT_REQUIRED'
-  | 'MINIMUM_QUORUM'
-  | 'VOTE_DURATION'
-  | 'DELEGATED_VOTING_PERIOD'
-  | 'QUIET_ENDING_PERIOD'
-  | 'QUIET_ENDING_EXTENSION'
-  | 'EXECUTION_DELAY';
-
 function DisputableVoting() {
   const { barChart, pieChart } = useTaoVoting();
   const {
@@ -34,11 +25,8 @@ function DisputableVoting() {
     quietEndingExtension,
     executionDelay,
     submitProposal,
-    setParams,
     handleChange,
   } = useParams();
-
-  const [, setParamSelected] = useState<ParamsOptionsType>('SUPPORT_REQUIRED');
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -150,31 +138,6 @@ function DisputableVoting() {
     },
   ];
 
-  useEffect(() => {
-    if (
-      [
-        supportRequired,
-        minimumQuorum,
-        voteDuration,
-        delegatedVotingPeriod,
-        quietEndingPeriod,
-        quietEndingExtension,
-        executionDelay,
-      ].every((elem) => elem === '')
-    ) {
-      setParams((previousParams) => ({
-        ...previousParams,
-        supportRequired: '88',
-        minimumQuorum: '8',
-        voteDuration: '7',
-        delegatedVotingPeriod: '5',
-        quietEndingPeriod: '3',
-        quietEndingExtension: '2',
-        executionDelay: '1',
-      }));
-    }
-  }, []);
-
   return (
     <>
       <Head>
@@ -204,9 +167,6 @@ function DisputableVoting() {
                 name={input.name}
                 value={input.value}
                 param={input.param}
-                changeParam={() =>
-                  setParamSelected(input.paramName as ParamsOptionsType)
-                }
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                   handleChange(event)
                 }

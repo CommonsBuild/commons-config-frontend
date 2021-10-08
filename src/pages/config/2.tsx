@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import classnames from 'classnames';
@@ -16,12 +16,6 @@ import { ABCAddStepDialog, ABCScenarioDialog } from '@/components/modals/';
 import { ABCTable } from '@/components/tables';
 
 const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b);
-
-type ParamsOptionsType =
-  | 'OPENING_PRICE'
-  | 'COMMONS_TRIBUTE'
-  | 'ENTRY_TRIBUTE'
-  | 'EXIT_TRIBUTE';
 
 const marketScenarios = [
   {
@@ -61,7 +55,6 @@ function ABC() {
     reserveBalance,
     stepList,
     submitProposal,
-    setParams,
     handleChange,
     handleMarketScenario,
     handleAddStep,
@@ -71,8 +64,6 @@ function ABC() {
   const [marketDialog, setMarketDialog] = useState(false);
   const [stepDialog, setStepDialog] = useState(false);
   const [selectedStep, setSelectedStep] = useState(0);
-  const [, setParamSelected] = useState<ParamsOptionsType>('OPENING_PRICE');
-
   const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
 
   const inputs = [
@@ -114,28 +105,6 @@ function ABC() {
     },
   ];
 
-  useEffect(() => {
-    if (
-      [commonsTribute, entryTribute, exitTribute, reserveBalance].every(
-        (elem) => elem === '' && stepList.length === 0
-      )
-    ) {
-      setParams((previousParams) => ({
-        ...previousParams,
-        openingPrice: openingPrice || '1.65',
-        commonsTribute: '50',
-        entryTribute: '3',
-        exitTribute: '15',
-        reserveBalance: '1500000',
-        stepList: [
-          [5000, 'wxDAI'],
-          [100000, 'wxDAI'],
-          [3000, 'TEC'],
-        ],
-      }));
-    }
-  }, []);
-
   return (
     <>
       <Head>
@@ -164,9 +133,6 @@ function ABC() {
             {inputs.map((input) => (
               <Input
                 key={input.name}
-                changeParam={() =>
-                  setParamSelected(input.paramName as ParamsOptionsType)
-                }
                 name={input.name}
                 param={input.param}
                 placeholder={input.placeholder}

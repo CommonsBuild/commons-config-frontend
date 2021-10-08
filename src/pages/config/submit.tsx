@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -60,7 +60,7 @@ function ModuleContainer({
 }
 
 function SubmitConfig() {
-  const { submitProposal, handleChange, ...params } = useParams();
+  const { submitProposal, handleChange, setParams, ...params } = useParams();
   const [title, setTitle] = useState('');
   const [dialog, setDialog] = useState(false);
   const [advancedDialog, setAdvancedDialog] = useState(false);
@@ -226,6 +226,15 @@ function SubmitConfig() {
       placeholder: 'days',
       tooltipText: 'The amount of time it takes to increase Conviction by 50%.',
     },
+    {
+      name: 'convictionVotingPeriodDays',
+      paramName: 'CONVICTION_GROWTH',
+      value: params.convictionVotingPeriodDays,
+      param: 'Conviction Voting Period Days',
+      placeholder: 'days',
+      tooltipText:
+        'The minimum amount of tokens needed to pass a request for an infinitely small amount of funds, relative to the Effective Supply.',
+    },
   ];
 
   const advancedParameters = [
@@ -328,6 +337,15 @@ function SubmitConfig() {
       tooltipText: '',
     },
   ];
+
+  useEffect(() => {
+    if (params.convictionVotingPeriodDays === '') {
+      setParams((previousParams) => ({
+        ...previousParams,
+        convictionVotingPeriodDays: '7',
+      }));
+    }
+  }, []);
 
   const handleTitle = (event) => {
     const { value } = event.target;
