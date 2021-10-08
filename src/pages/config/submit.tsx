@@ -287,7 +287,6 @@ function SubmitConfig() {
     api
       .post('/issue-generator/', chosenParams)
       .then((response) => {
-        console.log(response);
         setUrl(response.data.url);
         setLoading(false);
         setDialog(true);

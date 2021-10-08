@@ -53,7 +53,7 @@ function TokenFreezeThawTable({ table }: PriceTableProps) {
           </Tooltip>
         </div>
       </div>
-      {table.price?.map((elem, index) => (
+      {table?.price?.map((elem, index) => (
         <div
           key={index}
           className="flex justify-between py-1 hover:bg-cyan-700 cursor-default"

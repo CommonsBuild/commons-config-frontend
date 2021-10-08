@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
+import classnames from 'classnames';
 import Input from '@/components/Input';
 import {
   Card,
@@ -50,7 +51,7 @@ const reserveBalanceButtons = [
 ];
 
 function ABC() {
-  const { chart, stepLinSpaces, reserveRatio, table } = useABC();
+  const { chart, stepLinSpaces, singlePoints, reserveRatio, table } = useABC();
 
   const {
     openingPrice,
@@ -64,10 +65,12 @@ function ABC() {
     handleChange,
     handleMarketScenario,
     handleAddStep,
+    handleRemoveStep,
   } = useParams();
 
   const [marketDialog, setMarketDialog] = useState(false);
   const [stepDialog, setStepDialog] = useState(false);
+  const [selectedStep, setSelectedStep] = useState(0);
   const [, setParamSelected] = useState<ParamsOptionsType>('OPENING_PRICE');
 
   const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
@@ -270,7 +273,7 @@ function ABC() {
                   className="flex justify-center border border-neon-light mt-1"
                   onClick={() => setStepDialog(true)}
                 >
-                  <span className="font-bj font-bold text-xs text-neon-light uppercase p-2">
+                  <span className="font-bj font-bold text-xs text-neon-light uppercase p-2 cursor-pointer">
                     add a step
                   </span>
                 </a>
@@ -283,17 +286,49 @@ function ABC() {
               balanceInThousands={chart.balanceInThousands}
               price={chart.price}
               reserveRatio={(reserveRatio * 100).toFixed(2)}
-              stepLinSpaces={stepLinSpaces}
+              stepLinSpaces={stepLinSpaces[selectedStep]}
+              singleDataPoints={singlePoints}
             />
             <span className="font-bj text-sm text-neon-light px-16 py-2">
               Steps
             </span>
             <div className="flex px-16 py-2">
               {stepList.map((item, index) => (
-                <div className="flex justify-center items-center w-12 h-12 mr-4 border border-neon border-opacity-20 cursor-pointer hover:border-gray-400">
-                  <span className="font-bj font-medium text-2xl text-neon-light">
+                <div
+                  className={classnames(
+                    'group relative flex justify-center items-center w-12 h-12 mr-4 border',
+                    {
+                      'hover:border-gray-400': index !== selectedStep,
+                      'border-gray-700 ': index !== selectedStep,
+                      'border-neon': index === selectedStep,
+                    }
+                  )}
+                  onClick={() => setSelectedStep(index)}
+                >
+                  <span className="font-bj font-medium text-2xl text-neon-light cursor-pointer">
                     {index + 1}
                   </span>
+                  {index > 2 ? (
+                    <a
+                      className="absolute -top-2 -right-2 rounded-full bg-red-500 h-4 w-4 flex justify-center items-center opacity-0 group-hover:opacity-100"
+                      onClick={() => handleRemoveStep(index)}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-3 w-3"
+                        viewBox="0 0 20 20"
+                        fill="#FFFFFF"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </a>
+                  ) : (
+                    <></>
+                  )}
                 </div>
               ))}
             </div>
