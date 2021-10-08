@@ -35,6 +35,7 @@ type ParamsContextType = {
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleMarketScenario: (scenario: (number | string)[][]) => void;
   handleAddStep: (step: (number | string)[]) => void;
+  handleRemoveStep: (stepIndex: number) => void;
 };
 
 const initialContext: ParamsContextType = {
@@ -73,6 +74,9 @@ const initialContext: ParamsContextType = {
   handleAddStep: (): void => {
     throw new Error('handleAddStep must be overridden');
   },
+  handleRemoveStep: (): void => {
+    throw new Error('handleRemoveStep must be overridden');
+  },
 };
 
 const ParamsContext = createContext<ParamsContextType>(initialContext);
@@ -90,6 +94,7 @@ function ParamsProvider({ children }: AppParamsContextProps) {
       handleChange,
       handleMarketScenario,
       handleAddStep,
+      handleRemoveStep,
       setParams: setFunc,
       submitProposal,
       stepList,
@@ -128,6 +133,15 @@ function ParamsProvider({ children }: AppParamsContextProps) {
     }));
   };
 
+  const handleRemoveStep = (stepIndex: number) => {
+    const newStepList = params.stepList;
+    newStepList.splice(stepIndex, 1);
+    setParams((previousParams) => ({
+      ...previousParams,
+      stepList: newStepList,
+    }));
+  };
+
   return (
     <ParamsContext.Provider
       value={{
@@ -137,6 +151,7 @@ function ParamsProvider({ children }: AppParamsContextProps) {
         handleChange,
         handleMarketScenario,
         handleAddStep,
+        handleRemoveStep,
       }}
     >
       {children}

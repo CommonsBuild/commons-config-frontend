@@ -12,6 +12,7 @@ import api from '@/services/api';
 type ABCContextType = {
   chart: { [key: string]: number[] };
   stepLinSpaces: { [key: string]: number[] }[];
+  singlePoints: { [key: string]: number[] }[];
   reserveRatio: number;
   table: { [key: string]: number[] };
   setContext: Dispatch<SetStateAction<ABCContextType>>;
@@ -20,6 +21,7 @@ type ABCContextType = {
 const initialContext: ABCContextType = {
   chart: {},
   stepLinSpaces: [],
+  singlePoints: [],
   reserveRatio: 0,
   table: {},
   setContext: (): void => {
@@ -67,6 +69,7 @@ function ABCProvider({ children }: AppABCContextProps) {
           ...previousContext,
           chart: data.chartData as { [key: string]: number[] },
           stepLinSpaces: data.chartData.stepLinSpaces,
+          singlePoints: data.chartData.singlePoints,
           reserveRatio: data.chartData.reserveRatio,
           table: data.stepTable as { [key: string]: number[] },
         }));

@@ -46,7 +46,8 @@ interface ABCProps {
   balanceInThousands: number[];
   price: number[];
   reserveRatio: string;
-  stepLinSpaces: { [key: string]: number[] }[];
+  stepLinSpaces: { [key: string]: number[] };
+  singleDataPoints: any[];
 }
 
 function ABCChart({
@@ -54,6 +55,7 @@ function ABCChart({
   price,
   reserveRatio,
   stepLinSpaces,
+  singleDataPoints,
 }: ABCProps) {
   const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
 
@@ -67,11 +69,14 @@ function ABCChart({
   };
 
   const getColor = (array) => {
-    if (array[0] > array.at(-1)) {
-      return 'rgba(226, 65, 65, 0.7)';
-    }
+    if (array) {
+      if (array[0] > array.at(-1)) {
+        return 'rgba(226, 65, 65, 0.7)';
+      }
 
-    return 'rgba(65, 226, 130, 0.7)';
+      return 'rgba(65, 226, 130, 0.7)';
+    }
+    return 'transparent';
   };
 
   const handleDatasets = () => {
@@ -89,18 +94,28 @@ function ABCChart({
       },
     ];
 
-    stepLinSpaces?.forEach((elem, index) => {
-      datasets.push({
-        label: String(index),
-        fill: true,
-        data: handleData(elem.x, elem.y),
-        borderColor: '#DEFB48',
-        pointBackgroundColor: '#DEFB48',
-        pointHoverRadius: 7,
-        pointRadius: 0,
-        pointStyle: 'rect',
-        backgroundColor: getColor(elem.x),
-      });
+    datasets.push({
+      label: 'Selected lin space',
+      fill: true,
+      data: handleData(stepLinSpaces?.x, stepLinSpaces?.y),
+      borderColor: '#DEFB48',
+      pointBackgroundColor: '#DEFB48',
+      pointHoverRadius: 7,
+      pointRadius: 0,
+      pointStyle: 'rect',
+      backgroundColor: getColor(stepLinSpaces?.x),
+    });
+
+    datasets.push({
+      label: 'Data points',
+      fill: true,
+      data: singleDataPoints,
+      borderColor: '#DEFB48',
+      pointBackgroundColor: '#DEFB48',
+      pointHoverRadius: 7,
+      pointRadius: 5,
+      pointStyle: 'rect',
+      backgroundColor: 'transparent',
     });
     return datasets;
   };

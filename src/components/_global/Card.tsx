@@ -34,7 +34,7 @@ function Card({
           {previousPanel ? (
             <Link href={previousHref}>
               <a className="flex justify-center w-full py-2 border border-neon">
-                <label className="font-bj font-bold text-neon uppercase">
+                <label className="font-bj font-bold text-neon uppercase cursor-pointer">
                   back
                 </label>
               </a>
@@ -45,7 +45,7 @@ function Card({
           {nextPanel ? (
             <Link href={nextHref}>
               <a className="flex justify-center w-full py-2 border border-neon">
-                <span className="font-bj font-bold text-neon uppercase">
+                <span className="font-bj font-bold text-neon uppercase cursor-pointer">
                   next
                 </span>
               </a>
