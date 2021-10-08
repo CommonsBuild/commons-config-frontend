@@ -47,7 +47,7 @@ interface ABCProps {
   price: number[];
   reserveRatio: string;
   stepLinSpaces: { [key: string]: number[] };
-  singleDataPoints: { [key: string]: number[] }[];
+  singleDataPoints: any[];
 }
 
 function ABCChart({
