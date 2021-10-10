@@ -88,7 +88,7 @@ function ABCTable({ stepList, table }: ABCProps) {
         <div className="w-1/5 max-w-144">
           <Tooltip
             isHovered={tributeHeaderIsHovered}
-            text="The amount of funds taken from the order and sent to the Common Pool."
+            text="The amount of funds taken from the order and sent to the Common Pool. This is a determined using the parameters entry & exit tribute."
           >
             <span ref={tributeHeader}>
               tribute collected{' '}

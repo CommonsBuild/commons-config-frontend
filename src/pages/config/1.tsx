@@ -42,7 +42,7 @@ function TokenFreezeThaw() {
       param: 'Token Thaw',
       placeholder: 'weeks',
       tooltipText:
-        'Token Thaw is designed to guarantee, for a certain period, the minimum possible price of the token, or price floor.',
+        'Token Thaw is the duration after the Token Freeze where TEC tokens gradually thaw, allowing them to become tradeable.',
     },
   ];
 

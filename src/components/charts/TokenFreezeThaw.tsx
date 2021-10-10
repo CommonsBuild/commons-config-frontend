@@ -69,7 +69,7 @@ const TokenFreezeThawChart = ({ price, week }: TokenFreezeThawProps) => {
       <div className="w-20 h-0 text-right relative -top-2 -left-14">
         <Tooltip
           isHovered={isHovered}
-          text="The price floor is the minimum possible price of the token. This value would only be possible with two conditions:"
+          text="The price floor is the minimum possible price of the token. This is a result of tokens being frozen and is affected by the paramaters Token Freeze & Token Thaw."
         >
           <span
             ref={hoverRef}

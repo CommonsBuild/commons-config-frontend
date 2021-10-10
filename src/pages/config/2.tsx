@@ -83,7 +83,7 @@ function ABC() {
       param: 'Commons Tribute',
       placeholder: '%',
       tooltipText:
-        'A percentage of the total funds raised from the Hatch is sent to the Common Pool to kick-start the Commons project.',
+        'A percentage of the total funds raised from the Hatch is sent to the Common Pool to kick-start the Commons projects.',
     },
     {
       name: 'entryTribute',
@@ -92,7 +92,7 @@ function ABC() {
       param: 'Entry Tribute',
       placeholder: '%',
       tooltipText:
-        'The percentage taken off BUY order and sent to the Common Pool.',
+        'The percentage taken off BUY orders and sent to the Common Pool.',
     },
     {
       name: 'exitTribute',

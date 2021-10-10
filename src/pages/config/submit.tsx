@@ -195,7 +195,7 @@ function SubmitConfig() {
       param: 'Execution Delay',
       placeholder: 'days',
       tooltipText:
-        'The amount of time after a vote passes before the proposed action is executed',
+        'The amount of time after a vote passes before the proposed action is executed.',
     },
   ];
 
