@@ -7,7 +7,7 @@ import {
   Card,
   ChartContainer,
   ConfigNavbar as Navbar,
-  Tooltip,
+  Tooltip
 } from '@/components/_global';
 import { LabeledRadioButton, RedirectButton } from '@/components/btns';
 import { ABCChart } from '@/components/charts';
@@ -29,17 +29,17 @@ const marketScenarios = [
     value: [
       [5000, 'wxDAI'],
       [50000, 'TEC'],
-      [3000, 'wxDAI'],
-    ],
+      [3000, 'wxDAI']
+    ]
   },
   {
     id: 'bullish',
     value: [
       [5000, 'wxDAI'],
       [100000, 'wxDAI'],
-      [3000, 'TEC'],
-    ],
-  },
+      [3000, 'TEC']
+    ]
+  }
 ];
 
 const reserveBalanceButtons = [
@@ -47,7 +47,7 @@ const reserveBalanceButtons = [
   { id: '500k', size: 'medium', value: '500000' },
   { id: '1m', size: 'small', value: '1000000' },
   { id: '3m', size: 'small', value: '3000000' },
-  { id: '5m', size: 'small', value: '5000000' },
+  { id: '5m', size: 'small', value: '5000000' }
 ];
 
 function ABC() {
@@ -65,7 +65,7 @@ function ABC() {
     handleChange,
     handleMarketScenario,
     handleAddStep,
-    handleRemoveStep,
+    handleRemoveStep
   } = useParams();
 
   const [marketDialog, setMarketDialog] = useState(false);
@@ -83,7 +83,7 @@ function ABC() {
       param: 'Opening Price',
       placeholder: 'wxDAI',
       tooltipText:
-        'The initial price of the TEC token after the Commons Upgrade is complete.',
+        'The initial price of the TEC token after the Commons Upgrade is complete.'
     },
     {
       name: 'commonsTribute',
@@ -92,7 +92,7 @@ function ABC() {
       param: 'Commons Tribute',
       placeholder: '%',
       tooltipText:
-        'A percentage of the total funds raised from the Hatch is sent to the Common Pool to kick-start the Commons project.',
+        'A percentage of the total funds raised from the Hatch is sent to the Common Pool to kick-start the Commons project.'
     },
     {
       name: 'entryTribute',
@@ -101,7 +101,7 @@ function ABC() {
       param: 'Entry Tribute',
       placeholder: '%',
       tooltipText:
-        'The percentage taken off BUY order and sent to the Common Pool.',
+        'The percentage taken off BUY order and sent to the Common Pool.'
     },
     {
       name: 'exitTribute',
@@ -110,8 +110,8 @@ function ABC() {
       param: 'Exit Tribute',
       placeholder: '%',
       tooltipText:
-        'The percentage taken off SELL orders and sent to the Common Pool.',
-    },
+        'The percentage taken off SELL orders and sent to the Common Pool.'
+    }
   ];
 
   useEffect(() => {
@@ -130,8 +130,8 @@ function ABC() {
         stepList: [
           [5000, 'wxDAI'],
           [100000, 'wxDAI'],
-          [3000, 'TEC'],
-        ],
+          [3000, 'TEC']
+        ]
       }));
     }
   }, []);
@@ -177,16 +177,13 @@ function ABC() {
                 }
               />
             ))}
+            <RedirectButton href="/learn/2" />
+
             <div className="py-2">
               <span className="font-bj font-bold text-neon-light text-xs uppercase">
                 choose your market scenario
               </span>
-              <span
-                className="font-inter font-medium text-neon text-xs px-4 cursor-pointer"
-                onClick={() => setMarketDialog(true)}
-              >
-                What&apos;s this?
-              </span>
+
               <div className="flex flex-row-reverse justify-end py-2">
                 {marketScenarios.map((scenario) => (
                   <LabeledRadioButton
@@ -266,9 +263,12 @@ function ABC() {
                     />
                   ))}
                 </div>
-                <div className="font-inter text-xs text-gray-500 py-2">
-                  Add more steps to experience your Bonding Curve
-                </div>
+                <span
+                  className="font-bj font-medium text-neon text-xs px-4 cursor-pointer"
+                  onClick={() => setMarketDialog(true)}
+                >
+                  <b>HOW DOES THIS WORK?</b>
+                </span>
                 <a
                   className="flex justify-center border border-neon-light mt-1"
                   onClick={() => setStepDialog(true)}
@@ -282,7 +282,6 @@ function ABC() {
                 </a>
               </div>
             </div>
-            <RedirectButton href="/learn/2" />
           </Card>
           <ChartContainer title="Experience your Augmented Bonding Curve by adjusting your parameters and experimenting with the Step Simulator.">
             <ABCChart
@@ -303,7 +302,7 @@ function ABC() {
                     {
                       'hover:border-gray-400': index !== selectedStep,
                       'border-gray-700 ': index !== selectedStep,
-                      'border-neon': index === selectedStep,
+                      'border-neon': index === selectedStep
                     }
                   )}
                   onClick={() => setSelectedStep(index)}

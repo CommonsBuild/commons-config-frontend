@@ -6,9 +6,9 @@ interface RedirectButtonProps {
 
 function RedirectButton({ href }: RedirectButtonProps) {
   return (
-    <Link href={href}>
-      <a className="font-bj font-bold text-xs text-neon uppercase py-2">
-        confused?
+    <Link href={href} >
+      <a  target="_blank" rel="noreferrer noopener" className="font-bj font-bold text-xs text-neon uppercase py-2">
+        learn more
       </a>
     </Link>
   );

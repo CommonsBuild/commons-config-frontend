@@ -62,10 +62,10 @@ function ABCTable({ stepList, table }: ABCProps) {
         <div className="w-1/5 max-w-144">
           <Tooltip
             isHovered={currentSupplyHeaderIsHovered}
-            text="The price of the TEC token at the beginning of the transaction."
+            text="The total amount of TEC currently in circulation."
           >
             <span ref={currentSupplyHeader}>
-              current supply{' '}
+              total supply{' '}
               <div className="inline-block mt-1">
                 <Image src="/questionMark.svg" height="12px" width="12px" />
               </div>

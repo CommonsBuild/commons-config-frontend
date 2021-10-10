@@ -19,7 +19,7 @@ function LearnTwo() {
         <p>
           The magic of the Augmented Bonding Curve is that whenever a buy or
           sell order takes place on its market a percentage is sent directly to
-          the funding pool. The percentage taken immediately in wxDAI from buy
+          the Common Pool. The percentage taken immediately in wxDAI from buy
           orders to the curve is the
           <strong>Entry Tribute</strong>. Conversely, the percentage taken from
           sell orders is the <strong>Exit Tribute</strong>. This means that for
@@ -51,6 +51,7 @@ function LearnTwo() {
         <ul className="list-disc list-inside">
           <li>What percent of hatch funds will go to each pool</li>
           <li>The tribute taken from buy and sell orders</li>
+          <li>The opening price at which TEC tokens can be minted</li>
         </ul>
         <p className="font-bj font-bold text-lg my-6">
           If you need more information please check the links below:
