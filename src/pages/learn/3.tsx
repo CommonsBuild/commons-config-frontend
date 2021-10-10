@@ -18,10 +18,10 @@ function LearnThree() {
         <p className="font-bold">Modifying the Commons</p>
         <br />
         <p>
-          Tao Voting is the voting process by which the Commons can modify
-          its economic and governance settings post-upgrade. It is a very
-          powerful voting application that is capable of performing many
-          high-impact functions, for example:
+          Tao Voting is the voting process by which the Commons can modify its
+          economic and governance settings post-upgrade. It is a very powerful
+          voting application that is capable of performing many high-impact
+          functions, for example:
         </p>
         <br />
         <ul className="list-disc list-inside">
@@ -32,13 +32,13 @@ function LearnThree() {
         <br />
         <p>
           Since there is only one set of voting parameters for all Commons
-          components, strong thresholds for passing proposals in Tao Voting are critical
-          to ensure the Commons architecture remains uncompromised.
+          components, strong thresholds for passing proposals in Tao Voting are
+          critical to ensure the Commons architecture remains uncompromised.
         </p>
         <br />
         <p>
-          Tao Voting is an upgraded version of Dandelion Voting with familiar parameters
-          such as <strong>Support Required</strong>,
+          Tao Voting is an upgraded version of Dandelion Voting with familiar
+          parameters such as <strong>Support Required</strong>,
           <strong>Minimum Quorum</strong> ,<strong>Execution Delay</strong>
           and <strong>Vote Duration</strong>.
         </p>
