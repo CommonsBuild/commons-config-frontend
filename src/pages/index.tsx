@@ -23,7 +23,7 @@ function Home() {
           </span>
         </BorderedText>
         <div className="font-inter text-neon-light text-xl text-center leading-relaxed w-3/4 mx-auto px-16 pt-8 lg:text-3xl">
-          We as community, as a Common, have accomplished every milestone along
+          We as community, as a Commons, have accomplished every milestone along
           our path with a holistic and inclusive process.
         </div>
         <div style={{ top: '920px', left: '17%' }} className="absolute">
@@ -47,7 +47,7 @@ function Home() {
           </div>
           <Tooltip
             isHovered={upgradeIsHovered}
-            text="The Commons upgrade is the process by which the Hatch DAO upgrades into a full Common."
+            text="The Commons upgrade is the process by which the Hatch DAO upgrades into a full Commons."
           >
             <span
               ref={upgradeRef}
