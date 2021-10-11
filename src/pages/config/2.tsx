@@ -275,13 +275,13 @@ function ABC() {
                     add a step
                   </button>
                 </a>
-                <span
-                  className="font-bj font-medium text-neon text-sm uppercase cursor-pointer"
-                  onClick={() => setMarketDialog(true)}
-                >
-                  <b>how to use the simulator</b>
-                </span>
               </div>
+              <span
+                className="font-bj font-medium text-neon text-sm py-8 uppercase cursor-pointer"
+                onClick={() => setMarketDialog(true)}
+              >
+                <b>how to use the simulator</b>
+              </span>
             </div>
           </Card>
           <ChartContainer title="Experience your Augmented Bonding Curve by adjusting your parameters and experimenting with the Step Simulator.">
