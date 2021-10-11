@@ -263,12 +263,7 @@ function ABC() {
                     />
                   ))}
                 </div>
-                <span
-                  className="font-bj font-medium text-neon text-xs px-4 cursor-pointer"
-                  onClick={() => setMarketDialog(true)}
-                >
-                  <b>HOW DOES THIS WORK?</b>
-                </span>
+
                 <a
                   className="flex justify-center border border-neon-light mt-1"
                   onClick={() => setStepDialog(true)}
@@ -280,6 +275,12 @@ function ABC() {
                     add a step
                   </button>
                 </a>
+                <span
+                  className="font-bj font-medium text-neon text-sm uppercase cursor-pointer"
+                  onClick={() => setMarketDialog(true)}
+                >
+                  <b>how to use the simulator</b>
+                </span>
               </div>
             </div>
           </Card>
