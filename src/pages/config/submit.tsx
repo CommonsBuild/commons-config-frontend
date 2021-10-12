@@ -563,7 +563,7 @@ function SubmitConfig() {
           />
           <ModuleContainer
             inputList={disputableConvictionVoting}
-            title="disputable conviction voting"
+            title="conviction voting"
             onChange={handleChange}
             textAreaName="conviction"
             textAreaValue={textAreaContent.conviction}
