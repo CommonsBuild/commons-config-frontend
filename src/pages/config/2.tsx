@@ -162,7 +162,7 @@ function ABC() {
                     id={scenario.id}
                     label={scenario.id}
                     name="stepList"
-                    checked={equals(scenario.value, stepList.slice(0, 3))}
+                    checked={equals(scenario.value, stepList?.slice(0, 3))}
                     onChange={() => handleMarketScenario(scenario.value)}
                   />
                 ))}
@@ -240,7 +240,7 @@ function ABC() {
                   onClick={() => setStepDialog(true)}
                 >
                   <button
-                    disabled={stepList.length >= 6}
+                    disabled={stepList?.length >= 6}
                     className="font-bj font-bold text-xs text-neon-light uppercase p-2 cursor-pointer"
                   >
                     add a step
@@ -262,7 +262,7 @@ function ABC() {
               Steps
             </span>
             <div className="flex px-16 py-2">
-              {stepList.map((item, index) => (
+              {stepList?.map((item, index) => (
                 <div
                   className={classnames(
                     'group relative flex justify-center items-center w-12 h-12 mr-4 border',
