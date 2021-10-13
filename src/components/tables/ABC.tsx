@@ -52,7 +52,7 @@ function ABCTable({ stepList, table }: ABCProps) {
             text="The price of the TEC token at the beginning of the transaction."
           >
             <span ref={currentPriceHeader}>
-              current price{' '}
+              price{' '}
               <div className="inline-block mt-1">
                 <Image src="/questionMark.svg" height="12px" width="12px" />
               </div>
