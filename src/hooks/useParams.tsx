@@ -8,6 +8,12 @@ import {
 } from 'react';
 
 type ParamsContextType = {
+  title: string;
+  overallStrategy: string;
+  tokenFreezeStrategy: string;
+  ABCStrategy: string;
+  taoStrategy: string;
+  convictionStrategy: string;
   openingPrice: string;
   tokenFreeze: string;
   tokenThaw: string;
@@ -32,13 +38,19 @@ type ParamsContextType = {
   convictionVotingPeriodDays: string;
   submitProposal: boolean;
   setParams: Dispatch<SetStateAction<ParamsContextType>>;
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChange: (event: React.ChangeEvent) => void;
   handleMarketScenario: (scenario: (number | string)[][]) => void;
   handleAddStep: (step: (number | string)[]) => void;
   handleRemoveStep: (stepIndex: number) => void;
 };
 
 const initialContext: ParamsContextType = {
+  title: '',
+  overallStrategy: '',
+  tokenFreezeStrategy: '',
+  ABCStrategy: '',
+  taoStrategy: '',
+  convictionStrategy: '',
   openingPrice: '1.65',
   tokenFreeze: '30',
   tokenThaw: '100',
@@ -90,25 +102,32 @@ interface AppParamsContextProps {
 }
 
 function ParamsProvider({ children }: AppParamsContextProps) {
-  const [params, setParams] = useState<ParamsContextType>(initialContext);
+  const [params, setParams] = useState<ParamsContextType>();
   const [submitProposalState, setSubmitProposal] = useState(false);
 
   useEffect(() => {
-    const {
-      handleChange,
-      handleMarketScenario,
-      handleAddStep,
-      handleRemoveStep,
-      setParams: setFunc,
-      submitProposal,
-      stepList,
-      ...rest
-    } = params;
-    const values = Object.keys(rest).map((key) => rest[key]);
-    if (values.every((elem) => elem !== '') && stepList.length !== 0) {
-      setSubmitProposal(true);
-    } else {
-      setSubmitProposal(false);
+    setParams(JSON.parse(localStorage.getItem('params')) || initialContext);
+  }, []);
+
+  useEffect(() => {
+    if (params) {
+      const {
+        handleChange,
+        handleMarketScenario,
+        handleAddStep,
+        handleRemoveStep,
+        setParams: setFunc,
+        submitProposal,
+        stepList,
+        ...rest
+      } = params;
+      const values = Object.keys(rest).map((key) => rest[key]);
+      if (values.every((elem) => elem !== '') && stepList.length !== 0) {
+        setSubmitProposal(true);
+      } else {
+        setSubmitProposal(false);
+      }
+      localStorage.setItem('params', JSON.stringify(params));
     }
   }, [params]);
 

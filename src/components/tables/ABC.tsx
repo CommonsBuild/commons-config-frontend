@@ -138,7 +138,7 @@ function ABCTable({ stepList, table }: ABCProps) {
           </Tooltip>
         </div>
       </div>
-      {Object.keys(stepList).map((elem, index) => (
+      {stepList?.map((elem, index) => (
         <div className="flex justify-between items-center hover:bg-cyan-700 cursor-pointer">
           {Object.keys(table).map((key, kIndex) => (
             <span className="w-1/5 max-w-144 py-1 first:w-1/12 first:pl-2">

@@ -17,8 +17,8 @@ interface ModuleContainerProps {
   title: string;
   textAreaName: string;
   textAreaValue: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onTextAreaChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onTextAreaChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 function ModuleContainer({
@@ -61,19 +61,12 @@ function ModuleContainer({
 
 function SubmitConfig() {
   const { submitProposal, handleChange, setParams, ...params } = useParams();
-  const [title, setTitle] = useState('');
   const [dialog, setDialog] = useState(false);
   const [advancedDialog, setAdvancedDialog] = useState(false);
   const [url, setUrl] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const [advancedParams, setAdvancedParams] = useState(false);
-  const [textAreaContent, setTextAreaContent] = useState({
-    freeze: '',
-    abc: '',
-    tao: '',
-    conviction: '',
-    overall: '',
-  });
+
   const freezeThawInputs = [
     {
       name: 'openingPrice',
@@ -82,25 +75,25 @@ function SubmitConfig() {
       param: 'Opening Price',
       placeholder: 'wxDAI',
       tooltipText:
-        'The initial price of the TEC token after the Commons Upgrade is complete.',
+        'The Opening Price is the price we sell TEC tokens after the Commons Upgrade is complete.',
     },
     {
-      name: 'commonsTribute',
-      paramName: 'COMMONS_TRIBUTE',
-      value: params.commonsTribute,
-      param: 'Commons Tribute',
-      placeholder: '%',
+      name: 'tokenFreeze',
+      paramName: 'TOKEN_FREEZE',
+      value: params.tokenFreeze,
+      param: 'Token Freeze',
+      placeholder: 'weeks',
       tooltipText:
-        'A percentage of the total funds raised from the Hatch is sent to the Common Pool to kick-start the Commons project.',
+        'Token Freeze is the duration from the initialization of the Commons which tokens remain fully locked.',
     },
     {
-      name: 'entryTribute',
-      paramName: 'ENTRY_TRIBUTE',
-      value: params.entryTribute,
-      param: 'Entry Tribute',
-      placeholder: '%',
+      name: 'tokenThaw',
+      paramName: 'TOKEN_THAW',
+      value: params.tokenThaw,
+      param: 'Token Thaw',
+      placeholder: 'weeks',
       tooltipText:
-        'The percentage taken off BUY order and sent to the Common Pool.',
+        'Token Thaw is the duration after the Token Freeze where TEC tokens gradually thaw, allowing them to become tradeable.',
     },
   ];
 
@@ -226,15 +219,6 @@ function SubmitConfig() {
       placeholder: 'days',
       tooltipText: 'The amount of time it takes to increase Conviction by 50%.',
     },
-    {
-      name: 'convictionVotingPeriodDays',
-      paramName: 'CONVICTION_GROWTH',
-      value: params.convictionVotingPeriodDays,
-      param: 'Conviction Voting Period Days',
-      placeholder: 'days',
-      tooltipText:
-        'The minimum amount of tokens needed to pass a request for an infinitely small amount of funds, relative to the Effective Supply.',
-    },
   ];
 
   const advancedParameters = [
@@ -347,34 +331,19 @@ function SubmitConfig() {
     }
   }, []);
 
-  const handleTitle = (event) => {
-    const { value } = event.target;
-
-    setTitle(value);
-  };
-
-  const handleTextArea = (event) => {
-    const { name, value } = event.target;
-
-    setTextAreaContent({
-      ...textAreaContent,
-      [name]: value,
-    });
-  };
-
   function submitParams() {
     setLoading(true);
     const chosenParams = {
-      title,
-      overallStrategy: textAreaContent.overall,
+      title: params.title,
+      overallStrategy: params.overallStrategy,
       tokenLockup: {
-        strategy: textAreaContent.freeze,
+        strategy: params.tokenFreezeStrategy,
         openingPrice: Number(params.openingPrice),
         tokenFreeze: Number(params.tokenFreeze),
         tokenThaw: Number(params.tokenThaw),
       },
       augmentedBondingCurve: {
-        strategy: textAreaContent.abc,
+        strategy: params.ABCStrategy,
         openingPrice: Number(params.openingPrice),
         commonsTribute: Number(params.commonsTribute) / 100,
         ragequitAmount: Number(params.ragequitAmount),
@@ -386,7 +355,7 @@ function SubmitConfig() {
         zoomGraph: 0,
       },
       taoVoting: {
-        strategy: textAreaContent.tao,
+        strategy: params.taoStrategy,
         supportRequired: params.supportRequired,
         minimumQuorum: params.minimumQuorum,
         delegatedVotingPeriod: Number(params.delegatedVotingPeriod),
@@ -396,7 +365,7 @@ function SubmitConfig() {
         voteDuration: Number(params.voteDuration),
       },
       convictionVoting: {
-        strategy: textAreaContent.conviction,
+        strategy: params.convictionStrategy,
         spendingLimit: Number(params.spendingLimit) / 100,
         minimumConviction: Number(params.minimumConviction) / 100,
         convictionGrowth: Number(params.convictionGrowth),
@@ -416,7 +385,6 @@ function SubmitConfig() {
         setDialog(true);
       })
       .catch(() => {
-        console.dir(chosenParams);
         setLoading(false);
         alert('Something went wrong');
       });
@@ -556,7 +524,6 @@ function SubmitConfig() {
                 onChange={handleChange}
                 textAreaName="advanced"
                 textAreaValue=""
-                onTextAreaChange={(event) => handleTextArea(event)}
               />
             </>
           ) : (
@@ -566,33 +533,33 @@ function SubmitConfig() {
             inputList={freezeThawInputs}
             title="token freeze & token thaw"
             onChange={handleChange}
-            textAreaName="freeze"
-            textAreaValue={textAreaContent.freeze}
-            onTextAreaChange={(event) => handleTextArea(event)}
+            textAreaName="tokenFreezeStrategy"
+            textAreaValue={params.tokenFreezeStrategy}
+            onTextAreaChange={(event) => handleChange(event)}
           />
           <ModuleContainer
             inputList={augmentedBondingInputs}
             title="augmented bonding curve"
             onChange={handleChange}
-            textAreaName="abc"
-            textAreaValue={textAreaContent.abc}
-            onTextAreaChange={(event) => handleTextArea(event)}
+            textAreaName="ABCStrategy"
+            textAreaValue={params.ABCStrategy}
+            onTextAreaChange={(event) => handleChange(event)}
           />
           <ModuleContainer
             inputList={taoVoting}
             title="tao voting"
             onChange={handleChange}
-            textAreaName="tao"
-            textAreaValue={textAreaContent.tao}
-            onTextAreaChange={(event) => handleTextArea(event)}
+            textAreaName="taoStrategy"
+            textAreaValue={params.taoStrategy}
+            onTextAreaChange={(event) => handleChange(event)}
           />
           <ModuleContainer
             inputList={disputableConvictionVoting}
             title="disputable conviction voting"
             onChange={handleChange}
-            textAreaName="conviction"
-            textAreaValue={textAreaContent.conviction}
-            onTextAreaChange={(event) => handleTextArea(event)}
+            textAreaName="convictionStrategy"
+            textAreaValue={params.convictionStrategy}
+            onTextAreaChange={(event) => handleChange(event)}
           />
           <div className="flex flex-col justify-center mx-16 pr-9">
             <div className="font-bj font-bold text-neon-light my-2">
@@ -601,17 +568,17 @@ function SubmitConfig() {
             <TextArea
               name="title"
               placeholder="Pick a good title :)"
-              value={title}
-              onChange={handleTitle}
+              value={params.title}
+              onChange={(event) => handleChange(event)}
             />
             <div className="font-bj font-bold text-neon-light my-2">
               Overall Commons Strategy
             </div>
             <TextArea
-              name="overall"
+              name="overallStrategy"
               placeholder="Explain the big picture of your Commons Configuration.. don’t forget to mention if your proposal is a fork of another..."
-              value={textAreaContent.overall}
-              onChange={(event) => handleTextArea(event)}
+              value={params.overallStrategy}
+              onChange={(event) => handleChange(event)}
             />
             <Link href="/config/1">
               <a className="h-14 flex justify-center items-center w-full py-2 border border-neon my-2">

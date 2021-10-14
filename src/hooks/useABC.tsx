@@ -20,7 +20,7 @@ type ABCContextType = {
 
 const initialContext: ABCContextType = {
   chart: {},
-  stepLinSpaces: [],
+  stepLinSpaces: [{}],
   singlePoints: [],
   reserveRatio: 0,
   table: {},
