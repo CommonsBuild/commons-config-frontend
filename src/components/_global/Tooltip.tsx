@@ -10,7 +10,7 @@ function Tooltip({ children, isHovered, text }: TooltipProps) {
   return (
     <>
       {text ? (
-        <div className="relative flex">
+        <div className="relative flex z-50">
           {children}
           <div
             style={{ display: isHovered ? '' : 'none' }}

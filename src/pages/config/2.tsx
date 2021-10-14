@@ -235,17 +235,15 @@ function ABC() {
                 <div className="font-inter text-xs text-gray-500 py-2">
                   Add more steps to experience your Bonding Curve
                 </div>
-                <a
-                  className="flex justify-center border border-neon-light mt-1"
+                <button
+                  disabled={stepList.length >= 10}
+                  className="flex justify-center items-center w-full h-8 border border-neon-light disabled:text-gray-400 disabled:border-gray-400"
                   onClick={() => setStepDialog(true)}
                 >
-                  <button
-                    disabled={stepList?.length >= 6}
-                    className="font-bj font-bold text-xs text-neon-light uppercase p-2 cursor-pointer"
-                  >
+                  <span className="font-bj font-bold text-xs text-neon-light uppercase cursor-pointer">
                     add a step
-                  </button>
-                </a>
+                  </span>
+                </button>
               </div>
             </div>
             <RedirectButton href="/learn/2" />
