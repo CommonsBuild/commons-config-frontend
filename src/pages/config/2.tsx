@@ -236,7 +236,7 @@ function ABC() {
                   Add more steps to experience your Bonding Curve
                 </div>
                 <button
-                  disabled={stepList.length >= 10}
+                  disabled={stepList?.length >= 10}
                   className="flex justify-center items-center w-full h-8 border border-neon-light disabled:text-gray-400 disabled:border-gray-400"
                   onClick={() => setStepDialog(true)}
                 >
@@ -253,7 +253,7 @@ function ABC() {
               balanceInThousands={chart.balanceInThousands}
               price={chart.price}
               reserveRatio={(reserveRatio * 100).toFixed(2)}
-              stepLinSpaces={stepLinSpaces[selectedStep]}
+              stepLinSpaces={selectedStep ? stepLinSpaces[selectedStep] : {}}
               singleDataPoints={singlePoints}
             />
             <span className="font-bj text-sm text-neon-light px-16 py-2">
