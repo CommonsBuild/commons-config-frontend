@@ -23,9 +23,9 @@ function ABCTable({ stepList, table }: ABCProps) {
     'step',
     'currentPriceParsed',
     'currentSupplyParsed',
-    'amountIn',
-    'tributeCollected',
-    'amountOut',
+    'amountInParsed',
+    'tributeCollectedParsed',
+    'amountOutParsed',
     'newPriceParsed',
     'slippage',
   ];
