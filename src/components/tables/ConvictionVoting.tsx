@@ -132,7 +132,7 @@ function ConvictionVotingTable({ table }: ConvictionVotingTableProps) {
                 'font-bold': elem.id === 'requestedAmount',
               })}
             >
-              {row}
+              {row.toLocaleString('en-us')}
             </span>
           ))}
         </div>

@@ -8,6 +8,12 @@ import {
 } from 'react';
 
 type ParamsContextType = {
+  title: string;
+  overallStrategy: string;
+  tokenFreezeStrategy: string;
+  ABCStrategy: string;
+  taoStrategy: string;
+  convictionStrategy: string;
   openingPrice: string;
   tokenFreeze: string;
   tokenThaw: string;
@@ -32,34 +38,44 @@ type ParamsContextType = {
   convictionVotingPeriodDays: string;
   submitProposal: boolean;
   setParams: Dispatch<SetStateAction<ParamsContextType>>;
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChange: (event: React.ChangeEvent) => void;
   handleMarketScenario: (scenario: (number | string)[][]) => void;
   handleAddStep: (step: (number | string)[]) => void;
   handleRemoveStep: (stepIndex: number) => void;
 };
 
 const initialContext: ParamsContextType = {
-  openingPrice: '',
-  tokenFreeze: '',
-  tokenThaw: '',
-  commonsTribute: '',
-  entryTribute: '',
-  exitTribute: '',
-  reserveBalance: '',
-  stepList: [],
+  title: '',
+  overallStrategy: '',
+  tokenFreezeStrategy: '',
+  ABCStrategy: '',
+  taoStrategy: '',
+  convictionStrategy: '',
+  openingPrice: '1.65',
+  tokenFreeze: '30',
+  tokenThaw: '100',
+  commonsTribute: '50',
+  entryTribute: '3',
+  exitTribute: '15',
+  reserveBalance: '1571223.57',
+  stepList: [
+    [5000, 'wxDAI'],
+    [100000, 'wxDAI'],
+    [3000, 'TEC'],
+  ],
   initialBuy: '0',
   ragequitAmount: '0',
   zoomGraph: '0',
-  supportRequired: '',
-  minimumQuorum: '',
-  voteDuration: '',
-  delegatedVotingPeriod: '',
-  quietEndingPeriod: '',
-  quietEndingExtension: '',
-  executionDelay: '',
-  spendingLimit: '',
-  minimumConviction: '',
-  convictionGrowth: '',
+  supportRequired: '88',
+  minimumQuorum: '8',
+  voteDuration: '7',
+  delegatedVotingPeriod: '5',
+  quietEndingPeriod: '3',
+  quietEndingExtension: '2',
+  executionDelay: '1',
+  spendingLimit: '20',
+  minimumConviction: '0.5',
+  convictionGrowth: '5',
   convictionVotingPeriodDays: '',
   submitProposal: false,
   setParams: (): void => {
@@ -86,25 +102,32 @@ interface AppParamsContextProps {
 }
 
 function ParamsProvider({ children }: AppParamsContextProps) {
-  const [params, setParams] = useState<ParamsContextType>(initialContext);
+  const [params, setParams] = useState<ParamsContextType>();
   const [submitProposalState, setSubmitProposal] = useState(false);
 
   useEffect(() => {
-    const {
-      handleChange,
-      handleMarketScenario,
-      handleAddStep,
-      handleRemoveStep,
-      setParams: setFunc,
-      submitProposal,
-      stepList,
-      ...rest
-    } = params;
-    const values = Object.keys(rest).map((key) => rest[key]);
-    if (values.every((elem) => elem !== '') && stepList.length !== 0) {
-      setSubmitProposal(true);
-    } else {
-      setSubmitProposal(false);
+    setParams(JSON.parse(localStorage.getItem('params')) || initialContext);
+  }, []);
+
+  useEffect(() => {
+    if (params) {
+      const {
+        handleChange,
+        handleMarketScenario,
+        handleAddStep,
+        handleRemoveStep,
+        setParams: setFunc,
+        submitProposal,
+        stepList,
+        ...rest
+      } = params;
+      const values = Object.keys(rest).map((key) => rest[key]);
+      if (values.every((elem) => elem !== '') && stepList.length !== 0) {
+        setSubmitProposal(true);
+      } else {
+        setSubmitProposal(false);
+      }
+      localStorage.setItem('params', JSON.stringify(params));
     }
   }, [params]);
 

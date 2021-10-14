@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import classnames from 'classnames';
@@ -16,12 +16,6 @@ import { ABCAddStepDialog, ABCScenarioDialog } from '@/components/modals/';
 import { ABCTable } from '@/components/tables';
 
 const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b);
-
-type ParamsOptionsType =
-  | 'OPENING_PRICE'
-  | 'COMMONS_TRIBUTE'
-  | 'ENTRY_TRIBUTE'
-  | 'EXIT_TRIBUTE';
 
 const marketScenarios = [
   {
@@ -61,7 +55,6 @@ function ABC() {
     reserveBalance,
     stepList,
     submitProposal,
-    setParams,
     handleChange,
     handleMarketScenario,
     handleAddStep,
@@ -71,8 +64,6 @@ function ABC() {
   const [marketDialog, setMarketDialog] = useState(false);
   const [stepDialog, setStepDialog] = useState(false);
   const [selectedStep, setSelectedStep] = useState(0);
-  const [, setParamSelected] = useState<ParamsOptionsType>('OPENING_PRICE');
-
   const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
 
   const inputs = [
@@ -92,7 +83,7 @@ function ABC() {
       param: 'Commons Tribute',
       placeholder: '%',
       tooltipText:
-        'A percentage of the total funds raised from the Hatch is sent to the Common Pool to kick-start the Commons project.',
+        'A percentage of the total funds raised from the Hatch is sent to the Common Pool to kick-start the Commons projects.',
     },
     {
       name: 'entryTribute',
@@ -101,7 +92,7 @@ function ABC() {
       param: 'Entry Tribute',
       placeholder: '%',
       tooltipText:
-        'The percentage taken off BUY order and sent to the Common Pool.',
+        'The percentage taken off BUY orders and sent to the Common Pool.',
     },
     {
       name: 'exitTribute',
@@ -113,28 +104,6 @@ function ABC() {
         'The percentage taken off SELL orders and sent to the Common Pool.',
     },
   ];
-
-  useEffect(() => {
-    if (
-      [commonsTribute, entryTribute, exitTribute, reserveBalance].every(
-        (elem) => elem === '' && stepList.length === 0
-      )
-    ) {
-      setParams((previousParams) => ({
-        ...previousParams,
-        openingPrice: openingPrice || '1.65',
-        commonsTribute: '50',
-        entryTribute: '3',
-        exitTribute: '15',
-        reserveBalance: '1500000',
-        stepList: [
-          [5000, 'wxDAI'],
-          [100000, 'wxDAI'],
-          [3000, 'TEC'],
-        ],
-      }));
-    }
-  }, []);
 
   return (
     <>
@@ -164,9 +133,6 @@ function ABC() {
             {inputs.map((input) => (
               <Input
                 key={input.name}
-                changeParam={() =>
-                  setParamSelected(input.paramName as ParamsOptionsType)
-                }
                 name={input.name}
                 param={input.param}
                 placeholder={input.placeholder}
@@ -193,7 +159,7 @@ function ABC() {
                     id={scenario.id}
                     label={scenario.id}
                     name="stepList"
-                    checked={equals(scenario.value, stepList.slice(0, 3))}
+                    checked={equals(scenario.value, stepList?.slice(0, 3))}
                     onChange={() => handleMarketScenario(scenario.value)}
                   />
                 ))}
@@ -237,14 +203,14 @@ function ABC() {
                   <LabeledRadioButton
                     checked={
                       Number(reserveBalance) ===
-                      1500000 * (1 - Number(commonsTribute) / 100)
+                      1571223.57 * (1 - Number(commonsTribute) / 100)
                     }
                     id="launch"
                     label="launch"
                     name="reserveBalance"
                     size="big"
                     tooltipText="Simulate the Reserve Balance using the amount raised by the Hatch, adjusted by the Commons Tribute"
-                    value={1500000 * (1 - Number(commonsTribute) / 100)}
+                    value={1571223.57 * (1 - Number(commonsTribute) / 100)}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                       handleChange(event)
                     }
@@ -263,18 +229,18 @@ function ABC() {
                     />
                   ))}
                 </div>
-
-                <a
-                  className="flex justify-center border border-neon-light mt-1"
+                <div className="font-inter text-xs text-gray-500 py-2">
+                  Add more steps to experience your Bonding Curve
+                </div>
+                <button
+                  disabled={stepList?.length >= 10}
+                  className="flex justify-center items-center w-full h-8 border border-neon-light disabled:text-gray-400 disabled:border-gray-400"
                   onClick={() => setStepDialog(true)}
                 >
-                  <button
-                    disabled={stepList.length >= 6}
-                    className="font-bj font-bold text-xs text-neon-light uppercase p-2 cursor-pointer"
-                  >
+                  <span className="font-bj font-bold text-xs text-neon-light uppercase cursor-pointer">
                     add a step
-                  </button>
-                </a>
+                  </span>
+                </button>
               </div>
               <span
                 className="font-bj font-medium text-neon text-sm py-8 uppercase cursor-pointer"
@@ -289,14 +255,14 @@ function ABC() {
               balanceInThousands={chart.balanceInThousands}
               price={chart.price}
               reserveRatio={(reserveRatio * 100).toFixed(2)}
-              stepLinSpaces={stepLinSpaces[selectedStep]}
+              stepLinSpaces={selectedStep ? stepLinSpaces[selectedStep] : {}}
               singleDataPoints={singlePoints}
             />
             <span className="font-bj text-sm text-neon-light px-16 py-2">
               Steps
             </span>
             <div className="flex px-16 py-2">
-              {stepList.map((item, index) => (
+              {stepList?.map((item, index) => (
                 <div
                   className={classnames(
                     'group relative flex justify-center items-center w-12 h-12 mr-4 border',

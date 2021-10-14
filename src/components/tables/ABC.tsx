@@ -2,10 +2,25 @@ import Image from 'next/image';
 import { Tooltip } from '@/components/_global';
 import useHover from '@/hooks/useHover';
 
+const formatOutput = (output, header: string) => {
+  const formatter = new Intl.NumberFormat('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+  if (header === 'amountInParsed' || header === 'amountOutParsed') {
+    const outputParts = output.match(/[a-z]+|[^a-z]+/gi);
+    return `${formatter.format(outputParts[0]).toLocaleString()} ${
+      outputParts[1]
+    }`;
+  }
+  return output.toLocaleString('en-us');
+};
+
 interface ABCProps {
   stepList: (string | number)[][];
   table: { [key: string]: (number | string)[] };
 }
+
 function ABCTable({ stepList, table }: ABCProps) {
   const [stepHeader, stepHeaderIsHovered] = useHover<HTMLDivElement>();
   const [currentPriceHeader, currentPriceHeaderIsHovered] =
@@ -23,9 +38,9 @@ function ABCTable({ stepList, table }: ABCProps) {
     'step',
     'currentPriceParsed',
     'currentSupplyParsed',
-    'amountIn',
-    'tributeCollected',
-    'amountOut',
+    'amountInParsed',
+    'tributeCollectedParsed',
+    'amountOutParsed',
     'newPriceParsed',
     'slippage',
   ];
@@ -88,7 +103,7 @@ function ABCTable({ stepList, table }: ABCProps) {
         <div className="w-1/5 max-w-144">
           <Tooltip
             isHovered={tributeHeaderIsHovered}
-            text="The amount of funds taken from the order and sent to the Common Pool."
+            text="The amount of funds taken from the order and sent to the Common Pool. This is a determined using the parameters entry & exit tribute."
           >
             <span ref={tributeHeader}>
               tribute collected{' '}
@@ -138,11 +153,14 @@ function ABCTable({ stepList, table }: ABCProps) {
           </Tooltip>
         </div>
       </div>
-      {Object.keys(stepList).map((elem, index) => (
+      {stepList?.map((elem, index) => (
         <div className="flex justify-between items-center hover:bg-cyan-700 cursor-pointer">
           {Object.keys(table).map((key, kIndex) => (
             <span className="w-1/5 max-w-144 py-1 first:w-1/12 first:pl-2">
-              {table[headerOrder[kIndex]][index]}
+              {formatOutput(
+                table[headerOrder[kIndex]][index],
+                headerOrder[kIndex]
+              )}
             </span>
           ))}
         </div>
