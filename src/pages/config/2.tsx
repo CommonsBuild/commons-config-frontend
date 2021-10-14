@@ -143,16 +143,13 @@ function ABC() {
                 }
               />
             ))}
+            <RedirectButton href="/learn/2" />
+
             <div className="py-2">
               <span className="font-bj font-bold text-neon-light text-xs uppercase">
                 choose your market scenario
               </span>
-              <span
-                className="font-inter font-medium text-neon text-xs px-4 cursor-pointer"
-                onClick={() => setMarketDialog(true)}
-              >
-                What&apos;s this?
-              </span>
+
               <div className="flex flex-row-reverse justify-end py-2">
                 {marketScenarios.map((scenario) => (
                   <LabeledRadioButton
@@ -245,8 +242,13 @@ function ABC() {
                   </span>
                 </button>
               </div>
+              <span
+                className="font-bj font-medium text-neon text-sm py-8 uppercase cursor-pointer"
+                onClick={() => setMarketDialog(true)}
+              >
+                <b>how to use the simulator</b>
+              </span>
             </div>
-            <RedirectButton href="/learn/2" />
           </Card>
           <ChartContainer title="Experience your Augmented Bonding Curve by adjusting your parameters and experimenting with the Step Simulator.">
             <ABCChart
