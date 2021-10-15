@@ -4,14 +4,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
-import axios from 'axios';
 import Input from '@/components/Input';
 import { Card, Navbar } from '@/components/_global';
 import { NeonButton } from '@/components/btns';
 import { Backdrop, Dialog } from '@/components/modals';
 import TextArea from '@/components/TextArea';
 import { useParams } from '@/hooks/';
-// import api from '@/services/api';
+import api from '@/services/api';
 
 interface ModuleContainerProps {
   inputList: { [key: string]: string }[];
@@ -390,11 +389,8 @@ function SubmitConfig() {
       },
     };
 
-    axios
-      .post(
-        'https://test-advanced-params.herokuapp.com/issue-generator/',
-        chosenParams
-      )
+    api
+      .post('/issue-generator/', chosenParams)
       .then((response) => {
         setUrl(response.data.url);
         setLoading(false);
