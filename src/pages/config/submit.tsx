@@ -379,6 +379,7 @@ function SubmitConfig() {
         virtualSupply: Number(params.virtualSupply),
         virtualBalance: Number(params.virtualBalance),
         transferability: params.transferability,
+        tokenName: params.tokenName,
         tokenSymbol: params.tokenSymbol,
         proposalDeposit: Number(params.proposalDeposit),
         challengeDeposit: Number(params.challengeDeposit),
@@ -604,7 +605,7 @@ function SubmitConfig() {
               href=""
               onClick={submitParams}
               fullWidth
-              disabled={!submitProposal}
+              disabled={!submitProposal || params.title === ''}
             >
               <span>SUBMIT PROPOSAL</span>
             </NeonButton>
