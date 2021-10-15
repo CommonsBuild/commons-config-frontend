@@ -19,12 +19,11 @@ function LearnTwo() {
         <p>
           The magic of the Augmented Bonding Curve is that whenever a buy or
           sell order takes place on its market a percentage is sent directly to
-          the funding pool. The percentage taken immediately in wxDAI from buy
-          orders to the curve is the
-          <strong>Entry Tribute</strong>. Conversely, the percentage taken from
-          sell orders is the <strong>Exit Tribute</strong>. This means that for
-          every action on the curve the Commons receives funding to advance
-          Token Engineering.
+          the Common Pool. The percentage taken immediately in wxDAI from buy
+          orders to the curve is the <strong>Entry Tribute</strong>. Conversely,
+          the percentage taken from sell orders is the{' '}
+          <strong>Exit Tribute</strong>. This means that for every action on the
+          curve the Commons receives funding to advance Token Engineering.
         </p>
         <br />
         <p>The ABC funds two pools:</p>
@@ -37,20 +36,20 @@ function LearnTwo() {
         <p>
           The Reserve backs the value of TEC tokens as they are bought and sold
           on the ABC. When tokens are bought on the curve the price of TEC goes
-          up, when it is sold the price goes down.
+          up, when they are sold the price goes down.
         </p>
         <br />
         <p>
           During the Commons Upgrade a percentage of the total funds raised from
           the Hatch is sent to the Common Pool to kick-start the Commons’
-          projects. This percentage is the
-          <strong>Commons Tribute</strong>.
+          projects. This percentage is the <strong>Commons Tribute</strong>.
         </p>
         <br />
         <p className="font-bold leading-loose">You decide:</p>
         <ul className="list-disc list-inside">
           <li>What percent of hatch funds will go to each pool</li>
           <li>The tribute taken from buy and sell orders</li>
+          <li>The opening price at which TEC tokens can be minted</li>
         </ul>
         <p className="font-bj font-bold text-lg my-6">
           If you need more information please check the links below:

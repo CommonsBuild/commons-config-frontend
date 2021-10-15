@@ -18,10 +18,10 @@ function LearnThree() {
         <p className="font-bold">Modifying the Commons</p>
         <br />
         <p>
-          Tao Voting (TV) is the voting process by which the Commons can modify
-          its economic and governance settings post-upgrade. It is a very
-          powerful voting application that is capable of performing many
-          high-impact functions, for example:
+          Tao Voting is the voting process by which the Commons can modify its
+          economic and governance settings post-upgrade. It is a very powerful
+          voting application that is capable of performing many high-impact
+          functions, for example:
         </p>
         <br />
         <ul className="list-disc list-inside">
@@ -31,15 +31,15 @@ function LearnThree() {
         </ul>
         <br />
         <p>
-          Since there are only one set of voting parameters for all Commons
-          components, strong thresholds for passing proposals in TV are critical
-          to ensure the Commons architecture remains uncompromised.
+          Since there is only one set of voting parameters for all Commons
+          components, strong thresholds for passing proposals in Tao Voting are
+          critical to ensure the Commons architecture remains uncompromised.
         </p>
         <br />
         <p>
-          TV is an upgraded version of Dandelion Voting with familiar parameters
-          such as <strong>Support Required</strong>,
-          <strong>Minimum Quorum</strong> ,<strong>Execution Delay</strong>
+          Tao Voting is an upgraded version of Dandelion Voting with familiar
+          parameters such as <strong>Support Required</strong>,{' '}
+          <strong>Minimum Quorum</strong>, <strong>Execution Delay</strong>
           and <strong>Vote Duration</strong>.
         </p>
         <br />
@@ -53,7 +53,7 @@ function LearnThree() {
         <p>
           TEC Token holders can delegate their disputable voting powers to
           another member who will cast votes on their behalf, these members
-          become delegates. Delegates can only vote during the
+          become delegates. Delegates can only vote during the{' '}
           <strong>Delegate Voting Period</strong>, which is a specified amount
           of time at the beginning of the voting process. If a delegate votes
           contrary to their delegator the delegator can veto the delegated vote
@@ -64,15 +64,14 @@ function LearnThree() {
         <p className="font-bold">Quiet Ending</p>
         <br />
         <p>
-          In the latter portion of the Vote Duration there’s a designated
+          In the latter portion of the Vote Duration there’s a designated{' '}
           <strong>Quiet Ending Period</strong> (QEP). If during this period the
-          vote outcome is flipped the
-          <strong>Quiet Ending Extension</strong>(QEE) will trigger. The QEE
-          will add more time to the voting period, giving eligible members who
-          have not yet voted more time to do so. If the vote outcome flips again
-          during QEE then another QEE will trigger, adding more time to vote.
-          Voting closes only when the QEP or QEE ends without the vote outcome
-          flipping.
+          vote outcome is flipped the <strong>Quiet Ending Extension</strong>{' '}
+          (QEE) will trigger. The QEE will add more time to the voting period,
+          giving eligible members who have not yet voted more time to do so. If
+          the vote outcome flips again during QEE then another QEE will trigger,
+          adding more time to vote. Voting closes only when the QEP or QEE ends
+          without the vote outcome flipping.
         </p>
         <br />
         <p className="font-bold leading-loose">You decide:</p>
