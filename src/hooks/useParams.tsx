@@ -117,6 +117,12 @@ function ParamsProvider({ children }: AppParamsContextProps) {
         handleAddStep,
         handleRemoveStep,
         setParams: setFunc,
+        title,
+        overallStrategy,
+        tokenFreezeStrategy,
+        ABCStrategy,
+        taoStrategy,
+        convictionStrategy,
         submitProposal,
         stepList,
         ...rest
