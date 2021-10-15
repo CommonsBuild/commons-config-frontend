@@ -224,98 +224,98 @@ function SubmitConfig() {
   const advancedParameters = [
     {
       name: 'commonPoolAmount',
-      value: '0',
+      value: params.commonPoolAmount,
       param: 'Common Pool Amount',
       placeholder: 'wxDAI',
       tooltipText: '',
     },
     {
       name: 'HNYLiquidity',
-      value: '100',
+      value: params.HNYLiquidity,
       param: 'HNY Liquidity',
       placeholder: 'wxDAI',
       tooltipText: '',
     },
     {
       name: 'gardenLiquidity',
-      value: '1',
+      value: params.gardenLiquidity,
       param: 'Garden Liquidity',
       placeholder: 'TEC',
       tooltipText: '',
     },
     {
       name: 'virtualSupply',
-      value: '1',
+      value: params.virtualSupply,
       param: 'Virtual Supply',
       placeholder: 'TEC',
       tooltipText: '',
     },
     {
       name: 'virtualBalance',
-      value: '1',
+      value: params.virtualBalance,
       param: 'Virtual Balance',
       placeholder: 'wxDAI',
       tooltipText: '',
     },
-    {
-      name: 'transferability',
-      value: '',
-      param: 'Transferability',
-      placeholder: '',
-      tooltipText: '',
-    },
+    // {
+    //   name: 'transferability',
+    //   value: params.transferability,
+    //   param: 'Transferability',
+    //   placeholder: '',
+    //   tooltipText: '',
+    // },
     {
       name: 'tokenName',
-      value: 'Token Engineering Commons',
+      value: params.tokenName,
       param: 'Token Name',
       placeholder: '',
       tooltipText: '',
     },
     {
       name: 'tokenSymbol',
-      value: 'TEC',
+      value: params.tokenSymbol,
       param: 'Token Symbol',
       placeholder: '',
       tooltipText: '',
     },
     {
       name: 'proposalDeposit',
-      value: '200',
+      value: params.proposalDeposit,
       param: 'Proposal Deposit',
       placeholder: 'wxDAI',
       tooltipText: '',
     },
     {
       name: 'challengeDeposit',
-      value: '400',
+      value: params.challengeDeposit,
       param: 'Challenge Deposit',
       placeholder: 'wxDAI',
       tooltipText: '',
     },
     {
       name: 'settlementPeriod',
-      value: '5',
+      value: params.settlementPeriod,
       param: 'Settlement Period',
       placeholder: 'days',
       tooltipText: '',
     },
     {
       name: 'minimumEffectiveSupply',
-      value: '1%',
+      value: params.minimumEffectiveSupply,
       param: 'Minimum Effective Supply',
       placeholder: '%',
       tooltipText: '',
     },
     {
-      name: 'hatchersRageQuit',
-      value: '60000',
+      name: 'ragequitAmount',
+      value: params.ragequitAmount,
       param: 'Hatchers Rage Quit',
       placeholder: 'wxDAI',
       tooltipText: '',
     },
     {
       name: 'initialBuy',
-      value: '200000',
+      value: params.initialBuy,
       param: 'Initial Buy',
       placeholder: 'wxDAI',
       tooltipText: '',
@@ -372,11 +372,23 @@ function SubmitConfig() {
         votingPeriodDays: Number(params.convictionVotingPeriodDays),
       },
       advancedSettings: {
-        minimumEffectiveSupply: 0,
-        hatchersRageQuit: 0,
-        virtualBalance: 0,
+        strategy: params.advancedStrategy,
+        commonPoolAmount: Number(params.commonPoolAmount),
+        HNYLiquidity: Number(params.HNYLiquidity),
+        gardenLiquidity: Number(params.gardenLiquidity),
+        virtualSupply: Number(params.virtualSupply),
+        virtualBalance: Number(params.virtualBalance),
+        transferability: params.transferability,
+        tokenSymbol: params.tokenSymbol,
+        proposalDeposit: Number(params.proposalDeposit),
+        challengeDeposit: Number(params.challengeDeposit),
+        settlementPeriod: Number(params.settlementPeriod),
+        minimumEffectiveSupply: Number(params.minimumEffectiveSupply) / 100,
+        ragequitAmount: Number(params.ragequitAmount),
+        initialBuy: Number(params.initialBuy),
       },
     };
+
     api
       .post('/issue-generator/', chosenParams)
       .then((response) => {
@@ -522,8 +534,9 @@ function SubmitConfig() {
                 inputList={advancedParameters}
                 title="advanced settings"
                 onChange={handleChange}
-                textAreaName="advanced"
-                textAreaValue=""
+                textAreaName="advancedStrategy"
+                textAreaValue={params.advancedStrategy}
+                onTextAreaChange={(event) => handleChange(event)}
               />
             </>
           ) : (

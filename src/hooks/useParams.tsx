@@ -14,6 +14,7 @@ type ParamsContextType = {
   ABCStrategy: string;
   taoStrategy: string;
   convictionStrategy: string;
+  advancedStrategy: string;
   openingPrice: string;
   tokenFreeze: string;
   tokenThaw: string;
@@ -36,6 +37,18 @@ type ParamsContextType = {
   minimumConviction: string;
   convictionGrowth: string;
   convictionVotingPeriodDays: string;
+  commonPoolAmount: string;
+  HNYLiquidity: string;
+  gardenLiquidity: string;
+  virtualSupply: string;
+  virtualBalance: string;
+  transferability: string;
+  tokenName: string;
+  tokenSymbol: string;
+  proposalDeposit: string;
+  challengeDeposit: string;
+  settlementPeriod: string;
+  minimumEffectiveSupply: string;
   submitProposal: boolean;
   setParams: Dispatch<SetStateAction<ParamsContextType>>;
   handleChange: (event: React.ChangeEvent) => void;
@@ -51,6 +64,7 @@ const initialContext: ParamsContextType = {
   ABCStrategy: '',
   taoStrategy: '',
   convictionStrategy: '',
+  advancedStrategy: '',
   openingPrice: '1.65',
   tokenFreeze: '30',
   tokenThaw: '100',
@@ -77,6 +91,18 @@ const initialContext: ParamsContextType = {
   minimumConviction: '0.5',
   convictionGrowth: '5',
   convictionVotingPeriodDays: '',
+  commonPoolAmount: '0',
+  HNYLiquidity: '100',
+  gardenLiquidity: '1',
+  virtualSupply: '1',
+  virtualBalance: '1',
+  transferability: '',
+  tokenName: 'Token Engineering Commons',
+  tokenSymbol: 'TEC',
+  proposalDeposit: '200',
+  challengeDeposit: '400',
+  settlementPeriod: '5',
+  minimumEffectiveSupply: '1',
   submitProposal: false,
   setParams: (): void => {
     throw new Error('setParams must be overridden');
@@ -123,8 +149,21 @@ function ParamsProvider({ children }: AppParamsContextProps) {
         ABCStrategy,
         taoStrategy,
         convictionStrategy,
-        submitProposal,
+        advancedStrategy,
         stepList,
+        commonPoolAmount,
+        HNYLiquidity,
+        gardenLiquidity,
+        virtualSupply,
+        virtualBalance,
+        transferability,
+        tokenName,
+        tokenSymbol,
+        proposalDeposit,
+        challengeDeposit,
+        settlementPeriod,
+        minimumEffectiveSupply,
+        submitProposal,
         ...rest
       } = params;
       const values = Object.keys(rest).map((key) => rest[key]);
