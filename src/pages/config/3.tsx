@@ -12,6 +12,7 @@ import { RedirectButton } from '@/components/btns';
 import { TaoVotingBar } from '@/components/charts';
 import { useParams, useTaoVoting } from '@/hooks';
 import { TaoVotingPieDialog } from '@/components/modals';
+import { TaoVotingTable } from '@/components/tables';
 import ChartLegend from '@/components/ChartLegend';
 
 function DisputableVoting() {
@@ -203,7 +204,7 @@ function DisputableVoting() {
                 barChart.proposalProcessWithExtension?.executionDelay
               }
             />
-            <div className="grid grid-rows-3 grid-flow-col text-gray">
+            <div className="grid grid-rows-3 grid-flow-col text-gray pl-14">
               {barChartLegend.map((legend, index) => (
                 <ChartLegend
                   key={index}
@@ -214,6 +215,7 @@ function DisputableVoting() {
                 />
               ))}
             </div>
+            <TaoVotingTable />
           </ChartContainer>
         </div>
       </div>

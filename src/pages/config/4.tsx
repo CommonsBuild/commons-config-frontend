@@ -131,11 +131,12 @@ function ConvictionVoting() {
             />
             <Tooltip
               isHovered={tableIsHovered}
+              position="bottom"
               text="Select a time frame in which you want to pass a proposal."
             >
               <div
-                ref={tableHover}
                 className="flex flex-row-reverse justify-between max-w-2xl mx-auto px-2 py-6 bg-cyan-700 opacity-60"
+                ref={tableHover}
               >
                 {radioButtons.map((button) => (
                   <RadioButton
