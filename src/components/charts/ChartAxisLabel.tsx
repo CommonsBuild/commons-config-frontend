@@ -13,7 +13,7 @@ function ChartAxisLabel({ label, tooltipText }: ChartAxisLabelProps) {
     <Tooltip text={tooltipText} isHovered={isHovered}>
       <span
         ref={hoverRef}
-        className="font-bj text-xs text-neon-light uppercase"
+        className="font-bj font-bold text-xxs text-neon-light uppercase"
       >
         {label}
       </span>
