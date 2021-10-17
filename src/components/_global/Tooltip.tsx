@@ -15,8 +15,8 @@ type Position = 'top' | 'bottom';
 interface TooltipProps {
   children: React.ReactNode;
   isHovered: boolean;
+  text: string | React.ReactNode;
   position?: Position;
-  text: string;
 }
 
 function Tooltip({
