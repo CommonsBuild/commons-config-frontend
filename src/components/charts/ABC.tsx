@@ -11,16 +11,30 @@ function CustomChartAxisLabel({ handleDatasets, reserveRatio }) {
   return (
     <Tooltip
       isHovered={questionIsHovered}
-      text="Setting the Reserve Balance zooms in on a section of the curve to perform transaction simulations."
+      text={
+        <span>
+          Reserve Ratio is an output of the Opening Price and Commons Tribute,
+          it defines the shape of the ABC.{' '}
+          <b className="text-neon">
+            To learn more about the Reserve Ratio on th Forum, click at the box.
+          </b>
+        </span>
+      }
     >
       <div
         ref={questionRef}
-        className="grid grid-flow-col gap-2 justify-between items-center px-4 py-3 bg-black-200"
+        className="grid grid-flow-col gap-2 justify-between items-center p-4 bg-black-200"
         onClick={() => handleDatasets()}
       >
-        <span className="font-bj font-bold text-xxs text-neon-light">
-          RESERVE RATIO: {reserveRatio}%
-        </span>
+        <a
+          href="https://forum.tecommons.org/t/augmented-bonding-curve-opening-price-reserve-ratio/516"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <span className="font-bj font-bold text-xs text-neon underline cursor-pointer">
+            RESERVE RATIO: {reserveRatio}%
+          </span>
+        </a>
         <Image
           className="m-1"
           alt="Question mark."
@@ -157,7 +171,7 @@ function ABCChart({
       <div className="w-20 h-0 text-right relative -top-2 -left-14">
         <ChartAxisLabel label="token price (wxdai)" />
       </div>
-      <div className="w-44 h-0 ml-auto text-center relative -top-4 -right-6">
+      <div className="w-52 h-0 text-center relative top-8 left-24">
         <CustomChartAxisLabel
           handleDatasets={handleDatasets}
           reserveRatio={reserveRatio}

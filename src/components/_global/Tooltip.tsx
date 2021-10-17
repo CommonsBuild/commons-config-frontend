@@ -3,7 +3,7 @@ import React from 'react';
 interface TooltipProps {
   children: React.ReactNode;
   isHovered: boolean;
-  text: string;
+  text: string | React.ReactNode;
 }
 
 function Tooltip({ children, isHovered, text }: TooltipProps) {
