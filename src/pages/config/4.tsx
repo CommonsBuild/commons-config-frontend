@@ -131,6 +131,7 @@ function ConvictionVoting() {
             />
             <Tooltip
               isHovered={tableIsHovered}
+              position="bottom"
               text="Select a time frame in which you want to pass a proposal."
             >
               <div
