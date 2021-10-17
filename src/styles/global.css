@@ -72,17 +72,6 @@
   box-shadow: 0px 0px 0px 4px black inset;
 }
 
-.tooltip {
-  width: 270px;
-  bottom: calc(100% + 11px);
-}
-
-.triangle {
-  border-bottom-color: #0a0a06;
-  transform: rotate(180deg) translateX(-50%);
-  left: calc(50% - 12px);
-}
-
 .chart {
   width: 96%;
   margin-left: 3%;
@@ -140,6 +129,30 @@
   background: #defb48;
   cursor: pointer;
   opacity: 1;
+}
+
+.tooltip-top {
+  width: 270px;
+  bottom: calc(100% + 11px);
+  transform: translateX(-50%);
+}
+
+.triangle-top {
+  border-bottom-color: #0a0a06;
+  transform: rotate(180deg) translateX(-50%);
+  left: calc(50% - 12px);
+}
+
+.tooltip-bottom {
+  width: 270px;
+  top: calc(100% + 11px);
+  transform: translateX(-50%);
+}
+
+.triangle-bottom {
+  border-bottom-color: #0a0a06;
+  transform: rotate(180deg) translateX(-50%);
+  left: calc(50% - 12px);
 }
 
 html {
