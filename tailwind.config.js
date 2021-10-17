@@ -182,8 +182,12 @@ module.exports = {
         lp: '1828px',
       },
       maxWidth: {
+        36: '2.25rem',
+        72: '4.5rem',
+        108: '6.75rem',
         144: '9rem',
-        192: '18rem',
+        216: '13.5rem',
+        288: '18rem',
         '1/3': '33%',
       },
       minWidth: {
