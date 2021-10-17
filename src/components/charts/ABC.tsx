@@ -3,6 +3,35 @@ import Image from 'next/image';
 import { Line } from 'react-chartjs-2';
 import { Tooltip } from '@/components/_global';
 import { useHover } from '@/hooks';
+import ChartAxisLabel from './ChartAxisLabel';
+
+function CustomChartAxisLabel({ handleDatasets, reserveRatio }) {
+  const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
+
+  return (
+    <Tooltip
+      isHovered={questionIsHovered}
+      text="Setting the Reserve Balance zooms in on a section of the curve to perform transaction simulations."
+    >
+      <div
+        ref={questionRef}
+        className="grid grid-flow-col gap-2 justify-between items-center px-4 py-3 bg-black-200"
+        onClick={() => handleDatasets()}
+      >
+        <span className="font-bj font-bold text-xxs text-neon-light">
+          RESERVE RATIO: {reserveRatio}%
+        </span>
+        <Image
+          className="m-1"
+          alt="Question mark."
+          height="12"
+          src="/questionMark.svg"
+          width="12"
+        />
+      </div>
+    </Tooltip>
+  );
+}
 
 const options = {
   responsive: true,
@@ -57,8 +86,6 @@ function ABCChart({
   stepLinSpaces,
   singleDataPoints,
 }: ABCProps) {
-  const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
-
   const handleData = (xAxesData, yAxesData) => {
     const data = [];
     xAxesData?.forEach((elem, index) => {
@@ -128,32 +155,13 @@ function ABCChart({
   return (
     <>
       <div className="w-20 h-0 text-right relative -top-2 -left-14">
-        <span className="font-bj font-bold text-xxs text-neon-light">
-          TOKEN PRICE (wxDAI)
-        </span>
+        <ChartAxisLabel label="token price (wxdai)" />
       </div>
       <div className="w-44 h-0 ml-auto text-center relative -top-4 -right-6">
-        <Tooltip
-          isHovered={questionIsHovered}
-          text="Setting the Reserve Balance zooms in on a section of the curve to perform transaction simulations."
-        >
-          <div
-            ref={questionRef}
-            className="grid grid-flow-col gap-2 justify-between items-center px-4 py-3 bg-black-200"
-            onClick={() => handleDatasets()}
-          >
-            <span className="font-bj font-bold text-xxs text-neon-light">
-              RESERVE RATIO: {reserveRatio}%
-            </span>
-            <Image
-              className="m-1"
-              alt="Question mark."
-              height="12"
-              src="/questionMark.svg"
-              width="12"
-            />
-          </div>
-        </Tooltip>
+        <CustomChartAxisLabel
+          handleDatasets={handleDatasets}
+          reserveRatio={reserveRatio}
+        />
       </div>
       <div className="flex justify-center py-2">
         <div className="w-11/12">
@@ -164,9 +172,7 @@ function ABCChart({
         </div>
       </div>
       <div className="w-20 h-0 ml-auto text-right relative bottom-12 -right-6">
-        <span className="font-bj font-bold text-xxs text-neon-light">
-          RESERVE BALANCE (wxDAI)
-        </span>
+        <ChartAxisLabel label="reserve balance (wxDAI)" />
       </div>
     </>
   );
