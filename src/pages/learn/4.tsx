@@ -7,7 +7,7 @@ function LearnFour() {
       <h3 className="text-bj font-bold text-3xl">Conviction Voting</h3>
       <div className="font-inter">
         <br />
-        <p className="text-lg">
+        <p>
           Conviction Voting is the governance system in which Commons Members
           create proposals to request funds from the Common Pool.
         </p>

@@ -7,7 +7,7 @@ function LearnOne() {
       <h3 className="text-bj font-bold text-3xl">Token Freeze & Token Thaw</h3>
       <div className="font-inter">
         <br />
-        <p className="text-lg">
+        <p>
           Instead of the Hatcher’s TEC tokens becoming available at once to sell
           or trade, they are locked for some time until a linear function is
           implemented to unlock tokens, rendering them liquid at a steady
