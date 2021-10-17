@@ -41,10 +41,8 @@ function IntroTwoDialog({ handleClose, isOpen }: DialogProps) {
 }
 
 function IntroTwo() {
-  const [dialog, setDialog] = useState<boolean>(false);
   return (
     <>
-      <IntroTwoDialog isOpen={dialog} handleClose={() => setDialog(false)} />
       <h3 className="text-bj font-bold text-4xl">The Economic Engine</h3>
       <div className="font-inter md:pr-48">
         <br />
@@ -60,20 +58,23 @@ function IntroTwo() {
           </li>
           <li>The tribute taken from buy and sell orders</li>
         </ul>
-        <a
-          onClick={() => setDialog(true)}
-          className="block font-bj font-bold text-sm text-neon uppercase my-6"
-        >
-          learn more
-        </a>
       </div>
     </>
   );
 }
 
 IntroTwo.getLayout = function getLayout(page: ReactElement) {
+  const [dialog, setDialog] = useState<boolean>(false);
+
   return (
-    <Intro title="Intro 2 | Commons Dashboard" nextHref="/intro/3">
+    <Intro
+      dialog={
+        <IntroTwoDialog isOpen={dialog} handleClose={() => setDialog(false)} />
+      }
+      nextHref="/intro/3"
+      openDialog={() => setDialog(true)}
+      title="Intro 2 | Commons Dashboard"
+    >
       {page}
     </Intro>
   );

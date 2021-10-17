@@ -41,10 +41,8 @@ function IntroFourDialog({ handleClose, isOpen }: DialogProps) {
 }
 
 function IntroFour() {
-  const [dialog, setDialog] = useState<boolean>(false);
   return (
     <>
-      <IntroFourDialog isOpen={dialog} handleClose={() => setDialog(false)} />
       <h3 className="text-bj font-bold text-4xl">Requesting Funds</h3>
       <div className="font-inter md:pr-48">
         <br />
@@ -61,20 +59,23 @@ function IntroFour() {
           <li>How many tokens are needed to pass a proposal</li>
           <li>The rate at which conviction accumulates</li>
         </ul>
-        <a
-          onClick={() => setDialog(true)}
-          className="block font-bj font-bold text-sm text-neon uppercase my-6"
-        >
-          learn more
-        </a>
       </div>
     </>
   );
 }
 
 IntroFour.getLayout = function getLayout(page: ReactElement) {
+  const [dialog, setDialog] = useState<boolean>(false);
+
   return (
-    <Intro title="Intro 4 | Commons Dashboard" nextHref="/intro/done">
+    <Intro
+      dialog={
+        <IntroFourDialog isOpen={dialog} handleClose={() => setDialog(false)} />
+      }
+      nextHref="/intro/done"
+      openDialog={() => setDialog(true)}
+      title="Intro 4 | Commons Dashboard"
+    >
       {page}
     </Intro>
   );
