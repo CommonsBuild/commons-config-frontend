@@ -9,7 +9,9 @@ import { NeonButton } from '@/components/btns/';
 
 interface IntroProps {
   children: ReactNode;
+  dialog: ReactNode;
   nextHref: string;
+  openDialog: React.MouseEventHandler<HTMLAnchorElement>;
   title: string;
 }
 
@@ -47,7 +49,7 @@ const sections = [
   },
 ];
 
-function Intro({ children, title, nextHref }: IntroProps) {
+function Intro({ children, dialog, nextHref, openDialog, title }: IntroProps) {
   const router = useRouter();
 
   return (
@@ -55,6 +57,7 @@ function Intro({ children, title, nextHref }: IntroProps) {
       <Head>
         <title>{title}</title>
       </Head>
+      {dialog}
       <Navbar href="/config/1" text="go to configuration" />
       <div className="min-h-screen bg-black-300">
         <div className="container grid grid-cols-1 lg:grid-cols-4 lg:gap-24 mx-auto px-4 py-8">
@@ -97,6 +100,12 @@ function Intro({ children, title, nextHref }: IntroProps) {
               variants={introFade}
             >
               {children}
+              <a
+                onClick={openDialog}
+                className="block font-bj font-bold text-sm text-neon uppercase my-6"
+              >
+                learn more
+              </a>
             </motion.div>
           </div>
           <NeonButton href={nextHref}>
