@@ -7,7 +7,7 @@ interface ABCScenarioDialogProps {
 
 function ABCScenarioDialog({ handleClose, isOpen }: ABCScenarioDialogProps) {
   return (
-    <Dialog isOpen={isOpen} title="What is a Market Scenario?">
+    <Dialog isOpen={isOpen} title="How to use the ABC Simulator">
       <p className="font-inter text-lg text-neon-light text-center p-4">
         Use the ABC simulator to see how your configurations react to simulated
         market environments. Get started by doing the following:

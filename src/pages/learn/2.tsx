@@ -9,7 +9,7 @@ function LearnTwo() {
       </h3>
       <div className="font-inter">
         <br />
-        <p className="text-lg">
+        <p>
           The Augmented Bonding Curve (ABC) is the main economic engine by which
           we will provide a constant flow of funding to the Commons’
           Initiatives. In this module you’ll be tasked to design an ABC which

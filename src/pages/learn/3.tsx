@@ -7,7 +7,7 @@ function LearnThree() {
       <h3 className="text-bj font-bold text-3xl">Tao Voting</h3>
       <div className="font-inter">
         <br />
-        <p className="text-lg">
+        <p>
           As your Commons evolves so should its configuration. Parameters within
           the different Commons components will be able to be modified after
           they have been implemented. In this module you will need to define the
