@@ -1,8 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Line } from 'react-chartjs-2';
-import { Tooltip } from '@/components/_global';
-import { useHover } from '@/hooks';
+import ChartAxisLabel from './ChartAxisLabel';
 
 const options = {
   responsive: true,
@@ -48,7 +47,6 @@ interface TokenFreezeThawProps {
 }
 
 const TokenFreezeThawChart = ({ price, week }: TokenFreezeThawProps) => {
-  const [hoverRef, isHovered] = useHover<HTMLDivElement>();
   const data = {
     labels: week || ['0'],
     datasets: [
@@ -67,20 +65,10 @@ const TokenFreezeThawChart = ({ price, week }: TokenFreezeThawProps) => {
   return (
     <>
       <div className="w-20 h-0 text-right relative -top-2 -left-14">
-        <Tooltip
-          isHovered={isHovered}
-          text="The price floor is the minimum possible price of the token. This value would only be possible with two conditions:"
-        >
-          <span
-            ref={hoverRef}
-            className="font-bj font-bold text-xxs text-neon-light uppercase"
-          >
-            price floor (wxdai)
-            <div className="inline-block mt-1 ml-1">
-              <Image src="/questionMark.svg" height="12px" width="12px" />
-            </div>
-          </span>
-        </Tooltip>
+        <ChartAxisLabel
+          label="price floor (wxdai)"
+          tooltipText="The price floor is the minimum possible price of the token. This is a result of tokens being frozen and is affected by the paramaters Token Freeze & Token Thaw."
+        />
       </div>
       <div className="flex justify-center py-2">
         <div className="w-11/12">
@@ -91,9 +79,7 @@ const TokenFreezeThawChart = ({ price, week }: TokenFreezeThawProps) => {
         </div>
       </div>
       <div className="w-24 h-0 ml-auto text-right relative bottom-12 -right-12">
-        <span className="font-bj font-bold text-xxs text-neon-light uppercase">
-          time (weeks)
-        </span>
+        <ChartAxisLabel label="time (weeks)" />
       </div>
     </>
   );

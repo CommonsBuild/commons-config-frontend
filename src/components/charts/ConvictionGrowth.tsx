@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Line } from 'react-chartjs-2';
+import ChartAxisLabel from './ChartAxisLabel';
 
 interface ConvictionGrowthProps {
   convictionPercentage: number[];
@@ -82,9 +83,7 @@ function ConvictionGrowthChart({
   return (
     <>
       <div className="w-20 h-0 text-right relative -top-12 -left-2">
-        <span className="font-bj font-bold text-xxs text-neon-light uppercase">
-          % of maximum conviction
-        </span>
+        <ChartAxisLabel label="% of maximum conviction" />
       </div>
       <div className="flex justify-center py-2">
         <div className="w-full">
@@ -95,9 +94,7 @@ function ConvictionGrowthChart({
         </div>
       </div>
       <div className="w-24 h-0 ml-auto text-right relative bottom-2">
-        <span className="font-bj font-bold text-xxs text-neon-light uppercase">
-          days
-        </span>
+        <ChartAxisLabel label="days" />
       </div>
     </>
   );

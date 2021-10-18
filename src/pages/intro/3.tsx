@@ -38,10 +38,8 @@ function IntroThreeDialog({ handleClose, isOpen }: DialogProps) {
 }
 
 function IntroThree() {
-  const [dialog, setDialog] = useState<boolean>(false);
   return (
     <>
-      <IntroThreeDialog isOpen={dialog} handleClose={() => setDialog(false)} />
       <h3 className="text-bj font-bold text-4xl">Modifying the Commons</h3>
       <div className="font-inter md:pr-48">
         <br />
@@ -54,20 +52,26 @@ function IntroThree() {
           <li>How long to listen for a change of outcome</li>
           <li>The amount of time that can be added for voting</li>
         </ul>
-        <a
-          onClick={() => setDialog(true)}
-          className="block font-bj font-bold text-sm text-neon uppercase my-6"
-        >
-          learn more
-        </a>
       </div>
     </>
   );
 }
 
 IntroThree.getLayout = function getLayout(page: ReactElement) {
+  const [dialog, setDialog] = useState<boolean>(false);
+
   return (
-    <Intro title="Intro 3 | Commons Dashboard" nextHref="/intro/4">
+    <Intro
+      dialog={
+        <IntroThreeDialog
+          isOpen={dialog}
+          handleClose={() => setDialog(false)}
+        />
+      }
+      nextHref="/intro/4"
+      openDialog={() => setDialog(true)}
+      title="Intro 3 | Commons Dashboard"
+    >
       {page}
     </Intro>
   );

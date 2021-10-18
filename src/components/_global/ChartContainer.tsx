@@ -19,14 +19,14 @@ const titlesFade: Variants = {
 
 function ChartContainer({ children, title }: ChartContainerProps) {
   return (
-    <div className="flex flex-col bg-transparent mx-16 mt-4 w-3/5 lg:min-w-2/4">
+    <div className="flex flex-col bg-transparent ml-6 mr-8 mt-4 w-3/5 pb-16 lg:min-w-2/4">
       <motion.div
         key={title}
         animate="animate"
         initial="initial"
         variants={titlesFade}
       >
-        <h1 className="font-bj text-gray-100 text-2xl text-center pt-6 pb-3 lg:text-left">
+        <h1 className="font-bj text-gray-100 text-2xl text-center py-6 lg:text-left">
           {title}
         </h1>
       </motion.div>

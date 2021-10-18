@@ -1,7 +1,6 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-import { Tooltip } from '@/components/_global';
-import { useHover } from '@/hooks';
+import ChartAxisLabel from './ChartAxisLabel';
 
 const options = {
   responsive: true,
@@ -62,7 +61,6 @@ function TaoVotingBar({
   quietEndingExtension,
   executionDelay,
 }: TaoVotingBarProps) {
-  const [hoverRef, isHovered] = useHover<HTMLDivElement>();
   const data = {
     labels: [[], [], []],
     datasets: [
@@ -98,31 +96,18 @@ function TaoVotingBar({
     <>
       <div className="px-9 pb-6 flex">
         <div className="flex flex-col justify-between py-12 w-20">
-          <span className="font-bj text-xs text-neon-light text-center">
-            Voting Process
-          </span>
-          <span className="font-bj text-xs text-neon-light text-center">
-            Delegated voting
-          </span>
-          <span className="font-bj text-xs text-neon-light text-center">
-            Voting Process with an Extension
-          </span>
+          <ChartAxisLabel label="Voting Process" />
+          <ChartAxisLabel label="Delegated voting" />
+          <ChartAxisLabel label="Voting Process with an Extension" />
         </div>
         <div className="w-9/12">
           <Bar data={data} options={options} height={140} />
         </div>
         <div className="mt-auto ml-4 w-20 text-center">
-          <Tooltip
-            text="The amount of time allocated to each phase of the voting process."
-            isHovered={isHovered}
-          >
-            <span
-              ref={hoverRef}
-              className="font-bj text-xs text-neon-light uppercase"
-            >
-              time (days)
-            </span>
-          </Tooltip>
+          <ChartAxisLabel
+            label="time (days)"
+            tooltipText="The amount of time allocated to each phase of the voting process."
+          />
         </div>
       </div>
     </>

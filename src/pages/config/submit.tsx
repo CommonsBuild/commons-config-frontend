@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -17,8 +17,8 @@ interface ModuleContainerProps {
   title: string;
   textAreaName: string;
   textAreaValue: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onTextAreaChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onTextAreaChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 function ModuleContainer({
@@ -60,20 +60,13 @@ function ModuleContainer({
 }
 
 function SubmitConfig() {
-  const { submitProposal, handleChange, ...params } = useParams();
-  const [title, setTitle] = useState('');
+  const { submitProposal, handleChange, setParams, ...params } = useParams();
   const [dialog, setDialog] = useState(false);
   const [advancedDialog, setAdvancedDialog] = useState(false);
   const [url, setUrl] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const [advancedParams, setAdvancedParams] = useState(false);
-  const [textAreaContent, setTextAreaContent] = useState({
-    freeze: '',
-    abc: '',
-    tao: '',
-    conviction: '',
-    overall: '',
-  });
+
   const freezeThawInputs = [
     {
       name: 'openingPrice',
@@ -82,25 +75,25 @@ function SubmitConfig() {
       param: 'Opening Price',
       placeholder: 'wxDAI',
       tooltipText:
-        'The initial price of the TEC token after the Commons Upgrade is complete.',
+        'The Opening Price is the price we sell TEC tokens after the Commons Upgrade is complete.',
     },
     {
-      name: 'commonsTribute',
-      paramName: 'COMMONS_TRIBUTE',
-      value: params.commonsTribute,
-      param: 'Commons Tribute',
-      placeholder: '%',
+      name: 'tokenFreeze',
+      paramName: 'TOKEN_FREEZE',
+      value: params.tokenFreeze,
+      param: 'Token Freeze',
+      placeholder: 'weeks',
       tooltipText:
-        'A percentage of the total funds raised from the Hatch is sent to the Common Pool to kick-start the Commons project.',
+        'Token Freeze is the duration from the initialization of the Commons which tokens remain fully locked.',
     },
     {
-      name: 'entryTribute',
-      paramName: 'ENTRY_TRIBUTE',
-      value: params.entryTribute,
-      param: 'Entry Tribute',
-      placeholder: '%',
+      name: 'tokenThaw',
+      paramName: 'TOKEN_THAW',
+      value: params.tokenThaw,
+      param: 'Token Thaw',
+      placeholder: 'weeks',
       tooltipText:
-        'The percentage taken off BUY order and sent to the Common Pool.',
+        'Token Thaw is the duration after the Token Freeze where TEC tokens gradually thaw, allowing them to become tradeable.',
     },
   ];
 
@@ -195,7 +188,7 @@ function SubmitConfig() {
       param: 'Execution Delay',
       placeholder: 'days',
       tooltipText:
-        'The amount of time after a vote passes before the proposed action is executed',
+        'The amount of time after a vote passes before the proposed action is executed.',
     },
   ];
 
@@ -231,132 +224,126 @@ function SubmitConfig() {
   const advancedParameters = [
     {
       name: 'commonPoolAmount',
-      value: '0',
+      value: params.commonPoolAmount,
       param: 'Common Pool Amount',
       placeholder: 'wxDAI',
       tooltipText: '',
     },
     {
       name: 'HNYLiquidity',
-      value: '100',
+      value: params.HNYLiquidity,
       param: 'HNY Liquidity',
       placeholder: 'wxDAI',
       tooltipText: '',
     },
     {
       name: 'gardenLiquidity',
-      value: '1',
+      value: params.gardenLiquidity,
       param: 'Garden Liquidity',
       placeholder: 'TEC',
       tooltipText: '',
     },
     {
       name: 'virtualSupply',
-      value: '1',
+      value: params.virtualSupply,
       param: 'Virtual Supply',
       placeholder: 'TEC',
       tooltipText: '',
     },
     {
       name: 'virtualBalance',
-      value: '1',
+      value: params.virtualBalance,
       param: 'Virtual Balance',
       placeholder: 'wxDAI',
       tooltipText: '',
     },
-    {
-      name: 'transferability',
-      value: '',
-      param: 'Transferability',
-      placeholder: '',
-      tooltipText: '',
-    },
+    // {
+    //   name: 'transferability',
+    //   value: params.transferability,
+    //   param: 'Transferability',
+    //   placeholder: '',
+    //   tooltipText: '',
+    // },
     {
       name: 'tokenName',
-      value: 'Token Engineering Commons',
+      value: params.tokenName,
       param: 'Token Name',
       placeholder: '',
       tooltipText: '',
     },
     {
       name: 'tokenSymbol',
-      value: 'TEC',
+      value: params.tokenSymbol,
       param: 'Token Symbol',
       placeholder: '',
       tooltipText: '',
     },
     {
       name: 'proposalDeposit',
-      value: '200',
+      value: params.proposalDeposit,
       param: 'Proposal Deposit',
       placeholder: 'wxDAI',
       tooltipText: '',
     },
     {
       name: 'challengeDeposit',
-      value: '400',
+      value: params.challengeDeposit,
       param: 'Challenge Deposit',
       placeholder: 'wxDAI',
       tooltipText: '',
     },
     {
       name: 'settlementPeriod',
-      value: '5',
+      value: params.settlementPeriod,
       param: 'Settlement Period',
       placeholder: 'days',
       tooltipText: '',
     },
     {
       name: 'minimumEffectiveSupply',
-      value: '1%',
+      value: params.minimumEffectiveSupply,
       param: 'Minimum Effective Supply',
       placeholder: '%',
       tooltipText: '',
     },
     {
-      name: 'hatchersRageQuit',
-      value: '60000',
+      name: 'ragequitAmount',
+      value: params.ragequitAmount,
       param: 'Hatchers Rage Quit',
       placeholder: 'wxDAI',
       tooltipText: '',
     },
     {
       name: 'initialBuy',
-      value: '200000',
+      value: params.initialBuy,
       param: 'Initial Buy',
       placeholder: 'wxDAI',
       tooltipText: '',
     },
   ];
 
-  const handleTitle = (event) => {
-    const { value } = event.target;
-
-    setTitle(value);
-  };
-
-  const handleTextArea = (event) => {
-    const { name, value } = event.target;
-
-    setTextAreaContent({
-      ...textAreaContent,
-      [name]: value,
-    });
-  };
+  useEffect(() => {
+    if (params.convictionVotingPeriodDays === '') {
+      setParams((previousParams) => ({
+        ...previousParams,
+        convictionVotingPeriodDays: '7',
+      }));
+    }
+  }, []);
 
   function submitParams() {
     setLoading(true);
     const chosenParams = {
-      title,
-      overallStrategy: textAreaContent.overall,
+      title: params.title,
+      overallStrategy: params.overallStrategy,
       tokenLockup: {
-        strategy: textAreaContent.freeze,
+        strategy: params.tokenFreezeStrategy,
         openingPrice: Number(params.openingPrice),
         tokenFreeze: Number(params.tokenFreeze),
         tokenThaw: Number(params.tokenThaw),
       },
       augmentedBondingCurve: {
-        strategy: textAreaContent.abc,
+        strategy: params.ABCStrategy,
         openingPrice: Number(params.openingPrice),
         commonsTribute: Number(params.commonsTribute) / 100,
         ragequitAmount: Number(params.ragequitAmount),
@@ -368,7 +355,7 @@ function SubmitConfig() {
         zoomGraph: 0,
       },
       taoVoting: {
-        strategy: textAreaContent.tao,
+        strategy: params.taoStrategy,
         supportRequired: params.supportRequired,
         minimumQuorum: params.minimumQuorum,
         delegatedVotingPeriod: Number(params.delegatedVotingPeriod),
@@ -378,18 +365,31 @@ function SubmitConfig() {
         voteDuration: Number(params.voteDuration),
       },
       convictionVoting: {
-        strategy: textAreaContent.conviction,
+        strategy: params.convictionStrategy,
         spendingLimit: Number(params.spendingLimit) / 100,
         minimumConviction: Number(params.minimumConviction) / 100,
         convictionGrowth: Number(params.convictionGrowth),
         votingPeriodDays: Number(params.convictionVotingPeriodDays),
       },
       advancedSettings: {
-        minimumEffectiveSupply: 0,
-        hatchersRageQuit: 0,
-        virtualBalance: 0,
+        strategy: params.advancedStrategy,
+        commonPoolAmount: Number(params.commonPoolAmount),
+        HNYLiquidity: Number(params.HNYLiquidity),
+        gardenLiquidity: Number(params.gardenLiquidity),
+        virtualSupply: Number(params.virtualSupply),
+        virtualBalance: Number(params.virtualBalance),
+        transferability: params.transferability,
+        tokenName: params.tokenName,
+        tokenSymbol: params.tokenSymbol,
+        proposalDeposit: Number(params.proposalDeposit),
+        challengeDeposit: Number(params.challengeDeposit),
+        settlementPeriod: Number(params.settlementPeriod),
+        minimumEffectiveSupply: Number(params.minimumEffectiveSupply) / 100,
+        ragequitAmount: Number(params.ragequitAmount),
+        initialBuy: Number(params.initialBuy),
       },
     };
+
     api
       .post('/issue-generator/', chosenParams)
       .then((response) => {
@@ -398,7 +398,6 @@ function SubmitConfig() {
         setDialog(true);
       })
       .catch(() => {
-        console.dir(chosenParams);
         setLoading(false);
         alert('Something went wrong');
       });
@@ -487,11 +486,18 @@ function SubmitConfig() {
       <div className="min-h-screen h-full bg-dash bg-cover">
         <Navbar />
         <div className="flex justify-between items-center px-32 py-12">
-          <div className="font-bj text-sm text-neon-light">Back</div>
+          <Link href="/config/4">
+            <div className="flex flex-1 font-bj text-sm text-neon-light cursor-pointer">
+              Back
+            </div>
+          </Link>
           <h2 className="font-bj font-bold text-3xl text-neon-light text-center py-4">
             Configuration Summary
           </h2>
-          <label htmlFor="toggleB" className="flex items-center cursor-pointer">
+          <label
+            htmlFor="toggleB"
+            className="flex flex-1 justify-end items-center cursor-pointer"
+          >
             <div className="text-neon-light text-sm mr-3">
               Advanced Settings
             </div>
@@ -529,9 +535,9 @@ function SubmitConfig() {
                 inputList={advancedParameters}
                 title="advanced settings"
                 onChange={handleChange}
-                textAreaName="advanced"
-                textAreaValue=""
-                onTextAreaChange={(event) => handleTextArea(event)}
+                textAreaName="advancedStrategy"
+                textAreaValue={params.advancedStrategy}
+                onTextAreaChange={(event) => handleChange(event)}
               />
             </>
           ) : (
@@ -541,33 +547,33 @@ function SubmitConfig() {
             inputList={freezeThawInputs}
             title="token freeze & token thaw"
             onChange={handleChange}
-            textAreaName="freeze"
-            textAreaValue={textAreaContent.freeze}
-            onTextAreaChange={(event) => handleTextArea(event)}
+            textAreaName="tokenFreezeStrategy"
+            textAreaValue={params.tokenFreezeStrategy}
+            onTextAreaChange={(event) => handleChange(event)}
           />
           <ModuleContainer
             inputList={augmentedBondingInputs}
             title="augmented bonding curve"
             onChange={handleChange}
-            textAreaName="abc"
-            textAreaValue={textAreaContent.abc}
-            onTextAreaChange={(event) => handleTextArea(event)}
+            textAreaName="ABCStrategy"
+            textAreaValue={params.ABCStrategy}
+            onTextAreaChange={(event) => handleChange(event)}
           />
           <ModuleContainer
             inputList={taoVoting}
             title="tao voting"
             onChange={handleChange}
-            textAreaName="tao"
-            textAreaValue={textAreaContent.tao}
-            onTextAreaChange={(event) => handleTextArea(event)}
+            textAreaName="taoStrategy"
+            textAreaValue={params.taoStrategy}
+            onTextAreaChange={(event) => handleChange(event)}
           />
           <ModuleContainer
             inputList={disputableConvictionVoting}
             title="conviction voting"
             onChange={handleChange}
-            textAreaName="conviction"
-            textAreaValue={textAreaContent.conviction}
-            onTextAreaChange={(event) => handleTextArea(event)}
+            textAreaName="convictionStrategy"
+            textAreaValue={params.convictionStrategy}
+            onTextAreaChange={(event) => handleChange(event)}
           />
           <div className="flex flex-col justify-center mx-16 pr-9">
             <div className="font-bj font-bold text-neon-light my-2">
@@ -576,17 +582,17 @@ function SubmitConfig() {
             <TextArea
               name="title"
               placeholder="Pick a good title :)"
-              value={title}
-              onChange={handleTitle}
+              value={params.title}
+              onChange={(event) => handleChange(event)}
             />
             <div className="font-bj font-bold text-neon-light my-2">
               Overall Commons Strategy
             </div>
             <TextArea
-              name="overall"
+              name="overallStrategy"
               placeholder="Explain the big picture of your Commons Configuration.. don’t forget to mention if your proposal is a fork of another..."
-              value={textAreaContent.overall}
-              onChange={(event) => handleTextArea(event)}
+              value={params.overallStrategy}
+              onChange={(event) => handleChange(event)}
             />
             <Link href="/config/1">
               <a className="h-14 flex justify-center items-center w-full py-2 border border-neon my-2">
@@ -599,7 +605,7 @@ function SubmitConfig() {
               href=""
               onClick={submitParams}
               fullWidth
-              disabled={!submitProposal}
+              disabled={!submitProposal || params.title === ''}
             >
               <span>SUBMIT PROPOSAL</span>
             </NeonButton>

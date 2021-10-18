@@ -40,10 +40,8 @@ function IntroOneDialog({ handleClose, isOpen }: DialogProps) {
 }
 
 function IntroOne() {
-  const [dialog, setDialog] = useState<boolean>(false);
   return (
     <>
-      <IntroOneDialog isOpen={dialog} handleClose={() => setDialog(false)} />
       <h3 className="text-bj font-bold text-4xl">
         Transitioning from the Hatch
       </h3>
@@ -60,20 +58,22 @@ function IntroOne() {
           <li>The rate at which tokens become liquid</li>
           <li>The opening price of the TEC token</li>
         </ul>
-        <a
-          onClick={() => setDialog(true)}
-          className="block font-bj font-bold text-sm text-neon uppercase my-6"
-        >
-          learn more
-        </a>
       </div>
     </>
   );
 }
 
 IntroOne.getLayout = function getLayout(page: ReactElement) {
+  const [dialog, setDialog] = useState<boolean>(false);
   return (
-    <Intro title="Intro 1 | Commons Dashboard" nextHref="/intro/2">
+    <Intro
+      dialog={
+        <IntroOneDialog isOpen={dialog} handleClose={() => setDialog(false)} />
+      }
+      nextHref="/intro/2"
+      openDialog={() => setDialog(true)}
+      title="Intro 1 | Commons Dashboard"
+    >
       {page}
     </Intro>
   );

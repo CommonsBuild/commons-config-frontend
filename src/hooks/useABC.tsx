@@ -20,7 +20,7 @@ type ABCContextType = {
 
 const initialContext: ABCContextType = {
   chart: {},
-  stepLinSpaces: [],
+  stepLinSpaces: [{}],
   singlePoints: [],
   reserveRatio: 0,
   table: {},
@@ -59,8 +59,8 @@ function ABCProvider({ children }: AppABCContextProps) {
         exitTribute: Number(exitTribute) / 100,
         reserveBalance: Number(reserveBalance) / 1000,
         stepList,
-        initialBuy,
-        ragequitAmount,
+        initialBuy: Number(initialBuy),
+        ragequitAmount: Number(ragequitAmount),
         zoomGraph,
       })
       .then((response) => {
