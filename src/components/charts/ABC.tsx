@@ -15,9 +15,7 @@ function CustomChartAxisLabel({ handleDatasets, reserveRatio }) {
         <span>
           Reserve Ratio is an output of the Opening Price and Commons Tribute,
           it defines the shape of the ABC.{' '}
-          <b className="text-neon">
-            To learn more about the Reserve Ratio on th Forum, click at the box.
-          </b>
+          <b>Click to learn more about the Reserve Ratio.</b>
         </span>
       }
     >
@@ -52,37 +50,37 @@ const options = {
   aspectRatio: 2.75,
   plugins: {
     legend: {
-      display: false,
+      display: false
     },
     tooltip: {
-      enabled: false,
-    },
+      enabled: false
+    }
   },
   scales: {
     xAxes: {
       type: 'linear',
       grid: {
         display: false,
-        borderColor: '#03B3FF',
+        borderColor: '#03B3FF'
       },
       ticks: {
-        color: '#FFFFFF',
-      },
+        color: '#FFFFFF'
+      }
     },
     yAxes: {
       type: 'linear',
       grid: {
         display: false,
-        borderColor: '#03B3FF',
+        borderColor: '#03B3FF'
       },
       ticks: {
         color: '#FFFFFF',
-        stepSize: 0.2,
+        stepSize: 0.2
       },
       beginAtZero: true,
-      position: 'left',
-    },
-  },
+      position: 'left'
+    }
+  }
 };
 
 interface ABCProps {
@@ -98,7 +96,7 @@ function ABCChart({
   price,
   reserveRatio,
   stepLinSpaces,
-  singleDataPoints,
+  singleDataPoints
 }: ABCProps) {
   const handleData = (xAxesData, yAxesData) => {
     const data = [];
@@ -131,8 +129,8 @@ function ABCChart({
         pointHoverRadius: 7,
         pointRadius: 0,
         pointStyle: 'rect',
-        backgroundColor: 'transparent',
-      },
+        backgroundColor: 'transparent'
+      }
     ];
 
     datasets.push({
@@ -144,7 +142,7 @@ function ABCChart({
       pointHoverRadius: 7,
       pointRadius: 0,
       pointStyle: 'rect',
-      backgroundColor: getColor(stepLinSpaces?.x),
+      backgroundColor: getColor(stepLinSpaces?.x)
     });
 
     datasets.push({
@@ -156,14 +154,14 @@ function ABCChart({
       pointHoverRadius: 7,
       pointRadius: 5,
       pointStyle: 'rect',
-      backgroundColor: 'transparent',
+      backgroundColor: 'transparent'
     });
     return datasets;
   };
 
   const data = {
     labels: balanceInThousands,
-    datasets: handleDatasets(),
+    datasets: handleDatasets()
   };
 
   return (
