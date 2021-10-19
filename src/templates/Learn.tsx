@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/media-has-caption */
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -6,6 +7,8 @@ import { motion, Variants } from 'framer-motion';
 
 import { CustomNavbar as Navbar } from '@/components/_global/Navbar';
 import { Checkbox, NeonButton } from '@/components/btns';
+import AudioPlayer from '@/components/AudioPlayer';
+// import TokenFreezeThawAudio from '../../public/media/tokenFreezeThaw.mp3';
 
 interface LearnProps {
   children: ReactNode;
@@ -46,6 +49,8 @@ const sections = [
     subtitle: 'Projects and funding',
   },
 ];
+
+const TokenFreezeThawAudio = require('../../public/media/tokenFreezeThaw.mp3');
 
 function Learn({ children, title, nextHref }: LearnProps) {
   const [checked] = useState<boolean>(true);
@@ -101,6 +106,19 @@ function Learn({ children, title, nextHref }: LearnProps) {
               initial="initial"
               variants={learnFade}
             >
+              <div>
+                <div className="text-neon-light">Listen to this module</div>
+                <div>audio controllers</div>
+                <figure>
+                  <figcaption>Listen to the T-Rex:</figcaption>
+                  <audio autoPlay src={TokenFreezeThawAudio}>
+                    <track />
+                    Your browser does not support the
+                    <code>audio</code> element.
+                  </audio>
+                </figure>
+                <AudioPlayer tracks={[{ audioSrc: TokenFreezeThawAudio }]} />
+              </div>
               <div className="text-white">{children}</div>
               <div className="mt-6">
                 <Checkbox text="I understood everything and I’m able to configure the parameters" />

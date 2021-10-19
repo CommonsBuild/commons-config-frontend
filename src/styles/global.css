@@ -56,6 +56,12 @@
   input:checked ~ .box {
     background-color: #191728;
   }
+  audio {
+    border-radius: '0px';
+    background-color: 'rgba(255, 255, 0)';
+    color: 'rgba(255, 255, 0)';
+    border: '15px solid red';
+  }
 }
 
 .radio + label span {
