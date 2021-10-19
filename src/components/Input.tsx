@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { Tooltip } from '@/components/_global';
 import { useHover } from '@/hooks';
+import Select from './Select';
 
 interface InputProps {
   children?: React.ReactNode;
@@ -9,11 +10,14 @@ interface InputProps {
   name: string;
   param: string;
   placeholder: string;
+  options?: { [key: string]: string }[];
   select?: boolean;
   tooltipText: string;
   value: string | number;
   changeParam?(): void;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
 }
 
 function Input({
@@ -23,6 +27,7 @@ function Input({
   name,
   param,
   placeholder,
+  options,
   select,
   tooltipText,
   value,
@@ -48,10 +53,12 @@ function Input({
       </div>
       <div className="relative h-12 bg-black-200 col-span-2">
         {select ? (
-          <select>
-            <option>Yes</option>
-            <option>No</option>
-          </select>
+          <Select
+            name={name}
+            options={options}
+            selectedOption={options.find((elem) => elem.value === value)}
+            handelChange={onChange}
+          />
         ) : (
           <input
             type="numeric"
@@ -61,7 +68,7 @@ function Input({
             value={value}
             onClick={changeParam}
             onChange={onChange}
-            className="font-bold text-neon-light text-xl w-full h-full pl-3 border-2 border-gray-500 focus:border-neon hover:border-gray-400 bg-transparent outline-none"
+            className="font-bj font-bold text-neon-light text-xl w-full h-full pl-3 border-2 border-gray-500 focus:border-neon hover:border-gray-400 bg-transparent outline-none"
           />
         )}
 

@@ -13,7 +13,7 @@ import { useParams } from '@/hooks/';
 import api from '@/services/api';
 
 interface ModuleContainerProps {
-  inputList: { [key: string]: string }[];
+  inputList: { [key: string]: any }[];
   title: string;
   textAreaName: string;
   textAreaValue: string;
@@ -38,7 +38,8 @@ function ModuleContainer({
             name={input.name}
             param={input.param}
             placeholder={input.placeholder}
-            select={!!input.select}
+            options={input.options}
+            select={input.select}
             tooltipText={input.tooltipText}
             value={input.value}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
@@ -259,10 +260,14 @@ function SubmitConfig() {
       tooltipText: '',
     },
     {
-      name: 'transferability',
-      value: params.transferability,
-      param: 'Transferability',
+      name: 'transferable',
+      value: params.transferable,
+      param: 'Transferable',
       placeholder: '',
+      options: [
+        { label: 'Yes', value: 'true' },
+        { label: 'No', value: 'false' },
+      ],
       select: true,
       tooltipText: '',
     },
@@ -380,7 +385,7 @@ function SubmitConfig() {
         gardenLiquidity: Number(params.gardenLiquidity),
         virtualSupply: Number(params.virtualSupply),
         virtualBalance: Number(params.virtualBalance),
-        transferability: params.transferability,
+        transferability: params.transferable,
         tokenName: params.tokenName,
         tokenSymbol: params.tokenSymbol,
         proposalDeposit: Number(params.proposalDeposit),
