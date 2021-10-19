@@ -105,6 +105,39 @@
   background-size: 100vw 1828px;
 }
 
+.audio-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  max-width: 130px;
+  height: 4px;
+  background: #0c25be;
+  outline: none;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+}
+
+.audio-slider:hover {
+  opacity: 1;
+}
+
+.audio-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 4px;
+  height: 4px;
+  background: #3f58f1;
+  cursor: pointer;
+  opacity: 1;
+}
+
+.slider::-moz-range-thumb {
+  width: 4px;
+  height: 4px;
+  background: #3f58f1;
+  cursor: pointer;
+  opacity: 1;
+}
+
 .slider {
   -webkit-appearance: none;
   width: 100%;
