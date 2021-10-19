@@ -265,14 +265,14 @@ function ABC() {
               balanceInThousands={chart.balanceInThousands}
               price={chart.price}
               reserveRatio={(reserveRatio * 100).toFixed(2)}
-              stepLinSpaces={stepLinSpaces[selectedStep]}
+              stepLinSpaces={stepLinSpaces ? stepLinSpaces[selectedStep] : {}}
               singleDataPoints={singlePoints}
             />
             <span className="font-bj text-sm text-neon-light px-16 py-2">
               Steps
             </span>
             <div className="flex px-16 py-2">
-              {table.step?.map((item, index) => (
+              {table?.step?.map((item, index) => (
                 <div
                   className={classnames(
                     'group relative flex justify-center items-center w-12 h-12 mr-4 border',
