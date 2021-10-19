@@ -53,14 +53,14 @@ function ABCProvider({ children }: AppABCContextProps) {
   useEffect(() => {
     api
       .post('/augmented-bonding-curve/', {
-        openingPrice: Number(openingPrice),
+        openingPrice,
         commonsTribute: Number(commonsTribute) / 100,
         entryTribute: Number(entryTribute) / 100,
         exitTribute: Number(exitTribute) / 100,
-        reserveBalance: Number(reserveBalance) / 1000,
+        reserveBalance,
         stepList,
-        initialBuy: Number(initialBuy),
-        ragequitAmount: Number(ragequitAmount),
+        initialBuy,
+        ragequitAmount,
         zoomGraph,
       })
       .then((response) => {
