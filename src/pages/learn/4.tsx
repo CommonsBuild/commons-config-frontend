@@ -90,11 +90,7 @@ function LearnFour() {
 
 LearnFour.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Learn
-      audio={ConvictionVotingAudio}
-      title="Learn 4 | Commons Dashboard"
-      nextHref="/learn/done"
-    >
+    <Learn title="Learn 4 | Commons Dashboard" nextHref="/learn/done">
       {page}
     </Learn>
   );
