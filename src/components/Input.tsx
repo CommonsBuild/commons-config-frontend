@@ -9,6 +9,7 @@ interface InputProps {
   name: string;
   param: string;
   placeholder: string;
+  select?: boolean;
   tooltipText: string;
   value: string | number;
   changeParam?(): void;
@@ -22,6 +23,7 @@ function Input({
   name,
   param,
   placeholder,
+  select,
   tooltipText,
   value,
   changeParam,
@@ -45,16 +47,24 @@ function Input({
         </Tooltip>
       </div>
       <div className="relative h-12 bg-black-200 col-span-2">
-        <input
-          type="numeric"
-          min={min}
-          max={max}
-          name={name}
-          value={value}
-          onClick={changeParam}
-          onChange={onChange}
-          className="font-bold text-neon-light text-xl w-full h-full pl-3 border-2 border-gray-500 focus:border-neon hover:border-gray-400 bg-transparent outline-none"
-        />
+        {select ? (
+          <select>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        ) : (
+          <input
+            type="numeric"
+            min={min}
+            max={max}
+            name={name}
+            value={value}
+            onClick={changeParam}
+            onChange={onChange}
+            className="font-bold text-neon-light text-xl w-full h-full pl-3 border-2 border-gray-500 focus:border-neon hover:border-gray-400 bg-transparent outline-none"
+          />
+        )}
+
         <div className="absolute right-3 top-2/4 transform -translate-y-2/4">
           <span className="font-inter text-xs text-gray-300">
             {placeholder}

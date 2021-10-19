@@ -38,6 +38,7 @@ function ModuleContainer({
             name={input.name}
             param={input.param}
             placeholder={input.placeholder}
+            select={!!input.select}
             tooltipText={input.tooltipText}
             value={input.value}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
@@ -257,13 +258,14 @@ function SubmitConfig() {
       placeholder: 'wxDAI',
       tooltipText: '',
     },
-    // {
-    //   name: 'transferability',
-    //   value: params.transferability,
-    //   param: 'Transferability',
-    //   placeholder: '',
-    //   tooltipText: '',
-    // },
+    {
+      name: 'transferability',
+      value: params.transferability,
+      param: 'Transferability',
+      placeholder: '',
+      select: true,
+      tooltipText: '',
+    },
     {
       name: 'tokenName',
       value: params.tokenName,
