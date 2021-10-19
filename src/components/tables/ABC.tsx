@@ -18,11 +18,10 @@ const formatOutput = (output, header: string) => {
 };
 
 interface ABCTableProps {
-  stepList: (string | number)[][];
   table: { [key: string]: (number | string)[] };
 }
 
-function ABCTable({ stepList, table }: ABCTableProps) {
+function ABCTable({ table }: ABCTableProps) {
   const headerOrder = [
     'step',
     'currentPriceParsed',
@@ -73,7 +72,7 @@ function ABCTable({ stepList, table }: ABCTableProps) {
           />
         </>
       }
-      content={stepList?.map((elem, index) => (
+      content={table.step?.map((elem, index) => (
         <TableRow>
           {Object.keys(table).map((key, kIndex) => (
             <TableCell
