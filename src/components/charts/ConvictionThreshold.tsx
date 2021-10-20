@@ -100,6 +100,7 @@ function ConvictionThresholdChart({
       <div className="w-24 h-0 ml-auto text-right relative -bottom right-4 z-10">
         <ChartAxisLabel
           label="% of common pool funds being requested"
+          tooltipPosition="left"
           tooltipText="The Common Pool holds funds that will be used for realizing the initiatives of the TEC."
         />
       </div>
