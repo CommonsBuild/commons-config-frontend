@@ -169,7 +169,7 @@ function ABCChart({
       <div className="w-20 h-0 text-right relative -top-2 -left-14">
         <ChartAxisLabel label="token price (wxdai)" />
       </div>
-      <div className="w-52 h-0 text-center relative top-8 left-24">
+      <div className="w-52 h-0 text-center relative top-2 left-24">
         <CustomChartAxisLabel
           handleDatasets={handleDatasets}
           reserveRatio={reserveRatio}
