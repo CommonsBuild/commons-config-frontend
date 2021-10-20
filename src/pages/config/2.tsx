@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import classnames from 'classnames';
@@ -46,7 +46,6 @@ const reserveBalanceButtons = [
 
 function ABC() {
   const { chart, stepLinSpaces, singlePoints, reserveRatio, table } = useABC();
-
   const {
     openingPrice,
     commonsTribute,
@@ -67,7 +66,9 @@ function ABC() {
   const [stepDialog, setStepDialog] = useState(false);
   const [selectedStep, setSelectedStep] = useState(0);
   const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
-
+  const launchValue =
+    (1571223.57 - Number(ragequitAmount) - Number(initialBuy)) *
+    (1 - Number(commonsTribute) / 100);
   const inputs = [
     {
       name: 'openingPrice',
@@ -106,6 +107,14 @@ function ABC() {
         'The percentage taken off SELL orders and sent to the Common Pool.',
     },
   ];
+
+  useEffect(() => {
+    console.log(
+      reserveBalance,
+      launchValue,
+      Number(reserveBalance) === launchValue
+    );
+  }, []);
 
   return (
     <>
@@ -203,24 +212,12 @@ function ABC() {
                 </div>
                 <div className="flex justify-between text-neon-light py-2">
                   <LabeledRadioButton
-                    checked={
-                      Number(reserveBalance) ===
-                      (1571223.57 -
-                        Number(ragequitAmount) -
-                        Number(initialBuy)) *
-                        (1 - Number(commonsTribute) / 100)
-                    }
                     id="launch"
                     label="launch"
                     name="reserveBalance"
                     size="big"
                     tooltipText="Simulate the Reserve Balance using the amount raised by the Hatch, adjusted by the Commons Tribute"
-                    value={
-                      (1571223.57 -
-                        Number(ragequitAmount) -
-                        Number(initialBuy)) *
-                      (1 - Number(commonsTribute) / 100)
-                    }
+                    value={launchValue}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                       handleChange(event)
                     }
