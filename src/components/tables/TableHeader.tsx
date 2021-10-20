@@ -22,7 +22,7 @@ type Size = 's' | 'm' | 'l' | 'xl';
 interface TableHeaderProps {
   headerText: string;
   size?: Size;
-  tooltipText: string;
+  tooltipText?: string;
 }
 
 function TableHeader({
@@ -35,7 +35,7 @@ function TableHeader({
   return (
     <div
       className={classnames(
-        'flex justify-center 2xl:block',
+        'flex justify-center 2xl:justify-start',
         headerSize[size],
         headerMaxSize[size]
       )}
@@ -47,7 +47,7 @@ function TableHeader({
         >
           {headerText}
         </span>
-        <div className="flex ml-2 self-center min-w-max">
+        <div className="flex mx-2 self-center min-w-max">
           <Image src="/questionMark.svg" height="12px" width="12px" />
         </div>
       </Tooltip>
