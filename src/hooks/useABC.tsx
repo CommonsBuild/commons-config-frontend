@@ -65,6 +65,7 @@ function ABCProvider({ children }: AppABCContextProps) {
       })
       .then((response) => {
         const { data } = response;
+        console.log(data);
         setContext((previousContext) => ({
           ...previousContext,
           chart: data.chartData as { [key: string]: number[] },
