@@ -1,9 +1,13 @@
 import type { ReactElement } from 'react';
 import Learn from '@/templates/Learn';
+import AudioPlayer from '@/components/AudioPlayer';
+
+const TokenFreezeThawAudio = require('../../../public/media/tokenFreezeThaw.mp3');
 
 function LearnOne() {
   return (
     <>
+      <AudioPlayer track={TokenFreezeThawAudio} />
       <h3 className="text-bj font-bold text-3xl">Token Freeze & Token Thaw</h3>
       <div className="font-inter">
         <br />
