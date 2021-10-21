@@ -47,8 +47,8 @@ function ABCProvider({ children }: AppABCContextProps) {
     initialBuy,
     ragequitAmount,
     zoomGraph,
-    virtualSupply,
-    virtualBalance,
+    // virtualSupply,
+    // virtualBalance,
     setParams,
   } = useParams();
 
@@ -64,8 +64,8 @@ function ABCProvider({ children }: AppABCContextProps) {
         initialBuy,
         ragequitAmount,
         zoomGraph,
-        virtualSupply,
-        virtualBalance,
+        // virtualSupply,
+        // virtualBalance,
       })
       .then((response) => {
         const { data } = response;
