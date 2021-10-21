@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { Tooltip } from '@/components/_global';
 import { useHover } from '@/hooks';
+import Select from './Select';
 
 interface InputProps {
   children?: React.ReactNode;
@@ -9,10 +10,14 @@ interface InputProps {
   name: string;
   param: string;
   placeholder: string;
+  options?: { [key: string]: string }[];
+  select?: boolean;
   tooltipText: string;
   value: string | number;
   changeParam?(): void;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
 }
 
 function Input({
@@ -22,6 +27,8 @@ function Input({
   name,
   param,
   placeholder,
+  options,
+  select,
   tooltipText,
   value,
   changeParam,
@@ -45,16 +52,26 @@ function Input({
         </Tooltip>
       </div>
       <div className="relative h-12 bg-black-200 col-span-2">
-        <input
-          type="numeric"
-          min={min}
-          max={max}
-          name={name}
-          value={value}
-          onClick={changeParam}
-          onChange={onChange}
-          className="font-bold text-neon-light text-xl w-full h-full pl-3 border-2 border-gray-500 focus:border-neon hover:border-gray-400 bg-transparent outline-none"
-        />
+        {select ? (
+          <Select
+            name={name}
+            options={options}
+            selectedOption={options.find((elem) => elem.value === value)}
+            handelChange={onChange}
+          />
+        ) : (
+          <input
+            type="numeric"
+            min={min}
+            max={max}
+            name={name}
+            value={value}
+            onClick={changeParam}
+            onChange={onChange}
+            className="font-bj font-bold text-neon-light text-xl w-full h-full pl-3 border-2 border-gray-500 focus:border-neon hover:border-gray-400 bg-transparent outline-none"
+          />
+        )}
+
         <div className="absolute right-3 top-2/4 transform -translate-y-2/4">
           <span className="font-inter text-xs text-gray-300">
             {placeholder}

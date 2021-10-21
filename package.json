@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.4.1",
     "@tailwindcss/forms": "^0.3.3",
     "axios": "^0.21.1",
     "chart.js": "^3.5.0",
