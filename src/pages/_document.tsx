@@ -28,7 +28,7 @@ class MyDocument extends Document {
           />
           <meta
             property="og:image"
-            content="https://commons-dashboard.netlify.app/assets/og_image.jpg"
+            content="https://commons-dashboard.netlify.app/assets/og_image.png"
           />
 
           <meta property="twitter:card" content="summary_large_image" />
@@ -43,7 +43,7 @@ class MyDocument extends Document {
           />
           <meta
             property="twitter:image"
-            content="https://commons-dashboard.netlify.app/assets/og_image.jpg"
+            content="https://commons-dashboard.netlify.app/assets/og_image.png"
           />
           <meta name="twitter:card" content="summary_large_image" />
         </Head>
