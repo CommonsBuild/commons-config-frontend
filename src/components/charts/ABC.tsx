@@ -108,7 +108,6 @@ function ABCChart({
   };
 
   const getColor = (array) => {
-    console.log(array);
     if (array) {
       if (array[0] > array.at(-1)) {
         return 'rgba(226, 65, 65, 0.7)';
