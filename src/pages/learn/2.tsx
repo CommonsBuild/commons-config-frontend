@@ -1,9 +1,13 @@
 import type { ReactElement } from 'react';
 import Learn from '@/templates/Learn';
+import AudioPlayer from '@/components/AudioPlayer';
+
+const ABCAudio = require('../../../public/media/abc.mp3');
 
 function LearnTwo() {
   return (
     <>
+      <AudioPlayer track={ABCAudio} />
       <h3 className="text-bj font-bold text-3xl">
         The Augmented Bonding Curve (ABC)
       </h3>

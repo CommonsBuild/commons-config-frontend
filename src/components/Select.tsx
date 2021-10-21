@@ -18,7 +18,7 @@ const Select = ({ name, options, selectedOption, handelChange }) => (
           <span className="h-full w-full inline-block shadow-sm">
             <Listbox.Button className="h-full w-full cursor-default relative pl-3 pr-10 py-2 border-2 border-gray-500 focus:border-neon active:border-neon hover:border-gray-400 outline-none transition ease-in-out duration-150">
               <span className="font-bj font-bold text-xl text-neon-light text-left block truncate">
-                {selectedOption.label}
+                {selectedOption?.label}
               </span>
               <span className="absolute inset-y-0 right-0 flex items-center pr-2 ml-3 cursor-pointer">
                 <Image src="/icons/selector.svg" height="20" width="20" />

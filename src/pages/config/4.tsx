@@ -76,10 +76,10 @@ function ConvictionVoting() {
   ];
 
   useEffect(() => {
-    if (convictionVotingPeriodDays === '') {
+    if (convictionGrowth === '') {
       setParams((previousParams) => ({
         ...previousParams,
-        convictionVotingPeriodDays: '7',
+        convictionGrowth: '5',
       }));
     }
   }, []);

@@ -330,10 +330,10 @@ function SubmitConfig() {
   ];
 
   useEffect(() => {
-    if (params.convictionVotingPeriodDays === '') {
+    if (params.convictionGrowth === '') {
       setParams((previousParams) => ({
         ...previousParams,
-        convictionVotingPeriodDays: '7',
+        convictionGrowth: '5',
       }));
     }
   }, []);
@@ -360,6 +360,8 @@ function SubmitConfig() {
         reserveBalance: params.reserveBalance,
         stepList: params.stepList,
         zoomGraph: params.zoomGraph,
+        virtualSupply: Number(params.virtualSupply),
+        virtualBalance: Number(params.virtualBalance),
       },
       taoVoting: {
         strategy: params.taoStrategy,
