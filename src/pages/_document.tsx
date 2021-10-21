@@ -36,7 +36,7 @@ class MyDocument extends Document {
             property="twitter:url"
             content="https://commons-dashboard.netlify.app/"
           />
-          <meta property="twitter:title" content="Balancer" />
+          <meta property="twitter:title" content="Commons Config Dashboard" />
           <meta
             property="twitter:description"
             content="Decide how you want your token economy to function."
