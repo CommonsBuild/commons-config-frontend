@@ -138,7 +138,7 @@ function Import() {
               className={classnames(
                 'flex flex-col justify-center items-center',
                 {
-                  hidden: isLoading > 200 && isLoading < 400,
+                  hidden: isLoading >= 200 && isLoading < 400,
                 }
               )}
             >
