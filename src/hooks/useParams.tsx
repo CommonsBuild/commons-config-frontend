@@ -42,7 +42,7 @@ type ParamsContextType = {
   gardenLiquidity: string;
   virtualSupply: string;
   virtualBalance: string;
-  transferability: string;
+  transferable: string;
   tokenName: string;
   tokenSymbol: string;
   proposalDeposit: string;
@@ -89,14 +89,14 @@ const initialContext: ParamsContextType = {
   executionDelay: '1',
   spendingLimit: '20',
   minimumConviction: '0.5',
-  convictionGrowth: '5',
-  convictionVotingPeriodDays: '',
+  convictionGrowth: '',
+  convictionVotingPeriodDays: '7',
   commonPoolAmount: '0',
   HNYLiquidity: '100',
   gardenLiquidity: '1',
   virtualSupply: '1',
   virtualBalance: '1',
-  transferability: '',
+  transferable: 'true',
   tokenName: 'Token Engineering Commons',
   tokenSymbol: 'TEC',
   proposalDeposit: '200',
@@ -156,7 +156,7 @@ function ParamsProvider({ children }: AppParamsContextProps) {
         gardenLiquidity,
         virtualSupply,
         virtualBalance,
-        transferability,
+        transferable,
         tokenName,
         tokenSymbol,
         proposalDeposit,

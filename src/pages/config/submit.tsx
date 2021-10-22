@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import classnames from 'classnames';
+import toast, { Toaster } from 'react-hot-toast';
 import SubmitSummary from '@/components/SubmitSummary';
 import { Navbar } from '@/components/_global';
 import { AdvancedParametersDialog, SubmitDialog } from '@/components/modals';
@@ -18,10 +19,10 @@ function SubmitConfig() {
   const [url, setUrl] = useState(undefined);
 
   useEffect(() => {
-    if (params.convictionVotingPeriodDays === '') {
+    if (params.convictionGrowth === '') {
       setParams((previousParams) => ({
         ...previousParams,
-        convictionVotingPeriodDays: '7',
+        convictionGrowth: '5',
       }));
     }
   }, []);
@@ -48,6 +49,8 @@ function SubmitConfig() {
         reserveBalance: params.reserveBalance,
         stepList: params.stepList,
         zoomGraph: params.zoomGraph,
+        virtualSupply: Number(params.virtualSupply),
+        virtualBalance: Number(params.virtualBalance),
       },
       taoVoting: {
         strategy: params.taoStrategy,
@@ -73,7 +76,7 @@ function SubmitConfig() {
         gardenLiquidity: Number(params.gardenLiquidity),
         virtualSupply: Number(params.virtualSupply),
         virtualBalance: Number(params.virtualBalance),
-        transferability: params.transferability,
+        transferability: params.transferable,
         tokenName: params.tokenName,
         tokenSymbol: params.tokenSymbol,
         proposalDeposit: Number(params.proposalDeposit),
@@ -92,9 +95,22 @@ function SubmitConfig() {
         setLoading(false);
         setDialog(true);
       })
-      .catch(() => {
+      .catch((e) => {
         setLoading(false);
-        alert('Something went wrong');
+        console.log('error', e.response);
+        toast('Something went wrong!', {
+          duration: 3000,
+          position: 'bottom-center',
+          // Styling
+          style: {
+            background: '#DEFB48',
+          },
+          className: 'font-inter font-bold',
+          ariaProps: {
+            role: 'status',
+            'aria-live': 'polite',
+          },
+        });
       });
   }
 
@@ -165,6 +181,7 @@ function SubmitConfig() {
           />
         </div>
       </div>
+      <Toaster />
     </>
   );
 }

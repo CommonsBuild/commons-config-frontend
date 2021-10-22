@@ -1,9 +1,13 @@
 import type { ReactElement } from 'react';
 import Learn from '@/templates/Learn';
+import AudioPlayer from '@/components/AudioPlayer';
+
+const TaoVotingAudio = require('../../../public/media/tao.mp3');
 
 function LearnThree() {
   return (
     <>
+      <AudioPlayer track={TaoVotingAudio} />
       <h3 className="text-bj font-bold text-3xl">Tao Voting</h3>
       <div className="font-inter">
         <br />

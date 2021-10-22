@@ -47,6 +47,8 @@ function ABCProvider({ children }: AppABCContextProps) {
     initialBuy,
     ragequitAmount,
     zoomGraph,
+    // virtualSupply,
+    // virtualBalance,
     setParams,
   } = useParams();
 
@@ -62,9 +64,12 @@ function ABCProvider({ children }: AppABCContextProps) {
         initialBuy,
         ragequitAmount,
         zoomGraph,
+        // virtualSupply,
+        // virtualBalance,
       })
       .then((response) => {
         const { data } = response;
+        console.log(data);
         setContext((previousContext) => ({
           ...previousContext,
           chart: data.chartData as { [key: string]: number[] },

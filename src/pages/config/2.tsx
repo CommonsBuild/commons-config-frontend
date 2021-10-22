@@ -240,7 +240,7 @@ function ABC() {
                   Add more steps to experience your Bonding Curve
                 </div>
                 <button
-                  disabled={stepList?.length >= 10}
+                  disabled={table?.step?.length >= 10}
                   className="flex justify-center items-center w-full h-8 border border-neon-light disabled:text-gray-400 disabled:border-gray-400"
                   onClick={() => setStepDialog(true)}
                 >
@@ -262,14 +262,14 @@ function ABC() {
               balanceInThousands={chart.balanceInThousands}
               price={chart.price}
               reserveRatio={(reserveRatio * 100).toFixed(2)}
-              stepLinSpaces={selectedStep ? stepLinSpaces[selectedStep] : {}}
+              stepLinSpaces={stepLinSpaces ? stepLinSpaces[selectedStep] : {}}
               singleDataPoints={singlePoints}
             />
             <span className="font-bj text-sm text-neon-light px-16 py-2">
               Steps
             </span>
             <div className="flex px-16 py-2">
-              {stepList?.map((item, index) => (
+              {table?.step?.map((item, index) => (
                 <div
                   className={classnames(
                     'group relative flex justify-center items-center w-12 h-12 mr-4 border',
@@ -282,9 +282,9 @@ function ABC() {
                   onClick={() => setSelectedStep(index)}
                 >
                   <span className="font-bj font-medium text-2xl text-neon-light cursor-pointer">
-                    {index + 1}
+                    {index}
                   </span>
-                  {index > 2 ? (
+                  {index > 3 ? (
                     <a
                       className="absolute -top-2 -right-2 rounded-full bg-red-500 h-4 w-4 flex justify-center items-center opacity-0 group-hover:opacity-100"
                       onClick={() => handleRemoveStep(index)}
@@ -308,7 +308,7 @@ function ABC() {
                 </div>
               ))}
             </div>
-            <ABCTable stepList={stepList} table={{ ...table }} />
+            <ABCTable table={{ ...table }} />
           </ChartContainer>
         </div>
       </div>
