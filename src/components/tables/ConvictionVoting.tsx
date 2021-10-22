@@ -12,7 +12,6 @@ function ConvictionVotingTable({ table }: ConvictionVotingTableProps) {
     { id: 'totalEffectiveSupply', header: 'Effective supply (TEC)' },
     { id: 'amountInCommonPool', header: 'Common Pool (wxDAI)' },
     { id: 'requestedAmount', header: 'Requested Amount (wxDAI)' },
-    { id: 'minTokensToPass', header: 'Minimum Tokens Needed (TEC)' },
     {
       id: 'tokensToPassIn2Weeks',
       header: 'Tokens Needed To Pass (TEC)',
