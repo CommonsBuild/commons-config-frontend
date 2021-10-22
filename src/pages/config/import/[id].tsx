@@ -7,6 +7,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { Navbar } from '@/components/_global';
 import api from '@/services/api';
+import { useParams } from '@/hooks';
 
 const success: Variants = {
   animate: {
@@ -40,6 +41,7 @@ const loading: Variants = {
 
 function Import() {
   const router = useRouter();
+  const { setParams } = useParams();
   const [isLoading, setIsLoading] = useState<number>(400);
   const { id } = router.query;
 
@@ -67,23 +69,22 @@ function Import() {
           const { strategy: convictionStrategy, ...conviction } =
             convictionVoting;
           const { strategy: advancedStrategy, ...advanced } = advancedSettings;
-          localStorage.setItem(
-            'params',
-            JSON.stringify({
-              title,
-              overallStrategy,
-              tokenFreezeStrategy,
-              ABCStrategy,
-              taoStrategy,
-              convictionStrategy,
-              advancedStrategy,
-              ...tokenFreeze,
-              ...abc,
-              ...tao,
-              ...conviction,
-              ...advanced,
-            })
-          );
+          const newParams = {
+            title,
+            overallStrategy,
+            tokenFreezeStrategy,
+            ABCStrategy,
+            taoStrategy,
+            convictionStrategy,
+            advancedStrategy,
+            ...tokenFreeze,
+            ...abc,
+            ...tao,
+            ...conviction,
+            ...advanced,
+          };
+          localStorage.setItem('params', JSON.stringify(newParams));
+          setParams(newParams);
           setIsLoading(response.status);
         })
         .catch(() =>
