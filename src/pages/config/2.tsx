@@ -250,7 +250,7 @@ function ABC() {
                 </button>
               </div>
               <span
-                className="font-bj font-medium text-neon text-sm py-8 uppercase cursor-pointer"
+                className="font-bj font-medium text-neon text-sm uppercase cursor-pointer"
                 onClick={() => setMarketDialog(true)}
               >
                 <b>how to use the simulator</b>
