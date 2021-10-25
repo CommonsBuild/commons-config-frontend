@@ -21,7 +21,7 @@ function CustomChartAxisLabel({ handleDatasets, reserveRatio }) {
     >
       <div
         ref={questionRef}
-        className="grid grid-flow-col gap-2 justify-between items-center p-4 bg-black-200"
+        className="grid grid-flow-col gap-2 justify-between items-center p-3 bg-black-200"
         onClick={() => handleDatasets()}
       >
         <a

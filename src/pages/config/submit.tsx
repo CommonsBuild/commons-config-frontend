@@ -41,6 +41,7 @@ function ModuleContainer({
             options={input.options}
             select={input.select}
             tooltipText={input.tooltipText}
+            link={input.link}
             value={input.value}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               onChange(event)
@@ -75,6 +76,7 @@ function SubmitConfig() {
       paramName: 'OPENING_PRICE',
       value: params.openingPrice,
       param: 'Opening Price',
+      link: 'https://forum.tecommons.org/t/augmented-bonding-curve-opening-price-reserve-ratio/516',
       placeholder: 'wxDAI',
       tooltipText:
         'The Opening Price is the price we sell TEC tokens after the Commons Upgrade is complete.',
@@ -84,6 +86,7 @@ function SubmitConfig() {
       paramName: 'TOKEN_FREEZE',
       value: params.tokenFreeze,
       param: 'Token Freeze',
+      link: 'https://forum.tecommons.org/t/token-freeze-token-thaw/509',
       placeholder: 'weeks',
       tooltipText:
         'Token Freeze is the duration from the initialization of the Commons which tokens remain fully locked.',
@@ -93,6 +96,7 @@ function SubmitConfig() {
       paramName: 'TOKEN_THAW',
       value: params.tokenThaw,
       param: 'Token Thaw',
+      link: 'https://forum.tecommons.org/t/token-freeze-token-thaw/509',
       placeholder: 'weeks',
       tooltipText:
         'Token Thaw is the duration after the Token Freeze where TEC tokens gradually thaw, allowing them to become tradeable.',
@@ -105,6 +109,7 @@ function SubmitConfig() {
       paramName: 'COMMONS_TRIBUTE',
       value: params.commonsTribute,
       param: 'Commons Tribute',
+      link: 'https://forum.tecommons.org/t/augmented-bonding-curve-commons-tribute/517',
       placeholder: '%',
       tooltipText:
         'A percentage of the total funds raised from the Hatch is sent to the Common Pool to kick-start the Commons project.',
@@ -114,6 +119,7 @@ function SubmitConfig() {
       paramName: 'ENTRY_TRIBUTE',
       value: params.entryTribute,
       param: 'Entry Tribute',
+      link: 'https://forum.tecommons.org/t/augmented-bonding-curve-entry-exit-tribute/494',
       placeholder: '%',
       tooltipText:
         'The percentage taken off BUY order and sent to the Common Pool.',
@@ -123,6 +129,7 @@ function SubmitConfig() {
       paramName: 'EXIT_TRIBUTE',
       value: params.exitTribute,
       param: 'Exit Tribute',
+      link: 'https://forum.tecommons.org/t/augmented-bonding-curve-entry-exit-tribute/494',
       placeholder: '%',
       tooltipText:
         'The percentage taken off SELL orders and sent to the Common Pool.',
@@ -135,6 +142,7 @@ function SubmitConfig() {
       paramName: 'SUPPORT_REQUIRED',
       value: params.supportRequired,
       param: 'Support Required',
+      link: 'https://forum.tecommons.org/t/tao-voting-support-required/486',
       placeholder: '%',
       tooltipText:
         'The percent of votes that must be in favour of this proposal.',
@@ -144,6 +152,7 @@ function SubmitConfig() {
       paramName: 'MINIMUM_QUORUM',
       value: params.minimumQuorum,
       param: 'Minimum Quorum',
+      link: 'https://forum.tecommons.org/t/tao-voting-minimum-quorum/485',
       placeholder: '%',
       tooltipText:
         'The percent of all tokens that must vote on a proposal in order for it to be valid.',
@@ -153,6 +162,7 @@ function SubmitConfig() {
       paramName: 'VOTE_DURATION',
       value: params.voteDuration,
       param: 'Vote Duration',
+      link: 'https://forum.tecommons.org/t/tao-voting-vote-duration/484',
       placeholder: 'days',
       tooltipText: 'The amount of time a proposal is eligible to be voted on.',
     },
@@ -161,6 +171,7 @@ function SubmitConfig() {
       paramName: 'DELEGATED_VOTING_PERIOD',
       value: params.delegatedVotingPeriod,
       param: 'Delegated Voting Period',
+      link: 'https://forum.tecommons.org/t/tao-voting-delegated-voting-period/487',
       placeholder: 'days',
       tooltipText:
         'The amount of time delegates are permitted to vote on a proposal.',
@@ -170,6 +181,7 @@ function SubmitConfig() {
       paramName: 'QUIET_ENDING_PERIOD',
       value: params.quietEndingPeriod,
       param: 'Quiet Ending Period',
+      link: 'https://forum.tecommons.org/t/tao-voting-quiet-ending-period-and-quiet-ending-extension/488',
       placeholder: 'days',
       tooltipText:
         'If the voting outcome changes during this time the Quiet Ending Extension will trigger, extending the Vote Duration.',
@@ -179,6 +191,7 @@ function SubmitConfig() {
       paramName: 'QUIET_ENDING_EXTENSION',
       value: params.quietEndingExtension,
       param: 'Quiet Ending Extension',
+      link: 'https://forum.tecommons.org/t/tao-voting-quiet-ending-period-and-quiet-ending-extension/488',
       placeholder: 'days',
       tooltipText:
         'The amount of time added to the Vote Duration resulting from the vote outcome changing during the Quiet Ending.',
@@ -188,6 +201,7 @@ function SubmitConfig() {
       paramName: 'EXECUTION_DELAY',
       value: params.executionDelay,
       param: 'Execution Delay',
+      link: 'https://forum.tecommons.org/t/tao-voting-execution-delay/489',
       placeholder: 'days',
       tooltipText:
         'The amount of time after a vote passes before the proposed action is executed.',
@@ -200,6 +214,7 @@ function SubmitConfig() {
       paramName: 'SPENDING_LIMIT',
       value: params.spendingLimit,
       param: 'Spending Limit',
+      link: 'https://forum.tecommons.org/t/conviction-voting-spending-limit-aka-max-ratio-beta/469',
       placeholder: '%',
       tooltipText:
         'The total amount of funds in the Common Pool that can be requested by a single proposal.',
@@ -209,6 +224,7 @@ function SubmitConfig() {
       paramName: 'MINIMUM_CONVICTION',
       value: params.minimumConviction,
       param: 'Minimum Conviction',
+      link: 'https://forum.tecommons.org/t/conviction-voting-minimum-conviction-aka-minimum-threshold/493',
       placeholder: '%',
       tooltipText:
         'The minimum amount of tokens needed to pass a request for an infinitely small amount of funds, relative to the Effective Supply.',
@@ -218,6 +234,7 @@ function SubmitConfig() {
       paramName: 'CONVICTION_GROWTH',
       value: params.convictionGrowth,
       param: 'Conviction Growth',
+      link: 'https://forum.tecommons.org/t/conviction-voting-conviction-growth-aka-half-life/490',
       placeholder: 'days',
       tooltipText: 'The amount of time it takes to increase Conviction by 50%.',
     },
