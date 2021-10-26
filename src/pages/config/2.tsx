@@ -46,7 +46,6 @@ const reserveBalanceButtons = [
 
 function ABC() {
   const { chart, stepLinSpaces, singlePoints, reserveRatio, table } = useABC();
-
   const {
     openingPrice,
     commonsTribute,
@@ -67,7 +66,9 @@ function ABC() {
   const [stepDialog, setStepDialog] = useState(false);
   const [selectedStep, setSelectedStep] = useState(0);
   const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
-
+  const launchValue =
+    (1571223.57 - Number(ragequitAmount) - Number(initialBuy)) *
+    (1 - Number(commonsTribute) / 100);
   const inputs = [
     {
       name: 'openingPrice',
@@ -203,24 +204,12 @@ function ABC() {
                 </div>
                 <div className="flex justify-between text-neon-light py-2">
                   <LabeledRadioButton
-                    checked={
-                      Number(reserveBalance) ===
-                      (1571223.57 -
-                        Number(ragequitAmount) -
-                        Number(initialBuy)) *
-                        (1 - Number(commonsTribute) / 100)
-                    }
                     id="launch"
                     label="launch"
                     name="reserveBalance"
                     size="big"
                     tooltipText="Simulate the Reserve Balance using the amount raised by the Hatch, adjusted by the Commons Tribute"
-                    value={
-                      (1571223.57 -
-                        Number(ragequitAmount) -
-                        Number(initialBuy)) *
-                      (1 - Number(commonsTribute) / 100)
-                    }
+                    value={launchValue}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                       handleChange(event)
                     }
@@ -253,7 +242,7 @@ function ABC() {
                 </button>
               </div>
               <span
-                className="font-bj font-medium text-neon text-sm py-8 uppercase cursor-pointer"
+                className="font-bj font-medium text-neon text-sm uppercase cursor-pointer"
                 onClick={() => setMarketDialog(true)}
               >
                 <b>how to use the simulator</b>

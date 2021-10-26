@@ -3,15 +3,20 @@ import classnames from 'classnames';
 
 const tooltipPosition = {
   top: 'tooltip-top',
+  right: 'tooltip-right',
   bottom: 'tooltip-bottom',
+  left: 'tooltip-left',
 };
 
 const trianglePosition = {
   top: 'triangle-top',
-  bottom: 'tooltip-bottom',
+  right: 'triangle-right',
+  bottom: 'triangle-bottom',
+  left: 'triangle-left',
 };
 
-type Position = 'top' | 'bottom';
+type Position = 'top' | 'right' | 'bottom' | 'left';
+
 interface TooltipProps {
   children: React.ReactNode;
   isHovered: boolean;

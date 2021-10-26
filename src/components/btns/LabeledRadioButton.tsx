@@ -36,16 +36,16 @@ function LabeledRadioButton({
   const [hoverRef, isHovered] = useHover<HTMLDivElement>();
   return (
     <>
-      <input
-        checked={checked}
-        className="hidden labeled-radio"
-        id={id}
-        name={name}
-        type="radio"
-        value={value}
-        onChange={onChange}
-      />
       <Tooltip isHovered={isHovered} text={tooltipText}>
+        <input
+          checked={checked}
+          className="hidden labeled-radio"
+          id={id}
+          name={name}
+          type="radio"
+          value={value}
+          onChange={onChange}
+        />
         <label
           className={classnames(
             'labeled-radio bg-black-200 border text-center border-gray-500 hover:border-gray-400 py-1 cursor-pointer',
