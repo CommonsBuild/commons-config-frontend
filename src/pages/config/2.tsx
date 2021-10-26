@@ -274,13 +274,15 @@ function ABC() {
                       'hover:border-gray-400': index !== selectedStep,
                       'border-gray-700 ': index !== selectedStep,
                       'border-neon': index === selectedStep,
-                      'first:hidden': Number(reserveBalance) !== launchValue,
+                      'first:hidden':
+                        Number(reserveBalance) !== launchValue &&
+                        Number(initialBuy) > 0,
                     }
                   )}
                   onClick={() => setSelectedStep(index)}
                 >
                   <span className="font-bj font-medium text-2xl text-neon-light cursor-pointer">
-                    {index}
+                    {index + (Number(initialBuy) > 0 ? 0 : 1)}
                   </span>
                   {index > 3 ? (
                     <a
@@ -308,7 +310,9 @@ function ABC() {
             </div>
             <ABCTable
               table={{ ...table }}
-              showStepZero={Number(reserveBalance) !== launchValue}
+              showStepZero={
+                Number(reserveBalance) !== launchValue && Number(initialBuy) > 0
+              }
             />
           </ChartContainer>
         </div>
