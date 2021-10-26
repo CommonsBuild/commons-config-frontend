@@ -172,7 +172,6 @@ function ParamsProvider({ children }: AppParamsContextProps) {
         }
         return 'true';
       });
-      console.log(values);
       if (values.every((elem) => elem !== '') && stepList.length !== 0) {
         setSubmitProposal(true);
       } else {
