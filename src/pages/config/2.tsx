@@ -16,7 +16,6 @@ import { ABCAddStepDialog, ABCScenarioDialog } from '@/components/modals/';
 import { ABCTable } from '@/components/tables';
 
 const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b);
-
 const marketScenarios = [
   {
     id: 'bearish',
@@ -46,7 +45,6 @@ const reserveBalanceButtons = [
 
 function ABC() {
   const { chart, stepLinSpaces, singlePoints, reserveRatio, table } = useABC();
-
   const {
     openingPrice,
     commonsTribute,
@@ -57,6 +55,7 @@ function ABC() {
     submitProposal,
     ragequitAmount,
     initialBuy,
+    commonPoolAmount,
     handleChange,
     handleMarketScenario,
     handleAddStep,
@@ -65,9 +64,11 @@ function ABC() {
 
   const [marketDialog, setMarketDialog] = useState(false);
   const [stepDialog, setStepDialog] = useState(false);
-  const [selectedStep, setSelectedStep] = useState(0);
+  const [selectedStep, setSelectedStep] = useState(1);
   const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
-
+  const launchValue =
+    (1571223.57 - Number(ragequitAmount) - Number(initialBuy)) *
+    (1 - Number(commonsTribute) / 100);
   const inputs = [
     {
       name: 'openingPrice',
@@ -203,24 +204,12 @@ function ABC() {
                 </div>
                 <div className="flex justify-between text-neon-light py-2">
                   <LabeledRadioButton
-                    checked={
-                      Number(reserveBalance) ===
-                      (1571223.57 -
-                        Number(ragequitAmount) -
-                        Number(initialBuy)) *
-                        (1 - Number(commonsTribute) / 100)
-                    }
                     id="launch"
                     label="launch"
                     name="reserveBalance"
                     size="big"
                     tooltipText="Simulate the Reserve Balance using the amount raised by the Hatch, adjusted by the Commons Tribute"
-                    value={
-                      (1571223.57 -
-                        Number(ragequitAmount) -
-                        Number(initialBuy)) *
-                      (1 - Number(commonsTribute) / 100)
-                    }
+                    value={launchValue}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                       handleChange(event)
                     }
@@ -253,7 +242,7 @@ function ABC() {
                 </button>
               </div>
               <span
-                className="font-bj font-medium text-neon text-sm py-8 uppercase cursor-pointer"
+                className="font-bj font-medium text-neon text-sm uppercase cursor-pointer"
                 onClick={() => setMarketDialog(true)}
               >
                 <b>how to use the simulator</b>
@@ -265,8 +254,13 @@ function ABC() {
               balanceInThousands={chart.balanceInThousands}
               price={chart.price}
               reserveRatio={(reserveRatio * 100).toFixed(2)}
+              commonPoolAmount={commonPoolAmount}
               stepLinSpaces={stepLinSpaces ? stepLinSpaces[selectedStep] : {}}
-              singleDataPoints={singlePoints}
+              singleDataPoints={
+                Number(reserveBalance) !== launchValue
+                  ? singlePoints?.slice(1, singlePoints.length)
+                  : singlePoints
+              }
             />
             <span className="font-bj text-sm text-neon-light px-16 py-2">
               Steps
@@ -280,12 +274,15 @@ function ABC() {
                       'hover:border-gray-400': index !== selectedStep,
                       'border-gray-700 ': index !== selectedStep,
                       'border-neon': index === selectedStep,
+                      'first:hidden':
+                        Number(reserveBalance) !== launchValue &&
+                        Number(initialBuy) > 0,
                     }
                   )}
                   onClick={() => setSelectedStep(index)}
                 >
                   <span className="font-bj font-medium text-2xl text-neon-light cursor-pointer">
-                    {index}
+                    {index + (Number(initialBuy) > 0 ? 0 : 1)}
                   </span>
                   {index > 3 ? (
                     <a
@@ -311,7 +308,12 @@ function ABC() {
                 </div>
               ))}
             </div>
-            <ABCTable table={{ ...table }} />
+            <ABCTable
+              table={{ ...table }}
+              showStepZero={
+                Number(reserveBalance) !== launchValue && Number(initialBuy) > 0
+              }
+            />
           </ChartContainer>
         </div>
       </div>

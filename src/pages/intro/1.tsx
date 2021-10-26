@@ -11,23 +11,24 @@ interface DialogProps {
 
 function IntroOneDialog({ handleClose, isOpen }: DialogProps) {
   return (
-    <Dialog isOpen={isOpen} title="The Augmented Bonding Curve (ABC)">
+    <Dialog isOpen={isOpen} title="Token Freeze & Token Thaw">
       <p className="font-inter text-base text-neon-light p-4">
-        The Augmented Bonding Curve (ABC) is the main economic engine by which
-        we will provide a constant flow of funding to the Commons Initiatives.
+        Instead of the Hatcher’s TEC tokens becoming available at once to sell
+        or trade, they are frozen for some time.
       </p>
       <p className="font-inter text-base text-neon-light p-4">
-        In this module you’ll be tasked to design an ABC which will be the
-        primary market where TEC tokens are bought and sold.
+        The Token Freeze is the duration from the initiliazation of the Commons
+        which tokens remain frozen.
       </p>
       <p className="font-inter text-base text-neon-light p-4">
-        In other words: When you buy or sell (trade) TEC the Commons receives
-        funding.
+        The next period of time is known as the Token Thaw when tokens slowly
+        become liquid.
       </p>
       <p className="font-inter text-base text-neon-light p-4">
         <b>You decide:</b>
-        <li>What percent of hatch funds will go to funding Token</li>
-        <li>Engineering The tribute taken from buy and sell orders</li>
+        <li>How long to keep tokens frozen</li>
+        <li>The rate at which tokens become liquid</li>
+        <li>The opening price of the TEC token</li>
       </p>
       <button
         className="flex m-auto uppercase font-bj font-bold text-neon text-xs py-6"

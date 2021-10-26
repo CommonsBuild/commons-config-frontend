@@ -43,9 +43,13 @@ function Input({
           <div className="flex flex-col justify-center">
             <span ref={hoverRef} className="font-bj text-gray-100">
               {param}{' '}
-              <div className="inline-block mt-1 ml-1">
-                <Image src="/questionMark.svg" height="12px" width="12px" />
-              </div>
+              {tooltipText ? (
+                <div className="inline-block mt-1 ml-1">
+                  <Image src="/questionMark.svg" height="12px" width="12px" />
+                </div>
+              ) : (
+                <></>
+              )}
             </span>
             {children}
           </div>

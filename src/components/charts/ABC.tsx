@@ -1,36 +1,49 @@
 import React from 'react';
 import Image from 'next/image';
+import classnames from 'classnames';
 import { Line } from 'react-chartjs-2';
 import { Tooltip } from '@/components/_global';
 import { useHover } from '@/hooks';
 import ChartAxisLabel from './ChartAxisLabel';
+import formatOutput from '@/utils/formatOutput';
 
-function CustomChartAxisLabel({ handleDatasets, reserveRatio }) {
+const textColors = {
+  neon: 'text-neon',
+  white: 'text-neon-light',
+};
+
+type TextColor = 'neon' | 'white';
+interface CustomChartAxisLabelProps {
+  color?: TextColor;
+  label: string;
+  tooltipText?: string | React.ReactNode;
+}
+
+function CustomChartAxisLabel({
+  color = 'white',
+  label,
+  tooltipText,
+}: CustomChartAxisLabelProps) {
   const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
 
   return (
-    <Tooltip
-      isHovered={questionIsHovered}
-      text={
-        <span>
-          Reserve Ratio is an output of the Opening Price and Commons Tribute,
-          it defines the shape of the ABC.{' '}
-          <b>Click to learn more about the Reserve Ratio.</b>
-        </span>
-      }
-    >
+    <Tooltip isHovered={questionIsHovered} text={tooltipText}>
       <div
         ref={questionRef}
-        className="grid grid-flow-col gap-2 justify-between items-center p-4 bg-black-200"
-        onClick={() => handleDatasets()}
+        className="grid grid-flow-col gap-2 justify-between items-center p-3 bg-black-200"
       >
         <a
           href="https://forum.tecommons.org/t/augmented-bonding-curve-opening-price-reserve-ratio/516"
           target="_blank"
           rel="noreferrer"
         >
-          <span className="font-bj font-bold text-xs text-neon underline cursor-pointer">
-            RESERVE RATIO: {reserveRatio}%
+          <span
+            className={classnames(
+              'font-bj font-bold text-xs cursor-pointer',
+              textColors[color]
+            )}
+          >
+            {label}
           </span>
         </a>
         <Image
@@ -87,6 +100,7 @@ interface ABCProps {
   balanceInThousands: number[];
   price: number[];
   reserveRatio: string;
+  commonPoolAmount: string;
   stepLinSpaces: { [key: string]: number[] };
   singleDataPoints: any[];
 }
@@ -95,6 +109,7 @@ function ABCChart({
   balanceInThousands,
   price,
   reserveRatio,
+  commonPoolAmount,
   stepLinSpaces,
   singleDataPoints,
 }: ABCProps) {
@@ -137,8 +152,8 @@ function ABCChart({
       label: 'Selected lin space',
       fill: true,
       data: handleData(stepLinSpaces?.x, stepLinSpaces?.y),
-      borderColor: '#DEFB48',
-      pointBackgroundColor: '#DEFB48',
+      borderColor: 'transparent',
+      pointBackgroundColor: 'transparent',
       pointHoverRadius: 7,
       pointRadius: 0,
       pointStyle: 'rect',
@@ -149,7 +164,7 @@ function ABCChart({
       label: 'Data points',
       fill: true,
       data: singleDataPoints,
-      borderColor: '#DEFB48',
+      borderColor: 'transparent',
       pointBackgroundColor: '#DEFB48',
       pointHoverRadius: 7,
       pointRadius: 5,
@@ -169,10 +184,26 @@ function ABCChart({
       <div className="w-20 h-0 text-right relative -top-2 -left-14">
         <ChartAxisLabel label="token price (wxdai)" />
       </div>
-      <div className="w-52 h-0 text-center relative top-8 left-24">
+      <div className="max-w-max h-0 text-center relative -top-2 left-24">
         <CustomChartAxisLabel
-          handleDatasets={handleDatasets}
-          reserveRatio={reserveRatio}
+          label={`COMMON POOL AT LAUNCH: ${formatOutput(
+            commonPoolAmount
+          )} wxDAI`}
+        />
+      </div>
+      <div className="max-w-max h-0 text-center relative top-12 left-24">
+        <CustomChartAxisLabel
+          color="neon"
+          label={`RESERVE RATIO: ${reserveRatio}%`}
+          tooltipText={
+            <span>
+              Reserve Ratio is an output of the Opening Price and Commons
+              Tribute, it defines the shape of the ABC.{' '}
+              <b className="text-neon">
+                Click to learn more about the Reserve Ratio.
+              </b>
+            </span>
+          }
         />
       </div>
       <div className="flex justify-center py-2">

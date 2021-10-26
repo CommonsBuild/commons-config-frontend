@@ -22,7 +22,7 @@ type Size = 's' | 'm' | 'l' | 'xl';
 interface TableHeaderProps {
   headerText: string;
   size?: Size;
-  tooltipText: string;
+  tooltipText?: string;
 }
 
 function TableHeader({
@@ -35,21 +35,20 @@ function TableHeader({
   return (
     <div
       className={classnames(
-        'flex justify-center 2xl:block',
+        'flex justify-center 2xl:justify-start',
         headerSize[size],
         headerMaxSize[size]
       )}
     >
       <Tooltip isHovered={isHovered} text={tooltipText}>
-        <span
-          className="font-bj font-bold text-neon-light text-xs text-center 2xl:text-start uppercase"
-          ref={hoverRef}
-        >
-          {headerText}
+        <span className="flex" ref={hoverRef}>
+          <span className="font-bj font-bold text-neon-light text-xs text-center 2xl:text-start uppercase">
+            {headerText}
+          </span>
+          <div className="flex mx-2 self-center min-w-max">
+            <Image src="/questionMark.svg" height="12px" width="12px" />
+          </div>
         </span>
-        <div className="flex ml-2 self-center min-w-max">
-          <Image src="/questionMark.svg" height="12px" width="12px" />
-        </div>
       </Tooltip>
     </div>
   );

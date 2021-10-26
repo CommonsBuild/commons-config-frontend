@@ -2,26 +2,14 @@ import Table from './Table';
 import TableCell from './TableCell';
 import TableHeader from './TableHeader';
 import TableRow from './TableRow';
-
-const formatOutput = (output, header: string) => {
-  const formatter = new Intl.NumberFormat('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
-  if (header === 'amountInParsed' || header === 'amountOutParsed') {
-    const outputParts = output.match(/[a-z]+|[^a-z]+/gi);
-    return `${formatter.format(outputParts[0]).toLocaleString()} ${
-      outputParts[1]
-    }`;
-  }
-  return output.toLocaleString('en-us');
-};
+import formatOutput from '@/utils/formatOutput';
 
 interface ABCTableProps {
   table: { [key: string]: (number | string)[] };
+  showStepZero: boolean;
 }
 
-function ABCTable({ table }: ABCTableProps) {
+function ABCTable({ table, showStepZero }: ABCTableProps) {
   const headerOrder = [
     'step',
     'currentPriceParsed',
@@ -44,7 +32,7 @@ function ABCTable({ table }: ABCTableProps) {
           />
           <TableHeader
             headerText="current price"
-            tooltipText="The price of the TEC token at the beginning of the transaction."
+            tooltipText="The price of the TEC token, in wxDAI, at the beginning of the transaction."
           />
           <TableHeader
             headerText="total supply"
@@ -56,7 +44,7 @@ function ABCTable({ table }: ABCTableProps) {
           />
           <TableHeader
             headerText="tribute"
-            tooltipText="The amount of funds taken from the order and sent to the Common Pool. This is a determined using the parameters entry & exit tribute."
+            tooltipText="The amount of funds, in wxDAI, taken from the order and sent to the Common Pool. This is a determined using the parameters Entry & Exit Tribute."
           />
           <TableHeader
             headerText="amount out"
@@ -64,16 +52,16 @@ function ABCTable({ table }: ABCTableProps) {
           />
           <TableHeader
             headerText="new price"
-            tooltipText="The updated price of the TEC token resulting from the transaction."
+            tooltipText="The updated price of the TEC token, in wxDAI, resulting from the transaction."
           />
           <TableHeader
             headerText="price slippage"
-            tooltipText="The TEC token price fluctuates based on the size of BUYS and SELLS along the curve. The price slippage is the relative movement between the initial and closing price of TEC in a single transaction."
+            tooltipText="The TEC token price fluctuates based on the size of BUYS and SELLS along the curve. The price slippage is the relative movement between the initial and closing price of TEC from a single transaction."
           />
         </>
       }
       content={table.step?.map((elem, index) => (
-        <TableRow>
+        <TableRow hidden={showStepZero && index === 0}>
           {Object.keys(table).map((key, kIndex) => (
             <TableCell
               content={formatOutput(

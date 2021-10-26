@@ -13,37 +13,34 @@ class MyDocument extends Document {
           <meta name="title" content="Commons Config Dashboard" />
           <meta
             name="description"
-            content="Decide how you want your token economy to function."
+            content="Design a Commons and propose it to the TEC community."
           />
 
           <meta property="og:type" content="website" />
-          <meta
-            property="og:url"
-            content="https://commons-dashboard.netlify.app/"
-          />
+          <meta property="og:url" content="https://config.tecommons.org/" />
           <meta property="og:title" content="Commons Config Dashboard" />
           <meta
             property="og:description"
-            content="Decide how you want your token economy to function."
+            content="Design a Commons and propose it to the TEC community."
           />
           <meta
             property="og:image"
-            content="https://commons-dashboard.netlify.app/assets/og_image.png"
+            content="https://config.tecommons.org/assets/og_image.png"
           />
 
           <meta property="twitter:card" content="summary_large_image" />
           <meta
             property="twitter:url"
-            content="https://commons-dashboard.netlify.app/"
+            content="https://config.tecommons.org/"
           />
           <meta property="twitter:title" content="Commons Config Dashboard" />
           <meta
             property="twitter:description"
-            content="Decide how you want your token economy to function."
+            content="Design a Commons and propose it to the TEC community."
           />
           <meta
             property="twitter:image"
-            content="https://commons-dashboard.netlify.app/assets/og_image.png"
+            content="https://config.tecommons.org/assets/og_image.png"
           />
           <meta name="twitter:card" content="summary_large_image" />
         </Head>
