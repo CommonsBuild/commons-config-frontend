@@ -37,11 +37,12 @@ function ABCAddStepDialog({
     <Dialog isOpen={isOpen}>
       <div className="bg-black-200 px-8 py-6">
         <span className="block font-bj font-bold text-xs text-neon-light uppercase pb-2">
-          add transaction to experience your bonding curve
+          add a transaction to experience your abc design
         </span>
         <span className="font-inter text-xs text-gray-400">
-          Make a Buy or Sell onto your Augmented Bonding Curve to experiment
-          with your configuration settings.
+          Simulate a Buy or Sell onto your Augmented Bonding Curve to better
+          understand the impact of your configuration settings at various
+          Reserve balances.
         </span>
       </div>
       <div className="p-4">
