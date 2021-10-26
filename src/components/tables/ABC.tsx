@@ -2,26 +2,14 @@ import Table from './Table';
 import TableCell from './TableCell';
 import TableHeader from './TableHeader';
 import TableRow from './TableRow';
-
-const formatOutput = (output, header: string) => {
-  const formatter = new Intl.NumberFormat('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
-  if (header === 'amountInParsed' || header === 'amountOutParsed') {
-    const outputParts = output.match(/[a-z]+|[^a-z]+/gi);
-    return `${formatter.format(outputParts[0]).toLocaleString()} ${
-      outputParts[1]
-    }`;
-  }
-  return output.toLocaleString('en-us');
-};
+import formatOutput from '@/utils/formatOutput';
 
 interface ABCTableProps {
   table: { [key: string]: (number | string)[] };
+  showStepZero: boolean;
 }
 
-function ABCTable({ table }: ABCTableProps) {
+function ABCTable({ table, showStepZero }: ABCTableProps) {
   const headerOrder = [
     'step',
     'currentPriceParsed',
@@ -73,7 +61,7 @@ function ABCTable({ table }: ABCTableProps) {
         </>
       }
       content={table.step?.map((elem, index) => (
-        <TableRow>
+        <TableRow hidden={showStepZero && index === 0}>
           {Object.keys(table).map((key, kIndex) => (
             <TableCell
               content={formatOutput(
