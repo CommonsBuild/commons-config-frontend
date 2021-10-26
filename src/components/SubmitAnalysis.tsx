@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link as LinkScroll } from 'react-scroll';
 import classnames from 'classnames';
+import AnalysisContainer from './AnalysisContainer';
 import {
   ABCChart,
   ConvictionThresholdChart,
@@ -47,13 +48,7 @@ function SubmitAnalysis({ params }) {
     <div className="flex flex-row">
       <div className="text-neon-light h-full w-1/5 pl-8 top-80 sticky">
         {navbarItems.map((elem) => (
-          <LinkScroll
-            duration={500}
-            smooth
-            to={elem.target}
-            offset={-135}
-            onClick={() => setInFocus(elem.id)}
-          >
+          <LinkScroll duration={500} smooth to={elem.target} offset={-135}>
             <div
               className={classnames(
                 'flex items-center cursor-pointer',
@@ -72,78 +67,86 @@ function SubmitAnalysis({ params }) {
           </LinkScroll>
         ))}
       </div>
-      <div className="w-3/5">
-        <h3
-          className="font-bj text-2xl text-neon-light p-6"
-          id="tokenFreezeThaw"
-        >
-          Token Freeze & Token Thaw
-        </h3>
-        <TokenFreezeThawChart price={chart.price} week={chart.week} />
-        <div className="mt-12">
-          <TokenFreezeThawTable table={table} />
-        </div>
-        <h3 className="font-bj text-2xl text-neon-light p-6" id="ABC">
-          Augmented Bonding Curve
-        </h3>
-        <ABCChart
-          balanceInThousands={ABCChartData.balanceInThousands}
-          price={ABCChartData.price}
-          reserveRatio={(reserveRatio * 100).toFixed(2)}
-          commonPoolAmount={params.commonPoolAmount}
-          stepLinSpaces={stepLinSpaces ? stepLinSpaces[0] : {}}
-          singleDataPoints={
-            Number(params.reserveBalance) !== launchValue
-              ? singlePoints?.slice(1, singlePoints.length)
-              : singlePoints
-          }
-        />
-        <div className="mt-12">
-          <ABCTable
-            table={{ ...ABCTableData }}
-            showStepZero={Number(params.reserveBalance) !== launchValue}
+      <div className="w-3/5" id="container">
+        <AnalysisContainer onVisible={() => setInFocus(1)}>
+          <h3
+            className="font-bj text-2xl text-neon-light p-6"
+            id="tokenFreezeThaw"
+          >
+            Token Freeze & Token Thaw
+          </h3>
+          <TokenFreezeThawChart price={chart.price} week={chart.week} />
+          <div className="mt-12">
+            <TokenFreezeThawTable table={table} />
+          </div>
+        </AnalysisContainer>
+        <AnalysisContainer onVisible={() => setInFocus(2)}>
+          <h3 className="font-bj text-2xl text-neon-light p-6" id="ABC">
+            Augmented Bonding Curve
+          </h3>
+          <ABCChart
+            balanceInThousands={ABCChartData.balanceInThousands}
+            price={ABCChartData.price}
+            reserveRatio={(reserveRatio * 100).toFixed(2)}
+            commonPoolAmount={params.commonPoolAmount}
+            stepLinSpaces={stepLinSpaces ? stepLinSpaces[0] : {}}
+            singleDataPoints={
+              Number(params.reserveBalance) !== launchValue
+                ? singlePoints?.slice(1, singlePoints.length)
+                : singlePoints
+            }
           />
-        </div>
-        <div>table b</div>
-        <h3 className="font-bj text-2xl text-neon-light p-6" id="taoVoting">
-          Tao Voting
-        </h3>
-        <TaoVotingBar
-          nonQuietVotingPeriod={
-            taoChartData.totalProposalProcess?.nonQuietVotingPeriod
-          }
-          delegatedVotingPeriod={
-            taoChartData.delegatedVoting?.delegatedVotingPeriod
-          }
-          delegatedAndNonDelegatedVoting={
-            taoChartData.proposalProcessWithExtension?.voteDuration
-          }
-          quietEndingPeriod={
-            taoChartData.totalProposalProcess?.quietEndingPeriod
-          }
-          quietEndingExtension={
-            taoChartData.proposalProcessWithExtension?.quietEndingExtension
-          }
-          executionDelay={
-            taoChartData.proposalProcessWithExtension?.executionDelay
-          }
-        />
-        <div className="mt-12">
-          <div>table</div>
-        </div>
-        <h3
-          className="font-bj text-2xl text-neon-light p-6"
-          id="convictionVoting"
-        >
-          Conviction Voting
-        </h3>
-        <ConvictionThresholdChart
-          requestedPercentage={convictionThresholdChart.requestedPercentage}
-          thresholdPercentage={convictionThresholdChart.thresholdPercentage}
-        />
-        <div className="mt-12">
-          <ConvictionVotingTable table={ConvictionVotingTableData} />
-        </div>
+          <div className="mt-12" onClick={() => setInFocus(3)}>
+            <ABCTable
+              table={{ ...ABCTableData }}
+              showStepZero={Number(params.reserveBalance) !== launchValue}
+            />
+          </div>
+          <div>table b</div>
+        </AnalysisContainer>
+        <AnalysisContainer onVisible={() => setInFocus(3)}>
+          <h3 className="font-bj text-2xl text-neon-light p-6" id="taoVoting">
+            Tao Voting
+          </h3>
+          <TaoVotingBar
+            nonQuietVotingPeriod={
+              taoChartData.totalProposalProcess?.nonQuietVotingPeriod
+            }
+            delegatedVotingPeriod={
+              taoChartData.delegatedVoting?.delegatedVotingPeriod
+            }
+            delegatedAndNonDelegatedVoting={
+              taoChartData.proposalProcessWithExtension?.voteDuration
+            }
+            quietEndingPeriod={
+              taoChartData.totalProposalProcess?.quietEndingPeriod
+            }
+            quietEndingExtension={
+              taoChartData.proposalProcessWithExtension?.quietEndingExtension
+            }
+            executionDelay={
+              taoChartData.proposalProcessWithExtension?.executionDelay
+            }
+          />
+          <div className="mt-12">
+            <div>table</div>
+          </div>
+        </AnalysisContainer>
+        <AnalysisContainer onVisible={() => setInFocus(4)}>
+          <h3
+            className="font-bj text-2xl text-neon-light p-6"
+            id="convictionVoting"
+          >
+            Conviction Voting
+          </h3>
+          <ConvictionThresholdChart
+            requestedPercentage={convictionThresholdChart.requestedPercentage}
+            thresholdPercentage={convictionThresholdChart.thresholdPercentage}
+          />
+          <div className="mt-12">
+            <ConvictionVotingTable table={ConvictionVotingTableData} />
+          </div>
+        </AnalysisContainer>
       </div>
     </div>
   );
