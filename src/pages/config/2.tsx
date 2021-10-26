@@ -16,7 +16,6 @@ import { ABCAddStepDialog, ABCScenarioDialog } from '@/components/modals/';
 import { ABCTable } from '@/components/tables';
 
 const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b);
-
 const marketScenarios = [
   {
     id: 'bearish',
@@ -56,6 +55,7 @@ function ABC() {
     submitProposal,
     ragequitAmount,
     initialBuy,
+    commonPoolAmount,
     handleChange,
     handleMarketScenario,
     handleAddStep,
@@ -64,7 +64,7 @@ function ABC() {
 
   const [marketDialog, setMarketDialog] = useState(false);
   const [stepDialog, setStepDialog] = useState(false);
-  const [selectedStep, setSelectedStep] = useState(0);
+  const [selectedStep, setSelectedStep] = useState(1);
   const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
   const launchValue =
     (1571223.57 - Number(ragequitAmount) - Number(initialBuy)) *
@@ -259,8 +259,13 @@ function ABC() {
               balanceInThousands={chart.balanceInThousands}
               price={chart.price}
               reserveRatio={(reserveRatio * 100).toFixed(2)}
+              commonPoolAmount={commonPoolAmount}
               stepLinSpaces={stepLinSpaces ? stepLinSpaces[selectedStep] : {}}
-              singleDataPoints={singlePoints}
+              singleDataPoints={
+                Number(reserveBalance) !== launchValue
+                  ? singlePoints?.slice(1, singlePoints.length)
+                  : singlePoints
+              }
             />
             <span className="font-bj text-sm text-neon-light px-16 py-2">
               Steps
@@ -274,6 +279,7 @@ function ABC() {
                       'hover:border-gray-400': index !== selectedStep,
                       'border-gray-700 ': index !== selectedStep,
                       'border-neon': index === selectedStep,
+                      'first:hidden': Number(reserveBalance) !== launchValue,
                     }
                   )}
                   onClick={() => setSelectedStep(index)}
@@ -305,7 +311,10 @@ function ABC() {
                 </div>
               ))}
             </div>
-            <ABCTable table={{ ...table }} />
+            <ABCTable
+              table={{ ...table }}
+              showStepZero={Number(reserveBalance) !== launchValue}
+            />
           </ChartContainer>
         </div>
       </div>

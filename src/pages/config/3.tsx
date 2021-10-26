@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import Image from 'next/image';
 import Head from 'next/head';
 import Input from '@/components/Input';
 import {
@@ -11,12 +9,11 @@ import {
 import { RedirectButton } from '@/components/btns';
 import { TaoVotingBar } from '@/components/charts';
 import { useParams, useTaoVoting } from '@/hooks';
-import { TaoVotingPieDialog } from '@/components/modals';
 // import { TaoVotingTable } from '@/components/tables';
 import ChartLegend from '@/components/ChartLegend';
 
 function DisputableVoting() {
-  const { barChart, pieChart } = useTaoVoting();
+  const { barChart } = useTaoVoting();
   const {
     supportRequired,
     minimumQuorum,
@@ -28,12 +25,6 @@ function DisputableVoting() {
     submitProposal,
     handleChange,
   } = useParams();
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleDialog = () => {
-    setIsOpen(!isOpen);
-  };
 
   const barChartLegend = [
     {
@@ -151,11 +142,6 @@ function DisputableVoting() {
       <Head>
         <title>Config 3 | Commons Dashboard</title>
       </Head>
-      <TaoVotingPieDialog
-        data={pieChart}
-        isOpen={isOpen}
-        handleClose={() => setIsOpen(false)}
-      />
       <div className="min-h-screen h-full bg-dash bg-cover">
         <Navbar />
         <div className="flex justify-center">
@@ -186,12 +172,6 @@ function DisputableVoting() {
             <RedirectButton href="/learn/3" />
           </Card>
           <ChartContainer title="See the relative distribution of each phase of Tao Voting, based on your parameters, in the graph below.">
-            <div
-              className="relative h-0 w-6 -right-3/4 cursor-pointer"
-              onClick={() => handleDialog()}
-            >
-              <Image src="/pie_icon.svg" width="24" height="24" />
-            </div>
             <TaoVotingBar
               nonQuietVotingPeriod={
                 barChart.totalProposalProcess?.nonQuietVotingPeriod
