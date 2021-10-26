@@ -44,7 +44,7 @@ function ABCTable({ table }: ABCTableProps) {
           />
           <TableHeader
             headerText="current price"
-            tooltipText="The price of the TEC token at the beginning of the transaction."
+            tooltipText="The price of the TEC token, in wxDAI, at the beginning of the transaction."
           />
           <TableHeader
             headerText="total supply"
@@ -56,7 +56,7 @@ function ABCTable({ table }: ABCTableProps) {
           />
           <TableHeader
             headerText="tribute"
-            tooltipText="The amount of funds taken from the order and sent to the Common Pool. This is a determined using the parameters entry & exit tribute."
+            tooltipText="The amount of funds, in wxDAI, taken from the order and sent to the Common Pool. This is a determined using the parameters Entry & Exit Tribute."
           />
           <TableHeader
             headerText="amount out"
@@ -64,11 +64,11 @@ function ABCTable({ table }: ABCTableProps) {
           />
           <TableHeader
             headerText="new price"
-            tooltipText="The updated price of the TEC token resulting from the transaction."
+            tooltipText="The updated price of the TEC token, in wxDAI, resulting from the transaction."
           />
           <TableHeader
             headerText="price slippage"
-            tooltipText="The TEC token price fluctuates based on the size of BUYS and SELLS along the curve. The price slippage is the relative movement between the initial and closing price of TEC in a single transaction."
+            tooltipText="The TEC token price fluctuates based on the size of BUYS and SELLS along the curve. The price slippage is the relative movement between the initial and closing price of TEC from a single transaction."
           />
         </>
       }
