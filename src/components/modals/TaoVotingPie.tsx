@@ -21,7 +21,7 @@ function TaoVotingPieDialog({
   handleClose,
 }: TaoVotingPieDialogProps) {
   return (
-    <Dialog title="Disputable Voting" isOpen={isOpen}>
+    <Dialog title="Tao Voting Phases" isOpen={isOpen}>
       <div style={{ maxWidth: '350px' }} className="py-8 m-auto">
         <TaoVotingPie
           nonQuietVotingPeriod={data.nonQuietVotingPeriod}

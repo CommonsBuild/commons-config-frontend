@@ -12,7 +12,7 @@ import { RedirectButton } from '@/components/btns';
 import { TaoVotingBar } from '@/components/charts';
 import { useParams, useTaoVoting } from '@/hooks';
 import { TaoVotingPieDialog } from '@/components/modals';
-import { TaoVotingTable } from '@/components/tables';
+// import { TaoVotingTable } from '@/components/tables';
 import ChartLegend from '@/components/ChartLegend';
 
 function DisputableVoting() {
@@ -223,7 +223,7 @@ function DisputableVoting() {
                 />
               ))}
             </div>
-            <TaoVotingTable />
+            {/* <TaoVotingTable /> */}
           </ChartContainer>
         </div>
       </div>

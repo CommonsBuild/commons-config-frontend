@@ -139,8 +139,8 @@ function ABCChart({
       label: 'Selected lin space',
       fill: true,
       data: handleData(stepLinSpaces?.x, stepLinSpaces?.y),
-      borderColor: '#DEFB48',
-      pointBackgroundColor: '#DEFB48',
+      borderColor: 'transparent',
+      pointBackgroundColor: 'transparent',
       pointHoverRadius: 7,
       pointRadius: 0,
       pointStyle: 'rect',
@@ -151,7 +151,7 @@ function ABCChart({
       label: 'Data points',
       fill: true,
       data: singleDataPoints,
-      borderColor: '#DEFB48',
+      borderColor: 'transparent',
       pointBackgroundColor: '#DEFB48',
       pointHoverRadius: 7,
       pointRadius: 5,
@@ -171,7 +171,7 @@ function ABCChart({
       <div className="w-20 h-0 text-right relative -top-2 -left-14">
         <ChartAxisLabel label="token price (wxdai)" />
       </div>
-      <div className="w-52 h-0 text-center relative top-8 left-24">
+      <div className="w-52 h-0 text-center relative top-2 left-24">
         <CustomChartAxisLabel
           handleDatasets={handleDatasets}
           reserveRatio={reserveRatio}
