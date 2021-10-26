@@ -77,7 +77,7 @@ const initialContext: ParamsContextType = {
     [100000, 'wxDAI'],
     [3000, 'TEC'],
   ],
-  initialBuy: '200000',
+  initialBuy: '250000',
   ragequitAmount: '60000',
   zoomGraph: '0',
   supportRequired: '88',
@@ -166,7 +166,13 @@ function ParamsProvider({ children }: AppParamsContextProps) {
         submitProposal,
         ...rest
       } = params;
-      const values = Object.keys(rest).map((key) => rest[key]);
+      const values = Object.keys(rest).map((key) => {
+        if (key !== 'transferability') {
+          return rest[key];
+        }
+        return 'true';
+      });
+      console.log(values);
       if (values.every((elem) => elem !== '') && stepList.length !== 0) {
         setSubmitProposal(true);
       } else {
@@ -186,9 +192,14 @@ function ParamsProvider({ children }: AppParamsContextProps) {
   };
 
   const handleMarketScenario = (scenario: (number | string)[][]) => {
+    const { stepList } = params;
+    let newScenario;
+    if (stepList.length > 3) {
+      newScenario = [...scenario, ...stepList.slice(3, stepList.length)];
+    }
     setParams((previousParams) => ({
       ...previousParams,
-      stepList: scenario,
+      stepList: newScenario || scenario,
     }));
   };
 
@@ -203,7 +214,7 @@ function ParamsProvider({ children }: AppParamsContextProps) {
 
   const handleRemoveStep = (stepIndex: number) => {
     const newStepList = params.stepList;
-    newStepList.splice(stepIndex, 1);
+    newStepList.splice(stepIndex - 1, 1);
     setParams((previousParams) => ({
       ...previousParams,
       stepList: newStepList,
