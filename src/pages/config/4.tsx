@@ -44,6 +44,7 @@ function ConvictionVoting() {
       paramName: 'SPENDING_LIMIT',
       value: spendingLimit,
       param: 'Spending Limit',
+      link: 'https://forum.tecommons.org/t/conviction-voting-spending-limit-aka-max-ratio-beta/469',
       placeholder: '%',
       tooltipText:
         'The total amount of funds in the Common Pool that can be requested by a single proposal.',
@@ -53,6 +54,7 @@ function ConvictionVoting() {
       paramName: 'MINIMUM_CONVICTION',
       value: minimumConviction,
       param: 'Minimum Conviction',
+      link: 'https://forum.tecommons.org/t/conviction-voting-minimum-conviction-aka-minimum-threshold/493',
       placeholder: '%',
       tooltipText:
         'The minimum amount of tokens needed to pass a request for an infinitely small amount of funds, relative to the Effective Supply.',
@@ -62,6 +64,7 @@ function ConvictionVoting() {
       paramName: 'CONVICTION_GROWTH',
       value: convictionGrowth,
       param: 'Conviction Growth',
+      link: 'https://forum.tecommons.org/t/conviction-voting-conviction-growth-aka-half-life/490',
       placeholder: 'days',
       tooltipText: 'The amount of time it takes to increase Conviction by 50%.',
       children: (
@@ -118,6 +121,7 @@ function ConvictionVoting() {
                 }
                 placeholder={input.placeholder}
                 tooltipText={input.tooltipText}
+                link={input.link}
               >
                 {input.children}
               </Input>

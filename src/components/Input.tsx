@@ -13,6 +13,7 @@ interface InputProps {
   options?: { [key: string]: string }[];
   select?: boolean;
   tooltipText: string;
+  link?: string;
   value: string | number;
   changeParam?(): void;
   onChange: (
@@ -31,6 +32,7 @@ function Input({
   select,
   tooltipText,
   value,
+  link,
   changeParam,
   onChange,
 }: InputProps) {
@@ -41,16 +43,21 @@ function Input({
       <div className="col-span-3 self-center">
         <Tooltip text={tooltipText} isHovered={isHovered}>
           <div className="flex flex-col justify-center">
-            <span ref={hoverRef} className="font-bj text-gray-100">
-              {param}{' '}
-              {tooltipText ? (
-                <div className="inline-block mt-1 ml-1">
-                  <Image src="/questionMark.svg" height="12px" width="12px" />
-                </div>
-              ) : (
-                <></>
-              )}
-            </span>
+            <a href={link} target="_blank" rel="noreferrer">
+              <span
+                ref={hoverRef}
+                className="font-bj text-gray-200 cursor-pointer hover:text-white"
+              >
+                {param}{' '}
+                {tooltipText ? (
+                  <div className="inline-block mt-1 ml-1">
+                    <Image src="/questionMark.svg" height="12px" width="12px" />
+                  </div>
+                ) : (
+                  <></>
+                )}
+              </span>
+            </a>
             {children}
           </div>
         </Tooltip>
