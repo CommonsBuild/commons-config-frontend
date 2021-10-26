@@ -82,7 +82,7 @@ function ConvictionThresholdChart({
         <ChartAxisLabel
           label={
             <span className="font-bj font-bold text-xxs text-neon-light uppercase">
-              % of <b className="text-neon">effective supply</b> voting this
+              % of <b className="text-neon">effective supply</b> voting on this
               proposal
             </span>
           }
