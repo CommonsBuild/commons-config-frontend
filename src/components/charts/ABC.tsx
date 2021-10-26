@@ -15,7 +15,9 @@ function CustomChartAxisLabel({ handleDatasets, reserveRatio }) {
         <span>
           Reserve Ratio is an output of the Opening Price and Commons Tribute,
           it defines the shape of the ABC.{' '}
-          <b>Click to learn more about the Reserve Ratio.</b>
+          <b className="text-neon">
+            Click to learn more about the Reserve Ratio.
+          </b>
         </span>
       }
     >
