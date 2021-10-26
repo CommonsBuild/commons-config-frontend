@@ -44,7 +44,10 @@ function Input({
         <Tooltip text={tooltipText} isHovered={isHovered}>
           <div className="flex flex-col justify-center">
             <a href={link} target="_blank" rel="noreferrer">
-              <span ref={hoverRef} className="font-bj text-gray-100">
+              <span
+                ref={hoverRef}
+                className="font-bj text-gray-200 cursor-pointer hover:text-white"
+              >
                 {param}{' '}
                 {tooltipText ? (
                   <div className="inline-block mt-1 ml-1">

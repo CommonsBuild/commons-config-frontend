@@ -27,6 +27,7 @@ function SummaryContainer({
           <Input
             key={input.name}
             name={input.name}
+            link={input.link}
             param={input.param}
             placeholder={input.placeholder}
             tooltipText={input.tooltipText}
