@@ -57,7 +57,7 @@ type ParamsContextType = {
   handleRemoveStep: (stepIndex: number) => void;
 };
 
-const initialContext: ParamsContextType = {
+export const initialParams: ParamsContextType = {
   title: '',
   overallStrategy: '',
   tokenFreezeStrategy: '',
@@ -121,7 +121,7 @@ const initialContext: ParamsContextType = {
   },
 };
 
-const ParamsContext = createContext<ParamsContextType>(initialContext);
+const ParamsContext = createContext<ParamsContextType>(initialParams);
 
 interface AppParamsContextProps {
   children: React.ReactNode;
@@ -132,7 +132,7 @@ function ParamsProvider({ children }: AppParamsContextProps) {
   const [submitProposalState, setSubmitProposal] = useState(false);
 
   useEffect(() => {
-    setParams(JSON.parse(localStorage.getItem('params')) || initialContext);
+    setParams(JSON.parse(localStorage.getItem('params')) || initialParams);
   }, []);
 
   useEffect(() => {

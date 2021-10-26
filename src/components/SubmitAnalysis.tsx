@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link as LinkScroll } from 'react-scroll';
 import classnames from 'classnames';
 import AnalysisContainer from './AnalysisContainer';
+import { initialParams } from '@/hooks/useParams';
 import {
   ABCChart,
   ConvictionThresholdChart,
@@ -31,7 +32,9 @@ function SubmitAnalysis({ params }) {
     table: ABCTableData,
   } = useABC();
   const launchValue =
-    (1571223.57 - Number(params.ragequitAmount) - Number(params.initialBuy)) *
+    (Number(initialParams.reserveBalance) -
+      Number(params.ragequitAmount) -
+      Number(params.initialBuy)) *
     (1 - Number(params.commonsTribute) / 100);
   const { barChart: taoChartData } = useTaoVoting();
   const { convictionThresholdChart, table: ConvictionVotingTableData } =
@@ -46,7 +49,7 @@ function SubmitAnalysis({ params }) {
 
   return (
     <div className="flex flex-row">
-      <div className="text-neon-light h-full w-1/5 pl-8 top-80 sticky">
+      <div className="hidden md:block text-neon-light h-full w-1/5 pl-8 top-80 sticky">
         {navbarItems.map((elem) => (
           <LinkScroll duration={500} smooth to={elem.target} offset={-135}>
             <div
@@ -67,7 +70,7 @@ function SubmitAnalysis({ params }) {
           </LinkScroll>
         ))}
       </div>
-      <div className="w-3/5" id="container">
+      <div className="container mx-auto md:w-3/5" id="container">
         <AnalysisContainer onVisible={() => setInFocus(1)}>
           <h3
             className="font-bj text-2xl text-neon-light p-6"

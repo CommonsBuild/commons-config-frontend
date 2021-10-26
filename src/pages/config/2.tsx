@@ -14,6 +14,7 @@ import { ABCChart } from '@/components/charts';
 import { useABC, useHover, useParams } from '@/hooks';
 import { ABCAddStepDialog, ABCScenarioDialog } from '@/components/modals/';
 import { ABCTable } from '@/components/tables';
+import { initialParams } from '@/hooks/useParams';
 
 const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 const marketScenarios = [
@@ -67,7 +68,9 @@ function ABC() {
   const [selectedStep, setSelectedStep] = useState(1);
   const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
   const launchValue =
-    (1571223.57 - Number(ragequitAmount) - Number(initialBuy)) *
+    (Number(initialParams.reserveBalance) -
+      Number(ragequitAmount) -
+      Number(initialBuy)) *
     (1 - Number(commonsTribute) / 100);
   const inputs = [
     {
