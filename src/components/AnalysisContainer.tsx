@@ -10,7 +10,6 @@ function AnalysisContainer({ children, onVisible }: AnalysisContainerProps) {
   const [ref, isVisible] = useIntersection<HTMLDivElement>();
 
   useEffect(() => {
-    console.log(isVisible);
     if (isVisible) {
       onVisible();
     }
