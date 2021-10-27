@@ -56,7 +56,6 @@ function ABC() {
     submitProposal,
     ragequitAmount,
     initialBuy,
-    commonPoolAmount,
     handleChange,
     handleMarketScenario,
     handleAddStep,
@@ -262,7 +261,12 @@ function ABC() {
               balanceInThousands={chart.balanceInThousands}
               price={chart.price}
               reserveRatio={(reserveRatio * 100).toFixed(2)}
-              commonPoolAmount={commonPoolAmount}
+              commonPoolAmount={
+                (Number(initialParams.reserveBalance) -
+                  Number(ragequitAmount) -
+                  Number(initialBuy)) *
+                Number(commonsTribute)
+              }
               stepLinSpaces={stepLinSpaces ? stepLinSpaces[selectedStep] : {}}
               singleDataPoints={
                 Number(reserveBalance) !== launchValue

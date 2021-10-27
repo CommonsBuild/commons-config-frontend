@@ -100,7 +100,7 @@ interface ABCProps {
   balanceInThousands: number[];
   price: number[];
   reserveRatio: string;
-  commonPoolAmount: string;
+  commonPoolAmount: number;
   stepLinSpaces: { [key: string]: number[] };
   singleDataPoints: any[];
 }
