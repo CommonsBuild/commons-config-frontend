@@ -2,16 +2,20 @@ import type { ReactElement } from 'react';
 import { useState } from 'react';
 
 import Intro from '@/templates/Intro';
-import { Dialog } from '@/components/modals/';
+import { Modal } from '@/components/modals/';
 
 interface DialogProps {
-  handleClose: React.MouseEventHandler<HTMLButtonElement>;
+  handleClose: () => void;
   isOpen: boolean;
 }
 
 function IntroOneDialog({ handleClose, isOpen }: DialogProps) {
   return (
-    <Dialog isOpen={isOpen} title="Token Freeze & Token Thaw">
+    <Modal
+      handleClose={handleClose}
+      isOpen={isOpen}
+      title="Token Freeze & Token Thaw"
+    >
       <p className="font-inter text-base text-neon-light p-4">
         Instead of the Hatcher’s TEC tokens becoming available at once to sell
         or trade, they are frozen for some time.
@@ -30,13 +34,7 @@ function IntroOneDialog({ handleClose, isOpen }: DialogProps) {
         <li>The rate at which tokens become liquid</li>
         <li>The opening price of the TEC token</li>
       </p>
-      <button
-        className="flex m-auto uppercase font-bj font-bold text-neon text-xs py-6"
-        onClick={handleClose}
-      >
-        ok
-      </button>
-    </Dialog>
+    </Modal>
   );
 }
 

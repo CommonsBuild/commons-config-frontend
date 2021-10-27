@@ -2,16 +2,16 @@ import type { ReactElement } from 'react';
 import { useState } from 'react';
 
 import Intro from '@/templates/Intro';
-import { Dialog } from '@/components/modals/';
+import { Modal } from '@/components/modals/';
 
 interface DialogProps {
-  handleClose: React.MouseEventHandler<HTMLButtonElement>;
+  handleClose: () => void;
   isOpen: boolean;
 }
 
 function IntroFourDialog({ handleClose, isOpen }: DialogProps) {
   return (
-    <Dialog isOpen={isOpen} title="Conviction Voting">
+    <Modal handleClose={handleClose} isOpen={isOpen} title="Conviction Voting">
       <p className="font-inter text-base text-neon-light p-4">
         Conviction Voting (CV) is the governance system in which Commons members
         create proposals to request funds from the Common Pool.
@@ -30,13 +30,7 @@ function IntroFourDialog({ handleClose, isOpen }: DialogProps) {
         <li>How many tokens are needed to pass a proposal</li>
         <li>The rate at which conviction accumulates</li>
       </p>
-      <button
-        className="flex m-auto uppercase font-bj font-bold text-neon text-xs py-6"
-        onClick={handleClose}
-      >
-        ok
-      </button>
-    </Dialog>
+    </Modal>
   );
 }
 
