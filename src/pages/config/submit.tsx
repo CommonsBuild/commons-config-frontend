@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import classnames from 'classnames';
 import toast, { Toaster } from 'react-hot-toast';
+import SubmitAnalysis from '@/components/SubmitAnalysis';
 import SubmitSummary from '@/components/SubmitSummary';
 import { Navbar } from '@/components/_global';
 import { AdvancedParametersDialog, SubmitDialog } from '@/components/modals';
@@ -100,7 +101,6 @@ function SubmitConfig() {
         toast('Something went wrong!', {
           duration: 3000,
           position: 'bottom-center',
-          // Styling
           style: {
             background: '#DEFB48',
           },
@@ -169,15 +169,24 @@ function SubmitConfig() {
             </div>
           </label>
         </div>
-        <div className="max-w-screen-xl mx-auto bg-black pb-16">
-          <SubmitSummary
-            params={params}
-            handleChange={handleChange}
-            advancedParams={advancedParams}
-            setAdvancedDialog={setAdvancedDialog}
-            submitParams={submitParams}
-            submitProposal={submitProposal}
-          />
+        <div
+          className={classnames(
+            'mx-auto bg-black pb-16',
+            analyticsDash ? '' : 'max-w-screen-xl'
+          )}
+        >
+          {analyticsDash ? (
+            <SubmitAnalysis params={params} />
+          ) : (
+            <SubmitSummary
+              params={params}
+              handleChange={handleChange}
+              advancedParams={advancedParams}
+              setAdvancedDialog={setAdvancedDialog}
+              submitParams={submitParams}
+              submitProposal={submitProposal}
+            />
+          )}
         </div>
       </div>
       <Toaster />
