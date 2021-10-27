@@ -16,12 +16,14 @@ type TextColor = 'neon' | 'white';
 interface CustomChartAxisLabelProps {
   color?: TextColor;
   label: string;
+  link: string;
   tooltipText: string | React.ReactNode;
 }
 
 function CustomChartAxisLabel({
   color = 'white',
   label,
+  link,
   tooltipText,
 }: CustomChartAxisLabelProps) {
   const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
@@ -32,11 +34,7 @@ function CustomChartAxisLabel({
         ref={questionRef}
         className="grid grid-flow-col gap-2 justify-between items-center p-3 bg-black-200"
       >
-        <a
-          href="https://forum.tecommons.org/t/augmented-bonding-curve-opening-price-reserve-ratio/516"
-          target="_blank"
-          rel="noreferrer"
-        >
+        <a href={link} target="_blank" rel="noreferrer">
           <span
             className={classnames(
               'font-bj font-bold text-xs cursor-pointer',
@@ -189,6 +187,7 @@ function ABCChart({
           label={`COMMON POOL AT LAUNCH: ${formatOutput(
             commonPoolAmount
           )} wxDAI`}
+          link="https://forum.tecommons.org/t/augmented-bonding-curve-commons-tribute/517"
           tooltipText="The amount of wxDAI which will be in the Common Pool at the Commons Upgrade. This is calculated using the Hatch funds raised, Hatchers who have rage quit (Advanced), the Initial buy-in (Advanced) and the Commons Tribute."
         />
       </div>
@@ -196,6 +195,7 @@ function ABCChart({
         <CustomChartAxisLabel
           color="neon"
           label={`RESERVE RATIO: ${reserveRatio}%`}
+          link="https://forum.tecommons.org/t/augmented-bonding-curve-opening-price-reserve-ratio/516"
           tooltipText={
             <span>
               Reserve Ratio is an output of the Opening Price and Commons
