@@ -58,7 +58,7 @@ function Navbar({
       <div className="bg-neon px-5 py-10">
         <img src="/assets/tec-logo-light.svg" alt="TEC Logomark" />
       </div>
-      <div className="flex flex-1 px-4 md:px-8 lg:self-end">
+      <div className="flex flex-1 px-4 md:px-8">
         <img
           className="mr-16"
           src="/assets/tec-text-light.svg"
@@ -96,7 +96,7 @@ function ConfigNavbar() {
         {configModules.map(({ id, title, href }) => (
           <Link href={href} key={id}>
             <div
-              className={`flex items-center mx-4 font-bj cursor-pointer py-10 ${
+              className={`flex items-center mx-4 font-bj cursor-pointer py-10 lg:self-end ${
                 router.pathname !== `/config/${id}`
                   ? 'text-gray-500'
                   : 'text-white border-neon border-b-2'
