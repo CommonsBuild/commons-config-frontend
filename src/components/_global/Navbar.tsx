@@ -58,9 +58,9 @@ function Navbar({
       <div className="bg-neon px-5 py-10">
         <img src="/assets/tec-logo-light.svg" alt="TEC Logomark" />
       </div>
-      <div className="flex flex-1 px-4 md:px-8">
+      <div className="flex flex-1 self-stretch px-4 md:px-8">
         <img
-          className="mr-16"
+          className="mr-16 self-center"
           src="/assets/tec-text-light.svg"
           alt="Token Engineering Commons"
         />
@@ -79,7 +79,7 @@ function CustomNavbar({
   return (
     <Navbar sticky={sticky} transparentBackground={transparentBackground}>
       <Link href={href}>
-        <button className="flex ml-auto uppercase font-bj font-bold text-neon text-xs pt-6">
+        <button className="flex self-center ml-auto uppercase font-bj font-bold text-neon text-xs pt-6">
           {text}
         </button>
       </Link>
@@ -96,7 +96,7 @@ function ConfigNavbar() {
         {configModules.map(({ id, title, href }) => (
           <Link href={href} key={id}>
             <div
-              className={`flex items-center mx-4 font-bj cursor-pointer py-10 lg:self-end ${
+              className={`flex items-center mx-4 font-bj cursor-pointer ${
                 router.pathname !== `/config/${id}`
                   ? 'text-gray-500'
                   : 'text-white border-neon border-b-2'
@@ -109,7 +109,7 @@ function ConfigNavbar() {
         ))}
       </div>
       <Link href="/config/submit">
-        <button className="font-bj font-bold text-xs text-neon uppercase ml-auto">
+        <button className="self-center font-bj font-bold text-xs text-neon uppercase ml-auto">
           QUICK CONFIGURATION
         </button>
       </Link>

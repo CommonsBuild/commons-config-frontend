@@ -265,7 +265,7 @@ function ABC() {
                 (Number(initialParams.reserveBalance) -
                   Number(ragequitAmount) -
                   Number(initialBuy)) *
-                Number(commonsTribute)
+                (Number(commonsTribute) / 100)
               }
               stepLinSpaces={stepLinSpaces ? stepLinSpaces[selectedStep] : {}}
               singleDataPoints={
