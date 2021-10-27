@@ -58,7 +58,7 @@ function Navbar({
       <div className="bg-neon px-5 py-10">
         <img src="/assets/tec-logo-light.svg" alt="TEC Logomark" />
       </div>
-      <div className="flex flex-1 px-4 md:px-8">
+      <div className="flex flex-1 px-4 md:px-8 lg:self-end">
         <img
           className="mr-16"
           src="/assets/tec-text-light.svg"
