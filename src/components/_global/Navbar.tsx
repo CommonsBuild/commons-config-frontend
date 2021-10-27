@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import classnames from 'classnames';
 
 interface NavbarProps {
@@ -87,12 +88,20 @@ function CustomNavbar({
 }
 
 function ConfigNavbar() {
+  const router = useRouter();
+
   return (
     <Navbar>
       <div className="hidden lg:flex">
         {configModules.map(({ id, title, href }) => (
           <Link href={href} key={id}>
-            <div className="flex items-center mx-4 font-bj text-white cursor-pointer">
+            <div
+              className={`flex items-center mx-4 font-bj cursor-pointer py-10 ${
+                router.pathname !== `/config/${id}`
+                  ? 'text-gray-500'
+                  : 'text-white border-neon border-b-2'
+              }`}
+            >
               <span className="text-5xl mr-4">{id}</span>
               <h3 className="font-bold text-xs w-28">{title}</h3>
             </div>
