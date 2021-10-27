@@ -1,11 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import Input from '@/components/Input';
-import {
-  Card,
-  ChartContainer,
-  ConfigNavbar as Navbar,
-} from '@/components/_global';
+import { Card, ChartContainer } from '@/components/_global';
 import { RedirectButton } from '@/components/btns';
 import { TokenFreezeThawChart } from '@/components/charts';
 import { useParams, useTokenFreezeThaw } from '@/hooks';
@@ -55,7 +51,6 @@ function TokenFreezeThaw() {
         <title>Config 1 | Commons Dashboard</title>
       </Head>
       <div className="min-h-screen h-full bg-dash bg-cover">
-        <Navbar />
         <div className="flex justify-center">
           <Card
             title="token freeze & token thaw"

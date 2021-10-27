@@ -1,10 +1,6 @@
 import Head from 'next/head';
 import Input from '@/components/Input';
-import {
-  Card,
-  ChartContainer,
-  ConfigNavbar as Navbar,
-} from '@/components/_global';
+import { Card, ChartContainer } from '@/components/_global';
 
 import { RedirectButton } from '@/components/btns';
 import { TaoVotingBar } from '@/components/charts';
@@ -143,7 +139,6 @@ function DisputableVoting() {
         <title>Config 3 | Commons Dashboard</title>
       </Head>
       <div className="min-h-screen h-full bg-dash bg-cover">
-        <Navbar />
         <div className="flex justify-center">
           <Card
             title="tao voting"
