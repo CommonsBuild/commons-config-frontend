@@ -1,13 +1,17 @@
-import Dialog from './Dialog';
+import Modal from './Modal';
 
 interface ABCScenarioDialogProps {
-  handleClose: React.MouseEventHandler<HTMLButtonElement>;
+  handleClose: () => void;
   isOpen: boolean;
 }
 
 function ABCScenarioDialog({ handleClose, isOpen }: ABCScenarioDialogProps) {
   return (
-    <Dialog isOpen={isOpen} title="How to use the ABC Simulator">
+    <Modal
+      handleClose={handleClose}
+      isOpen={isOpen}
+      title="How to use the ABC Simulator"
+    >
       <p className="font-inter text-lg text-neon-light text-center p-4">
         Use the ABC simulator to see how your configurations react to simulated
         market environments. Get started by doing the following:
@@ -29,14 +33,7 @@ function ABCScenarioDialog({ handleClose, isOpen }: ABCScenarioDialogProps) {
           </li>
         </ul>
       </p>
-
-      <button
-        className="flex m-auto uppercase font-bj font-bold text-neon text-xs py-6"
-        onClick={handleClose}
-      >
-        close
-      </button>
-    </Dialog>
+    </Modal>
   );
 }
 

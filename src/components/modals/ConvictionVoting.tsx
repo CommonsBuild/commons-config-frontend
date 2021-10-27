@@ -1,11 +1,11 @@
-import Dialog from './Dialog';
+import Modal from './Modal';
 import { ConvictionGrowthChart } from '@/components/charts';
 
 interface ConvictionGrowthDialogProps {
   convictionGrowth: string;
   convictionPercentage: number[];
   dataPoints: { [key: string]: number }[];
-  handleClose: React.MouseEventHandler<HTMLButtonElement>;
+  handleClose: () => void;
   isOpen: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   timeDays: number[];
@@ -21,7 +21,7 @@ function ConvictionGrowthDialog({
   timeDays,
 }: ConvictionGrowthDialogProps) {
   return (
-    <Dialog title="Conviction Growth" isOpen={isOpen}>
+    <Modal handleClose={handleClose} isOpen={isOpen} title="Conviction Growth">
       <div className="py-8 m-auto w-11/12">
         <ConvictionGrowthChart
           convictionPercentage={convictionPercentage}
@@ -48,13 +48,7 @@ function ConvictionGrowthDialog({
           onChange={onChange}
         />
       </div>
-      <button
-        className="flex m-auto uppercase font-bj font-bold text-neon text-xs py-6"
-        onClick={handleClose}
-      >
-        close
-      </button>
-    </Dialog>
+    </Modal>
   );
 }
 
