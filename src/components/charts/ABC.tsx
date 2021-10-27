@@ -16,7 +16,7 @@ type TextColor = 'neon' | 'white';
 interface CustomChartAxisLabelProps {
   color?: TextColor;
   label: string;
-  tooltipText?: string | React.ReactNode;
+  tooltipText: string | React.ReactNode;
 }
 
 function CustomChartAxisLabel({
@@ -189,6 +189,7 @@ function ABCChart({
           label={`COMMON POOL AT LAUNCH: ${formatOutput(
             commonPoolAmount
           )} wxDAI`}
+          tooltipText="The amount of wxDAI which will be in the Common Pool at the Commons Upgrade. This is calculated using the Hatch funds raised, Hatchers who have rage quit (Advanced), the Initial buy-in (Advanced) and the Commons Tribute."
         />
       </div>
       <div className="max-w-max h-0 text-center relative top-12 left-24">

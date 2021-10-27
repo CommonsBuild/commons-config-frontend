@@ -70,6 +70,7 @@ function DisputableVoting() {
       paramName: 'SUPPORT_REQUIRED',
       value: supportRequired,
       param: 'Support Required',
+      link: 'https://forum.tecommons.org/t/tao-voting-support-required/486',
       placeholder: '%',
       tooltipText:
         'The percent of votes that must be in favour of this proposal.',
@@ -80,6 +81,7 @@ function DisputableVoting() {
       paramName: 'MINIMUM_QUORUM',
       value: minimumQuorum,
       param: 'Minimum Quorum',
+      link: 'https://forum.tecommons.org/t/tao-voting-minimum-quorum/485',
       placeholder: '%',
       tooltipText:
         'The percent of all tokens that must vote on a proposal in order for it to be valid.',
@@ -89,6 +91,7 @@ function DisputableVoting() {
       paramName: 'VOTE_DURATION',
       value: voteDuration,
       param: 'Vote Duration',
+      link: 'https://forum.tecommons.org/t/tao-voting-vote-duration/484',
       placeholder: 'days',
       tooltipText: 'The amount of time a proposal is eligible to be voted on.',
     },
@@ -97,6 +100,7 @@ function DisputableVoting() {
       paramName: 'DELEGATED_VOTING_PERIOD',
       value: delegatedVotingPeriod,
       param: 'Delegated Voting Period',
+      link: 'https://forum.tecommons.org/t/tao-voting-delegated-voting-period/487',
       placeholder: 'days',
       tooltipText:
         'The amount of time delegates are permitted to vote on a proposal.',
@@ -106,6 +110,7 @@ function DisputableVoting() {
       paramName: 'QUIET_ENDING_PERIOD',
       value: quietEndingPeriod,
       param: 'Quiet Ending Period',
+      link: 'https://forum.tecommons.org/t/tao-voting-quiet-ending-period-and-quiet-ending-extension/488',
       placeholder: 'days',
       tooltipText:
         'If the voting outcome changes during this time the Quiet Ending Extension will trigger, extending the Vote Duration.',
@@ -115,6 +120,7 @@ function DisputableVoting() {
       paramName: 'QUIET_ENDING_EXTENSION',
       value: quietEndingExtension,
       param: 'Quiet Ending Extension',
+      link: 'https://forum.tecommons.org/t/tao-voting-quiet-ending-period-and-quiet-ending-extension/488',
       placeholder: 'days',
       tooltipText:
         'The amount of time added to the Vote Duration resulting from the vote outcome changing during the Quiet Ending.',
@@ -124,6 +130,7 @@ function DisputableVoting() {
       paramName: 'EXECUTION_DELAY',
       value: executionDelay,
       param: 'Execution Delay',
+      link: 'https://forum.tecommons.org/t/tao-voting-execution-delay/489',
       placeholder: 'days',
       tooltipText:
         'The amount of time after a vote passes before the proposed action is executed',
@@ -159,6 +166,7 @@ function DisputableVoting() {
                 }
                 placeholder={input.placeholder}
                 tooltipText={input.tooltipText}
+                link={input.link}
               />
             ))}
             <RedirectButton href="/learn/3" />

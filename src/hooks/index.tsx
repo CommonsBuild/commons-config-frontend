@@ -4,6 +4,7 @@ import {
   useConvictionVoting,
 } from './useConvictionVoting';
 import useHover from './useHover';
+import useIntersection from './useIntersection';
 import { ParamsProvider, useParams } from './useParams';
 import { TaoVotingProvider, useTaoVoting } from './useTaoVoting';
 import {
@@ -17,6 +18,7 @@ export {
   ConvictionVotingProvider,
   useConvictionVoting,
   useHover,
+  useIntersection,
   ParamsProvider,
   useParams,
   TaoVotingProvider,

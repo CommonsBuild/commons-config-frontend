@@ -14,6 +14,7 @@ import { ABCChart } from '@/components/charts';
 import { useABC, useHover, useParams } from '@/hooks';
 import { ABCAddStepDialog, ABCScenarioDialog } from '@/components/modals/';
 import { ABCTable } from '@/components/tables';
+import { initialParams } from '@/hooks/useParams';
 
 const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 const marketScenarios = [
@@ -67,7 +68,9 @@ function ABC() {
   const [selectedStep, setSelectedStep] = useState(1);
   const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
   const launchValue =
-    (1571223.57 - Number(ragequitAmount) - Number(initialBuy)) *
+    (Number(initialParams.reserveBalance) -
+      Number(ragequitAmount) -
+      Number(initialBuy)) *
     (1 - Number(commonsTribute) / 100);
   const inputs = [
     {
@@ -75,6 +78,7 @@ function ABC() {
       paramName: 'OPENING_PRICE',
       value: openingPrice,
       param: 'Opening Price',
+      link: 'https://forum.tecommons.org/t/augmented-bonding-curve-opening-price-reserve-ratio/516',
       placeholder: 'wxDAI',
       tooltipText:
         'The initial price of the TEC token after the Commons Upgrade is complete.',
@@ -84,6 +88,7 @@ function ABC() {
       paramName: 'COMMONS_TRIBUTE',
       value: commonsTribute,
       param: 'Commons Tribute',
+      link: 'https://forum.tecommons.org/t/augmented-bonding-curve-commons-tribute/517',
       placeholder: '%',
       tooltipText:
         'A percentage of the total funds raised from the Hatch is sent to the Common Pool to kick-start the Commons projects.',
@@ -93,6 +98,7 @@ function ABC() {
       paramName: 'ENTRY_TRIBUTE',
       value: entryTribute,
       param: 'Entry Tribute',
+      link: 'https://forum.tecommons.org/t/augmented-bonding-curve-entry-exit-tribute/494',
       placeholder: '%',
       tooltipText:
         'The percentage taken off BUY orders and sent to the Common Pool.',
@@ -102,6 +108,7 @@ function ABC() {
       paramName: 'EXIT_TRIBUTE',
       value: exitTribute,
       param: 'Exit Tribute',
+      link: 'https://forum.tecommons.org/t/augmented-bonding-curve-entry-exit-tribute/494',
       placeholder: '%',
       tooltipText:
         'The percentage taken off SELL orders and sent to the Common Pool.',
@@ -140,6 +147,7 @@ function ABC() {
                 param={input.param}
                 placeholder={input.placeholder}
                 tooltipText={input.tooltipText}
+                link={input.link}
                 value={input.value}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                   handleChange(event)

@@ -22,6 +22,7 @@ function TokenFreezeThaw() {
       paramName: 'OPENING_PRICE',
       value: openingPrice,
       param: 'Opening Price',
+      link: 'https://forum.tecommons.org/t/augmented-bonding-curve-opening-price-reserve-ratio/516',
       placeholder: 'wxDAI',
       tooltipText:
         'The Opening Price is the price we sell TEC tokens after the Commons Upgrade is complete.',
@@ -31,6 +32,7 @@ function TokenFreezeThaw() {
       paramName: 'TOKEN_FREEZE',
       value: tokenFreeze,
       param: 'Token Freeze',
+      link: 'https://forum.tecommons.org/t/token-freeze-token-thaw/509',
       placeholder: 'weeks',
       tooltipText:
         'Token Freeze is the duration from the initialization of the Commons which tokens remain fully locked.',
@@ -40,6 +42,7 @@ function TokenFreezeThaw() {
       paramName: 'TOKEN_THAW',
       value: tokenThaw,
       param: 'Token Thaw',
+      link: 'https://forum.tecommons.org/t/token-freeze-token-thaw/509',
       placeholder: 'weeks',
       tooltipText:
         'Token Thaw is the duration after the Token Freeze where TEC tokens gradually thaw, allowing them to become tradeable.',
@@ -71,6 +74,7 @@ function TokenFreezeThaw() {
                 }
                 placeholder={input.placeholder}
                 tooltipText={input.tooltipText}
+                link={input.link}
               />
             ))}
             <RedirectButton href="/learn/1" />
