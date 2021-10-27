@@ -9,6 +9,9 @@ const formatOutput = (output, header?: string) => {
       outputParts[1]
     }`;
   }
+  if (typeof output === 'string') {
+    return output;
+  }
   return Number(output)?.toLocaleString('en-us');
 };
 
