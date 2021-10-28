@@ -9,11 +9,11 @@ import {
 import { RedirectButton } from '@/components/btns';
 import { TaoVotingBar } from '@/components/charts';
 import { useParams, useTaoVoting } from '@/hooks';
-// import { TaoVotingTable } from '@/components/tables';
+import { TaoVotingTable } from '@/components/tables';
 import ChartLegend from '@/components/ChartLegend';
 
 function DisputableVoting() {
-  const { barChart } = useTaoVoting();
+  const { barChart, table } = useTaoVoting();
   const {
     supportRequired,
     minimumQuorum,
@@ -203,7 +203,7 @@ function DisputableVoting() {
                 />
               ))}
             </div>
-            {/* <TaoVotingTable /> */}
+            <TaoVotingTable table={table} />
           </ChartContainer>
         </div>
       </div>
