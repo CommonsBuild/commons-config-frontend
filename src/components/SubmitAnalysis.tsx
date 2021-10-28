@@ -18,6 +18,7 @@ import {
 import {
   TokenFreezeThawTable,
   ABCTable,
+  TaoVotingTable,
   ConvictionVotingTable,
 } from '@/components/tables';
 
@@ -36,7 +37,7 @@ function SubmitAnalysis({ params }) {
       Number(params.ragequitAmount) -
       Number(params.initialBuy)) *
     (1 - Number(params.commonsTribute) / 100);
-  const { barChart: taoChartData } = useTaoVoting();
+  const { barChart: taoChartData, table: taoTableData } = useTaoVoting();
   const { convictionThresholdChart, table: ConvictionVotingTableData } =
     useConvictionVoting();
 
@@ -132,7 +133,7 @@ function SubmitAnalysis({ params }) {
             }
           />
           <div className="mt-12">
-            <div>table</div>
+            <TaoVotingTable table={taoTableData} />
           </div>
         </AnalysisContainer>
         <AnalysisContainer onVisible={() => setInFocus(4)}>
