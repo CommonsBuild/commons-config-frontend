@@ -36,17 +36,20 @@ function TokenFreezeThawProvider({ children }: AppTokenFreezeThawContextProps) {
   const { openingPrice, tokenFreeze, tokenThaw } = useParams();
 
   useEffect(() => {
-    api
-      .post('/token-lockup/', {
-        openingPrice,
-        tokenFreeze,
-        tokenThaw,
-      })
-      .then((response) => {
-        const { output } = response.data;
-        setContext({ ...output });
-      })
-      .catch((e) => console.log(e));
+    const typeTimeOut = setTimeout(() => {
+      api
+        .post('/token-lockup/', {
+          openingPrice,
+          tokenFreeze,
+          tokenThaw,
+        })
+        .then((response) => {
+          const { output } = response.data;
+          setContext({ ...output });
+        })
+        .catch((e) => console.log(e));
+    }, 500);
+    return () => clearTimeout(typeTimeOut);
   }, [openingPrice, tokenFreeze, tokenThaw]);
 
   return (

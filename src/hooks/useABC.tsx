@@ -8,22 +8,25 @@ import {
 } from 'react';
 import { useParams } from '@/hooks/useParams';
 import api from '@/services/api';
+import errorToast from '@/lib/notifications/error';
 
 type ABCContextType = {
-  chart: { [key: string]: number[] };
+  price: number[];
+  balanceInThousands: number[];
   stepLinSpaces: { [key: string]: number[] }[];
-  singlePoints: { [key: string]: number }[];
+  singlePoints: any[];
   reserveRatio: number;
-  table: { [key: string]: number[] };
+  stepTable: { [key: string]: number[] };
   setContext: Dispatch<SetStateAction<ABCContextType>>;
 };
 
 const initialContext: ABCContextType = {
-  chart: {},
+  price: [],
+  balanceInThousands: [],
   stepLinSpaces: [{}],
   singlePoints: [],
   reserveRatio: 0,
-  table: {},
+  stepTable: {},
   setContext: (): void => {
     throw new Error('setContext must be overridden');
   },
@@ -53,32 +56,38 @@ function ABCProvider({ children }: AppABCContextProps) {
   } = useParams();
 
   useEffect(() => {
-    api
-      .post('/augmented-bonding-curve/', {
-        openingPrice,
-        commonsTribute: Number(commonsTribute) / 100,
-        entryTribute: Number(entryTribute) / 100,
-        exitTribute: Number(exitTribute) / 100,
-        reserveBalance,
-        stepList,
-        initialBuy,
-        ragequitAmount,
-        zoomGraph,
-        // virtualSupply,
-        // virtualBalance,
-      })
-      .then((response) => {
-        const { data } = response;
-        setContext((previousContext) => ({
-          ...previousContext,
-          chart: data.chartData as { [key: string]: number[] },
-          stepLinSpaces: data.chartData.stepLinSpaces,
-          singlePoints: data.chartData.singlePoints,
-          reserveRatio: data.chartData.reserveRatio,
-          table: data.stepTable as { [key: string]: number[] },
-        }));
-      })
-      .catch((e) => console.log('error', e));
+    console.log('trigger out');
+    const typeTimeOut = setTimeout(() => {
+      api
+        .post('/augmented-bonding-curve/', {
+          openingPrice,
+          commonsTribute: Number(commonsTribute) / 100,
+          entryTribute: Number(entryTribute) / 100,
+          exitTribute: Number(exitTribute) / 100,
+          reserveBalance,
+          stepList,
+          initialBuy,
+          ragequitAmount,
+          zoomGraph,
+          // virtualSupply,
+          // virtualBalance,
+        })
+        .then((response) => {
+          console.log('trigger in');
+          const { chartData, stepTable } = response.data;
+          setContext({
+            // chart: data.chartData as { [key: string]: number[] },
+            // stepLinSpaces: data.chartData.stepLinSpaces,
+            // singlePoints: data.chartData.singlePoints,
+            // reserveRatio: data.chartData.reserveRatio,
+            // table: data.stepTable as { [key: string]: number[] },
+            ...chartData,
+            stepTable,
+          });
+        })
+        .catch(() => errorToast());
+    }, 500);
+    return () => clearTimeout(typeTimeOut);
   }, [
     openingPrice,
     commonsTribute,

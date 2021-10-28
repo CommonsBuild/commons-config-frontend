@@ -47,24 +47,27 @@ function ConvictionVotingProvider({
   } = useParams();
 
   useEffect(() => {
-    api
-      .post('/conviction-voting/', {
-        spendingLimit: Number(spendingLimit) / 100,
-        minimumConviction: Number(minimumConviction) / 100,
-        convictionGrowth,
-        convictionVotingPeriodDays,
-      })
-      .then((response) => {
-        const { output } = response.data;
-        setContext({
-          ...output,
-          dataPoints: [
-            output.convictionGrowth80PercentageXY,
-            output.maxConvictionGrowthXY,
-          ],
-        });
-      })
-      .catch((e) => console.log(e));
+    const typeTimeOut = setTimeout(() => {
+      api
+        .post('/conviction-voting/', {
+          spendingLimit: Number(spendingLimit) / 100,
+          minimumConviction: Number(minimumConviction) / 100,
+          convictionGrowth,
+          convictionVotingPeriodDays,
+        })
+        .then((response) => {
+          const { output } = response.data;
+          setContext({
+            ...output,
+            dataPoints: [
+              output.convictionGrowth80PercentageXY,
+              output.maxConvictionGrowthXY,
+            ],
+          });
+        })
+        .catch((e) => console.log(e));
+    }, 500);
+    return () => clearTimeout(typeTimeOut);
   }, [
     spendingLimit,
     minimumConviction,
