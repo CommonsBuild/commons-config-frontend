@@ -41,7 +41,7 @@ function TableHeader({
       )}
     >
       <Tooltip isHovered={isHovered} text={tooltipText}>
-        <span className="flex" ref={hoverRef}>
+        <span className="flex flex-row" ref={hoverRef}>
           <span className="font-bj font-bold text-neon-light text-xs text-center 2xl:text-start uppercase">
             {headerText}
           </span>

@@ -1,5 +1,4 @@
-import Dialog from './Dialog';
-import { NeonButton } from '@/components/btns';
+import Modal from './Modal';
 
 interface AdvancedParametersDialogProps {
   handleClose: () => void;
@@ -11,7 +10,7 @@ function AdvancedParametersDialog({
   handleClose,
 }: AdvancedParametersDialogProps) {
   return (
-    <Dialog isOpen={isOpen} title="Advanced Settings">
+    <Modal handleClose={handleClose} isOpen={isOpen} title="Advanced Settings">
       <div className="py-4 px-10">
         <p className="font-bj text-base text-neon-light pb-4">
           In the Advanced Settings there are many parameters that could have
@@ -55,12 +54,7 @@ function AdvancedParametersDialog({
           Advanced CCD Settings (TEC Forum)
         </a>
       </div>
-      <div className="flex justify-center py-8 mx-36">
-        <NeonButton fullWidth onClick={handleClose}>
-          OK
-        </NeonButton>
-      </div>
-    </Dialog>
+    </Modal>
   );
 }
 
