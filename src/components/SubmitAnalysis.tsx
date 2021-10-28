@@ -26,11 +26,11 @@ function SubmitAnalysis({ params }) {
   const [inFocus, setInFocus] = useState<number>(1);
   const { chart, table } = useTokenFreezeThaw();
   const {
-    chart: ABCChartData,
+    balanceInThousands,
+    price,
     stepLinSpaces,
     singlePoints,
-    reserveRatio,
-    table: ABCTableData,
+    stepTable: ABCTableData,
   } = useABC();
   const launchValue =
     (Number(initialParams.reserveBalance) -
@@ -89,16 +89,10 @@ function SubmitAnalysis({ params }) {
             Augmented Bonding Curve
           </h3>
           <ABCChart
-            balanceInThousands={ABCChartData.balanceInThousands}
-            price={ABCChartData.price}
-            reserveRatio={(reserveRatio * 100).toFixed(2)}
-            commonPoolAmount={params.commonPoolAmount}
+            balanceInThousands={balanceInThousands}
+            price={price}
             stepLinSpaces={stepLinSpaces ? stepLinSpaces[0] : {}}
-            singleDataPoints={
-              Number(params.reserveBalance) !== launchValue
-                ? singlePoints?.slice(1, singlePoints.length)
-                : singlePoints
-            }
+            singleDataPoints={singlePoints}
           />
           <div className="mt-12" onClick={() => setInFocus(3)}>
             <ABCTable
