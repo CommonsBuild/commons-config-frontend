@@ -131,7 +131,7 @@ function SubmitConfig() {
       <div className="min-h-screen h-full bg-dash bg-cover">
         <Navbar>
           <button
-            className="flex ml-auto uppercase font-bj font-bold text-neon text-xs pt-6"
+            className="self-center flex ml-auto uppercase font-bj font-bold text-neon text-xs pt-6"
             onClick={() => setAnalyticsDash((previousState) => !previousState)}
           >
             {analyticsDash ? 'view parameters' : 'view analytics'}

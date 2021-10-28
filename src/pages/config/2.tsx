@@ -3,12 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import classnames from 'classnames';
 import Input from '@/components/Input';
-import {
-  Card,
-  ChartContainer,
-  ConfigNavbar as Navbar,
-  Tooltip,
-} from '@/components/_global';
+import { Card, ChartContainer, Tooltip } from '@/components/_global';
 import { LabeledRadioButton, RedirectButton } from '@/components/btns';
 import { ABCChart } from '@/components/charts';
 import { useABC, useHover, useParams } from '@/hooks';
@@ -129,7 +124,6 @@ function ABC() {
           isOpen={stepDialog}
           onClick={handleAddStep}
         />
-        <Navbar />
         <div className="flex justify-center">
           <Card
             nextHref="/config/3"

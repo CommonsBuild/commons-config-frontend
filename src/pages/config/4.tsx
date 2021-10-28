@@ -1,12 +1,7 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Input from '@/components/Input';
-import {
-  Card,
-  ChartContainer,
-  ConfigNavbar as Navbar,
-  Tooltip,
-} from '@/components/_global';
+import { Card, ChartContainer, Tooltip } from '@/components/_global';
 import { RadioButton, RedirectButton } from '@/components/btns';
 import { ConvictionThresholdChart } from '@/components/charts';
 import { useConvictionVoting, useParams } from '@/hooks';
@@ -102,7 +97,6 @@ function ConvictionVoting() {
           onChange={(event) => handleChange(event)}
           timeDays={convictionGrowthChart.timeDays}
         />
-        <Navbar />
         <div className="flex justify-center">
           <Card
             title="conviction voting"

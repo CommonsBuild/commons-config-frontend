@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import classnames from 'classnames';
+import { motion, AnimateSharedLayout } from 'framer-motion';
 
 interface NavbarProps {
   children?: React.ReactNode;
@@ -89,24 +90,46 @@ function CustomNavbar({
 
 function ConfigNavbar() {
   const router = useRouter();
+  const { pathname } = router;
 
   return (
     <Navbar>
       <div className="hidden lg:flex">
-        {configModules.map(({ id, title, href }) => (
-          <Link href={href} key={id}>
-            <div
-              className={`flex items-center mx-4 font-bj cursor-pointer ${
-                router.pathname !== `/config/${id}`
-                  ? 'text-gray-500'
-                  : 'text-white border-neon border-b-2'
-              }`}
-            >
-              <span className="text-5xl mr-4">{id}</span>
-              <h3 className="font-bold text-xs w-28">{title}</h3>
-            </div>
-          </Link>
-        ))}
+        <AnimateSharedLayout>
+          {configModules.map(({ id, title, href }) => (
+            <Link href={href} key={id} shallow>
+              <div className="flex flex-col justify-center items-center">
+                <motion.div
+                  initial={false}
+                  transition={{
+                    duration: 0.2,
+                  }}
+                  animate={{
+                    color: pathname !== `/config/${id}` ? '#595959' : '#FFFFFF',
+                  }}
+                  className={classnames(
+                    'flex items-center mx-4 m-auto font-bj cursor-pointer text-gray-500'
+                  )}
+                >
+                  <span className="text-5xl mr-4">{id}</span>
+                  <h3 className="font-bold text-xs w-28">{title}</h3>
+                </motion.div>
+                {pathname === `/config/${id}` && (
+                  <motion.div
+                    layoutId="underline"
+                    initial={false}
+                    transition={{
+                      type: 'spring',
+                      stiffness: 300,
+                      damping: 30,
+                    }}
+                    className="self-end w-full border-2 border-neon"
+                  />
+                )}
+              </div>
+            </Link>
+          ))}
+        </AnimateSharedLayout>
       </div>
       <Link href="/config/submit">
         <button className="self-center font-bj font-bold text-xs text-neon uppercase ml-auto">
