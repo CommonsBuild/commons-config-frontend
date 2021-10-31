@@ -1,60 +1,28 @@
 import React from 'react';
 import Image from 'next/image';
-import classnames from 'classnames';
 import { Line } from 'react-chartjs-2';
-import { Tooltip } from '@/components/_global';
-import { useHover } from '@/hooks';
-import ChartAxisLabel from './ChartAxisLabel';
-import formatOutput from '@/utils/formatOutput';
 
-const textColors = {
-  neon: 'text-neon',
-  white: 'text-neon-light',
+import ChartAxisLabel from './ChartAxisLabel';
+
+const handleData = (xAxesData, yAxesData) => {
+  const data = [];
+  xAxesData?.forEach((elem, index) => {
+    data.push({ x: elem, y: yAxesData[index] });
+  });
+
+  return data;
 };
 
-type TextColor = 'neon' | 'white';
-interface CustomChartAxisLabelProps {
-  color?: TextColor;
-  label: string;
-  link: string;
-  tooltipText: string | React.ReactNode;
-}
+const getColor = (array) => {
+  if (array) {
+    if (array[0] > array.at(-1)) {
+      return 'rgba(226, 65, 65, 0.7)';
+    }
 
-function CustomChartAxisLabel({
-  color = 'white',
-  label,
-  link,
-  tooltipText,
-}: CustomChartAxisLabelProps) {
-  const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
-
-  return (
-    <Tooltip isHovered={questionIsHovered} text={tooltipText}>
-      <div
-        ref={questionRef}
-        className="grid grid-flow-col gap-2 justify-between items-center p-3 bg-black-200"
-      >
-        <a href={link} target="_blank" rel="noreferrer">
-          <span
-            className={classnames(
-              'font-bj font-bold text-xs cursor-pointer',
-              textColors[color]
-            )}
-          >
-            {label}
-          </span>
-        </a>
-        <Image
-          className="m-1"
-          alt="Question mark."
-          height="12"
-          src="/questionMark.svg"
-          width="12"
-        />
-      </div>
-    </Tooltip>
-  );
-}
+    return 'rgba(65, 226, 130, 0.7)';
+  }
+  return 'transparent';
+};
 
 const options = {
   responsive: true,
@@ -97,8 +65,6 @@ const options = {
 interface ABCProps {
   balanceInThousands: number[];
   price: number[];
-  reserveRatio: string;
-  commonPoolAmount: number;
   stepLinSpaces: { [key: string]: number[] };
   singleDataPoints: any[];
 }
@@ -106,31 +72,9 @@ interface ABCProps {
 function ABCChart({
   balanceInThousands,
   price,
-  reserveRatio,
-  commonPoolAmount,
   stepLinSpaces,
   singleDataPoints,
 }: ABCProps) {
-  const handleData = (xAxesData, yAxesData) => {
-    const data = [];
-    xAxesData?.forEach((elem, index) => {
-      data.push({ x: elem, y: yAxesData[index] });
-    });
-
-    return data;
-  };
-
-  const getColor = (array) => {
-    if (array) {
-      if (array[0] > array.at(-1)) {
-        return 'rgba(226, 65, 65, 0.7)';
-      }
-
-      return 'rgba(65, 226, 130, 0.7)';
-    }
-    return 'transparent';
-  };
-
   const handleDatasets = () => {
     const datasets = [
       {
@@ -181,31 +125,6 @@ function ABCChart({
     <>
       <div className="w-20 h-0 text-right relative -top-2 -left-14">
         <ChartAxisLabel label="token price (wxdai)" />
-      </div>
-      <div className="max-w-max h-0 text-center relative -top-2 left-24">
-        <CustomChartAxisLabel
-          label={`COMMON POOL AT LAUNCH: ${formatOutput(
-            commonPoolAmount
-          )} wxDAI`}
-          link="https://forum.tecommons.org/t/augmented-bonding-curve-commons-tribute/517"
-          tooltipText="The amount of wxDAI which will be in the Common Pool at the Commons Upgrade. This is calculated using the Hatch funds raised, Hatchers who have rage quit (Advanced), the Initial buy-in (Advanced) and the Commons Tribute."
-        />
-      </div>
-      <div className="max-w-max h-0 text-center relative top-12 left-24">
-        <CustomChartAxisLabel
-          color="neon"
-          label={`RESERVE RATIO: ${reserveRatio}%`}
-          link="https://forum.tecommons.org/t/augmented-bonding-curve-opening-price-reserve-ratio/516"
-          tooltipText={
-            <span>
-              Reserve Ratio is an output of the Opening Price and Commons
-              Tribute, it defines the shape of the ABC.{' '}
-              <b className="text-neon">
-                Click to learn more about the Reserve Ratio.
-              </b>
-            </span>
-          }
-        />
       </div>
       <div className="flex justify-center py-2">
         <div className="w-11/12">

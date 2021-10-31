@@ -2,6 +2,9 @@ import { useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import classnames from 'classnames';
+import { Toaster } from 'react-hot-toast';
+import formatOutput from '@/utils/formatOutput';
+import InfoBox from '@/components/InfoBox';
 import Input from '@/components/Input';
 import { Card, ChartContainer, Tooltip } from '@/components/_global';
 import { LabeledRadioButton, RedirectButton } from '@/components/btns';
@@ -40,7 +43,14 @@ const reserveBalanceButtons = [
 ];
 
 function ABC() {
-  const { chart, stepLinSpaces, singlePoints, reserveRatio, table } = useABC();
+  const {
+    balanceInThousands,
+    price,
+    stepLinSpaces,
+    singlePoints,
+    reserveRatio,
+    stepTable,
+  } = useABC();
   const {
     openingPrice,
     commonsTribute,
@@ -233,7 +243,7 @@ function ABC() {
                   Add more steps to experience your Bonding Curve
                 </div>
                 <button
-                  disabled={table?.step?.length >= 10}
+                  disabled={stepTable?.step?.length >= 10}
                   className="flex justify-center items-center w-full h-8 border border-neon-light disabled:text-gray-400 disabled:border-gray-400"
                   onClick={() => setStepDialog(true)}
                 >
@@ -251,28 +261,45 @@ function ABC() {
             </div>
           </Card>
           <ChartContainer title="Experience your Augmented Bonding Curve by adjusting your parameters and experimenting with the Step Simulator.">
+            <div className="max-w-max h-0 text-center relative -top-2 left-24">
+              <InfoBox
+                label={`COMMON POOL AT LAUNCH: ${formatOutput(
+                  (Number(initialParams.reserveBalance) -
+                    Number(ragequitAmount) -
+                    Number(initialBuy)) *
+                    (Number(commonsTribute) / 100)
+                )} wxDAI`}
+                link="https://forum.tecommons.org/t/augmented-bonding-curve-commons-tribute/517"
+                tooltipText="The amount of wxDAI which will be in the Common Pool at the Commons Upgrade. This is calculated using the Hatch funds raised, Hatchers who have rage quit (Advanced), the Initial buy-in (Advanced) and the Commons Tribute."
+              />
+            </div>
+            <div className="max-w-max h-0 text-center relative top-12 left-24">
+              <InfoBox
+                color="neon"
+                label={`RESERVE RATIO: ${reserveRatio}%`}
+                link="https://forum.tecommons.org/t/augmented-bonding-curve-opening-price-reserve-ratio/516"
+                tooltipText={
+                  <span>
+                    Reserve Ratio is an output of the Opening Price and Commons
+                    Tribute, it defines the shape of the ABC.{' '}
+                    <b className="text-neon">
+                      Click to learn more about the Reserve Ratio.
+                    </b>
+                  </span>
+                }
+              />
+            </div>
             <ABCChart
-              balanceInThousands={chart.balanceInThousands}
-              price={chart.price}
-              reserveRatio={(reserveRatio * 100).toFixed(2)}
-              commonPoolAmount={
-                (Number(initialParams.reserveBalance) -
-                  Number(ragequitAmount) -
-                  Number(initialBuy)) *
-                (Number(commonsTribute) / 100)
-              }
+              balanceInThousands={balanceInThousands}
+              price={price}
               stepLinSpaces={stepLinSpaces ? stepLinSpaces[selectedStep] : {}}
-              singleDataPoints={
-                Number(reserveBalance) !== launchValue
-                  ? singlePoints?.slice(1, singlePoints.length)
-                  : singlePoints
-              }
+              singleDataPoints={singlePoints}
             />
             <span className="font-bj text-sm text-neon-light px-16 py-2">
               Steps
             </span>
             <div className="flex px-16 py-2">
-              {table?.step?.map((item, index) => (
+              {stepTable?.step?.map((item, index) => (
                 <div
                   className={classnames(
                     'group relative flex justify-center items-center w-12 h-12 mr-4 border',
@@ -315,7 +342,7 @@ function ABC() {
               ))}
             </div>
             <ABCTable
-              table={{ ...table }}
+              table={{ ...stepTable }}
               showStepZero={
                 Number(reserveBalance) !== launchValue && Number(initialBuy) > 0
               }
@@ -323,6 +350,7 @@ function ABC() {
           </ChartContainer>
         </div>
       </div>
+      <Toaster />
     </>
   );
 }

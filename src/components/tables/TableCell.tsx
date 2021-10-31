@@ -18,7 +18,7 @@ type Size = 's' | 'm' | 'l' | 'xl';
 
 interface TableCellProps {
   bold?: boolean;
-  content: string;
+  content: string | number;
   size?: Size;
 }
 

@@ -12,12 +12,14 @@ import api from '@/services/api';
 type TaoVotingContextType = {
   barChart: { [key: string]: { [key: string]: number } };
   pieChart: { [key: string]: number };
+  table: { [key: string]: number };
   setContext: Dispatch<SetStateAction<TaoVotingContextType>>;
 };
 
 const initialContext: TaoVotingContextType = {
   barChart: {},
   pieChart: {},
+  table: {},
   setContext: (): void => {
     throw new Error('setContext must be overridden');
   },
@@ -42,21 +44,24 @@ function TaoVotingProvider({ children }: AppTaoVotingContextProps) {
   } = useParams();
 
   useEffect(() => {
-    api
-      .post('/disputable-voting/', {
-        supportRequired: Number(supportRequired) / 100,
-        minimumQuorum: Number(minimumQuorum) / 100,
-        voteDuration,
-        delegatedVotingPeriod,
-        quietEndingPeriod,
-        quietEndingExtension,
-        executionDelay,
-      })
-      .then((response) => {
-        const { output } = response.data;
-        setContext({ ...output });
-      })
-      .catch((e) => console.log(e));
+    const typeTimeOut = setTimeout(() => {
+      api
+        .post('/disputable-voting/', {
+          supportRequired: Number(supportRequired) / 100,
+          minimumQuorum: Number(minimumQuorum) / 100,
+          voteDuration,
+          delegatedVotingPeriod,
+          quietEndingPeriod,
+          quietEndingExtension,
+          executionDelay,
+        })
+        .then((response) => {
+          const { output } = response.data;
+          setContext({ ...output });
+        })
+        .catch((e) => console.log(e));
+    }, 500);
+    return () => clearTimeout(typeTimeOut);
   }, [
     supportRequired,
     minimumQuorum,

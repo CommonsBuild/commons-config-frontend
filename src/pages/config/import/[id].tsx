@@ -3,11 +3,12 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import classnames from 'classnames';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { Navbar } from '@/components/_global';
 import api from '@/services/api';
 import { useParams } from '@/hooks';
+import errorToast from '@/lib/notifications/error';
 
 const success: Variants = {
   animate: {
@@ -87,21 +88,7 @@ function Import() {
           setParams(newParams);
           setIsLoading(response.status);
         })
-        .catch(() =>
-          toast('Something went wrong!', {
-            duration: 3000,
-            position: 'bottom-center',
-            // Styling
-            style: {
-              background: '#DEFB48',
-            },
-            className: 'font-inter font-bold',
-            ariaProps: {
-              role: 'status',
-              'aria-live': 'polite',
-            },
-          })
-        );
+        .catch(() => errorToast());
     }
   }, [id]);
 

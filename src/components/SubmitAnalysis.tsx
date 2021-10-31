@@ -18,6 +18,7 @@ import {
 import {
   TokenFreezeThawTable,
   ABCTable,
+  TaoVotingTable,
   ConvictionVotingTable,
 } from '@/components/tables';
 
@@ -25,18 +26,18 @@ function SubmitAnalysis({ params }) {
   const [inFocus, setInFocus] = useState<number>(1);
   const { chart, table } = useTokenFreezeThaw();
   const {
-    chart: ABCChartData,
+    balanceInThousands,
+    price,
     stepLinSpaces,
     singlePoints,
-    reserveRatio,
-    table: ABCTableData,
+    stepTable: ABCTableData,
   } = useABC();
   const launchValue =
     (Number(initialParams.reserveBalance) -
       Number(params.ragequitAmount) -
       Number(params.initialBuy)) *
     (1 - Number(params.commonsTribute) / 100);
-  const { barChart: taoChartData } = useTaoVoting();
+  const { barChart: taoChartData, table: taoTableData } = useTaoVoting();
   const { convictionThresholdChart, table: ConvictionVotingTableData } =
     useConvictionVoting();
 
@@ -88,16 +89,10 @@ function SubmitAnalysis({ params }) {
             Augmented Bonding Curve
           </h3>
           <ABCChart
-            balanceInThousands={ABCChartData.balanceInThousands}
-            price={ABCChartData.price}
-            reserveRatio={(reserveRatio * 100).toFixed(2)}
-            commonPoolAmount={params.commonPoolAmount}
+            balanceInThousands={balanceInThousands}
+            price={price}
             stepLinSpaces={stepLinSpaces ? stepLinSpaces[0] : {}}
-            singleDataPoints={
-              Number(params.reserveBalance) !== launchValue
-                ? singlePoints?.slice(1, singlePoints.length)
-                : singlePoints
-            }
+            singleDataPoints={singlePoints}
           />
           <div className="mt-12" onClick={() => setInFocus(3)}>
             <ABCTable
@@ -132,7 +127,7 @@ function SubmitAnalysis({ params }) {
             }
           />
           <div className="mt-12">
-            <div>table</div>
+            <TaoVotingTable table={taoTableData} />
           </div>
         </AnalysisContainer>
         <AnalysisContainer onVisible={() => setInFocus(4)}>
