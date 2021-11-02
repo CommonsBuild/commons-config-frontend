@@ -33,7 +33,7 @@ function DisputableVoting() {
       name: 'delegated voting period',
       bgColor: 'purple',
       tooltipText:
-        'The amount of time delegates are permitted to vote on a proposal.',
+        'The amount of time within the Vote Duration that delegates are permitted to vote on a proposal.',
     },
     {
       name: 'normal vote duration',
@@ -80,7 +80,7 @@ function DisputableVoting() {
       link: 'https://forum.tecommons.org/t/tao-voting-minimum-quorum/485',
       placeholder: '%',
       tooltipText:
-        'The percent of all tokens that must vote on a proposal in order for it to be valid.',
+        'The percent of all tokens that must vote YES on a proposal in order for it to be valid.',
     },
     {
       name: 'voteDuration',
@@ -99,7 +99,7 @@ function DisputableVoting() {
       link: 'https://forum.tecommons.org/t/tao-voting-delegated-voting-period/487',
       placeholder: 'days',
       tooltipText:
-        'The amount of time delegates are permitted to vote on a proposal.',
+        'The amount of time within the Vote Duration that delegates are permitted to vote on a proposal.',
     },
     {
       name: 'quietEndingPeriod',
