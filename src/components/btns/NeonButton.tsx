@@ -23,7 +23,7 @@ function NeonButton({
     <Link href={href}>
       <button
         className={classnames(
-          'h-14 px-6 mx-auto bg-neon hover:bg-neon-light-600 disabled:opacity-50 disabled:bg-gray-400 disabled:text-gray-300',
+          'h-14 px-6 mx-auto bg-neon outline-none	hover:bg-neon-light-600 disabled:opacity-50 disabled:bg-gray-400 disabled:text-gray-300',
           {
             'w-full': fullWidth,
             hidden,

@@ -2,16 +2,20 @@ import type { ReactElement } from 'react';
 import { useState } from 'react';
 
 import Intro from '@/templates/Intro';
-import { Dialog } from '@/components/modals/';
+import { Modal } from '@/components/modals/';
 
 interface DialogProps {
-  handleClose: React.MouseEventHandler<HTMLButtonElement>;
+  handleClose: () => void;
   isOpen: boolean;
 }
 
 function IntroTwoDialog({ handleClose, isOpen }: DialogProps) {
   return (
-    <Dialog isOpen={isOpen} title="The Augmented Bonding Curve (ABC)">
+    <Modal
+      handleClose={handleClose}
+      isOpen={isOpen}
+      title="The Augmented Bonding Curve (ABC)"
+    >
       <p className="font-inter text-base text-neon-light p-4">
         The Augmented Bonding Curve (ABC) is the main economic engine by which
         we will provide a constant flow of funding to the Commons Initiatives.
@@ -29,13 +33,7 @@ function IntroTwoDialog({ handleClose, isOpen }: DialogProps) {
         <li>What percent of hatch funds will go to funding Token</li>
         <li>Engineering The tribute taken from buy and sell orders</li>
       </p>
-      <button
-        className="flex m-auto uppercase font-bj font-bold text-neon text-xs py-6"
-        onClick={handleClose}
-      >
-        ok
-      </button>
-    </Dialog>
+    </Modal>
   );
 }
 

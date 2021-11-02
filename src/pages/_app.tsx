@@ -1,9 +1,11 @@
 import type { ReactElement, ReactNode } from 'react';
 import { AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/router';
 import { AppProps } from 'next/app';
 import type { NextPage } from 'next';
 
 import '../styles/global.css';
+import { ConfigNavbar as Navbar } from '@/components/_global';
 import {
   ABCProvider,
   ConvictionVotingProvider,
@@ -22,6 +24,7 @@ type AppPropsWithLayout = AppProps & {
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
+  const router = useRouter();
 
   return getLayout(
     <AnimatePresence exitBeforeEnter>
@@ -30,6 +33,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           <ABCProvider>
             <TaoVotingProvider>
               <ConvictionVotingProvider>
+                {router.pathname.match('/config/[0-9]') && <Navbar />}
                 <Component {...pageProps} />
               </ConvictionVotingProvider>
             </TaoVotingProvider>

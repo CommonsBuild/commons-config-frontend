@@ -2,16 +2,16 @@ import type { ReactElement } from 'react';
 import { useState } from 'react';
 
 import Intro from '@/templates/Intro';
-import { Dialog } from '@/components/modals/';
+import { Modal } from '@/components/modals/';
 
 interface DialogProps {
-  handleClose: React.MouseEventHandler<HTMLButtonElement>;
+  handleClose: () => void;
   isOpen: boolean;
 }
 
 function IntroThreeDialog({ handleClose, isOpen }: DialogProps) {
   return (
-    <Dialog isOpen={isOpen} title="Tao Voting">
+    <Modal handleClose={handleClose} isOpen={isOpen} title="Tao Voting">
       <p className="font-inter text-base text-neon-light p-4">
         Tao Voting (TV) is the voting process by which the Commons can modify
         its economic and governance settings post-upgrade.
@@ -27,13 +27,7 @@ function IntroThreeDialog({ handleClose, isOpen }: DialogProps) {
         <li>How long to listen for a change of outcome</li>
         <li>The amount of time that can be added for voting</li>
       </p>
-      <button
-        className="flex m-auto uppercase font-bj font-bold text-neon text-xs py-6"
-        onClick={handleClose}
-      >
-        ok
-      </button>
-    </Dialog>
+    </Modal>
   );
 }
 

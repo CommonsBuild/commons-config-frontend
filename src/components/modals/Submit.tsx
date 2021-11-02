@@ -1,8 +1,8 @@
 import Backdrop from './Backdrop';
-import Dialog from './Dialog';
+import Modal from './Modal';
 
 interface SubmitDialogProps {
-  handleClose: React.MouseEventHandler<HTMLElement>;
+  handleClose: () => void;
   isOpen: boolean;
   loading: boolean;
   url: string;
@@ -19,7 +19,7 @@ function SubmitDialog({
       <Backdrop isOpen={loading}>
         <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-neon" />
       </Backdrop>
-      <Dialog isOpen={isOpen && url !== undefined}>
+      <Modal handleClose={handleClose} isOpen={isOpen && url !== undefined}>
         <h2 className="font-bj font-bold text-xl text-neon text-center py-6 px-4">
           Congratulations!
         </h2>
@@ -34,13 +34,7 @@ function SubmitDialog({
             click here!
           </a>
         </div>
-        <button
-          className="flex m-auto uppercase font-bj font-bold text-neon text-xs py-6"
-          onClick={handleClose}
-        >
-          close
-        </button>
-      </Dialog>
+      </Modal>
     </>
   );
 }

@@ -1,19 +1,15 @@
 import Head from 'next/head';
 import Input from '@/components/Input';
-import {
-  Card,
-  ChartContainer,
-  ConfigNavbar as Navbar,
-} from '@/components/_global';
+import { Card, ChartContainer } from '@/components/_global';
 
 import { RedirectButton } from '@/components/btns';
 import { TaoVotingBar } from '@/components/charts';
 import { useParams, useTaoVoting } from '@/hooks';
-// import { TaoVotingTable } from '@/components/tables';
+import { TaoVotingTable } from '@/components/tables';
 import ChartLegend from '@/components/ChartLegend';
 
 function DisputableVoting() {
-  const { barChart } = useTaoVoting();
+  const { barChart, table } = useTaoVoting();
   const {
     supportRequired,
     minimumQuorum,
@@ -143,7 +139,6 @@ function DisputableVoting() {
         <title>Config 3 | Commons Dashboard</title>
       </Head>
       <div className="min-h-screen h-full bg-dash bg-cover">
-        <Navbar />
         <div className="flex justify-center">
           <Card
             title="tao voting"
@@ -203,7 +198,7 @@ function DisputableVoting() {
                 />
               ))}
             </div>
-            {/* <TaoVotingTable /> */}
+            <TaoVotingTable table={table} />
           </ChartContainer>
         </div>
       </div>
