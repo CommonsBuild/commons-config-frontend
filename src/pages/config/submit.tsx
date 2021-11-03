@@ -10,6 +10,7 @@ import SubmitSummary from '@/components/SubmitSummary';
 import { Navbar } from '@/components/_global';
 import { AdvancedParametersDialog, SubmitDialog } from '@/components/modals';
 import { useParams } from '@/hooks/';
+import { initialParams } from '@/hooks/useParams';
 import api from '@/services/api';
 
 async function getImage(id) {
@@ -21,13 +22,26 @@ async function getImage(id) {
 }
 
 function SubmitConfig() {
-  const { submitProposal, handleChange, setParams, ...params } = useParams();
+  const {
+    ragequitAmount,
+    initialBuy,
+    commonsTribute,
+    submitProposal,
+    handleChange,
+    setParams,
+    ...params
+  } = useParams();
   const [dialog, setDialog] = useState<boolean>(false);
   const [advancedDialog, setAdvancedDialog] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [advancedParams, setAdvancedParams] = useState<boolean>(false);
   const [analyticsDash, setAnalyticsDash] = useState<boolean>(false);
   const [url, setUrl] = useState(undefined);
+  const launchValue =
+    (Number(initialParams.reserveBalance) -
+      Number(ragequitAmount) -
+      Number(initialBuy)) *
+    (1 - Number(commonsTribute) / 100);
 
   useEffect(() => {
     if (params.convictionGrowth === '') {
@@ -52,9 +66,9 @@ function SubmitConfig() {
       augmentedBondingCurve: {
         strategy: params.ABCStrategy,
         openingPrice: params.openingPrice,
-        commonsTribute: Number(params.commonsTribute) / 100,
-        ragequitAmount: Number(params.ragequitAmount),
-        initialBuy: params.initialBuy,
+        commonsTribute: Number(commonsTribute) / 100,
+        ragequitAmount: Number(ragequitAmount),
+        initialBuy,
         entryTribute: Number(params.entryTribute) / 100,
         exitTribute: Number(params.exitTribute) / 100,
         reserveBalance: params.reserveBalance,
@@ -94,8 +108,8 @@ function SubmitConfig() {
         challengeDeposit: Number(params.challengeDeposit),
         settlementPeriod: Number(params.settlementPeriod),
         minimumEffectiveSupply: Number(params.minimumEffectiveSupply) / 100,
-        ragequitAmount: Number(params.ragequitAmount),
-        initialBuy: Number(params.initialBuy),
+        ragequitAmount: Number(ragequitAmount),
+        initialBuy: Number(initialBuy),
       },
     };
 
@@ -213,7 +227,13 @@ function SubmitConfig() {
               handleChange={handleChange}
               advancedParams={advancedParams}
               setAdvancedDialog={setAdvancedDialog}
-              submitParams={() => setAnalyticsDash(true)}
+              submitParams={() => {
+                setAnalyticsDash(true);
+                setParams((previousParams) => ({
+                  ...previousParams,
+                  reserveBalance: String(launchValue),
+                }));
+              }}
               submitProposal={submitProposal}
             />
           )}

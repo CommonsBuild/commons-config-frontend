@@ -370,7 +370,7 @@ const SubmitSummary = ({
           fullWidth
           disabled={!submitProposal || params.title === ''}
         >
-          <span>SUBMIT PROPOSAL</span>
+          <span>GO TO ANALYTICS</span>
         </NeonButton>
       </div>
     </>
