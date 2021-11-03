@@ -295,10 +295,10 @@ function ABC() {
               stepLinSpaces={stepLinSpaces ? stepLinSpaces[selectedStep] : {}}
               singleDataPoints={singlePoints}
             />
-            <span className="font-bj text-sm text-neon-light px-16 py-2">
+            <span className="font-bj text-sm text-neon-light px-16 pt-6 pb-2">
               Steps
             </span>
-            <div className="flex px-16 py-2">
+            <div className="flex px-16 pt-2 pb-6">
               {stepTable?.step?.map((item, index) => (
                 <div
                   className={classnames(

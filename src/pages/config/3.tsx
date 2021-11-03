@@ -187,7 +187,7 @@ function DisputableVoting() {
                 barChart.proposalProcessWithExtension?.executionDelay
               }
             />
-            <div className="grid grid-rows-3 grid-flow-col text-gray pl-14">
+            <div className="grid grid-rows-3 grid-flow-col text-gray pl-14 pb-6">
               {barChartLegend.map((legend, index) => (
                 <ChartLegend
                   key={index}
