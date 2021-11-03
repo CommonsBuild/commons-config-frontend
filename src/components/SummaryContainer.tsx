@@ -4,7 +4,7 @@ import TextArea from '@/components/TextArea';
 import { Card } from '@/components/_global';
 
 interface SummaryContainerProps {
-  inputList: { [key: string]: string }[];
+  inputList: { [key: string]: any }[];
   title: string;
   textAreaName: string;
   textAreaValue: string;
@@ -30,6 +30,8 @@ function SummaryContainer({
             link={input.link}
             param={input.param}
             placeholder={input.placeholder}
+            options={input.options}
+            select={input.select}
             tooltipText={input.tooltipText}
             value={input.value}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
