@@ -276,7 +276,7 @@ function ABC() {
             <div className="max-w-max h-0 text-center relative top-12 left-24">
               <InfoBox
                 color="neon"
-                label={`RESERVE RATIO: ${formatOutput(reserveRatio * 100)}%`}
+                label={`RESERVE RATIO: ${(reserveRatio * 100).toFixed(2)}%`}
                 link="https://forum.tecommons.org/t/augmented-bonding-curve-opening-price-reserve-ratio/516"
                 tooltipText={
                   <span>
