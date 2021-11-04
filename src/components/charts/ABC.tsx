@@ -44,6 +44,9 @@ const options = {
       },
       ticks: {
         color: '#FFFFFF',
+        callback(value) {
+          return `${value}K`;
+        },
       },
     },
     yAxes: {
