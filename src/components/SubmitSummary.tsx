@@ -185,12 +185,12 @@ const SubmitSummary = ({
   ];
 
   const advancedParameters = [
-    {
-      name: 'commonPoolAmount',
-      value: params.commonPoolAmount,
-      param: 'Common Pool Amount',
-      placeholder: 'wxDAI',
-    },
+    // {
+    //   name: 'commonPoolAmount',
+    //   value: params.commonPoolAmount,
+    //   param: 'Common Pool Amount',
+    //   placeholder: 'wxDAI',
+    // },
     {
       name: 'HNYLiquidity',
       value: params.HNYLiquidity,
