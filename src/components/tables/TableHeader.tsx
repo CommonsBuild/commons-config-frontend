@@ -22,7 +22,7 @@ type Size = 's' | 'm' | 'l' | 'xl';
 interface TableHeaderProps {
   headerText: string;
   size?: Size;
-  tooltipText?: string;
+  tooltipText?: string | React.ReactNode;
 }
 
 function TableHeader({
