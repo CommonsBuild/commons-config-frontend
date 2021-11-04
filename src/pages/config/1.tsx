@@ -75,7 +75,7 @@ function TokenFreezeThaw() {
             <RedirectButton href="/learn/1" />
           </Card>
           <ChartContainer title="Analyze how the price floor of the TEC token reacts with changes made to parameters in this module.">
-            <TokenFreezeThawChart price={chart?.price} week={chart?.week} />
+            <TokenFreezeThawChart price={chart?.price} week={chart?.week} />4
             <TokenFreezeThawTable table={table} />
           </ChartContainer>
         </div>
