@@ -69,7 +69,7 @@ function DisputableVoting() {
       link: 'https://forum.tecommons.org/t/tao-voting-support-required/486',
       placeholder: '%',
       tooltipText:
-        'The percent of votes that must be in favour of this proposal.',
+        'The percent of YES votes relative to NO votes needed to pass this proposal.',
       interval: { min: 50, max: 100 },
     },
     {
