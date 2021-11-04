@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import classnames from 'classnames';
@@ -42,15 +42,6 @@ function SubmitConfig() {
       Number(ragequitAmount) -
       Number(initialBuy)) *
     (1 - Number(commonsTribute) / 100);
-
-  useEffect(() => {
-    if (params.convictionGrowth === '') {
-      setParams((previousParams) => ({
-        ...previousParams,
-        convictionGrowth: '5',
-      }));
-    }
-  }, []);
 
   async function submitParams() {
     setLoading(true);
@@ -223,7 +214,6 @@ function SubmitConfig() {
             />
           ) : (
             <SubmitSummary
-              params={params}
               handleChange={handleChange}
               advancedParams={advancedParams}
               setAdvancedDialog={setAdvancedDialog}
@@ -232,6 +222,7 @@ function SubmitConfig() {
                 setParams((previousParams) => ({
                   ...previousParams,
                   reserveBalance: String(launchValue),
+                  convictionVotingPeriodDays: '14',
                 }));
               }}
               submitProposal={submitProposal}

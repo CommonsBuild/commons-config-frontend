@@ -3,15 +3,17 @@ import Link from 'next/link';
 import SummaryContainer from '@/components/SummaryContainer';
 import TextArea from '@/components/TextArea';
 import { NeonButton } from '@/components/btns';
+import { useParams } from '@/hooks';
 
 const SubmitSummary = ({
-  params,
   handleChange,
   advancedParams,
   setAdvancedDialog,
   submitParams,
   submitProposal,
 }) => {
+  const { setParams, ...params } = useParams();
+
   const freezeThawInputs = [
     {
       name: 'openingPrice',

@@ -78,14 +78,15 @@ function ConvictionThresholdChart({
   };
   return (
     <div className="bg-black" id="conviction-chart">
-      <div className="w-48 text-center relative top-36 -left-20">
+      <div className="w-48 h-0 text-center relative top-36 -left-20">
         <ChartAxisLabel
           label={
-            <span className="font-bj font-bold text-xxs text-neon-light uppercase">
+            <span>
               % of <b className="text-neon">effective supply</b> voting on this
               proposal
             </span>
           }
+          // label="aaaaaaaaaaaaaaaaaaaaaa"
           rotate
           tooltipPosition="left"
           tooltipText="Effective Supply is the amount of tokens currently voting on all proposals in Conviction Voting. This percentage is the relative amount of TEC tokens staked on this proposal."
@@ -101,7 +102,12 @@ function ConvictionThresholdChart({
       </div>
       <div className="w-72 h-0 ml-auto text-center relative bottom-8 right-1/3 z-10">
         <ChartAxisLabel
-          label="% of common pool funds being requested"
+          label={
+            <span>
+              % of <b className="text-neon">common pool</b> funds being
+              requested
+            </span>
+          }
           tooltipText="The Common Pool holds funds that will be used for realizing the initiatives of the TEC."
         />
       </div>

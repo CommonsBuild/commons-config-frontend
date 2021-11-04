@@ -215,7 +215,6 @@
 .tooltip-left {
   width: 270px;
   top: 50%;
-  left: -286px;
   transform: translateY(-50%);
 }
 

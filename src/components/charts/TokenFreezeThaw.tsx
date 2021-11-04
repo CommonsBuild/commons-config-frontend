@@ -64,7 +64,7 @@ const TokenFreezeThawChart = ({ price, week }: TokenFreezeThawProps) => {
   };
   return (
     <div className="bg-black" id="freeze-thaw-chart">
-      <div className="w-32 h-0 text-center relative top-36 -left-8">
+      <div className="w-48 h-0 text-center relative top-36 -left-8">
         <ChartAxisLabel
           label="price floor (wxdai)"
           rotate
