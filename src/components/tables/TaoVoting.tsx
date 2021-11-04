@@ -21,7 +21,7 @@ function TaoVotingTable({ table }: TaoVotingTableProps) {
       content={
         <TableRow>
           <TableCell
-            content="Total amount of time to complete a vote"
+            content="Total amount of days to complete a vote"
             size="xl"
           />
           <TableCell content={table.noExtension} size="xl" />
