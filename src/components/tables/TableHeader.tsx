@@ -20,12 +20,14 @@ const headerMaxSize = {
 type Size = 's' | 'm' | 'l' | 'xl';
 
 interface TableHeaderProps {
+  bold?: boolean;
   headerText: string;
   size?: Size;
   tooltipText?: string;
 }
 
 function TableHeader({
+  bold = true,
   headerText,
   size = 'm',
   tooltipText,
@@ -42,7 +44,12 @@ function TableHeader({
     >
       <Tooltip isHovered={isHovered} text={tooltipText}>
         <span className="flex flex-row" ref={hoverRef}>
-          <span className="font-bj font-bold text-neon-light text-xs text-center 2xl:text-start uppercase">
+          <span
+            className={classnames(
+              'font-bj text-neon-light text-xs text-center 2xl:text-start uppercase',
+              bold && 'font-bold'
+            )}
+          >
             {headerText}
           </span>
           {tooltipText && (
