@@ -3,6 +3,7 @@ import { Link as LinkScroll } from 'react-scroll';
 import classnames from 'classnames';
 import AnalysisContainer from './AnalysisContainer';
 import { initialParams } from '@/hooks/useParams';
+import { NeonButton } from '@/components/btns';
 import {
   ABCChart,
   ConvictionThresholdChart,
@@ -22,7 +23,7 @@ import {
   ConvictionVotingTable,
 } from '@/components/tables';
 
-function SubmitAnalysis({ params }) {
+function SubmitAnalysis({ params, submitParams, submitProposal }) {
   const [inFocus, setInFocus] = useState<number>(1);
   const { chart, table } = useTokenFreezeThaw();
   const {
@@ -145,6 +146,16 @@ function SubmitAnalysis({ params }) {
             <ConvictionVotingTable table={ConvictionVotingTableData} />
           </div>
         </AnalysisContainer>
+        <div className="mt-12">
+          <NeonButton
+            href=""
+            onClick={submitParams}
+            fullWidth
+            disabled={!submitProposal || params.title === ''}
+          >
+            <span>SUBMIT PROPOSAL</span>
+          </NeonButton>
+        </div>
       </div>
     </div>
   );

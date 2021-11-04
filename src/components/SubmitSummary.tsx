@@ -214,6 +214,18 @@ const SubmitSummary = ({
       placeholder: 'wxDAI',
     },
     {
+      name: 'transferable',
+      value: params.transferable,
+      param: 'Transferable',
+      placeholder: '',
+      options: [
+        { label: 'Yes', value: 'true' },
+        { label: 'No', value: 'false' },
+      ],
+      select: true,
+      tooltipText: '',
+    },
+    {
       name: 'tokenName',
       value: params.tokenName,
       param: 'Token Name',
@@ -358,7 +370,7 @@ const SubmitSummary = ({
           fullWidth
           disabled={!submitProposal || params.title === ''}
         >
-          <span>SUBMIT PROPOSAL</span>
+          <span>GO TO ANALYTICS</span>
         </NeonButton>
       </div>
     </>
