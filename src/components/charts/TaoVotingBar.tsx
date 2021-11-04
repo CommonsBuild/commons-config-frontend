@@ -17,11 +17,6 @@ const barChartLegend = [
       'The amount of time delegates are permitted to vote on a proposal.',
   },
   {
-    name: 'normal vote duration',
-    bgColor: 'dark-blue',
-    tooltipText: 'The amount of time a proposal is eligible to be voted on.',
-  },
-  {
     name: 'quiet ending period',
     bgColor: 'orange',
     tooltipText:
@@ -38,6 +33,11 @@ const barChartLegend = [
     bgColor: 'turquoise',
     tooltipText:
       'The amount of time after a vote passes before the proposed action is executed',
+  },
+  {
+    name: 'normal vote duration',
+    bgColor: 'dark-blue',
+    tooltipText: 'The amount of time a proposal is eligible to be voted on.',
   },
 ];
 
@@ -149,13 +149,12 @@ function TaoVotingBar({
           />
         </div>
       </div>
-      <div className="grid grid-rows-3 grid-flow-col text-gray pl-14 pb-6">
+      <div className="grid grid-rows-2 grid-flow-col text-gray pl-14 pb-6">
         {barChartLegend.map((legend, index) => (
           <ChartLegend
             key={index}
             name={legend.name}
             bgColor={legend.bgColor}
-            colAlign
             tooltipText={legend.tooltipText}
           />
         ))}
