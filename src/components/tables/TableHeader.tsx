@@ -23,7 +23,7 @@ interface TableHeaderProps {
   bold?: boolean;
   headerText: string;
   size?: Size;
-  tooltipText?: string;
+  tooltipText?: string | React.ReactNode;
 }
 
 function TableHeader({
