@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
 import ChartAxisLabel from './ChartAxisLabel';
 import ChartGrid from '@/components/ChartGrid';
@@ -31,13 +31,7 @@ const options = {
         display: false,
         borderColor: '#03B3FF',
       },
-      ticks: {
-        color: '#FFFFFF',
-        stepSize: 0.2,
-        callback(value) {
-          return `${value.toFixed(2)}`;
-        },
-      },
+      ticks: {},
       beginAtZero: true,
       position: 'left',
     },
@@ -47,9 +41,14 @@ const options = {
 interface TokenFreezeThawProps {
   price: number[];
   week: number[];
+  format?: boolean;
 }
 
-const TokenFreezeThawChart = ({ price, week }: TokenFreezeThawProps) => {
+const TokenFreezeThawChart = ({
+  price,
+  week,
+  format,
+}: TokenFreezeThawProps) => {
   const data = {
     labels: week || ['0'],
     datasets: [
@@ -65,6 +64,24 @@ const TokenFreezeThawChart = ({ price, week }: TokenFreezeThawProps) => {
       },
     ],
   };
+
+  useEffect(() => {
+    if (format) {
+      options.scales.yAxes.ticks = {
+        color: '#FFFFFF',
+        stepSize: 20,
+        callback(value) {
+          return `${value.toFixed(2)}%`;
+        },
+      };
+    } else {
+      options.scales.yAxes.ticks = {
+        color: '#FFFFFF',
+        stepSize: 0.2,
+      };
+    }
+  }, []);
+
   return (
     <ChartGrid
       id="freeze-thaw-chart"

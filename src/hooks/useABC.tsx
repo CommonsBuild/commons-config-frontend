@@ -16,6 +16,7 @@ type ABCContextType = {
   stepLinSpaces: { [key: string]: number[] }[];
   singlePoints: any[];
   reserveRatio: number;
+  milestoneTable: { [key: string]: number[] };
   stepTable: { [key: string]: number[] };
   setContext: Dispatch<SetStateAction<ABCContextType>>;
 };
@@ -26,6 +27,7 @@ const initialContext: ABCContextType = {
   stepLinSpaces: [{}],
   singlePoints: [],
   reserveRatio: 0,
+  milestoneTable: {},
   stepTable: {},
   setContext: (): void => {
     throw new Error('setContext must be overridden');
@@ -72,14 +74,10 @@ function ABCProvider({ children }: AppABCContextProps) {
           // virtualBalance,
         })
         .then((response) => {
-          const { chartData, stepTable } = response.data;
+          const { chartData, milestoneTable, stepTable } = response.data;
           setContext({
-            // chart: data.chartData as { [key: string]: number[] },
-            // stepLinSpaces: data.chartData.stepLinSpaces,
-            // singlePoints: data.chartData.singlePoints,
-            // reserveRatio: data.chartData.reserveRatio,
-            // table: data.stepTable as { [key: string]: number[] },
             ...chartData,
+            milestoneTable,
             stepTable,
           });
         })
