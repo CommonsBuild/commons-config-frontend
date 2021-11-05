@@ -74,7 +74,6 @@ function Input({
           />
         ) : (
           <input
-            type="number"
             min={min}
             max={max}
             name={name}

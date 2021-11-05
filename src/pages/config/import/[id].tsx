@@ -70,7 +70,6 @@ function Import() {
           const { strategy: convictionStrategy, ...conviction } =
             convictionVoting;
           const { strategy: advancedStrategy, ...advanced } = advancedSettings;
-          console.log(advanced);
           const newParams = {
             title,
             overallStrategy,
