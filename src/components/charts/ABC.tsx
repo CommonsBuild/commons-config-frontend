@@ -1,8 +1,7 @@
 import React from 'react';
-import Image from 'next/image';
 import { Line } from 'react-chartjs-2';
-
 import ChartAxisLabel from './ChartAxisLabel';
+import ChartGrid from '../ChartGrid';
 
 const handleData = (xAxesData, yAxesData) => {
   const data = [];
@@ -44,6 +43,9 @@ const options = {
       },
       ticks: {
         color: '#FFFFFF',
+        callback(value) {
+          return `${value}K`;
+        },
       },
     },
     yAxes: {
@@ -122,22 +124,12 @@ function ABCChart({
   };
 
   return (
-    <div className="bg-black" id="abc-chart">
-      <div className="w-32 h-0 text-center relative top-36 -left-12">
-        <ChartAxisLabel label="token price (wxdai)" rotate />
-      </div>
-      <div className="flex justify-center py-2 mb-8">
-        <div className="w-11/12">
-          <Line data={data} options={options} />
-          <div className="relative h-3/5 abc-chart">
-            <Image layout="fill" src="/chart_bg.png" />
-          </div>
-        </div>
-      </div>
-      <div className="w-72 h-0 ml-auto text-center relative bottom-8 right-1/3">
-        <ChartAxisLabel label="reserve balance (wxDAI)" />
-      </div>
-    </div>
+    <ChartGrid
+      id="abc-chart"
+      chart={<Line data={data} options={options} />}
+      xAxisLabel={<ChartAxisLabel label="reserve balance (wxDAI)" />}
+      yAxisLabel={<ChartAxisLabel label="token price (wxdai)" rotate />}
+    />
   );
 }
 
