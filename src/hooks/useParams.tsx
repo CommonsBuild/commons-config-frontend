@@ -132,7 +132,6 @@ function ParamsProvider({ children }: AppParamsContextProps) {
   const [submitProposalState, setSubmitProposal] = useState(false);
 
   useEffect(() => {
-    console.log(JSON.parse(localStorage.getItem('params')));
     setParams(JSON.parse(localStorage.getItem('params')) || initialParams);
   }, []);
 
