@@ -6,16 +6,10 @@ import useHover from '@/hooks/useHover';
 interface ChartLegendProps {
   name: string;
   bgColor?: string;
-  colAlign?: boolean;
   tooltipText?: string;
 }
 
-function ChartLegend({
-  name,
-  bgColor,
-  colAlign,
-  tooltipText,
-}: ChartLegendProps) {
+function ChartLegend({ name, bgColor, tooltipText }: ChartLegendProps) {
   const [hoverRef, isHovered] = useHover<HTMLDivElement>();
   const legendColors = {
     yellow: 'bg-chart-yellow',
@@ -27,11 +21,7 @@ function ChartLegend({
   };
 
   return (
-    <div
-      className={classnames('flex p-2 my-2', {
-        'last:col-start-3': colAlign,
-      })}
-    >
+    <div className="flex p-2 my-2">
       <Tooltip text={tooltipText} isHovered={isHovered}>
         <div className={classnames('h-4 w-4 mr-4', legendColors[bgColor])} />
         <span

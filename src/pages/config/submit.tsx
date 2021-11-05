@@ -1,34 +1,49 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import classnames from 'classnames';
 import toast, { Toaster } from 'react-hot-toast';
+import * as htmlToImage from 'html-to-image';
+import FormData from 'form-data';
 import SubmitAnalysis from '@/components/SubmitAnalysis';
 import SubmitSummary from '@/components/SubmitSummary';
 import { Navbar } from '@/components/_global';
 import { AdvancedParametersDialog, SubmitDialog } from '@/components/modals';
 import { useParams } from '@/hooks/';
+import { initialParams } from '@/hooks/useParams';
 import api from '@/services/api';
 
+async function getImage(id) {
+  let image;
+  await htmlToImage.toBlob(document.getElementById(id)).then((dataUrl) => {
+    image = dataUrl;
+  });
+  return image;
+}
+
 function SubmitConfig() {
-  const { submitProposal, handleChange, setParams, ...params } = useParams();
+  const {
+    ragequitAmount,
+    initialBuy,
+    commonsTribute,
+    submitProposal,
+    handleChange,
+    setParams,
+    ...params
+  } = useParams();
   const [dialog, setDialog] = useState<boolean>(false);
   const [advancedDialog, setAdvancedDialog] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [advancedParams, setAdvancedParams] = useState<boolean>(false);
   const [analyticsDash, setAnalyticsDash] = useState<boolean>(false);
   const [url, setUrl] = useState(undefined);
+  const launchValue =
+    (Number(initialParams.reserveBalance) -
+      Number(ragequitAmount) -
+      Number(initialBuy)) *
+    (1 - Number(commonsTribute) / 100);
 
-  useEffect(() => {
-    if (params.convictionGrowth === '') {
-      setParams((previousParams) => ({
-        ...previousParams,
-        convictionGrowth: '5',
-      }));
-    }
-  }, []);
-
-  function submitParams() {
+  async function submitParams() {
     setLoading(true);
     const chosenParams = {
       title: params.title,
@@ -42,9 +57,9 @@ function SubmitConfig() {
       augmentedBondingCurve: {
         strategy: params.ABCStrategy,
         openingPrice: params.openingPrice,
-        commonsTribute: Number(params.commonsTribute) / 100,
-        ragequitAmount: Number(params.ragequitAmount),
-        initialBuy: params.initialBuy,
+        commonsTribute: Number(commonsTribute) / 100,
+        ragequitAmount: Number(ragequitAmount),
+        initialBuy,
         entryTribute: Number(params.entryTribute) / 100,
         exitTribute: Number(params.exitTribute) / 100,
         reserveBalance: params.reserveBalance,
@@ -84,13 +99,29 @@ function SubmitConfig() {
         challengeDeposit: Number(params.challengeDeposit),
         settlementPeriod: Number(params.settlementPeriod),
         minimumEffectiveSupply: Number(params.minimumEffectiveSupply) / 100,
-        ragequitAmount: Number(params.ragequitAmount),
-        initialBuy: Number(params.initialBuy),
+        ragequitAmount: Number(ragequitAmount),
+        initialBuy: Number(initialBuy),
       },
     };
 
+    const tokenLockup = await getImage('freeze-thaw-chart');
+    const abc = await getImage('abc-chart');
+    const taoVoting = await getImage('tao-chart');
+    const convictionVoting = await getImage('conviction-chart');
+
+    const body = new FormData();
+    body.append('body', JSON.stringify({ ...chosenParams }));
+    body.append('tokenLockup', tokenLockup);
+    body.append('abc', abc);
+    body.append('taoVoting', taoVoting);
+    body.append('convictionVoting', convictionVoting);
+
     api
-      .post('/issue-generator/', chosenParams)
+      .post('/issue-generator/', body, {
+        headers: {
+          'Content-Type': `multipart/form-data`,
+        },
+      })
       .then((response) => {
         setUrl(response.data.url);
         setLoading(false);
@@ -176,14 +207,24 @@ function SubmitConfig() {
           )}
         >
           {analyticsDash ? (
-            <SubmitAnalysis params={params} />
+            <SubmitAnalysis
+              params={params}
+              submitParams={submitParams}
+              submitProposal={submitProposal}
+            />
           ) : (
             <SubmitSummary
-              params={params}
               handleChange={handleChange}
               advancedParams={advancedParams}
               setAdvancedDialog={setAdvancedDialog}
-              submitParams={submitParams}
+              submitParams={() => {
+                setAnalyticsDash(true);
+                setParams((previousParams) => ({
+                  ...previousParams,
+                  reserveBalance: String(launchValue),
+                  convictionVotingPeriodDays: '14',
+                }));
+              }}
               submitProposal={submitProposal}
             />
           )}

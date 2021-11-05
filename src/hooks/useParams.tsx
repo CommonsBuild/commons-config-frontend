@@ -21,7 +21,7 @@ type ParamsContextType = {
   commonsTribute: string;
   entryTribute: string;
   exitTribute: string;
-  initialBuy: string;
+  initialBuy: string | number;
   reserveBalance: string;
   ragequitAmount: string;
   stepList: (number | string)[][];

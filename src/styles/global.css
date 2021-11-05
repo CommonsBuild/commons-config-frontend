@@ -85,6 +85,21 @@
   top: calc(-40px + -50%);
 }
 
+.chart-grid {
+  grid-template-rows: 1fr 2rem;
+  grid-template-columns: 2rem 1fr;
+}
+
+.rotate-chart-axis {
+  padding-top: 47%;
+}
+
+@media only screen and (max-width: 1440px) {
+  .rotate-chart-axis {
+    padding-top: calc(50% - 64px);
+  }
+}
+
 .abc-chart {
   width: 94%;
   margin-left: 4%;

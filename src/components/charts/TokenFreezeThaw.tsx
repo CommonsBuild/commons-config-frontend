@@ -1,7 +1,7 @@
 import React from 'react';
-import Image from 'next/image';
 import { Line } from 'react-chartjs-2';
 import ChartAxisLabel from './ChartAxisLabel';
+import ChartGrid from '@/components/ChartGrid';
 
 const options = {
   responsive: true,
@@ -34,6 +34,9 @@ const options = {
       ticks: {
         color: '#FFFFFF',
         stepSize: 0.2,
+        callback(value) {
+          return `${value.toFixed(2)}`;
+        },
       },
       beginAtZero: true,
       position: 'left',
@@ -63,25 +66,19 @@ const TokenFreezeThawChart = ({ price, week }: TokenFreezeThawProps) => {
     ],
   };
   return (
-    <>
-      <div className="w-20 h-0 text-right relative -top-2 -left-14">
+    <ChartGrid
+      id="freeze-thaw-chart"
+      chart={<Line data={data} options={options} />}
+      xAxisLabel={<ChartAxisLabel label="time (weeks)" />}
+      yAxisLabel={
         <ChartAxisLabel
-          label="price floor (wxdai)"
+          label={<span>price floor (wxdai)</span>}
+          rotate
+          tooltipPosition="left"
           tooltipText="The price floor is the minimum possible price of the token. This is a result of tokens being frozen and is affected by the paramaters Token Freeze & Token Thaw."
         />
-      </div>
-      <div className="flex justify-center py-2">
-        <div className="w-11/12">
-          <Line data={data} options={options} />
-          <div className="relative h-3/5 abc-chart">
-            <Image layout="fill" src="/chart_bg.png" />
-          </div>
-        </div>
-      </div>
-      <div className="w-24 h-0 ml-auto text-right relative bottom-12 -right-12">
-        <ChartAxisLabel label="time (weeks)" />
-      </div>
-    </>
+      }
+    />
   );
 };
 

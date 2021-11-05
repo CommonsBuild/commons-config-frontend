@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import classnames from 'classnames';
 import { motion, AnimateSharedLayout } from 'framer-motion';
+import { useParams } from '@/hooks';
 
 interface NavbarProps {
   children?: React.ReactNode;
@@ -91,6 +92,7 @@ function CustomNavbar({
 function ConfigNavbar() {
   const router = useRouter();
   const { pathname } = router;
+  const { setParams, convictionGrowth } = useParams();
 
   return (
     <Navbar>
@@ -132,7 +134,15 @@ function ConfigNavbar() {
         </AnimateSharedLayout>
       </div>
       <Link href="/config/submit">
-        <button className="self-center font-bj font-bold text-xs text-neon uppercase ml-auto">
+        <button
+          className="self-center font-bj font-bold text-xs text-neon uppercase ml-auto"
+          onClick={() =>
+            setParams((previousParams) => ({
+              ...previousParams,
+              convictionGrowth: convictionGrowth || '5',
+            }))
+          }
+        >
           QUICK CONFIGURATION
         </button>
       </Link>

@@ -56,7 +56,6 @@ function ABCProvider({ children }: AppABCContextProps) {
   } = useParams();
 
   useEffect(() => {
-    console.log('trigger out');
     const typeTimeOut = setTimeout(() => {
       api
         .post('/augmented-bonding-curve/', {
@@ -73,7 +72,6 @@ function ABCProvider({ children }: AppABCContextProps) {
           // virtualBalance,
         })
         .then((response) => {
-          console.log('trigger in');
           const { chartData, stepTable } = response.data;
           setContext({
             // chart: data.chartData as { [key: string]: number[] },

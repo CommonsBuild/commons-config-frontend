@@ -95,7 +95,7 @@ function ABC() {
       link: 'https://forum.tecommons.org/t/augmented-bonding-curve-commons-tribute/517',
       placeholder: '%',
       tooltipText:
-        'A percentage of the total funds raised from the Hatch is sent to the Common Pool to kick-start the Commons projects.',
+        'This is a percentage of the total funds raised from the Hatch, and is sent to the Common Pool to kick-start the Commons project. The remaining percentage determines the Reserve Balance.',
     },
     {
       name: 'entryTribute',
@@ -295,10 +295,10 @@ function ABC() {
               stepLinSpaces={stepLinSpaces ? stepLinSpaces[selectedStep] : {}}
               singleDataPoints={singlePoints}
             />
-            <span className="font-bj text-sm text-neon-light px-16 py-2">
+            <span className="font-bj text-sm text-neon-light px-16 pt-6 pb-2">
               Steps
             </span>
-            <div className="flex px-16 py-2">
+            <div className="flex px-16 pt-2 pb-6">
               {stepTable?.step?.map((item, index) => (
                 <div
                   className={classnames(

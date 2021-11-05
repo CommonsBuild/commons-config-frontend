@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import classnames from 'classnames';
 import { Tooltip } from '@/components/_global';
 import { useHover } from '@/hooks';
 import Select from './Select';
@@ -37,6 +38,7 @@ function Input({
   onChange,
 }: InputProps) {
   const [hoverRef, isHovered] = useHover<HTMLDivElement>();
+  const error = min > Number(value) || max < Number(value);
 
   return (
     <div className="py-1 lg:grid lg:grid-cols-5 justify-between">
@@ -72,14 +74,16 @@ function Input({
           />
         ) : (
           <input
-            type="numeric"
             min={min}
             max={max}
             name={name}
             value={value}
             onClick={changeParam}
             onChange={onChange}
-            className="font-bj font-bold text-neon-light text-xl w-full h-full pl-3 border-2 border-gray-500 focus:border-neon hover:border-gray-400 bg-transparent outline-none"
+            className={classnames(
+              'font-bj font-bold text-neon-light text-xl w-full h-full pl-3 border-2 focus:border-neon hover:border-gray-400 bg-transparent outline-none',
+              error ? 'border-red-500' : 'border-gray-500'
+            )}
           />
         )}
 
