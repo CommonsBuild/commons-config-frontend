@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { Line } from 'react-chartjs-2';
 import ChartAxisLabel from './ChartAxisLabel';
@@ -31,10 +31,7 @@ const options = {
         display: false,
         borderColor: '#03B3FF',
       },
-      ticks: {
-        color: '#FFFFFF',
-        stepSize: 0.2,
-      },
+      ticks: {},
       beginAtZero: true,
       position: 'left',
     },
@@ -44,9 +41,14 @@ const options = {
 interface TokenFreezeThawProps {
   price: number[];
   week: number[];
+  format?: boolean;
 }
 
-const TokenFreezeThawChart = ({ price, week }: TokenFreezeThawProps) => {
+const TokenFreezeThawChart = ({
+  price,
+  week,
+  format,
+}: TokenFreezeThawProps) => {
   const data = {
     labels: week || ['0'],
     datasets: [
@@ -62,6 +64,24 @@ const TokenFreezeThawChart = ({ price, week }: TokenFreezeThawProps) => {
       },
     ],
   };
+
+  useEffect(() => {
+    if (format) {
+      options.scales.yAxes.ticks = {
+        color: '#FFFFFF',
+        stepSize: 20,
+        callback(value) {
+          return `${value}%`;
+        },
+      };
+    } else {
+      options.scales.yAxes.ticks = {
+        color: '#FFFFFF',
+        stepSize: 0.2,
+      };
+    }
+  }, []);
+
   return (
     <div className="bg-black" id="freeze-thaw-chart">
       <div className="w-32 h-0 text-center relative top-36 -left-8">

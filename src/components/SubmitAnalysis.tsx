@@ -82,7 +82,11 @@ function SubmitAnalysis({ params, submitParams, submitProposal }) {
           >
             Token Freeze & Token Thaw
           </h3>
-          <TokenFreezeThawChart price={chart.price} week={chart.week} />
+          <TokenFreezeThawChart
+            price={chart.tokensReleased}
+            week={chart.week}
+            format
+          />
           <div className="mt-12">
             <TokenFreezeThawTable table={table} />
           </div>
