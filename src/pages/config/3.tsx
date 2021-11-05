@@ -6,7 +6,6 @@ import { RedirectButton } from '@/components/btns';
 import { TaoVotingBar } from '@/components/charts';
 import { useParams, useTaoVoting } from '@/hooks';
 import { TaoVotingTable } from '@/components/tables';
-import ChartLegend from '@/components/ChartLegend';
 
 function DisputableVoting() {
   const { barChart, table } = useTaoVoting();
@@ -22,44 +21,6 @@ function DisputableVoting() {
     handleChange,
   } = useParams();
 
-  const barChartLegend = [
-    {
-      name: 'non-quiet voting period',
-      bgColor: 'yellow',
-      tooltipText:
-        'The initial portion of the Vote Duration that will NOT trigger the Quiet Ending Extension',
-    },
-    {
-      name: 'delegated voting period',
-      bgColor: 'purple',
-      tooltipText:
-        'The amount of time delegates are permitted to vote on a proposal.',
-    },
-    {
-      name: 'normal vote duration',
-      bgColor: 'dark-blue',
-      tooltipText: 'The amount of time a proposal is eligible to be voted on.',
-    },
-    {
-      name: 'quiet ending period',
-      bgColor: 'orange',
-      tooltipText:
-        'If the voting outcome changes during this time the Quiet Ending Extension will trigger, extending the Vote Duration.',
-    },
-    {
-      name: 'quiet ending extension',
-      bgColor: 'blue',
-      tooltipText:
-        'The amount of time added to the Vote Duration resulting from the vote outcome changing during the Quiet Ending.',
-    },
-    {
-      name: 'execution delay',
-      bgColor: 'turquoise',
-      tooltipText:
-        'The amount of time after a vote passes before the proposed action is executed',
-    },
-  ];
-
   const inputs = [
     {
       name: 'supportRequired',
@@ -69,7 +30,7 @@ function DisputableVoting() {
       link: 'https://forum.tecommons.org/t/tao-voting-support-required/486',
       placeholder: '%',
       tooltipText:
-        'The percent of votes that must be in favour of this proposal.',
+        'The percent of YES votes relative to NO votes needed to pass this proposal.',
       interval: { min: 50, max: 100 },
     },
     {
@@ -80,7 +41,7 @@ function DisputableVoting() {
       link: 'https://forum.tecommons.org/t/tao-voting-minimum-quorum/485',
       placeholder: '%',
       tooltipText:
-        'The percent of all tokens that must vote on a proposal in order for it to be valid.',
+        'The percent of all tokens that must vote YES on a proposal in order for it to be valid.',
     },
     {
       name: 'voteDuration',
@@ -99,7 +60,7 @@ function DisputableVoting() {
       link: 'https://forum.tecommons.org/t/tao-voting-delegated-voting-period/487',
       placeholder: 'days',
       tooltipText:
-        'The amount of time delegates are permitted to vote on a proposal.',
+        'The amount of time within the Vote Duration that delegates are permitted to vote on a proposal.',
     },
     {
       name: 'quietEndingPeriod',
@@ -187,17 +148,6 @@ function DisputableVoting() {
                 barChart.proposalProcessWithExtension?.executionDelay
               }
             />
-            <div className="grid grid-rows-3 grid-flow-col text-gray pl-14 pb-6">
-              {barChartLegend.map((legend, index) => (
-                <ChartLegend
-                  key={index}
-                  name={legend.name}
-                  bgColor={legend.bgColor}
-                  colAlign
-                  tooltipText={legend.tooltipText}
-                />
-              ))}
-            </div>
             <TaoVotingTable table={table} />
           </ChartContainer>
         </div>

@@ -18,7 +18,7 @@ function TokenFreezeThawTable({ table }: TokenFreezeThawTableProps) {
             tooltipText="The amount of weeks that have passed since the Commons Upgrade."
           />
           <TableHeader
-            headerText="% tokens released"
+            headerText="% of tokens released"
             size="xl"
             tooltipText="The percentage of Hatchers' TEC tokens that have become liquid from the Token Thaw."
           />

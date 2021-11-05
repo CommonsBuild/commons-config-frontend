@@ -3,15 +3,16 @@ import Link from 'next/link';
 import SummaryContainer from '@/components/SummaryContainer';
 import TextArea from '@/components/TextArea';
 import { NeonButton } from '@/components/btns';
+import { useParams } from '@/hooks';
 
 const SubmitSummary = ({
-  params,
   handleChange,
   advancedParams,
   setAdvancedDialog,
   submitParams,
   submitProposal,
 }) => {
+  const { setParams, ...params } = useParams();
   const freezeThawInputs = [
     {
       name: 'openingPrice',
@@ -54,7 +55,7 @@ const SubmitSummary = ({
       link: 'https://forum.tecommons.org/t/augmented-bonding-curve-commons-tribute/517',
       placeholder: '%',
       tooltipText:
-        'A percentage of the total funds raised from the Hatch is sent to the Common Pool to kick-start the Commons project.',
+        'This is a percentage of the total funds raised from the Hatch, and is sent to the Common Pool to kick-start the Commons project. The remaining percentage determines the Reserve Balance.',
     },
     {
       name: 'entryTribute',
@@ -183,12 +184,12 @@ const SubmitSummary = ({
   ];
 
   const advancedParameters = [
-    {
-      name: 'commonPoolAmount',
-      value: params.commonPoolAmount,
-      param: 'Common Pool Amount',
-      placeholder: 'wxDAI',
-    },
+    // {
+    //   name: 'commonPoolAmount',
+    //   value: params.commonPoolAmount,
+    //   param: 'Common Pool Amount',
+    //   placeholder: 'wxDAI',
+    // },
     {
       name: 'HNYLiquidity',
       value: params.HNYLiquidity,
@@ -219,8 +220,8 @@ const SubmitSummary = ({
       param: 'Transferable',
       placeholder: '',
       options: [
-        { label: 'Yes', value: 'true' },
-        { label: 'No', value: 'false' },
+        { label: 'Yes', value: true },
+        { label: 'No', value: false },
       ],
       select: true,
       tooltipText: '',
