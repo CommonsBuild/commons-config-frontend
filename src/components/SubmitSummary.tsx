@@ -13,7 +13,6 @@ const SubmitSummary = ({
   submitProposal,
 }) => {
   const { setParams, ...params } = useParams();
-
   const freezeThawInputs = [
     {
       name: 'openingPrice',
@@ -221,8 +220,8 @@ const SubmitSummary = ({
       param: 'Transferable',
       placeholder: '',
       options: [
-        { label: 'Yes', value: 'true' },
-        { label: 'No', value: 'false' },
+        { label: 'Yes', value: true },
+        { label: 'No', value: false },
       ],
       select: true,
       tooltipText: '',
