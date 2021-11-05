@@ -27,6 +27,7 @@ function MilestoneTable({ data }) {
             </TableRow>
           );
         }
+        return <></>;
       })}
     />
   );
