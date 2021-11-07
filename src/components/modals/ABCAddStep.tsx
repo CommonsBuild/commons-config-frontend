@@ -20,7 +20,7 @@ function ABCAddStepDialog({
 }: ABCAddStepDialogProps) {
   const [stepData, setStepData] = useState<StepValues>({
     type: 'wxDAI',
-    value: '-',
+    value: '0',
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -18,6 +18,7 @@ import {
 } from '@/hooks';
 import {
   TokenFreezeThawTable,
+  MilestoneTable,
   ABCTable,
   TaoVotingTable,
   ConvictionVotingTable,
@@ -31,6 +32,7 @@ function SubmitAnalysis({ params, submitParams, submitProposal }) {
     price,
     stepLinSpaces,
     singlePoints,
+    milestoneTable,
     stepTable: ABCTableData,
   } = useABC();
   const launchValue =
@@ -80,7 +82,11 @@ function SubmitAnalysis({ params, submitParams, submitProposal }) {
           >
             Token Freeze & Token Thaw
           </h3>
-          <TokenFreezeThawChart price={chart.price} week={chart.week} />
+          <TokenFreezeThawChart
+            price={chart.tokensReleased}
+            week={chart.week}
+            format
+          />
           <div className="mt-12">
             <TokenFreezeThawTable table={table} />
           </div>
@@ -95,13 +101,15 @@ function SubmitAnalysis({ params, submitParams, submitProposal }) {
             stepLinSpaces={stepLinSpaces ? stepLinSpaces[0] : {}}
             singleDataPoints={singlePoints}
           />
-          <div className="mt-12" onClick={() => setInFocus(3)}>
+          <div className="mt-12">
+            <MilestoneTable data={milestoneTable} />
+          </div>
+          <div className="mt-12">
             <ABCTable
               table={{ ...ABCTableData }}
               showStepZero={Number(params.reserveBalance) !== launchValue}
             />
           </div>
-          <div>table b</div>
         </AnalysisContainer>
         <AnalysisContainer onVisible={() => setInFocus(3)}>
           <h3 className="font-bj text-2xl text-neon-light p-6" id="taoVoting">

@@ -28,7 +28,8 @@ function ChartAxisLabel({
         ref={hoverRef}
         className={classnames(
           'font-bj font-bold text-xxs text-neon-light uppercase',
-          rotate && 'block transform -rotate-90'
+          rotate &&
+            'block transform -rotate-90 rotate-chart-axis w-56 text-center'
         )}
       >
         {label}

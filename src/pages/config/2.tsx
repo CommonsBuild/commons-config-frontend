@@ -95,7 +95,7 @@ function ABC() {
       link: 'https://forum.tecommons.org/t/augmented-bonding-curve-commons-tribute/517',
       placeholder: '%',
       tooltipText:
-        'A percentage of the total funds raised from the Hatch is sent to the Common Pool to kick-start the Commons projects.',
+        'This is a percentage of the total funds raised from the Hatch, and is sent to the Common Pool to kick-start the Commons project. The remaining percentage determines the Reserve Balance.',
     },
     {
       name: 'entryTribute',

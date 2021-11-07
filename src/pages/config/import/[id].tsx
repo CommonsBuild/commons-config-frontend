@@ -83,9 +83,10 @@ function Import() {
             ...tao,
             ...conviction,
             ...advanced,
+            transferable: Boolean(advanced.transferability),
           };
           localStorage.setItem('params', JSON.stringify(newParams));
-          setParams(newParams);
+          setParams({ ...newParams });
           setIsLoading(response.status);
         })
         .catch(() => errorToast());
