@@ -59,10 +59,9 @@ function ABCTable({ table, showStepZero }: ABCTableProps) {
             tooltipText={
               <span>
                 The TEC token price fluctuates based on the size of buys and
-                sells along the curve. The price slippage is the relative
-                difference between the Current Price and the average price of
-                TEC between the <b>Current Price</b> and <b>New Price</b>, from
-                a given transaction.
+                sells along the curve. The <i>price slippage</i> is the relative
+                difference between the <b>Current Price</b> and the{' '}
+                <b>average price</b> of TEC that was bought or sold.
               </span>
             }
           />
