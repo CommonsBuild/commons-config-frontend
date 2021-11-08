@@ -58,7 +58,11 @@ function Intro({ children, dialog, nextHref, openDialog, title }: IntroProps) {
         <title>{title}</title>
       </Head>
       {dialog}
-      <Navbar href="/config/1" text="go to configuration" />
+      <Navbar
+        href="/config/1"
+        text="go to configuration"
+        transparentBackground
+      />
       <div className="min-h-screen bg-black-300">
         <div className="container grid grid-cols-1 lg:grid-cols-4 lg:gap-24 mx-auto px-4 py-8">
           <img
