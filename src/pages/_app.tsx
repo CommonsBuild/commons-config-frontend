@@ -13,7 +13,6 @@ import {
   TaoVotingProvider,
   TokenFreezeThawProvider,
 } from '@/hooks';
-import IntroBackground from '@/components/IntroBackground';
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -36,7 +35,6 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
               <ConvictionVotingProvider>
                 {router.pathname.match('/config/[0-9]') && <Navbar />}
                 <Component {...pageProps} />
-                {router.pathname.match('/intro/[0-9]') && <IntroBackground />}
               </ConvictionVotingProvider>
             </TaoVotingProvider>
           </ABCProvider>

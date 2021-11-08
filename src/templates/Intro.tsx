@@ -6,6 +6,7 @@ import { motion, Variants } from 'framer-motion';
 
 import { CustomNavbar as Navbar } from '@/components/_global/Navbar';
 import { NeonButton } from '@/components/btns/';
+import IntroBackground from '@/components/IntroBackground';
 
 interface IntroProps {
   children: ReactNode;
@@ -63,7 +64,8 @@ function Intro({ children, dialog, nextHref, openDialog, title }: IntroProps) {
         text="go to configuration"
         transparentBackground
       />
-      <div className="min-h-screen bg-black-300">
+      <IntroBackground />
+      <div className="relative z-40">
         <div className="container grid grid-cols-1 lg:grid-cols-4 lg:gap-24 mx-auto px-4 py-8">
           <img
             className="mb-6 lg:mt-16"
