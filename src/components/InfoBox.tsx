@@ -39,7 +39,7 @@ function InfoBox({ color = 'white', label, link, tooltipText }: InfoBoxProps) {
           className="m-1"
           alt="Question mark."
           height="12"
-          src="/questionMark.svg"
+          src="/icons/questionMark.svg"
           width="12"
         />
       </div>
