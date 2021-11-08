@@ -198,6 +198,14 @@ module.exports = {
       rotate: {
         15: '15deg',
       },
+      padding: {
+        18: '4.5rem',
+      },
+      screens: {
+        tablet: '1366px',
+        laptop: '1536px',
+        desktop: '1850px',
+      },
       zIndex: {
         100: 100,
       },

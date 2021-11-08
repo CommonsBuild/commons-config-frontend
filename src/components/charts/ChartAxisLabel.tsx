@@ -29,7 +29,7 @@ function ChartAxisLabel({
         className={classnames(
           'font-bj font-bold text-xxs text-neon-light uppercase',
           rotate &&
-            'block transform -rotate-90 rotate-chart-axis w-56 text-center'
+            'block transform -rotate-90 w-56 text-center pt-2 tablet:pt-10 laptop:pt-18 desktop:pt-28'
         )}
       >
         {label}

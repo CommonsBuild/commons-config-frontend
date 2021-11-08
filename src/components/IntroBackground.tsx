@@ -10,7 +10,7 @@ function IntroBackground() {
     <AnimateSharedLayout>
       {pathname === '/intro/1' && (
         <motion.div
-          className="fixed"
+          className="fixed desktop:top-0"
           style={{ top: '-105%', right: '-30%' }}
           layoutId="animationImg"
           initial={false}
