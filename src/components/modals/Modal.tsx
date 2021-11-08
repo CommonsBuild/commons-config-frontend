@@ -2,10 +2,11 @@
 import { Fragment } from 'react';
 import classnames from 'classnames';
 import { Dialog, Transition } from '@headlessui/react';
-import { NeonButton } from '../btns';
+import { NeonButton } from '@/components/btns';
 
 interface ModalProps {
   children: React.ReactNode;
+  customButton?: React.ReactNode;
   handleClose: () => void;
   isOpen: boolean;
   title?: string;
@@ -14,6 +15,7 @@ interface ModalProps {
 
 function Modal({
   children,
+  customButton,
   handleClose,
   isOpen = false,
   title,
@@ -76,9 +78,11 @@ function Modal({
                   transparent && 'pb-5 sm:pb-6'
                 )}
               >
-                <NeonButton fullWidth onClick={handleClose}>
-                  <span>close</span>
-                </NeonButton>
+                {customButton || (
+                  <NeonButton fullWidth onClick={handleClose}>
+                    <span>close</span>
+                  </NeonButton>
+                )}
               </div>
             </div>
           </Transition.Child>
