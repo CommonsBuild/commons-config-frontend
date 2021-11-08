@@ -201,7 +201,7 @@ module.exports = {
       screens: {
         tablet: '1366px',
         laptop: '1536px',
-        desktop: '1900px',
+        desktop: '1850px',
       },
       zIndex: {
         100: 100,
