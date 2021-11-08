@@ -195,6 +195,14 @@ module.exports = {
         '2/4': '50%',
         '3/4': '75%',
       },
+      padding: {
+        18: '4.5rem',
+      },
+      screens: {
+        tablet: '1366px',
+        laptop: '1536px',
+        desktop: '1900px',
+      },
       zIndex: {
         100: 100,
       },
