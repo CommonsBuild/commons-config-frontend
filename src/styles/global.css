@@ -100,6 +100,18 @@
   }
 }
 
+@media only screen and (max-width: 1366px) {
+  .rotate-chart-axis {
+    padding-top: calc(50% - 72px);
+  }
+}
+
+@media only screen and (max-width: 1280px) {
+  .rotate-chart-axis {
+    padding-top: calc(50% - 80px);
+  }
+}
+
 .abc-chart {
   width: 94%;
   margin-left: 4%;
