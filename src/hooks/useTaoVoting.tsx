@@ -12,14 +12,13 @@ import api from '@/services/api';
 type TaoVotingContextType = {
   barChart: { [key: string]: { [key: string]: number } };
   pieChart: { [key: string]: number };
-  table: { [key: string]: number };
+  table?: { [key: string]: number };
   setContext: Dispatch<SetStateAction<TaoVotingContextType>>;
 };
 
 const initialContext: TaoVotingContextType = {
   barChart: {},
   pieChart: {},
-  table: {},
   setContext: (): void => {
     throw new Error('setContext must be overridden');
   },

@@ -4,8 +4,14 @@ import TableHeader from './TableHeader';
 import TableRow from './TableRow';
 
 interface TaoVotingTableProps {
-  table: { [key: string]: number };
+  table: { [key: string]: number[] };
 }
+
+const rowName = [
+  'Time to vote on proposals',
+  'Time to review a delegated vote',
+  'Time to execute a passing proposal',
+];
 
 function TaoVotingTable({ table }: TaoVotingTableProps) {
   return (
@@ -19,16 +25,18 @@ function TaoVotingTable({ table }: TaoVotingTableProps) {
         </>
       }
       content={
-        <TableRow>
-          <TableCell
-            bold
-            content="Total amount of days to complete a vote"
-            size="xl"
-          />
-          <TableCell content={table.noExtension} size="xl" />
-          <TableCell content={table.firstExtension} size="xl" />
-          <TableCell content={table.secondExtension} size="xl" />
-        </TableRow>
+        table ? (
+          rowName.map((elem, index) => (
+            <TableRow>
+              <TableCell bold content={elem} size="xl" />
+              <TableCell content={table.timeVote[index]} size="xl" />
+              <TableCell content={table.timeReview[index]} size="xl" />
+              <TableCell content={table.timeExecute[index]} size="xl" />
+            </TableRow>
+          ))
+        ) : (
+          <></>
+        )
       }
     />
   );
