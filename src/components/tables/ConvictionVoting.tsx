@@ -17,7 +17,10 @@ function ConvictionVotingTable({ table }: ConvictionVotingTableProps) {
           <TableHeader headerText="requested amount (wxdai)" size="l" />
           <TableHeader headerText="common pool (wxdai)" size="l" />
           <TableHeader headerText="effective supply (tec)" size="l" />
-          <TableHeader headerText="tokens needed to pass (tec)" size="l" />
+          <TableHeader
+            headerText="min tokens needed to pass in 2 weeks (tec)"
+            size="l"
+          />
         </>
       }
       content={table.amountInCommonPool?.map((elem, index) => (
@@ -36,7 +39,7 @@ function ConvictionVotingTable({ table }: ConvictionVotingTableProps) {
             size="l"
           />
           <TableCell
-            content={formatOutput(table.minTokensToPass[index])}
+            content={formatOutput(table.tokensToPassIn2Weeks[index])}
             size="l"
           />
         </TableRow>
