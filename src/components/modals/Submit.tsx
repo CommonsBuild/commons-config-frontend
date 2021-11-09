@@ -1,6 +1,5 @@
 import Backdrop from './Backdrop';
 import Modal from './Modal';
-import { NeonButton } from '@/components/btns';
 
 interface SubmitDialogProps {
   handleClose: () => void;
@@ -24,9 +23,16 @@ function SubmitDialog({
         handleClose={handleClose}
         isOpen={isOpen && url !== undefined}
         customButton={
-          <NeonButton fullWidth href={url} passHref onClick={handleClose}>
-            <span>check your submission</span>
-          </NeonButton>
+          <button className="h-14 px-6 mx-auto bg-neon outline-none	hover:bg-neon-light-600 disabled:opacity-50 disabled:bg-gray-400 disabled:text-gray-300 w-full">
+            <a
+              href={url}
+              target="_blank"
+              rel="noreferrer"
+              className="font-bj font-bold text-lg uppercase cursor-pointer"
+            >
+              view your proposal
+            </a>
+          </button>
         }
       >
         <h2 className="font-bj font-bold text-xl text-neon text-center py-6 px-4">
