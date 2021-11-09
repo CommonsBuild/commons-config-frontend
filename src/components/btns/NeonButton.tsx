@@ -7,35 +7,49 @@ interface NeonButtonProps {
   disabled?: boolean;
   fullWidth?: boolean;
   href?: string;
+  passHref?: boolean;
   hidden?: boolean;
   onClick?: () => void;
 }
+
+const ConditionalWrapper = ({ condition, wrapper, children }) =>
+  condition ? wrapper(children) : children;
 
 function NeonButton({
   disabled,
   hidden,
   fullWidth,
   href = '',
+  passHref,
   children,
   onClick,
 }: NeonButtonProps) {
   return (
-    <Link href={href}>
-      <button
-        className={classnames(
-          'h-14 px-6 mx-auto bg-neon outline-none	hover:bg-neon-light-600 disabled:opacity-50 disabled:bg-gray-400 disabled:text-gray-300',
-          {
-            'w-full': fullWidth,
-            hidden,
-          }
+    <Link href={href} passHref={passHref}>
+      <ConditionalWrapper
+        condition={passHref}
+        wrapper={(content) => (
+          <a href={href} target="_blank" rel="noreferrer">
+            {content}
+          </a>
         )}
-        disabled={disabled}
-        onClick={onClick}
       >
-        <span className="font-bj font-bold text-lg uppercase cursor-pointer">
-          {children}
-        </span>
-      </button>
+        <button
+          className={classnames(
+            'h-14 px-6 mx-auto bg-neon outline-none	hover:bg-neon-light-600 disabled:opacity-50 disabled:bg-gray-400 disabled:text-gray-300',
+            {
+              'w-full': fullWidth,
+              hidden,
+            }
+          )}
+          disabled={disabled}
+          onClick={onClick}
+        >
+          <span className="font-bj font-bold text-lg uppercase cursor-pointer">
+            {children}
+          </span>
+        </button>
+      </ConditionalWrapper>
     </Link>
   );
 }
