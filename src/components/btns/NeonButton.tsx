@@ -12,9 +12,6 @@ interface NeonButtonProps {
   onClick?: () => void;
 }
 
-const ConditionalWrapper = ({ condition, wrapper, children }) =>
-  condition ? wrapper(children) : children;
-
 function NeonButton({
   disabled,
   hidden,
@@ -26,30 +23,21 @@ function NeonButton({
 }: NeonButtonProps) {
   return (
     <Link href={href} passHref={passHref}>
-      <ConditionalWrapper
-        condition={passHref}
-        wrapper={(content) => (
-          <a href={href} target="_blank" rel="noreferrer">
-            {content}
-          </a>
+      <button
+        className={classnames(
+          'h-14 px-6 mx-auto bg-neon outline-none	hover:bg-neon-light-600 disabled:opacity-50 disabled:bg-gray-400 disabled:text-gray-300',
+          {
+            'w-full': fullWidth,
+            hidden,
+          }
         )}
+        disabled={disabled}
+        onClick={onClick}
       >
-        <button
-          className={classnames(
-            'h-14 px-6 mx-auto bg-neon outline-none	hover:bg-neon-light-600 disabled:opacity-50 disabled:bg-gray-400 disabled:text-gray-300',
-            {
-              'w-full': fullWidth,
-              hidden,
-            }
-          )}
-          disabled={disabled}
-          onClick={onClick}
-        >
-          <span className="font-bj font-bold text-lg uppercase cursor-pointer">
-            {children}
-          </span>
-        </button>
-      </ConditionalWrapper>
+        <span className="font-bj font-bold text-lg uppercase cursor-pointer">
+          {children}
+        </span>
+      </button>
     </Link>
   );
 }
