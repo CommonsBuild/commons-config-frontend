@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Input from '@/components/Input';
+import InfoBox from '@/components/InfoBox';
 import { Card, ChartContainer, Tooltip } from '@/components/_global';
 import { RadioButton, RedirectButton } from '@/components/btns';
 import { ConvictionThresholdChart } from '@/components/charts';
@@ -123,6 +124,9 @@ function ConvictionVoting() {
             <RedirectButton href="/learn/4" />
           </Card>
           <ChartContainer title="Visualize the unique dynamics of Conviction and the relative requirements for successfully requesting funds.">
+            <div className="w-48 h-0 text-center relative -bottom-28 left-24 z-10">
+              <InfoBox label="MINIMUM % OF TOKENS NEEDED TO PASS" />
+            </div>
             <ConvictionThresholdChart
               requestedPercentage={convictionThresholdChart.requestedPercentage}
               thresholdPercentage={convictionThresholdChart.thresholdPercentage}

@@ -45,7 +45,6 @@ function TokenFreezeThawProvider({ children }: AppTokenFreezeThawContextProps) {
         })
         .then((response) => {
           const { output } = response.data;
-          console.log(output);
           setContext({ ...output });
         })
         .catch((e) => console.log(e));

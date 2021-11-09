@@ -53,7 +53,11 @@ function Input({
                 {param}{' '}
                 {tooltipText ? (
                   <div className="inline-block mt-1 ml-1">
-                    <Image src="/questionMark.svg" height="12px" width="12px" />
+                    <Image
+                      src="/icons/questionMark.svg"
+                      height="12px"
+                      width="12px"
+                    />
                   </div>
                 ) : (
                   <></>

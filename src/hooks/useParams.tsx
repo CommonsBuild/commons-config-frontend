@@ -42,7 +42,7 @@ type ParamsContextType = {
   gardenLiquidity: string;
   virtualSupply: string;
   virtualBalance: string;
-  transferable: string;
+  transferable: boolean;
   tokenName: string;
   tokenSymbol: string;
   proposalDeposit: string;
@@ -96,7 +96,7 @@ export const initialParams: ParamsContextType = {
   gardenLiquidity: '1',
   virtualSupply: '1',
   virtualBalance: '1',
-  transferable: 'true',
+  transferable: true,
   tokenName: 'Token Engineering Commons',
   tokenSymbol: 'TEC',
   proposalDeposit: '200',
@@ -167,7 +167,7 @@ function ParamsProvider({ children }: AppParamsContextProps) {
         ...rest
       } = params;
       const values = Object.keys(rest).map((key) => {
-        if (key !== 'transferability') {
+        if (key !== 'transferable') {
           return rest[key];
         }
         return 'true';
