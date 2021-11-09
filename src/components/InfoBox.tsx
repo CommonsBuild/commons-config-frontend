@@ -12,8 +12,8 @@ type TextColor = 'neon' | 'white';
 interface InfoBoxProps {
   color?: TextColor;
   label: string;
-  link: string;
-  tooltipText: string | React.ReactNode;
+  link?: string;
+  tooltipText?: string | React.ReactNode;
 }
 
 function InfoBox({ color = 'white', label, link, tooltipText }: InfoBoxProps) {
@@ -35,13 +35,15 @@ function InfoBox({ color = 'white', label, link, tooltipText }: InfoBoxProps) {
             {label}
           </span>
         </a>
-        <Image
-          className="m-1"
-          alt="Question mark."
-          height="12"
-          src="/icons/questionMark.svg"
-          width="12"
-        />
+        {tooltipText && (
+          <Image
+            className="m-1"
+            alt="Question mark."
+            height="12"
+            src="/questionMark.svg"
+            width="12"
+          />
+        )}
       </div>
     </Tooltip>
   );
