@@ -193,7 +193,7 @@ function ABC() {
                     <Image
                       alt="Question mark."
                       height="12"
-                      src="/questionMark.svg"
+                      src="/icons/questionMark.svg"
                       width="12"
                     />
                   </Tooltip>

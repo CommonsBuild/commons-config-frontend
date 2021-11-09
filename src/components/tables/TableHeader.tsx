@@ -54,7 +54,7 @@ function TableHeader({
           </span>
           {tooltipText && (
             <div className="flex mx-2 self-center min-w-max">
-              <Image src="/questionMark.svg" height="12px" width="12px" />
+              <Image src="/icons/questionMark.svg" height="12px" width="12px" />
             </div>
           )}
         </span>
