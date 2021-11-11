@@ -6,9 +6,13 @@ import formatOutput from '@/utils/formatOutput';
 
 interface ConvictionVotingTableProps {
   table: { [key: string]: (number | string)[] };
+  timePeriod: string;
 }
 
-function ConvictionVotingTable({ table }: ConvictionVotingTableProps) {
+function ConvictionVotingTable({
+  table,
+  timePeriod,
+}: ConvictionVotingTableProps) {
   return (
     <Table
       header={
@@ -18,7 +22,7 @@ function ConvictionVotingTable({ table }: ConvictionVotingTableProps) {
           <TableHeader headerText="common pool (wxdai)" size="l" />
           <TableHeader headerText="effective supply (tec)" size="l" />
           <TableHeader
-            headerText="min tokens needed to pass in 2 weeks (tec)"
+            headerText={`min tokens needed to pass in ${timePeriod} (tec)`}
             size="l"
           />
         </>

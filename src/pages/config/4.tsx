@@ -145,7 +145,14 @@ function ConvictionVoting() {
                 ))}
               </div>
             </Tooltip>
-            <ConvictionVotingTable table={table} />
+            <ConvictionVotingTable
+              table={table}
+              timePeriod={
+                radioButtons.find(
+                  (elem) => elem.value === convictionVotingPeriodDays
+                )?.label
+              }
+            />
           </ChartContainer>
         </div>
       </div>
