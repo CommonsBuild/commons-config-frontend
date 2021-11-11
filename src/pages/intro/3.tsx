@@ -1,5 +1,6 @@
 import type { ReactElement } from 'react';
 import { useState } from 'react';
+import Image from 'next/image';
 
 import Intro from '@/templates/Intro';
 import { Modal } from '@/components/modals/';
@@ -27,6 +28,14 @@ function IntroThreeDialog({ handleClose, isOpen }: DialogProps) {
         <li>How long to listen for a change of outcome</li>
         <li>The amount of time that can be added for voting</li>
       </p>
+      <div className="absolute -top-full right-6/10 -rotate-15 -z-1">
+        <Image
+          src="/animation_modal.png"
+          height="1372"
+          width="1485"
+          layout="fixed"
+        />
+      </div>
     </Modal>
   );
 }

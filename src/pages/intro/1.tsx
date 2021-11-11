@@ -1,5 +1,6 @@
 import type { ReactElement } from 'react';
 import { useState } from 'react';
+import Image from 'next/image';
 
 import Intro from '@/templates/Intro';
 import { Modal } from '@/components/modals/';
@@ -21,7 +22,7 @@ function IntroOneDialog({ handleClose, isOpen }: DialogProps) {
         or trade, they are frozen for some time.
       </p>
       <p className="font-inter text-base text-neon-light p-4">
-        The Token Freeze is the duration from the initiliazation of the Commons
+        The Token Freeze is the duration from the initialization of the Commons
         which tokens remain frozen.
       </p>
       <p className="font-inter text-base text-neon-light p-4">
@@ -34,6 +35,14 @@ function IntroOneDialog({ handleClose, isOpen }: DialogProps) {
         <li>The rate at which tokens become liquid</li>
         <li>The opening price of the TEC token</li>
       </p>
+      <div className="absolute top-0 right-3/10 -rotate-15 -z-1">
+        <Image
+          src="/animation_modal.png"
+          height="1372"
+          width="1485"
+          layout="fixed"
+        />
+      </div>
     </Modal>
   );
 }

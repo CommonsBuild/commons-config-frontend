@@ -1,5 +1,6 @@
 import type { ReactElement } from 'react';
 import { useState } from 'react';
+import Image from 'next/image';
 
 import Intro from '@/templates/Intro';
 import { Modal } from '@/components/modals/';
@@ -33,6 +34,14 @@ function IntroTwoDialog({ handleClose, isOpen }: DialogProps) {
         <li>What percent of hatch funds will go to funding Token</li>
         <li>Engineering The tribute taken from buy and sell orders</li>
       </p>
+      <div className="absolute top-4/10 left-0 -rotate-135 -z-1">
+        <Image
+          src="/animation_modal.png"
+          height="1372"
+          width="1485"
+          layout="fixed"
+        />
+      </div>
     </Modal>
   );
 }

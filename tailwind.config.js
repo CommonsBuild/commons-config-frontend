@@ -218,6 +218,10 @@ module.exports = {
       },
       rotate: {
         15: '15deg',
+        '-15': '-15deg',
+        '-45': '-45deg',
+        '-90': '-90deg',
+        '-135': '-135deg',
       },
       padding: {
         18: '4.5rem',
@@ -228,6 +232,7 @@ module.exports = {
         desktop: '1850px',
       },
       zIndex: {
+        '-1': -1,
         100: 100,
       },
     },
