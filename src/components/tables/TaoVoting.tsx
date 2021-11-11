@@ -26,17 +26,14 @@ function TaoVotingTable({ table }: TaoVotingTableProps) {
       }
       content={
         table ? (
-          Object.keys(table).map((elem, index) => {
-            console.log(table);
-            return (
-              <TableRow>
-                <TableCell bold content={rowName[index]} size="xl" />
-                <TableCell content={table[elem][0]} size="xl" />
-                <TableCell content={table[elem][1]} size="xl" />
-                <TableCell content={table[elem][2]} size="xl" />
-              </TableRow>
-            );
-          })
+          Object.keys(table).map((elem, index) => (
+            <TableRow>
+              <TableCell bold content={rowName[index]} size="xl" />
+              <TableCell content={table[elem][0]} size="xl" />
+              <TableCell content={table[elem][1]} size="xl" />
+              <TableCell content={table[elem][2]} size="xl" />
+            </TableRow>
+          ))
         ) : (
           <></>
         )
