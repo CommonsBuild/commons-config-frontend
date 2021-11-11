@@ -74,8 +74,8 @@ function Modal({
               </div>
               <div
                 className={classnames(
-                  'bg-black pt-5 px-16 sm:pt-6',
-                  transparent && 'pb-5 sm:pb-6'
+                  'pt-5 px-16 sm:pt-6',
+                  transparent && 'pb-5 sm:pb-6 bg-black'
                 )}
               >
                 {customButton || (

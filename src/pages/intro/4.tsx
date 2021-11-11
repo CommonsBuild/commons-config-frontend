@@ -1,5 +1,6 @@
 import type { ReactElement } from 'react';
 import { useState } from 'react';
+import Image from 'next/image';
 
 import Intro from '@/templates/Intro';
 import { Modal } from '@/components/modals/';
@@ -30,6 +31,14 @@ function IntroFourDialog({ handleClose, isOpen }: DialogProps) {
         <li>How many tokens are needed to pass a proposal</li>
         <li>The rate at which conviction accumulates</li>
       </p>
+      <div className="absolute -top-full left-3/10 -rotate-15 -z-1">
+        <Image
+          src="/animation_modal.png"
+          height="1372"
+          width="1485"
+          layout="fixed"
+        />
+      </div>
     </Modal>
   );
 }
