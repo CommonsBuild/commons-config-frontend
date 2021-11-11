@@ -79,7 +79,6 @@ function ABC() {
   const inputs = [
     {
       name: 'openingPrice',
-      paramName: 'OPENING_PRICE',
       value: openingPrice,
       param: 'Opening Price',
       link: 'https://forum.tecommons.org/t/augmented-bonding-curve-opening-price-reserve-ratio/516',
@@ -89,7 +88,6 @@ function ABC() {
     },
     {
       name: 'commonsTribute',
-      paramName: 'COMMONS_TRIBUTE',
       value: commonsTribute,
       param: 'Commons Tribute',
       link: 'https://forum.tecommons.org/t/augmented-bonding-curve-commons-tribute/517',
@@ -99,7 +97,6 @@ function ABC() {
     },
     {
       name: 'entryTribute',
-      paramName: 'ENTRY_TRIBUTE',
       value: entryTribute,
       param: 'Entry Tribute',
       link: 'https://forum.tecommons.org/t/augmented-bonding-curve-entry-exit-tribute/494',
@@ -109,7 +106,6 @@ function ABC() {
     },
     {
       name: 'exitTribute',
-      paramName: 'EXIT_TRIBUTE',
       value: exitTribute,
       param: 'Exit Tribute',
       link: 'https://forum.tecommons.org/t/augmented-bonding-curve-entry-exit-tribute/494',
