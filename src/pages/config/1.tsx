@@ -15,6 +15,7 @@ function TokenFreezeThaw() {
   const inputs = [
     {
       name: 'openingPrice',
+      formatNumber: true,
       value: openingPrice,
       param: 'Opening Price',
       link: 'https://forum.tecommons.org/t/augmented-bonding-curve-opening-price-reserve-ratio/516',
@@ -59,6 +60,7 @@ function TokenFreezeThaw() {
               <Input
                 key={input.name}
                 name={input.name}
+                formatNumber={input.formatNumber}
                 value={input.value}
                 param={input.param}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
