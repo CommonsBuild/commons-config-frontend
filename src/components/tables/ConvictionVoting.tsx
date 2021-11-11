@@ -2,72 +2,46 @@ import Table from './Table';
 import TableCell from './TableCell';
 import TableHeader from './TableHeader';
 import TableRow from './TableRow';
+import formatOutput from '@/utils/formatOutput';
 
 interface ConvictionVotingTableProps {
   table: { [key: string]: (number | string)[] };
 }
 
 function ConvictionVotingTable({ table }: ConvictionVotingTableProps) {
-  const scenarioTableVariables = [
-    { id: 'totalEffectiveSupply', header: 'Effective supply (TEC)' },
-    { id: 'amountInCommonPool', header: 'Common Pool (wxDAI)' },
-    { id: 'requestedAmount', header: 'Requested Amount (wxDAI)' },
-    {
-      id: 'tokensToPassIn2Weeks',
-      header: 'Tokens Needed To Pass (TEC)',
-    },
-  ];
   return (
     <Table
       header={
         <>
+          <TableHeader headerText="Proposal" size="m" />
+          <TableHeader headerText="requested amount (wxdai)" size="l" />
+          <TableHeader headerText="common pool (wxdai)" size="l" />
+          <TableHeader headerText="effective supply (tec)" size="l" />
           <TableHeader
-            headerText="variables"
-            size="xl"
-            tooltipText="Take note of these variables as we simulate some of the requirements for successfully passing a funding request."
-          />
-          <TableHeader
-            headerText="scenario 1"
+            headerText="min tokens needed to pass in 2 weeks (tec)"
             size="l"
-            tooltipText="These scenarios combine imagined Common Pool and Effective Supply values with your Conviction Voting settings."
-          />
-          <TableHeader
-            headerText="scenario 2"
-            size="l"
-            tooltipText="These scenarios combine imagined Common Pool and Effective Supply values with your Conviction Voting settings."
-          />
-          <TableHeader
-            headerText="scenario 3"
-            size="l"
-            tooltipText="These scenarios combine imagined Common Pool and Effective Supply values with your Conviction Voting settings."
-          />
-          <TableHeader
-            headerText="scenario 4"
-            size="l"
-            tooltipText="These scenarios combine imagined Common Pool and Effective Supply values with your Conviction Voting settings."
-          />
-          <TableHeader
-            headerText="scenario 5"
-            size="l"
-            tooltipText="These scenarios combine imagined Common Pool and Effective Supply values with your Conviction Voting settings."
-          />
-          <TableHeader
-            headerText="scenario 6"
-            size="l"
-            tooltipText="These scenarios combine imagined Common Pool and Effective Supply values with your Conviction Voting settings."
           />
         </>
       }
-      content={scenarioTableVariables.map((elem) => (
+      content={table.amountInCommonPool?.map((elem, index) => (
         <TableRow>
-          <TableCell content={elem.header} size="xl" />
-          {table[elem.id]?.map((row) => (
-            <TableCell
-              bold={elem.id === 'requestedAmount'}
-              content={row.toLocaleString('en-us')}
-              size="l"
-            />
-          ))}
+          <TableCell content={index + 1} size="m" />
+          <TableCell
+            content={formatOutput(table.requestedAmount[index])}
+            size="l"
+          />
+          <TableCell
+            content={formatOutput(table.amountInCommonPool[index])}
+            size="l"
+          />
+          <TableCell
+            content={formatOutput(table.totalEffectiveSupply[index])}
+            size="l"
+          />
+          <TableCell
+            content={formatOutput(table.tokensToPassIn2Weeks[index])}
+            size="l"
+          />
         </TableRow>
       ))}
     />
