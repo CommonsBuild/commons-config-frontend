@@ -183,11 +183,29 @@ function ParamsProvider({ children }: AppParamsContextProps) {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
-    setParams((previousParams) => ({
-      ...previousParams,
-      [name]: value,
-    }));
+    const resetBalance = ['openingPrice', 'commonsTribute'].includes(name);
+    if (resetBalance) {
+      const launchValue = String(
+        (
+          (Number(initialParams.reserveBalance) -
+            Number(params?.ragequitAmount) -
+            Number(params?.initialBuy)) *
+          (1 -
+            Number(name === 'commonsTribute' ? value : params?.commonsTribute) /
+              100)
+        ).toFixed(2)
+      );
+      setParams((previousParams) => ({
+        ...previousParams,
+        [name]: value,
+        reserveBalance: String(launchValue),
+      }));
+    } else {
+      setParams((previousParams) => ({
+        ...previousParams,
+        [name]: value,
+      }));
+    }
   };
 
   const handleMarketScenario = (scenario: (number | string)[][]) => {
