@@ -81,6 +81,7 @@ function ABC() {
     {
       name: 'openingPrice',
       formatNumber: true,
+      resetStep: true,
       value: openingPrice,
       param: 'Opening Price',
       link: 'https://forum.tecommons.org/t/augmented-bonding-curve-opening-price-reserve-ratio/516',
@@ -90,6 +91,7 @@ function ABC() {
     },
     {
       name: 'commonsTribute',
+      resetStep: true,
       value: commonsTribute,
       param: 'Commons Tribute',
       link: 'https://forum.tecommons.org/t/augmented-bonding-curve-commons-tribute/517',
@@ -151,9 +153,12 @@ function ABC() {
                 tooltipText={input.tooltipText}
                 link={input.link}
                 value={input.value}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  handleChange(event)
-                }
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  if (input.resetStep) {
+                    setSelectedStep(0);
+                  }
+                  handleChange(event);
+                }}
               />
             ))}
             <RedirectButton href="/learn/2" />
@@ -220,6 +225,7 @@ function ABC() {
                     size="big"
                     tooltipText="Simulate the Reserve Balance using the amount raised by the Hatch, adjusted by the Commons Tribute"
                     value={launchValue}
+                    checked={launchValue === reserveBalance}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                       handleChange(event)
                     }
