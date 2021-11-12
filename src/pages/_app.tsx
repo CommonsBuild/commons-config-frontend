@@ -38,18 +38,23 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
                 {router.pathname.match('/config/[0-9]') && (
                   <footer className="fixed bottom-0 flex justify-center items-center bg-neon w-full h-8">
                     <div className="marquee">
-                      <div>
-                        <span className="font-bj font-bold text-sm px-16">
-                          Please, keep informed and join our params parties to
-                          develop some nice ECONOMIES with us! Click here to
-                          check our calendar with the time of the events!
+                      <a
+                        className="cursor-pointer"
+                        href="https://calendar.google.com/calendar/u/0?cid=ZHRpbnQzYmE2NnY0cDJqN25uZWdlZnB2dmdAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <span className="font-bj font-bold text-sm px-16 cursor-pointer">
+                          🎉🎉 Please, keep informed and join our params parties
+                          to develop some nice ECONOMIES with us! Click here to
+                          check our calendar with the time of the events! 🎉🎉
                         </span>
-                        <span className="font-bj font-bold text-sm px-16">
-                          Please, keep informed and join our params parties to
-                          develop some nice ECONOMIES with us! Click here to
-                          check our calendar with the time of the events!
+                        <span className="font-bj font-bold text-sm px-16 cursor-pointer">
+                          🎉🎉 Please, keep informed and join our params parties
+                          to develop some nice ECONOMIES with us! Click here to
+                          check our calendar with the time of the events! 🎉🎉
                         </span>
-                      </div>
+                      </a>
                     </div>
                   </footer>
                 )}
