@@ -71,15 +71,16 @@ function ABC() {
   const [stepDialog, setStepDialog] = useState(false);
   const [selectedStep, setSelectedStep] = useState(1);
   const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
-  const launchValue =
+  const launchValue = (
     (Number(initialParams.reserveBalance) -
       Number(ragequitAmount) -
       Number(initialBuy)) *
-    (1 - Number(commonsTribute) / 100);
+    (1 - Number(commonsTribute) / 100)
+  ).toFixed(2);
   const inputs = [
     {
       name: 'openingPrice',
-      paramName: 'OPENING_PRICE',
+      formatNumber: true,
       value: openingPrice,
       param: 'Opening Price',
       link: 'https://forum.tecommons.org/t/augmented-bonding-curve-opening-price-reserve-ratio/516',
@@ -89,7 +90,6 @@ function ABC() {
     },
     {
       name: 'commonsTribute',
-      paramName: 'COMMONS_TRIBUTE',
       value: commonsTribute,
       param: 'Commons Tribute',
       link: 'https://forum.tecommons.org/t/augmented-bonding-curve-commons-tribute/517',
@@ -99,7 +99,6 @@ function ABC() {
     },
     {
       name: 'entryTribute',
-      paramName: 'ENTRY_TRIBUTE',
       value: entryTribute,
       param: 'Entry Tribute',
       link: 'https://forum.tecommons.org/t/augmented-bonding-curve-entry-exit-tribute/494',
@@ -109,7 +108,6 @@ function ABC() {
     },
     {
       name: 'exitTribute',
-      paramName: 'EXIT_TRIBUTE',
       value: exitTribute,
       param: 'Exit Tribute',
       link: 'https://forum.tecommons.org/t/augmented-bonding-curve-entry-exit-tribute/494',
@@ -147,6 +145,7 @@ function ABC() {
               <Input
                 key={input.name}
                 name={input.name}
+                formatNumber={input.formatNumber}
                 param={input.param}
                 placeholder={input.placeholder}
                 tooltipText={input.tooltipText}
@@ -308,7 +307,7 @@ function ABC() {
                       'border-gray-700 ': index !== selectedStep,
                       'border-neon': index === selectedStep,
                       'first:hidden':
-                        Number(reserveBalance) !== launchValue &&
+                        Number(reserveBalance) !== Number(launchValue) &&
                         Number(initialBuy) > 0,
                     }
                   )}
@@ -344,7 +343,8 @@ function ABC() {
             <ABCTable
               table={{ ...stepTable }}
               showStepZero={
-                Number(reserveBalance) !== launchValue && Number(initialBuy) > 0
+                Number(reserveBalance) !== Number(launchValue) &&
+                Number(initialBuy) > 0
               }
             />
           </ChartContainer>

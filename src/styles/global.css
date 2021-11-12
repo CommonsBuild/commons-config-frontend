@@ -6,6 +6,9 @@
 @tailwind utilities;
 
 @layer base {
+  body {
+    background-color: #000001;
+  }
   a {
     @apply cursor-pointer;
   }

@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/media-has-caption */
+import Image from 'next/image';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -63,6 +64,23 @@ function Learn({ children, title, nextHref }: LearnProps) {
           text="finish learning"
           transparentBackground={false}
         />
+        <div className="fixed -left-5/10 top-1/10">
+          <Image
+            className="-rotate-90"
+            src="/animation.png"
+            layout="fixed"
+            width="1246"
+            height="1087"
+          />
+        </div>
+        <div className="fixed left-7/10 top-2/10">
+          <Image
+            src="/animation.png"
+            layout="fixed"
+            width="1246"
+            height="1087"
+          />
+        </div>
         <div className="container grid grid-cols-1 lg:grid-cols-4 lg:gap-24 mx-auto px-4 py-8">
           <img
             className="mb-4 lg:mt-16"

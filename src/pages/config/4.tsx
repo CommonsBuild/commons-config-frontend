@@ -36,7 +36,6 @@ function ConvictionVoting() {
   const inputs = [
     {
       name: 'spendingLimit',
-      paramName: 'SPENDING_LIMIT',
       value: spendingLimit,
       param: 'Spending Limit',
       link: 'https://forum.tecommons.org/t/conviction-voting-spending-limit-aka-max-ratio-beta/469',
@@ -46,7 +45,6 @@ function ConvictionVoting() {
     },
     {
       name: 'minimumConviction',
-      paramName: 'MINIMUM_CONVICTION',
       value: minimumConviction,
       param: 'Minimum Conviction',
       link: 'https://forum.tecommons.org/t/conviction-voting-minimum-conviction-aka-minimum-threshold/493',
@@ -56,7 +54,6 @@ function ConvictionVoting() {
     },
     {
       name: 'convictionGrowth',
-      paramName: 'CONVICTION_GROWTH',
       value: convictionGrowth,
       param: 'Conviction Growth',
       link: 'https://forum.tecommons.org/t/conviction-voting-conviction-growth-aka-half-life/490',
@@ -148,7 +145,14 @@ function ConvictionVoting() {
                 ))}
               </div>
             </Tooltip>
-            <ConvictionVotingTable table={table} />
+            <ConvictionVotingTable
+              table={table}
+              timePeriod={
+                radioButtons.find(
+                  (elem) => elem.value === convictionVotingPeriodDays
+                )?.label
+              }
+            />
           </ChartContainer>
         </div>
       </div>

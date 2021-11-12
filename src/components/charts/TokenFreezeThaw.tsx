@@ -78,6 +78,9 @@ const TokenFreezeThawChart = ({
       options.scales.yAxes.ticks = {
         color: '#FFFFFF',
         stepSize: 0.2,
+        callback(value) {
+          return value.toFixed(2);
+        },
       };
     }
   }, []);

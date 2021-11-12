@@ -26,12 +26,12 @@ function TaoVotingTable({ table }: TaoVotingTableProps) {
       }
       content={
         table ? (
-          rowName.map((elem, index) => (
+          Object.keys(table).map((elem, index) => (
             <TableRow>
-              <TableCell bold content={elem} size="xl" />
-              <TableCell content={table.timeVote[index]} size="xl" />
-              <TableCell content={table.timeReview[index]} size="xl" />
-              <TableCell content={table.timeExecute[index]} size="xl" />
+              <TableCell bold content={rowName[index]} size="xl" />
+              <TableCell content={table[elem][0]} size="xl" />
+              <TableCell content={table[elem][1]} size="xl" />
+              <TableCell content={table[elem][2]} size="xl" />
             </TableRow>
           ))
         ) : (

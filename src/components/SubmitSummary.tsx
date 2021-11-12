@@ -16,7 +16,6 @@ const SubmitSummary = ({
   const freezeThawInputs = [
     {
       name: 'openingPrice',
-      paramName: 'OPENING_PRICE',
       value: params.openingPrice,
       param: 'Opening Price',
       link: 'https://forum.tecommons.org/t/augmented-bonding-curve-opening-price-reserve-ratio/516',
@@ -26,7 +25,6 @@ const SubmitSummary = ({
     },
     {
       name: 'tokenFreeze',
-      paramName: 'TOKEN_FREEZE',
       value: params.tokenFreeze,
       param: 'Token Freeze',
       link: 'https://forum.tecommons.org/t/token-freeze-token-thaw/509',
@@ -36,7 +34,6 @@ const SubmitSummary = ({
     },
     {
       name: 'tokenThaw',
-      paramName: 'TOKEN_THAW',
       value: params.tokenThaw,
       param: 'Token Thaw',
       link: 'https://forum.tecommons.org/t/token-freeze-token-thaw/509',
@@ -49,7 +46,6 @@ const SubmitSummary = ({
   const augmentedBondingInputs = [
     {
       name: 'commonsTribute',
-      paramName: 'COMMONS_TRIBUTE',
       value: params.commonsTribute,
       param: 'Commons Tribute',
       link: 'https://forum.tecommons.org/t/augmented-bonding-curve-commons-tribute/517',
@@ -59,7 +55,6 @@ const SubmitSummary = ({
     },
     {
       name: 'entryTribute',
-      paramName: 'ENTRY_TRIBUTE',
       value: params.entryTribute,
       param: 'Entry Tribute',
       link: 'https://forum.tecommons.org/t/augmented-bonding-curve-entry-exit-tribute/494',
@@ -69,7 +64,6 @@ const SubmitSummary = ({
     },
     {
       name: 'exitTribute',
-      paramName: 'EXIT_TRIBUTE',
       value: params.exitTribute,
       param: 'Exit Tribute',
       link: 'https://forum.tecommons.org/t/augmented-bonding-curve-entry-exit-tribute/494',
@@ -82,7 +76,6 @@ const SubmitSummary = ({
   const taoVoting = [
     {
       name: 'supportRequired',
-      paramName: 'SUPPORT_REQUIRED',
       value: params.supportRequired,
       param: 'Support Required',
       link: 'https://forum.tecommons.org/t/tao-voting-support-required/486',
@@ -92,7 +85,6 @@ const SubmitSummary = ({
     },
     {
       name: 'minimumQuorum',
-      paramName: 'MINIMUM_QUORUM',
       value: params.minimumQuorum,
       param: 'Minimum Quorum',
       link: 'https://forum.tecommons.org/t/tao-voting-minimum-quorum/485',
@@ -102,7 +94,6 @@ const SubmitSummary = ({
     },
     {
       name: 'voteDuration',
-      paramName: 'VOTE_DURATION',
       value: params.voteDuration,
       param: 'Vote Duration',
       link: 'https://forum.tecommons.org/t/tao-voting-vote-duration/484',
@@ -111,7 +102,6 @@ const SubmitSummary = ({
     },
     {
       name: 'delegatedVotingPeriod',
-      paramName: 'DELEGATED_VOTING_PERIOD',
       value: params.delegatedVotingPeriod,
       param: 'Delegated Voting Period',
       link: 'https://forum.tecommons.org/t/tao-voting-delegated-voting-period/487',
@@ -121,7 +111,6 @@ const SubmitSummary = ({
     },
     {
       name: 'quietEndingPeriod',
-      paramName: 'QUIET_ENDING_PERIOD',
       value: params.quietEndingPeriod,
       param: 'Quiet Ending Period',
       link: 'https://forum.tecommons.org/t/tao-voting-quiet-ending-period-and-quiet-ending-extension/488',
@@ -131,7 +120,6 @@ const SubmitSummary = ({
     },
     {
       name: 'quietEndingExtension',
-      paramName: 'QUIET_ENDING_EXTENSION',
       value: params.quietEndingExtension,
       param: 'Quiet Ending Extension',
       link: 'https://forum.tecommons.org/t/tao-voting-quiet-ending-period-and-quiet-ending-extension/488',
@@ -141,7 +129,6 @@ const SubmitSummary = ({
     },
     {
       name: 'executionDelay',
-      paramName: 'EXECUTION_DELAY',
       value: params.executionDelay,
       param: 'Execution Delay',
       link: 'https://forum.tecommons.org/t/tao-voting-execution-delay/489',
@@ -154,7 +141,6 @@ const SubmitSummary = ({
   const disputableConvictionVoting = [
     {
       name: 'spendingLimit',
-      paramName: 'SPENDING_LIMIT',
       value: params.spendingLimit,
       param: 'Spending Limit',
       link: 'https://forum.tecommons.org/t/conviction-voting-spending-limit-aka-max-ratio-beta/469',
@@ -164,7 +150,6 @@ const SubmitSummary = ({
     },
     {
       name: 'minimumConviction',
-      paramName: 'MINIMUM_CONVICTION',
       value: params.minimumConviction,
       param: 'Minimum Conviction',
       link: 'https://forum.tecommons.org/t/conviction-voting-minimum-conviction-aka-minimum-threshold/493',
@@ -174,7 +159,6 @@ const SubmitSummary = ({
     },
     {
       name: 'convictionGrowth',
-      paramName: 'CONVICTION_GROWTH',
       value: params.convictionGrowth,
       param: 'Conviction Growth',
       link: 'https://forum.tecommons.org/t/conviction-voting-conviction-growth-aka-half-life/490',

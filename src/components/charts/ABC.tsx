@@ -57,6 +57,9 @@ const options = {
       ticks: {
         color: '#FFFFFF',
         stepSize: 0.2,
+        callback(value) {
+          return value.toFixed(2);
+        },
       },
       beginAtZero: true,
       position: 'left',

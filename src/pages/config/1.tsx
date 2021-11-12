@@ -15,7 +15,7 @@ function TokenFreezeThaw() {
   const inputs = [
     {
       name: 'openingPrice',
-      paramName: 'OPENING_PRICE',
+      formatNumber: true,
       value: openingPrice,
       param: 'Opening Price',
       link: 'https://forum.tecommons.org/t/augmented-bonding-curve-opening-price-reserve-ratio/516',
@@ -25,7 +25,6 @@ function TokenFreezeThaw() {
     },
     {
       name: 'tokenFreeze',
-      paramName: 'TOKEN_FREEZE',
       value: tokenFreeze,
       param: 'Token Freeze',
       link: 'https://forum.tecommons.org/t/token-freeze-token-thaw/509',
@@ -35,7 +34,6 @@ function TokenFreezeThaw() {
     },
     {
       name: 'tokenThaw',
-      paramName: 'TOKEN_THAW',
       value: tokenThaw,
       param: 'Token Thaw',
       link: 'https://forum.tecommons.org/t/token-freeze-token-thaw/509',
@@ -62,6 +60,7 @@ function TokenFreezeThaw() {
               <Input
                 key={input.name}
                 name={input.name}
+                formatNumber={input.formatNumber}
                 value={input.value}
                 param={input.param}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) =>

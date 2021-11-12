@@ -1,4 +1,7 @@
 const formatOutput = (output, header?: string) => {
+  if (header === 'step') {
+    return output;
+  }
   const formatter = new Intl.NumberFormat('en-US', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
@@ -9,10 +12,10 @@ const formatOutput = (output, header?: string) => {
       outputParts[1]
     }`;
   }
-  if (typeof output === 'string') {
+  if (typeof output === 'string' && !Number(output)) {
     return output;
   }
-  return Number(output)?.toLocaleString('en-us');
+  return formatter.format(output);
 };
 
 export default formatOutput;

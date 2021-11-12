@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import classnames from 'classnames';
 import { Tooltip } from '@/components/_global';
-import { useHover } from '@/hooks';
+import { useHover, useParams } from '@/hooks';
 import Select from './Select';
 
 interface InputProps {
   children?: React.ReactNode;
+  formatNumber?: boolean;
   min?: number;
   max?: number;
   name: string;
@@ -24,6 +25,7 @@ interface InputProps {
 
 function Input({
   children,
+  formatNumber,
   min,
   max,
   name,
@@ -39,6 +41,16 @@ function Input({
 }: InputProps) {
   const [hoverRef, isHovered] = useHover<HTMLDivElement>();
   const error = min > Number(value) || max < Number(value);
+  const { setParams } = useParams();
+
+  const handleBlur = (e) => {
+    const num = parseFloat(e.target.value);
+    const cleanNum = num.toFixed(2);
+    setParams((previousParams) => ({
+      ...previousParams,
+      [e.target.name]: cleanNum,
+    }));
+  };
 
   return (
     <div className="py-1 lg:grid lg:grid-cols-5 justify-between">
@@ -84,6 +96,7 @@ function Input({
             value={value}
             onClick={changeParam}
             onChange={onChange}
+            onBlur={formatNumber && handleBlur}
             className={classnames(
               'font-bj font-bold text-neon-light text-xl w-full h-full pl-3 border-2 focus:border-neon hover:border-gray-400 bg-transparent outline-none',
               error ? 'border-red-500' : 'border-gray-500'

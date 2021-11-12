@@ -24,7 +24,6 @@ function DisputableVoting() {
   const inputs = [
     {
       name: 'supportRequired',
-      paramName: 'SUPPORT_REQUIRED',
       value: supportRequired,
       param: 'Support Required',
       link: 'https://forum.tecommons.org/t/tao-voting-support-required/486',
@@ -35,7 +34,6 @@ function DisputableVoting() {
     },
     {
       name: 'minimumQuorum',
-      paramName: 'MINIMUM_QUORUM',
       value: minimumQuorum,
       param: 'Minimum Quorum',
       link: 'https://forum.tecommons.org/t/tao-voting-minimum-quorum/485',
@@ -45,7 +43,6 @@ function DisputableVoting() {
     },
     {
       name: 'voteDuration',
-      paramName: 'VOTE_DURATION',
       value: voteDuration,
       param: 'Vote Duration',
       link: 'https://forum.tecommons.org/t/tao-voting-vote-duration/484',
@@ -54,7 +51,6 @@ function DisputableVoting() {
     },
     {
       name: 'delegatedVotingPeriod',
-      paramName: 'DELEGATED_VOTING_PERIOD',
       value: delegatedVotingPeriod,
       param: 'Delegated Voting Period',
       link: 'https://forum.tecommons.org/t/tao-voting-delegated-voting-period/487',
@@ -64,7 +60,6 @@ function DisputableVoting() {
     },
     {
       name: 'quietEndingPeriod',
-      paramName: 'QUIET_ENDING_PERIOD',
       value: quietEndingPeriod,
       param: 'Quiet Ending Period',
       link: 'https://forum.tecommons.org/t/tao-voting-quiet-ending-period-and-quiet-ending-extension/488',
@@ -74,7 +69,6 @@ function DisputableVoting() {
     },
     {
       name: 'quietEndingExtension',
-      paramName: 'QUIET_ENDING_EXTENSION',
       value: quietEndingExtension,
       param: 'Quiet Ending Extension',
       link: 'https://forum.tecommons.org/t/tao-voting-quiet-ending-period-and-quiet-ending-extension/488',
@@ -84,7 +78,6 @@ function DisputableVoting() {
     },
     {
       name: 'executionDelay',
-      paramName: 'EXECUTION_DELAY',
       value: executionDelay,
       param: 'Execution Delay',
       link: 'https://forum.tecommons.org/t/tao-voting-execution-delay/489',
