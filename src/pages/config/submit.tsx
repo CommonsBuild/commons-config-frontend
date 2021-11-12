@@ -28,6 +28,7 @@ function SubmitConfig() {
     commonsTribute,
     submitProposal,
     handleChange,
+    handleMarketScenario,
     setParams,
     ...params
   } = useParams();
@@ -224,6 +225,11 @@ function SubmitConfig() {
                   reserveBalance: String(launchValue),
                   convictionVotingPeriodDays: '14',
                 }));
+                handleMarketScenario([
+                  [5000, 'wxDAI'],
+                  [100000, 'wxDAI'],
+                  [3000, 'TEC'],
+                ]);
               }}
               submitProposal={submitProposal}
             />
