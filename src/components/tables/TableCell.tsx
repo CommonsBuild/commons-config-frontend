@@ -20,20 +20,27 @@ interface TableCellProps {
   bold?: boolean;
   content: string | number;
   size?: Size;
+  tooltipColumn?: boolean;
 }
 
-function TableCell({ bold, content, size = 'm' }: TableCellProps) {
+function TableCell({
+  bold,
+  content,
+  size = 'm',
+  tooltipColumn,
+}: TableCellProps) {
   return (
     <div
       className={classnames(
         'flex justify-center 2xl:block',
+        tooltipColumn && 'pr-5',
         cellSize[size],
         cellMaxSize[size]
       )}
     >
       <span
         className={classnames(
-          'font-bj text-neon-light text-xs text-center 2xl:text-start',
+          'font-bj text-neon-light text-xxs text-center 2xl:text-xs 2xl:text-start',
           {
             'font-bold': bold,
           }
