@@ -234,29 +234,6 @@
   right: -16px;
 }
 
-.marquee {
-  display: block;
-  width: 200%;
-
-  position: absolute;
-  overflow: hidden;
-  animation: marquee 15s linear infinite;
-}
-
-.marquee span {
-  float: left;
-  width: 50%;
-}
-
-@keyframes marquee {
-  0% {
-    left: 0;
-  }
-  100% {
-    left: -100%;
-  }
-}
-
 html {
   font-size: 10px;
 }
