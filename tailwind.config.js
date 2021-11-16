@@ -8,6 +8,10 @@ module.exports = {
   darkMode: false,
   theme: {
     extend: {
+      animation: {
+        marquee: 'marquee 25s linear infinite',
+        marquee2: 'marquee2 25s linear infinite',
+      },
       backgroundImage: (theme) => ({
         lp: "url('/landing_page.png')",
         dash: "url('/dash.png')",
@@ -170,6 +174,17 @@ module.exports = {
         warn: '#FFDD0F',
         background: 'rgba(0, 0, 0, 0.5)',
       },
+      fontFamily: {
+        inter: ['Inter', 'sans-serif'],
+        bj: ['Bai Jamjuree', 'sans-serif'],
+      },
+      fontSize: {
+        xxs: '0.625rem',
+      },
+      height: {
+        144: '36rem',
+        lp: '1828px',
+      },
       inset: {
         '-1/10': '-10%',
         '-2/10': '-20%',
@@ -191,16 +206,15 @@ module.exports = {
         '8/10': '80%',
         '9/10': '90%',
       },
-      fontFamily: {
-        inter: ['Inter', 'sans-serif'],
-        bj: ['Bai Jamjuree', 'sans-serif'],
-      },
-      fontSize: {
-        xxs: '0.625rem',
-      },
-      height: {
-        144: '36rem',
-        lp: '1828px',
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
+        marquee2: {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0%)' },
+        },
       },
       maxWidth: {
         36: '2.25rem',
