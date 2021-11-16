@@ -8,9 +8,9 @@ interface TaoVotingTableProps {
 }
 
 const rowName = [
-  'Time to vote on proposals',
-  'Time to review a delegated vote',
-  'Time to execute a passing proposal',
+  { name: 'Time to vote on proposals', id: 'timeVote' },
+  { name: 'Time to review a delegated vote', id: 'timeReview' },
+  { name: 'Time to execute a passing proposal', id: 'timeExecute' },
 ];
 
 function TaoVotingTable({ table }: TaoVotingTableProps) {
@@ -26,12 +26,12 @@ function TaoVotingTable({ table }: TaoVotingTableProps) {
       }
       content={
         table ? (
-          Object.keys(table).map((elem, index) => (
+          rowName.map((elem) => (
             <TableRow>
-              <TableCell bold content={rowName[index]} size="xl" />
-              <TableCell content={table[elem][0]} size="xl" />
-              <TableCell content={table[elem][1]} size="xl" />
-              <TableCell content={table[elem][2]} size="xl" />
+              <TableCell bold content={elem.name} size="xl" />
+              <TableCell content={table[elem.id][0]} size="xl" />
+              <TableCell content={table[elem.id][1]} size="xl" />
+              <TableCell content={table[elem.id][2]} size="xl" />
             </TableRow>
           ))
         ) : (
