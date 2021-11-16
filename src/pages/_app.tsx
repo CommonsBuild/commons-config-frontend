@@ -53,37 +53,37 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
                         >
                           <div className="relative flex overflow-x-hidden">
                             <div className="py-12 animate-marquee whitespace-nowrap">
-                              <span className="font-bj font-bold text-xs uppercase mx-4">
+                              <span className="font-bj font-bold text-xs uppercase mx-4 cursor-pointer">
                                 🎉🎉 Join our param parties to build some
                                 amazing economies with us! 🎉🎉
                               </span>
-                              <span className="font-bj font-bold text-xs uppercase mx-4">
+                              <span className="font-bj font-bold text-xs uppercase mx-4 cursor-pointer">
                                 🎉🎉 Join our param parties to build some
                                 amazing economies with us! 🎉🎉
                               </span>
-                              <span className="font-bj font-bold text-xs uppercase mx-4">
+                              <span className="font-bj font-bold text-xs uppercase mx-4 cursor-pointer">
                                 🎉🎉 Join our param parties to build some
                                 amazing economies with us! 🎉🎉
                               </span>
-                              <span className="font-bj font-bold text-xs uppercase mx-4">
+                              <span className="font-bj font-bold text-xs uppercase mx-4 cursor-pointer">
                                 🎉🎉 Join our param parties to build some
                                 amazing economies with us! 🎉🎉
                               </span>
                             </div>
                             <div className="absolute top-0 py-12 animate-marquee2 whitespace-nowrap">
-                              <span className="font-bj font-bold text-xs uppercase mx-4">
+                              <span className="font-bj font-bold text-xs uppercase mx-4 cursor-pointer">
                                 🎉🎉 Join our param parties to build some
                                 amazing economies with us! 🎉🎉
                               </span>
-                              <span className="font-bj font-bold text-xs uppercase mx-4">
+                              <span className="font-bj font-bold text-xs uppercase mx-4 cursor-pointer">
                                 🎉🎉 Join our param parties to build some
                                 amazing economies with us! 🎉🎉
                               </span>
-                              <span className="font-bj font-bold text-xs uppercase mx-4">
+                              <span className="font-bj font-bold text-xs uppercase mx-4 cursor-pointer">
                                 🎉🎉 Join our param parties to build some
                                 amazing economies with us! 🎉🎉
                               </span>
-                              <span className="font-bj font-bold text-xs uppercase mx-4">
+                              <span className="font-bj font-bold text-xs uppercase mx-4 cursor-pointer">
                                 🎉🎉 Join our param parties to build some
                                 amazing economies with us! 🎉🎉
                               </span>
