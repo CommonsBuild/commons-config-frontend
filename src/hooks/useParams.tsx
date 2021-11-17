@@ -37,7 +37,6 @@ type ParamsContextType = {
   minimumConviction: string;
   convictionGrowth: string;
   convictionVotingPeriodDays: string;
-  tableScenarios: number[][];
   commonPoolAmount: string;
   HNYLiquidity: string;
   gardenLiquidity: string;
@@ -54,7 +53,7 @@ type ParamsContextType = {
   setParams: Dispatch<SetStateAction<ParamsContextType>>;
   handleChange: (event: React.ChangeEvent) => void;
   handleMarketScenario: (scenario: (number | string)[][]) => void;
-  handleAddStep: (step: (number | string)[], param: string) => void;
+  handleAddStep: (step: (number | string)[]) => void;
   handleRemoveStep: (stepIndex: number) => void;
 };
 
@@ -92,14 +91,6 @@ export const initialParams: ParamsContextType = {
   minimumConviction: '0.5',
   convictionGrowth: '',
   convictionVotingPeriodDays: '7',
-  tableScenarios: [
-    [1000, 100000, 1500000],
-    [5000, 100000, 1500000],
-    [25000, 100000, 1500000],
-    [1000, 750000, 1500000],
-    [5000, 750000, 1500000],
-    [25000, 750000, 1500000],
-  ],
   commonPoolAmount: '0',
   HNYLiquidity: '100',
   gardenLiquidity: '1',
@@ -139,7 +130,6 @@ interface AppParamsContextProps {
 function ParamsProvider({ children }: AppParamsContextProps) {
   const [params, setParams] = useState<ParamsContextType>();
   const [submitProposalState, setSubmitProposal] = useState(false);
-  const [tableScenariosCount, setTableScenariosCount] = useState<number>(6);
 
   useEffect(() => {
     setParams(JSON.parse(localStorage.getItem('params')) || initialParams);
@@ -230,25 +220,12 @@ function ParamsProvider({ children }: AppParamsContextProps) {
     }));
   };
 
-  const handleAddStep = (step: (number | string)[], param: string) => {
-    let newList = [];
-    if (param === 'stepList') {
-      newList = params.stepList;
-      newList.push(step);
-    } else {
-      newList = params.tableScenarios;
-      if (newList.length === 12) {
-        newList.splice(tableScenariosCount, 1, step);
-        setTableScenariosCount((previousCount) =>
-          previousCount === 11 ? 6 : previousCount + 1
-        );
-      } else {
-        newList.push(step);
-      }
-    }
+  const handleAddStep = (step: (number | string)[]) => {
+    const newStepList = params.stepList;
+    newStepList.push(step);
     setParams((previousParams) => ({
       ...previousParams,
-      [param]: newList,
+      stepList: newStepList,
     }));
   };
 
