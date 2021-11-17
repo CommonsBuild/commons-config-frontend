@@ -17,6 +17,7 @@ const SubmitSummary = ({
     {
       name: 'openingPrice',
       value: params.openingPrice,
+      format: true,
       param: 'Opening Price',
       link: 'https://forum.tecommons.org/t/augmented-bonding-curve-opening-price-reserve-ratio/516',
       placeholder: 'wxDAI',
@@ -177,6 +178,7 @@ const SubmitSummary = ({
     {
       name: 'HNYLiquidity',
       value: params.HNYLiquidity,
+      format: true,
       param: 'HNY Liquidity',
       placeholder: 'wxDAI',
     },
@@ -195,6 +197,7 @@ const SubmitSummary = ({
     {
       name: 'virtualBalance',
       value: params.virtualBalance,
+      format: true,
       param: 'Virtual Balance',
       placeholder: 'wxDAI',
     },
@@ -225,12 +228,14 @@ const SubmitSummary = ({
     {
       name: 'proposalDeposit',
       value: params.proposalDeposit,
+      format: true,
       param: 'Proposal Deposit',
       placeholder: 'wxDAI',
     },
     {
       name: 'challengeDeposit',
       value: params.challengeDeposit,
+      format: true,
       param: 'Challenge Deposit',
       placeholder: 'wxDAI',
     },
@@ -249,12 +254,14 @@ const SubmitSummary = ({
     {
       name: 'ragequitAmount',
       value: params.ragequitAmount,
+      format: true,
       param: 'Hatchers Rage Quit',
       placeholder: 'wxDAI',
     },
     {
       name: 'initialBuy',
       value: params.initialBuy,
+      format: true,
       param: 'Initial Buy',
       placeholder: 'wxDAI',
     },
