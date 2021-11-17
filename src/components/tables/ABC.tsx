@@ -73,7 +73,8 @@ function ABCTable({ table, showStepZero }: ABCTableProps) {
             <TableCell
               content={formatOutput(
                 table[headerOrder[kIndex]][index],
-                headerOrder[kIndex]
+                headerOrder[kIndex],
+                headerOrder[kIndex] === 'currentSupplyParsed' ? 'TEC' : ''
               )}
               size={kIndex ? 'm' : 's'}
               tooltipColumn
