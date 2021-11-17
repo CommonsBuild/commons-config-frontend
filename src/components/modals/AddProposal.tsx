@@ -24,7 +24,31 @@ function AddProposal({ isOpen, handleClose, onClick }: AddProposalProps) {
   };
 
   return (
-    <Modal isOpen={isOpen} handleClose={handleClose} title="Add a proposal">
+    <Modal
+      isOpen={isOpen}
+      handleClose={handleClose}
+      title="Add Proposal"
+      customButton={
+        <button
+          className="h-14 px-6 mx-auto bg-neon outline-none	hover:bg-neon-light-600 disabled:opacity-50 disabled:bg-gray-400 disabled:text-gray-300 w-full"
+          onClick={() => {
+            onClick(
+              [
+                Number(requestedAmount),
+                Number(commonPool),
+                Number(effectiveSupply),
+              ],
+              'tableScenarios'
+            );
+            handleClose();
+          }}
+        >
+          <span className="font-bj font-bold text-lg uppercase cursor-pointer">
+            Add Proposal
+          </span>
+        </button>
+      }
+    >
       <div className="max-w-sm m-auto">
         <p className="font-inter text-neon-light pt-3">
           How much funding is the simulated proposal requesting?
@@ -65,24 +89,6 @@ function AddProposal({ isOpen, handleClose, onClick }: AddProposalProps) {
           }
           placeholder="wxDAI"
         />
-        <a
-          className="flex justify-center border border-neon my-3"
-          onClick={() => {
-            onClick(
-              [
-                Number(requestedAmount),
-                Number(commonPool),
-                Number(effectiveSupply),
-              ],
-              'tableScenarios'
-            );
-            handleClose();
-          }}
-        >
-          <span className="font-bj font-bold text-xs text-neon uppercase p-2 py-3">
-            add proposal
-          </span>
-        </a>
       </div>
     </Modal>
   );
