@@ -76,6 +76,7 @@ function ABCTable({ table, showStepZero }: ABCTableProps) {
                 headerOrder[kIndex]
               )}
               size={kIndex ? 'm' : 's'}
+              tooltipColumn
             />
           ))}
         </TableRow>

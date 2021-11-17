@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import classnames from 'classnames';
@@ -23,11 +23,13 @@ async function getImage(id) {
 
 function SubmitConfig() {
   const {
+    convictionGrowth,
     ragequitAmount,
     initialBuy,
     commonsTribute,
     submitProposal,
     handleChange,
+    handleMarketScenario,
     setParams,
     ...params
   } = useParams();
@@ -82,7 +84,7 @@ function SubmitConfig() {
         strategy: params.convictionStrategy,
         spendingLimit: Number(params.spendingLimit) / 100,
         minimumConviction: Number(params.minimumConviction) / 100,
-        convictionGrowth: Number(params.convictionGrowth),
+        convictionGrowth: Number(convictionGrowth),
         votingPeriodDays: Number(params.convictionVotingPeriodDays),
       },
       advancedSettings: {
@@ -143,6 +145,15 @@ function SubmitConfig() {
         });
       });
   }
+
+  useEffect(() => {
+    if (convictionGrowth === '') {
+      setParams((previousParams) => ({
+        ...previousParams,
+        convictionGrowth: '5',
+      }));
+    }
+  }, [convictionGrowth]);
 
   return (
     <>
@@ -224,6 +235,11 @@ function SubmitConfig() {
                   reserveBalance: String(launchValue),
                   convictionVotingPeriodDays: '14',
                 }));
+                handleMarketScenario([
+                  [5000, 'wxDAI'],
+                  [100000, 'wxDAI'],
+                  [3000, 'TEC'],
+                ]);
               }}
               submitProposal={submitProposal}
             />

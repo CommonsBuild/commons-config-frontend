@@ -29,7 +29,7 @@ function Card({
   return (
     <div
       className={classnames(
-        'self-start flex flex-col bg-black-100 mx-16 my-4 pb-8 pt-2 px-8 w-2/6 2xl:w-1/4 lg:mt-8',
+        'self-start flex flex-col bg-black-100 mx-4 my-4 pb-8 pt-2 px-8 w-2/6 lg:mt-8 2xl:w-1/4 2xl:mx-16',
         {
           'min-w-2/5': minWidth,
         }
