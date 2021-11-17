@@ -1,22 +1,11 @@
 import type { ReactElement } from 'react';
-import { useState } from 'react';
 import Image from 'next/image';
 
 import Intro from '@/templates/Intro';
-import { Modal } from '@/components/modals/';
 
-interface DialogProps {
-  handleClose: () => void;
-  isOpen: boolean;
-}
-
-function IntroOneDialog({ handleClose, isOpen }: DialogProps) {
+function IntroOneDialog() {
   return (
-    <Modal
-      handleClose={handleClose}
-      isOpen={isOpen}
-      title="Token Freeze & Token Thaw"
-    >
+    <>
       <p className="font-inter text-base text-neon-light p-4">
         Instead of the Hatcher’s TEC tokens becoming available at once to sell
         or trade, they are frozen for some time.
@@ -43,7 +32,7 @@ function IntroOneDialog({ handleClose, isOpen }: DialogProps) {
           layout="fixed"
         />
       </div>
-    </Modal>
+    </>
   );
 }
 
@@ -72,14 +61,11 @@ function IntroOne() {
 }
 
 IntroOne.getLayout = function getLayout(page: ReactElement) {
-  const [dialog, setDialog] = useState<boolean>(false);
   return (
     <Intro
-      dialog={
-        <IntroOneDialog isOpen={dialog} handleClose={() => setDialog(false)} />
-      }
+      dialogContent={<IntroOneDialog />}
+      dialogTitle="Token Freeze & Token Thaw"
       nextHref="/intro/2"
-      openDialog={() => setDialog(true)}
       title="Intro 1 | Commons Dashboard"
     >
       {page}

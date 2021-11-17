@@ -1,22 +1,11 @@
 import type { ReactElement } from 'react';
-import { useState } from 'react';
 import Image from 'next/image';
 
 import Intro from '@/templates/Intro';
-import { Modal } from '@/components/modals/';
 
-interface DialogProps {
-  handleClose: () => void;
-  isOpen: boolean;
-}
-
-function IntroTwoDialog({ handleClose, isOpen }: DialogProps) {
+function IntroTwoDialog() {
   return (
-    <Modal
-      handleClose={handleClose}
-      isOpen={isOpen}
-      title="The Augmented Bonding Curve (ABC)"
-    >
+    <>
       <p className="font-inter text-base text-neon-light p-4">
         The Augmented Bonding Curve (ABC) is the main economic engine by which
         we will provide a constant flow of funding to the Commons Initiatives.
@@ -42,7 +31,7 @@ function IntroTwoDialog({ handleClose, isOpen }: DialogProps) {
           layout="fixed"
         />
       </div>
-    </Modal>
+    </>
   );
 }
 
@@ -70,15 +59,11 @@ function IntroTwo() {
 }
 
 IntroTwo.getLayout = function getLayout(page: ReactElement) {
-  const [dialog, setDialog] = useState<boolean>(false);
-
   return (
     <Intro
-      dialog={
-        <IntroTwoDialog isOpen={dialog} handleClose={() => setDialog(false)} />
-      }
+      dialogContent={<IntroTwoDialog />}
+      dialogTitle="The Augmented Bonding Curve (ABC)"
       nextHref="/intro/3"
-      openDialog={() => setDialog(true)}
       title="Intro 2 | Commons Dashboard"
     >
       {page}

@@ -58,30 +58,32 @@ function Learn({ children, title, nextHref }: LearnProps) {
       <Head>
         <title>{title}</title>
       </Head>
-      <div className="min-h-screen bg-black-300">
-        <Navbar
-          href="/learn/done"
-          text="finish learning"
-          transparentBackground={false}
-        />
-        <div className="fixed -left-5/10 top-1/10">
-          <Image
-            className="-rotate-90"
-            src="/animation.png"
-            layout="fixed"
-            width="1246"
-            height="1087"
-          />
+      <Navbar
+        href="/learn/done"
+        text="finish learning"
+        transparentBackground={false}
+      />
+      <div className="min-h-screen bg-black-300 z-40 absolute">
+        <div className="relative z-0">
+          <div className="fixed -left-5/10 top-1/10">
+            <Image
+              className="-rotate-90"
+              src="/animation.png"
+              layout="fixed"
+              width="1246"
+              height="1087"
+            />
+          </div>
+          <div className="fixed left-7/10 top-2/10">
+            <Image
+              src="/animation.png"
+              layout="fixed"
+              width="1246"
+              height="1087"
+            />
+          </div>
         </div>
-        <div className="fixed left-7/10 top-2/10">
-          <Image
-            src="/animation.png"
-            layout="fixed"
-            width="1246"
-            height="1087"
-          />
-        </div>
-        <div className="container grid grid-cols-1 lg:grid-cols-4 lg:gap-24 mx-auto px-4 py-8">
+        <div className="container grid grid-cols-1 lg:grid-cols-4 lg:gap-24 mx-auto px-4 py-8 z-40 relative">
           <img
             className="mb-4 lg:mt-16"
             src="/assets/learn-side-title.svg"
