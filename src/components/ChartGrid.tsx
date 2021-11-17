@@ -7,10 +7,10 @@ function ChartGrid({ chart, id, xAxisLabel, yAxisLabel }) {
         <div className="flex w-max">{yAxisLabel}</div>
         <div className="flex justify-center py-2">
           <div className="w-full">
-            {chart}
-            <div className="relative h-3/5 abc-chart">
+            <div className="relative h-3/5 chart">
               <Image layout="fill" src="/chart_bg.png" />
             </div>
+            <div className="relative bottom-6/10">{chart}</div>
           </div>
         </div>
         <div />

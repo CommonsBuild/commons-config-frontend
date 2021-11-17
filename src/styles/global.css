@@ -82,27 +82,15 @@
   box-shadow: 0px 0px 0px 4px black inset;
 }
 
-.chart {
-  width: 96%;
-  margin-left: 3%;
-  top: calc(-40px + -50%);
-}
-
 .chart-grid {
   grid-template-rows: 1fr 2rem;
   grid-template-columns: 2rem 1fr;
 }
 
-.abc-chart {
-  width: 94%;
-  margin-left: 4%;
-  top: calc(-23px + -60%);
-}
-
-.curve-chart {
-  width: 35vw;
-  margin-left: 172px;
-  top: calc(-24px + -50%);
+.chart {
+  width: calc(100% - 55px);
+  margin-left: 42px;
+  top: calc(40% - 22.5px);
 }
 
 .text-stroke {
