@@ -77,7 +77,7 @@ function ConvictionVoting() {
         convictionGrowth: '5',
       }));
     }
-  }, []);
+  }, [convictionGrowth]);
 
   return (
     <>

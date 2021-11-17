@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import classnames from 'classnames';
@@ -23,6 +23,7 @@ async function getImage(id) {
 
 function SubmitConfig() {
   const {
+    convictionGrowth,
     ragequitAmount,
     initialBuy,
     commonsTribute,
@@ -83,7 +84,7 @@ function SubmitConfig() {
         strategy: params.convictionStrategy,
         spendingLimit: Number(params.spendingLimit) / 100,
         minimumConviction: Number(params.minimumConviction) / 100,
-        convictionGrowth: Number(params.convictionGrowth),
+        convictionGrowth: Number(convictionGrowth),
         votingPeriodDays: Number(params.convictionVotingPeriodDays),
       },
       advancedSettings: {
@@ -144,6 +145,15 @@ function SubmitConfig() {
         });
       });
   }
+
+  useEffect(() => {
+    if (convictionGrowth === '') {
+      setParams((previousParams) => ({
+        ...previousParams,
+        convictionGrowth: '5',
+      }));
+    }
+  }, [convictionGrowth]);
 
   return (
     <>
