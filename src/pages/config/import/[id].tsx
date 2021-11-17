@@ -83,6 +83,7 @@ function Import() {
             ...tao,
             ...conviction,
             ...advanced,
+            tableScenarios: conviction.tableScenarios || [],
             transferable: Boolean(advanced.transferability),
           };
           localStorage.setItem('params', JSON.stringify(newParams));
