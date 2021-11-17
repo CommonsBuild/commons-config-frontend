@@ -6,9 +6,8 @@ import {
   useEffect,
   useState,
 } from 'react';
-import axios from 'axios';
 import { useParams } from '@/hooks/useParams';
-// import api from '@/services/api';
+import api from '@/services/api';
 
 type ConvictionVotingContextType = {
   convictionGrowthChart: { [key: string]: number[] };
@@ -45,32 +44,19 @@ function ConvictionVotingProvider({
     minimumConviction,
     convictionGrowth,
     convictionVotingPeriodDays,
-    tableScenarios,
   } = useParams();
 
   useEffect(() => {
     const typeTimeOut = setTimeout(() => {
-      console.log({
-        spendingLimit: Number(spendingLimit) / 100,
-        minimumConviction: Number(minimumConviction) / 100,
-        convictionGrowth,
-        convictionVotingPeriodDays,
-        tableScenarios,
-      });
-      axios
-        .post(
-          'https://cv-scenario-generator.herokuapp.com/conviction-voting/',
-          {
-            spendingLimit: Number(spendingLimit) / 100,
-            minimumConviction: Number(minimumConviction) / 100,
-            convictionGrowth,
-            convictionVotingPeriodDays,
-            tableScenarios,
-          }
-        )
+      api
+        .post('/conviction-voting/', {
+          spendingLimit: Number(spendingLimit) / 100,
+          minimumConviction: Number(minimumConviction) / 100,
+          convictionGrowth,
+          convictionVotingPeriodDays,
+        })
         .then((response) => {
           const { output } = response.data;
-          console.log(output);
           setContext({
             ...output,
             dataPoints: [
@@ -79,7 +65,7 @@ function ConvictionVotingProvider({
             ],
           });
         })
-        .catch((e) => console.log(e.response));
+        .catch((e) => console.log(e));
     }, 500);
     return () => clearTimeout(typeTimeOut);
   }, [
@@ -87,7 +73,6 @@ function ConvictionVotingProvider({
     minimumConviction,
     convictionGrowth,
     convictionVotingPeriodDays,
-    JSON.stringify(tableScenarios),
   ]);
 
   return (
