@@ -265,7 +265,7 @@ function ABC() {
               </span>
             </div>
           </Card>
-          <ChartContainer title="Experience your Augmented Bonding Curve by adjusting your parameters and experimenting with the Step Simulator.">
+          <ChartContainer title="Experience your Augmented Bonding Curve by adjusting your params and adding steps.">
             <div className="max-w-max h-0 text-center relative -top-2 left-24">
               <InfoBox
                 label={`COMMON POOL AT LAUNCH: ${formatOutput(

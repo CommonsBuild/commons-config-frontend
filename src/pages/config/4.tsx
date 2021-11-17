@@ -119,7 +119,7 @@ function ConvictionVoting() {
             ))}
             <RedirectButton href="/learn/4" />
           </Card>
-          <ChartContainer title="Visualize how Conviction works and the requirements for successfully requesting funds. Use the graph below to see the minimum percent of tokens needed to pass funding requests.">
+          <ChartContainer title="Visualize the percent of tokens needed to pass funding requests in Conviction Voting.">
             <ConvictionThresholdChart
               requestedPercentage={convictionThresholdChart.requestedPercentage}
               thresholdPercentage={convictionThresholdChart.thresholdPercentage}
