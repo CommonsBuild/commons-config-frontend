@@ -127,6 +127,7 @@ function SubmitConfig() {
         setUrl(response.data.url);
         setLoading(false);
         setDialog(true);
+        localStorage.removeItem('params');
       })
       .catch(() => {
         setLoading(false);

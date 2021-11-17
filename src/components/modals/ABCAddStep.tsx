@@ -5,7 +5,7 @@ import { LabeledRadioButton } from '@/components/btns';
 interface ABCAddStepDialogProps {
   handleClose: React.MouseEventHandler<HTMLElement>;
   isOpen: boolean;
-  onClick: (step: (number | string)[]) => void;
+  onClick: (step: (number | string)[], param: string) => void;
 }
 
 interface StepValues {
@@ -85,7 +85,7 @@ function ABCAddStepDialog({
           <a
             className="flex justify-center border border-neon my-3"
             onClick={(e) => {
-              onClick([Number(stepData.value), stepData.type]);
+              onClick([Number(stepData.value), stepData.type], 'stepList');
               handleClose(e);
             }}
           >
