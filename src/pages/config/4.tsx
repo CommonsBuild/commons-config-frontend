@@ -124,8 +124,8 @@ function ConvictionVoting() {
                 {input.children}
               </Input>
             ))}
-            <div className="font-inter text-xs text-gray-500 pt-4 pb-2">
-              Simulate a funding request to experience the Conviction Voting.
+            <div className="font-inter text-xs text-gray-200 pt-4 pb-2">
+              Make a Funding Request to experience your configuration.
             </div>
             <button
               className="flex justify-center items-center w-full h-8 border border-neon-light disabled:text-gray-400 disabled:border-gray-400"
