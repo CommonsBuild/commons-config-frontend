@@ -244,7 +244,7 @@ function ABC() {
                     />
                   ))}
                 </div>
-                <div className="font-inter text-xs text-gray-500 py-2">
+                <div className="font-inter text-xs text-gray-200 py-2">
                   Add more steps to experience your Bonding Curve
                 </div>
                 <button
