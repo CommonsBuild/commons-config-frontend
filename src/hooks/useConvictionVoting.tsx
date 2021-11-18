@@ -79,7 +79,7 @@ function ConvictionVotingProvider({
     minimumConviction,
     convictionGrowth,
     convictionVotingPeriodDays,
-    tableScenarios,
+    JSON.stringify(tableScenarios),
   ]);
 
   return (
