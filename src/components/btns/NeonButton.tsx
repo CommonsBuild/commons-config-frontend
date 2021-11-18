@@ -7,7 +7,6 @@ interface NeonButtonProps {
   disabled?: boolean;
   fullWidth?: boolean;
   href?: string;
-  passHref?: boolean;
   hidden?: boolean;
   onClick?: () => void;
 }
@@ -17,12 +16,11 @@ function NeonButton({
   hidden,
   fullWidth,
   href = '',
-  passHref,
   children,
   onClick,
 }: NeonButtonProps) {
   return (
-    <Link href={href} passHref={passHref}>
+    <Link href={href}>
       <button
         className={classnames(
           'h-14 px-6 mx-auto bg-neon outline-none	hover:bg-neon-light-600 disabled:opacity-50 disabled:bg-gray-400 disabled:text-gray-300',

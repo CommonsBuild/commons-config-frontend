@@ -50,13 +50,6 @@ function ConvictionVotingProvider({
 
   useEffect(() => {
     const typeTimeOut = setTimeout(() => {
-      console.log({
-        spendingLimit: Number(spendingLimit) / 100,
-        minimumConviction: Number(minimumConviction) / 100,
-        convictionGrowth,
-        convictionVotingPeriodDays,
-        tableScenarios,
-      });
       axios
         .post(
           'https://cv-scenario-generator.herokuapp.com/conviction-voting/',
@@ -70,7 +63,6 @@ function ConvictionVotingProvider({
         )
         .then((response) => {
           const { output } = response.data;
-          console.log(output);
           setContext({
             ...output,
             dataPoints: [
@@ -79,7 +71,7 @@ function ConvictionVotingProvider({
             ],
           });
         })
-        .catch((e) => console.log(e.response));
+        .catch((e) => console.log(e));
     }, 500);
     return () => clearTimeout(typeTimeOut);
   }, [
@@ -87,7 +79,7 @@ function ConvictionVotingProvider({
     minimumConviction,
     convictionGrowth,
     convictionVotingPeriodDays,
-    JSON.stringify(tableScenarios),
+    tableScenarios,
   ]);
 
   return (

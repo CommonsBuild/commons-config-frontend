@@ -28,8 +28,8 @@ function ConvictionVoting() {
     convictionVotingPeriodDays,
     submitProposal,
     setParams,
-    handleChange,
     handleAddStep,
+    handleChange,
   } = useParams();
 
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -79,7 +79,7 @@ function ConvictionVoting() {
         convictionGrowth: '5',
       }));
     }
-  }, []);
+  }, [convictionGrowth]);
 
   return (
     <>
@@ -137,7 +137,7 @@ function ConvictionVoting() {
             </button>
             <RedirectButton href="/learn/4" />
           </Card>
-          <ChartContainer title="Visualize how Conviction works and the requirements for successfully requesting funds. Use the graph below to see the minimum percent of tokens needed to pass funding requests.">
+          <ChartContainer title="Visualize the percent of tokens needed to pass funding requests in Conviction Voting.">
             <ConvictionThresholdChart
               requestedPercentage={convictionThresholdChart.requestedPercentage}
               thresholdPercentage={convictionThresholdChart.thresholdPercentage}

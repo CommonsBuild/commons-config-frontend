@@ -265,7 +265,7 @@ function ABC() {
               </span>
             </div>
           </Card>
-          <ChartContainer title="Experience your Augmented Bonding Curve by adjusting your parameters and experimenting with the Step Simulator.">
+          <ChartContainer title="Experience your Augmented Bonding Curve by adjusting your params and adding steps.">
             <div className="max-w-max h-0 text-center relative -top-2 left-24">
               <InfoBox
                 label={`COMMON POOL AT LAUNCH: ${formatOutput(
@@ -300,10 +300,10 @@ function ABC() {
               stepLinSpaces={stepLinSpaces ? stepLinSpaces[selectedStep] : {}}
               singleDataPoints={singlePoints}
             />
-            <span className="font-bj text-sm text-neon-light pt-6 pb-2 2xl:pl-16">
+            <span className="font-bj text-sm text-neon-light px-16 pt-6 pb-2">
               Steps
             </span>
-            <div className="flex pt-2 pb-6 2xl:pl-16">
+            <div className="flex px-16 pt-2 pb-6">
               {stepTable?.step?.map((item, index) => (
                 <div
                   className={classnames(

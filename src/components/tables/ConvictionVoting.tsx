@@ -41,11 +41,11 @@ function ConvictionVotingTable({
             size="l"
           />
           <TableCell
-            content={formatOutput(table.totalEffectiveSupply[index])}
+            content={formatOutput(table.totalEffectiveSupply[index], '', 'TEC')}
             size="l"
           />
           <TableCell
-            content={formatOutput(table.tokensToPassIn2Weeks[index])}
+            content={formatOutput(table.tokensToPassIn2Weeks[index], '', 'TEC')}
             size="l"
           />
         </TableRow>

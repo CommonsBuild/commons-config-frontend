@@ -61,6 +61,7 @@ const options = {
           return value.toFixed(2);
         },
       },
+      beginAtZero: true,
       position: 'left',
     },
   },

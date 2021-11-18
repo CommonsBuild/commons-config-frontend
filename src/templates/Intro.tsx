@@ -1,18 +1,19 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { ReactNode } from 'react';
+import { useState, ReactNode } from 'react';
 import { motion, Variants } from 'framer-motion';
 
 import { CustomNavbar as Navbar } from '@/components/_global/Navbar';
 import { NeonButton } from '@/components/btns/';
 import IntroBackground from '@/components/IntroBackground';
+import { Modal } from '@/components/modals';
 
 interface IntroProps {
   children: ReactNode;
-  dialog: ReactNode;
+  dialogContent: ReactNode;
+  dialogTitle: string;
   nextHref: string;
-  openDialog: React.MouseEventHandler<HTMLAnchorElement>;
   title: string;
 }
 
@@ -50,15 +51,28 @@ const sections = [
   },
 ];
 
-function Intro({ children, dialog, nextHref, openDialog, title }: IntroProps) {
+function Intro({
+  children,
+  dialogContent,
+  dialogTitle,
+  nextHref,
+  title,
+}: IntroProps) {
   const router = useRouter();
+  const [dialog, setDialog] = useState<boolean>(false);
 
   return (
     <>
       <Head>
         <title>{title}</title>
       </Head>
-      {dialog}
+      <Modal
+        isOpen={dialog}
+        handleClose={() => setDialog(false)}
+        title={dialogTitle}
+      >
+        {dialogContent}
+      </Modal>
       <Navbar
         href="/config/1"
         text="go to configuration"
@@ -107,7 +121,7 @@ function Intro({ children, dialog, nextHref, openDialog, title }: IntroProps) {
             >
               {children}
               <a
-                onClick={openDialog}
+                onClick={() => setDialog(true)}
                 className="block font-bj font-bold text-sm text-neon uppercase my-6"
               >
                 learn more

@@ -1,18 +1,11 @@
 import type { ReactElement } from 'react';
-import { useState } from 'react';
 import Image from 'next/image';
 
 import Intro from '@/templates/Intro';
-import { Modal } from '@/components/modals/';
 
-interface DialogProps {
-  handleClose: () => void;
-  isOpen: boolean;
-}
-
-function IntroThreeDialog({ handleClose, isOpen }: DialogProps) {
+function IntroThreeDialog() {
   return (
-    <Modal handleClose={handleClose} isOpen={isOpen} title="Tao Voting">
+    <>
       <p className="font-inter text-base text-neon-light p-4">
         Tao Voting (TV) is the voting process by which the Commons can modify
         its economic and governance settings post-upgrade.
@@ -36,7 +29,7 @@ function IntroThreeDialog({ handleClose, isOpen }: DialogProps) {
           layout="fixed"
         />
       </div>
-    </Modal>
+    </>
   );
 }
 
@@ -61,18 +54,11 @@ function IntroThree() {
 }
 
 IntroThree.getLayout = function getLayout(page: ReactElement) {
-  const [dialog, setDialog] = useState<boolean>(false);
-
   return (
     <Intro
-      dialog={
-        <IntroThreeDialog
-          isOpen={dialog}
-          handleClose={() => setDialog(false)}
-        />
-      }
+      dialogContent={<IntroThreeDialog />}
+      dialogTitle="Tao Voting"
       nextHref="/intro/4"
-      openDialog={() => setDialog(true)}
       title="Intro 3 | Commons Dashboard"
     >
       {page}
