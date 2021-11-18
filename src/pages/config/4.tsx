@@ -5,7 +5,7 @@ import { Card, ChartContainer, Tooltip } from '@/components/_global';
 import { RadioButton, RedirectButton } from '@/components/btns';
 import { ConvictionThresholdChart } from '@/components/charts';
 import { useConvictionVoting, useParams } from '@/hooks';
-import { ConvictionGrowthDialog } from '@/components/modals';
+import { AddProposal, ConvictionGrowthDialog } from '@/components/modals';
 import { ConvictionVotingTable } from '@/components/tables';
 import useHover from '@/hooks/useHover';
 
@@ -28,10 +28,12 @@ function ConvictionVoting() {
     convictionVotingPeriodDays,
     submitProposal,
     setParams,
+    handleAddStep,
     handleChange,
   } = useParams();
 
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [addProposal, setAddProposal] = useState<boolean>(false);
 
   const inputs = [
     {
@@ -94,6 +96,11 @@ function ConvictionVoting() {
           onChange={(event) => handleChange(event)}
           timeDays={convictionGrowthChart.timeDays}
         />
+        <AddProposal
+          isOpen={addProposal}
+          handleClose={() => setAddProposal(false)}
+          onClick={handleAddStep}
+        />
         <div className="flex justify-center">
           <Card
             title="conviction voting"
@@ -117,9 +124,20 @@ function ConvictionVoting() {
                 {input.children}
               </Input>
             ))}
+            <div className="font-inter text-xs text-gray-200 pt-4 pb-2">
+              Make a Funding Request to experience your configuration.
+            </div>
+            <button
+              className="flex justify-center items-center w-full h-8 border border-neon-light disabled:text-gray-400 disabled:border-gray-400"
+              onClick={() => setAddProposal(true)}
+            >
+              <span className="font-bj font-bold text-xs text-neon-light uppercase cursor-pointer">
+                simulate funding request
+              </span>
+            </button>
             <RedirectButton href="/learn/4" />
           </Card>
-          <ChartContainer title="Visualize how Conviction works and the requirements for successfully requesting funds. Use the graph below to see the minimum percent of tokens needed to pass funding requests.">
+          <ChartContainer title="Visualize the percent of tokens needed to pass funding requests in Conviction Voting.">
             <ConvictionThresholdChart
               requestedPercentage={convictionThresholdChart.requestedPercentage}
               thresholdPercentage={convictionThresholdChart.thresholdPercentage}

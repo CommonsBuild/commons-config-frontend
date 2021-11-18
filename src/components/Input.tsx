@@ -14,7 +14,7 @@ interface InputProps {
   placeholder: string;
   options?: { [key: string]: string }[];
   select?: boolean;
-  tooltipText: string;
+  tooltipText?: string;
   link?: string;
   value: string | number;
   changeParam?(): void;

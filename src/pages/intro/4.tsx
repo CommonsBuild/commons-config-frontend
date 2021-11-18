@@ -1,18 +1,11 @@
 import type { ReactElement } from 'react';
-import { useState } from 'react';
 import Image from 'next/image';
 
 import Intro from '@/templates/Intro';
-import { Modal } from '@/components/modals/';
 
-interface DialogProps {
-  handleClose: () => void;
-  isOpen: boolean;
-}
-
-function IntroFourDialog({ handleClose, isOpen }: DialogProps) {
+function IntroFourDialog() {
   return (
-    <Modal handleClose={handleClose} isOpen={isOpen} title="Conviction Voting">
+    <>
       <p className="font-inter text-base text-neon-light p-4">
         Conviction Voting (CV) is the governance system in which Commons members
         create proposals to request funds from the Common Pool.
@@ -39,7 +32,7 @@ function IntroFourDialog({ handleClose, isOpen }: DialogProps) {
           layout="fixed"
         />
       </div>
-    </Modal>
+    </>
   );
 }
 
@@ -68,15 +61,11 @@ function IntroFour() {
 }
 
 IntroFour.getLayout = function getLayout(page: ReactElement) {
-  const [dialog, setDialog] = useState<boolean>(false);
-
   return (
     <Intro
-      dialog={
-        <IntroFourDialog isOpen={dialog} handleClose={() => setDialog(false)} />
-      }
+      dialogContent={<IntroFourDialog />}
+      dialogTitle="Conviction Voting"
       nextHref="/intro/done"
-      openDialog={() => setDialog(true)}
       title="Intro 4 | Commons Dashboard"
     >
       {page}

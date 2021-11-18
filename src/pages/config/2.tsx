@@ -244,7 +244,7 @@ function ABC() {
                     />
                   ))}
                 </div>
-                <div className="font-inter text-xs text-gray-500 py-2">
+                <div className="font-inter text-xs text-gray-200 py-2">
                   Add more steps to experience your Bonding Curve
                 </div>
                 <button
@@ -265,7 +265,7 @@ function ABC() {
               </span>
             </div>
           </Card>
-          <ChartContainer title="Experience your Augmented Bonding Curve by adjusting your parameters and experimenting with the Step Simulator.">
+          <ChartContainer title="Experience your Augmented Bonding Curve by adjusting your params and adding steps.">
             <div className="max-w-max h-0 text-center relative -top-2 left-24">
               <InfoBox
                 label={`COMMON POOL AT LAUNCH: ${formatOutput(

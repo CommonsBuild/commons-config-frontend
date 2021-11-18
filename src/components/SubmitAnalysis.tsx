@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link as LinkScroll } from 'react-scroll';
 import classnames from 'classnames';
 import AnalysisContainer from './AnalysisContainer';
-import { initialParams } from '@/hooks/useParams';
 import { NeonButton } from '@/components/btns';
 import {
   ABCChart,
@@ -35,11 +34,6 @@ function SubmitAnalysis({ params, submitParams, submitProposal }) {
     milestoneTable,
     stepTable: ABCTableData,
   } = useABC();
-  const launchValue =
-    (Number(initialParams.reserveBalance) -
-      Number(params.ragequitAmount) -
-      Number(params.initialBuy)) *
-    (1 - Number(params.commonsTribute) / 100);
   const { barChart: taoChartData, table: taoTableData } = useTaoVoting();
   const { convictionThresholdChart, table: ConvictionVotingTableData } =
     useConvictionVoting();
@@ -105,10 +99,7 @@ function SubmitAnalysis({ params, submitParams, submitProposal }) {
             <MilestoneTable data={milestoneTable} />
           </div>
           <div className="mt-12">
-            <ABCTable
-              table={{ ...ABCTableData }}
-              showStepZero={Number(params.reserveBalance) !== launchValue}
-            />
+            <ABCTable table={{ ...ABCTableData }} showStepZero={false} />
           </div>
         </AnalysisContainer>
         <AnalysisContainer onVisible={() => setInFocus(3)}>

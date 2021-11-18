@@ -83,6 +83,8 @@ function Import() {
             ...tao,
             ...conviction,
             ...advanced,
+            convictionVotingPeriodDays: String(conviction.votingPeriodDays),
+            tableScenarios: conviction.tableScenarios || [],
             transferable: Boolean(advanced.transferability),
           };
           localStorage.setItem('params', JSON.stringify(newParams));

@@ -44,6 +44,7 @@ function ConvictionVotingProvider({
     minimumConviction,
     convictionGrowth,
     convictionVotingPeriodDays,
+    tableScenarios,
   } = useParams();
 
   useEffect(() => {
@@ -54,6 +55,7 @@ function ConvictionVotingProvider({
           minimumConviction: Number(minimumConviction) / 100,
           convictionGrowth,
           convictionVotingPeriodDays,
+          tableScenarios,
         })
         .then((response) => {
           const { output } = response.data;
@@ -73,6 +75,7 @@ function ConvictionVotingProvider({
     minimumConviction,
     convictionGrowth,
     convictionVotingPeriodDays,
+    JSON.stringify(tableScenarios),
   ]);
 
   return (
