@@ -218,12 +218,14 @@ const SubmitSummary = ({
       value: params.tokenName,
       param: 'Token Name',
       placeholder: '',
+      isNumber: false,
     },
     {
       name: 'tokenSymbol',
       value: params.tokenSymbol,
       param: 'Token Symbol',
       placeholder: '',
+      isNumber: false,
     },
     {
       name: 'proposalDeposit',
