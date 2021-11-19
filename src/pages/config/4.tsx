@@ -61,14 +61,14 @@ function ConvictionVoting() {
       link: 'https://forum.tecommons.org/t/conviction-voting-conviction-growth-aka-half-life/490',
       placeholder: 'days',
       tooltipText: 'The amount of time it takes to increase Conviction by 50%.',
-      // children: (
-      //   <span
-      //     className="font-bj font-bold text-xs text-neon uppercase cursor-pointer"
-      //     onClick={() => setDialogOpen(true)}
-      //   >
-      //     view graph
-      //   </span>
-      // ),
+      children: (
+        <span
+          className="font-bj font-bold text-xs text-neon uppercase cursor-pointer"
+          onClick={() => setDialogOpen(true)}
+        >
+          view graph
+        </span>
+      ),
     },
   ];
 
@@ -121,7 +121,7 @@ function ConvictionVoting() {
                 tooltipText={input.tooltipText}
                 link={input.link}
               >
-                {/* {input.children} */}
+                {input.children}
               </Input>
             ))}
             <div className="font-inter text-xs text-gray-200 pt-4 pb-2">
