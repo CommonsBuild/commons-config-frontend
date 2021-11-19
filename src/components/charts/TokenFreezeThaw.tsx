@@ -92,7 +92,11 @@ const TokenFreezeThawChart = ({
       xAxisLabel={<ChartAxisLabel label="time (weeks)" />}
       yAxisLabel={
         <ChartAxisLabel
-          label={<span>price floor (wxdai)</span>}
+          label={
+            format
+              ? '% of Hatchers Tokens that are Liquid'
+              : 'price floor (wxdai)'
+          }
           rotate
           tooltipPosition="left"
           tooltipText="The price floor is the minimum possible price of the token. This is a result of tokens being frozen and is affected by the paramaters Token Freeze & Token Thaw."
