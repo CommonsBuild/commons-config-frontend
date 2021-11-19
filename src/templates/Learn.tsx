@@ -4,7 +4,12 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ReactNode, useState } from 'react';
-import { motion, Variants } from 'framer-motion';
+import {
+  AnimatePresence,
+  AnimateSharedLayout,
+  motion,
+  Variants,
+} from 'framer-motion';
 
 import { CustomNavbar as Navbar } from '@/components/_global/Navbar';
 import { Checkbox, NeonButton } from '@/components/btns';
@@ -27,6 +32,66 @@ const learnFade: Variants = {
   exit: {
     opacity: 0,
     transition: { ease: 'easeInOut', duration: 0.6 },
+  },
+};
+
+function animateNav(checkURL: boolean): Variants {
+  const navControlHeader: Variants = {
+    animate: {
+      color: checkURL ? '#595959' : '#FFFFFF',
+      opacity: 1,
+      transition: {
+        type: 'linear',
+        duration: 0.8,
+      },
+    },
+    initial: {
+      transition: {
+        type: 'linear',
+        duration: 0.8,
+      },
+    },
+
+    exit: {
+      transition: {
+        type: 'linear',
+        duration: 0.4,
+      },
+    },
+  };
+  return navControlHeader;
+}
+
+const navBox: Variants = {
+  animate: {
+    opacity: 1,
+    width: '7rem',
+    transition: { duration: 0.6 },
+  },
+  initial: {
+    opacity: 0,
+    width: 0,
+    transition: { duration: 0.6 },
+  },
+  exit: {
+    opacity: 0,
+    width: 0,
+    transition: { duration: 0.6 },
+  },
+};
+
+const navSubtitle: Variants = {
+  animate: {
+    opacity: 1,
+    transition: { duration: 0.1, delay: 0.6 },
+  },
+  initial: {
+    opacity: 0,
+    transition: { duration: 0.1, delay: 0.6 },
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.1 },
   },
 };
 
@@ -90,30 +155,45 @@ function Learn({ children, title, nextHref }: LearnProps) {
             alt="Getting familiar with the Commons configuration"
           />
           <div className="col-span-2">
-            <nav className="font-bj lg:mb-16">
-              <ul className="flex gap-16">
-                {sections.map(({ slug, subtitle }) => (
-                  <Link href={`/learn/${slug}`}>
-                    <li
-                      className={`cursor-pointer text-gray-50 text-8xl ${
-                        router.pathname !== `/learn/${slug}`
-                          ? 'text-opacity-20'
-                          : ''
-                      }`}
-                    >
-                      {slug}
-                      <div
-                        className={`text-base ml-4 w-28 break-words ${
-                          router.pathname === `/learn/${slug}`
-                            ? 'inline-block'
-                            : 'hidden'
-                        }`}
+            <nav className="font-bj lg:mb-16 h-24">
+              <ul className="flex gap-16 items-center">
+                <AnimateSharedLayout>
+                  {sections.map(({ slug, subtitle }) => (
+                    <Link href={`/learn/${slug}`} key={slug}>
+                      <motion.li
+                        animate="animate"
+                        initial="initial"
+                        exit="exit"
+                        variants={animateNav(
+                          router.pathname !== `/learn/${slug}`
+                        )}
+                        className="cursor-pointer text-gray-50 text-8xl flex items-end"
                       >
-                        {subtitle}
-                      </div>
-                    </li>
-                  </Link>
-                ))}
+                        {slug}
+                        <AnimatePresence>
+                          {router.pathname === `/learn/${slug}` && (
+                            <motion.div
+                              animate="animate"
+                              initial="initial"
+                              exit="exit"
+                              variants={navBox}
+                              className="text-base ml-4 inline-block"
+                            >
+                              <motion.span
+                                animate="animate"
+                                initial="initial"
+                                exit="exit"
+                                variants={navSubtitle}
+                              >
+                                {subtitle}
+                              </motion.span>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </motion.li>
+                    </Link>
+                  ))}
+                </AnimateSharedLayout>
               </ul>
             </nav>
             <motion.div
