@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import Head from 'next/head';
-import Image from 'next/image';
 import classnames from 'classnames';
 import { Toaster } from 'react-hot-toast';
 import InfoBox from '@/components/InfoBox';
 import Input from '@/components/Input';
-import { Card, ChartContainer, Tooltip } from '@/components/_global';
-import { LabeledRadioButton, RedirectButton } from '@/components/btns';
+import { Card, ChartContainer } from '@/components/_global';
+import { RedirectButton } from '@/components/btns';
 import { ABCChart } from '@/components/charts';
-import { useABC, useHover, useParams } from '@/hooks';
+import { useABC, useParams } from '@/hooks';
 import {
   ABCAddStepDialog,
   ABCScenarioDialog,
@@ -17,34 +16,6 @@ import {
 import { ABCTable } from '@/components/tables';
 import { initialParams } from '@/hooks/useParams';
 import formatOutput from '@/utils/formatOutput';
-
-const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b);
-const marketScenarios = [
-  {
-    id: 'bearish',
-    value: [
-      [5000, 'wxDAI'],
-      [50000, 'TEC'],
-      [3000, 'wxDAI'],
-    ],
-  },
-  {
-    id: 'bullish',
-    value: [
-      [5000, 'wxDAI'],
-      [100000, 'wxDAI'],
-      [3000, 'TEC'],
-    ],
-  },
-];
-
-const reserveBalanceButtons = [
-  { id: '100k', size: 'medium', value: '100000' },
-  { id: '500k', size: 'medium', value: '500000' },
-  { id: '1m', size: 'small', value: '1000000' },
-  { id: '3m', size: 'small', value: '3000000' },
-  { id: '5m', size: 'small', value: '5000000' },
-];
 
 function ABC() {
   const {
@@ -62,14 +33,11 @@ function ABC() {
     entryTribute,
     exitTribute,
     reserveBalance,
-    stepList,
     submitProposal,
     ragequitAmount,
     initialBuy,
     zoomGraph,
-    setParams,
     handleChange,
-    handleMarketScenario,
     handleAddStep,
     handleRemoveStep,
   } = useParams();
@@ -77,7 +45,6 @@ function ABC() {
   const [marketDialog, setMarketDialog] = useState(false);
   const [stepDialog, setStepDialog] = useState(false);
   const [selectedStep, setSelectedStep] = useState(1);
-  const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
   const launchValue = (
     (Number(initialParams.reserveBalance) -
       Number(ragequitAmount) -
@@ -144,7 +111,7 @@ function ABC() {
       <Head>
         <title>Config 2 | Commons Dashboard</title>
       </Head>
-      <Backdrop isOpen={isLoading} handleClose={() => console.log('close')}>
+      <Backdrop isOpen={isLoading}>
         <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-neon" />
       </Backdrop>
       <div className="min-h-screen h-full bg-dash bg-cover">

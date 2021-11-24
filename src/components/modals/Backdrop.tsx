@@ -1,21 +1,16 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
+import { Transition } from '@headlessui/react';
 
 interface BackdropProps {
   children: React.ReactNode;
-  handleClose: () => void;
   isOpen: boolean;
 }
 
-function Backdrop({ children, handleClose, isOpen }: BackdropProps) {
+function Backdrop({ children, isOpen }: BackdropProps) {
   return (
     <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog
-        as="div"
-        className="fixed z-50 inset-0 overflow-y-auto"
-        onClose={handleClose}
-      >
+      <div className="fixed z-50 inset-0 overflow-y-auto">
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
@@ -26,7 +21,7 @@ function Backdrop({ children, handleClose, isOpen }: BackdropProps) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-75 transition-opacity" />
+            <div className="fixed inset-0 bg-black bg-opacity-75 transition-opacity" />
           </Transition.Child>
 
           {/* This element is to trick the browser into centering the modal contents. */}
@@ -50,7 +45,7 @@ function Backdrop({ children, handleClose, isOpen }: BackdropProps) {
             </div>
           </Transition.Child>
         </div>
-      </Dialog>
+      </div>
     </Transition.Root>
   );
 }
