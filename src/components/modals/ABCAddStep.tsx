@@ -71,6 +71,7 @@ function ABCAddStepDialog({
           />
           <div className="relative h-12 bg-black-200 my-3">
             <input
+              type="number"
               className="font-bold text-neon-light text-xl w-full h-full pl-3 border-2 border-gray-500 focus:border-neon hover:border-gray-400 bg-transparent outline-none placeholder-right"
               name="value"
               value={stepData.value}

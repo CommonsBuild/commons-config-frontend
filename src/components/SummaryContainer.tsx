@@ -34,6 +34,7 @@ function SummaryContainer({
             select={input.select}
             tooltipText={input.tooltipText}
             value={input.value}
+            isNumber={input.isNumber}
             formatNumber={input.format}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               onChange(event)

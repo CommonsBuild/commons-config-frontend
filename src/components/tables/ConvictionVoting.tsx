@@ -17,15 +17,32 @@ function ConvictionVotingTable({
     <Table
       header={
         <>
-          <TableHeader headerText="Proposal" size="m" />
-          <TableHeader headerText="requested amount (wxdai)" size="l" />
-          <TableHeader headerText="common pool (wxdai)" size="l" />
-          <TableHeader headerText="effective supply (tec)" size="l" />
+          <TableHeader
+            headerText="Proposal"
+            size="m"
+            tooltipText="A simluted funding request using Conviction Voting"
+          />
+          <TableHeader
+            headerText="requested amount (wxdai)"
+            size="l"
+            tooltipText="The amount of funds being asked for from the Common Pool"
+          />
+          <TableHeader
+            headerText="common pool (wxdai)"
+            size="l"
+            tooltipText="The amount of funds currently in the Common Pool"
+          />
+          <TableHeader
+            headerText="effective supply (tec)"
+            size="l"
+            tooltipText="The cumulative total of all TEC tokens staked on all proposals in Conviction Voting"
+          />
           <TableHeader
             headerText={`min tokens needed to pass in ${
               timePeriod || '2 weeks'
             } (tec)`}
             size="l"
+            tooltipText="The minimum amount of tokens needed to pass this funding request in the given timeframe"
           />
         </>
       }

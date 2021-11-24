@@ -17,6 +17,7 @@ interface InputProps {
   tooltipText?: string;
   link?: string;
   value: string | number;
+  isNumber?: boolean;
   changeParam?(): void;
   onChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -36,6 +37,7 @@ function Input({
   tooltipText,
   value,
   link,
+  isNumber = true,
   changeParam,
   onChange,
 }: InputProps) {
@@ -90,6 +92,7 @@ function Input({
           />
         ) : (
           <input
+            type={isNumber ? 'number' : 'text'}
             min={min}
             max={max}
             name={name}

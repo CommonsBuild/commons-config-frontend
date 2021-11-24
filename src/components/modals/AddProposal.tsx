@@ -77,7 +77,7 @@ function AddProposal({ isOpen, handleClose, onClick }: AddProposalProps) {
         <p className="font-inter text-neon-light pt-3">
           How many TEC tokens are Actively Voting in Conviction Voting?
         </p>
-        <p className="font-inter text-gray-500 text-xs pt-2">
+        <p className="font-inter text-gray-200 text-xs pt-3 pb-1">
           Hatchers will have ~2 million TEC tokens they can vote with.
         </p>
         <Input
@@ -87,7 +87,7 @@ function AddProposal({ isOpen, handleClose, onClick }: AddProposalProps) {
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             handleChange(event)
           }
-          placeholder="wxDAI"
+          placeholder="TEC"
         />
       </div>
     </Modal>
