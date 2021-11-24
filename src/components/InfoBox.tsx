@@ -11,7 +11,7 @@ const textColors = {
 type TextColor = 'neon' | 'white';
 interface InfoBoxProps {
   color?: TextColor;
-  label: string;
+  label: string | React.ReactNode;
   link?: string;
   tooltipText?: string | React.ReactNode;
 }
