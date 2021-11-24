@@ -74,7 +74,7 @@ function SubmitAnalysis({ params, submitParams, submitProposal }) {
             className="font-bj text-2xl text-neon-light p-6"
             id="tokenFreezeThaw"
           >
-            Token Freeze & Token Thaw
+            Token Freeze &amp; Token Thaw
           </h3>
           <TokenFreezeThawChart
             price={chart.tokensReleased}
