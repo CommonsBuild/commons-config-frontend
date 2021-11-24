@@ -11,6 +11,7 @@ import api from '@/services/api';
 import errorToast from '@/lib/notifications/error';
 
 type ABCContextType = {
+  isLoading: boolean;
   price: number[];
   balanceInThousands: number[];
   stepLinSpaces: { [key: string]: number[] }[];
@@ -22,6 +23,7 @@ type ABCContextType = {
 };
 
 const initialContext: ABCContextType = {
+  isLoading: false,
   price: [],
   balanceInThousands: [],
   stepLinSpaces: [{}],
@@ -57,33 +59,68 @@ function ABCProvider({ children }: AppABCContextProps) {
     setParams,
   } = useParams();
 
+  const fetchABCData = async () => {
+    setContext((previousParams) => ({
+      ...previousParams,
+      isLoading: true,
+    }));
+    console.log('antes');
+    await api
+      .post('/augmented-bonding-curve/', {
+        openingPrice,
+        commonsTribute: Number(commonsTribute) / 100,
+        entryTribute: Number(entryTribute) / 100,
+        exitTribute: Number(exitTribute) / 100,
+        reserveBalance,
+        stepList,
+        initialBuy,
+        ragequitAmount,
+        zoomGraph,
+        // virtualSupply,
+        // virtualBalance,
+      })
+      .then((response) => {
+        console.log('durante');
+        const { chartData, milestoneTable, stepTable } = response.data;
+        setContext({
+          ...chartData,
+          milestoneTable,
+          stepTable,
+          isLoading: false,
+        });
+      })
+      .catch(() => errorToast());
+    console.log('depois');
+  };
+
   useEffect(() => {
-    const typeTimeOut = setTimeout(() => {
-      api
-        .post('/augmented-bonding-curve/', {
-          openingPrice,
-          commonsTribute: Number(commonsTribute) / 100,
-          entryTribute: Number(entryTribute) / 100,
-          exitTribute: Number(exitTribute) / 100,
-          reserveBalance,
-          stepList,
-          initialBuy,
-          ragequitAmount,
-          zoomGraph,
-          // virtualSupply,
-          // virtualBalance,
-        })
-        .then((response) => {
-          const { chartData, milestoneTable, stepTable } = response.data;
-          setContext({
-            ...chartData,
-            milestoneTable,
-            stepTable,
-          });
-        })
-        .catch(() => errorToast());
-    }, 500);
-    return () => clearTimeout(typeTimeOut);
+    // const typeTimeOut = setTimeout(() => {
+    fetchABCData();
+    // api
+    //   .post('/augmented-bonding-curve/', {
+    //     openingPrice,
+    //     commonsTribute: Number(commonsTribute) / 100,
+    //     entryTribute: Number(entryTribute) / 100,
+    //     exitTribute: Number(exitTribute) / 100,
+    //     reserveBalance,
+    //     stepList,
+    //     initialBuy,
+    //     ragequitAmount,
+    //     zoomGraph,
+    //     // virtualSupply,
+    //     // virtualBalance,
+    //   })
+    //   .then((response) => {
+    //     const { chartData, milestoneTable, stepTable } = response.data;
+    //     setContext({
+    //       ...chartData,
+    //       milestoneTable,
+    //       stepTable,
+    //     });
+    //   })
+    //   .catch(() => errorToast());
+    // }, 500);
+    // return () => clearTimeout(typeTimeOut);
   }, [
     openingPrice,
     commonsTribute,

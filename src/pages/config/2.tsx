@@ -3,16 +3,20 @@ import Head from 'next/head';
 import Image from 'next/image';
 import classnames from 'classnames';
 import { Toaster } from 'react-hot-toast';
-import formatOutput from '@/utils/formatOutput';
 import InfoBox from '@/components/InfoBox';
 import Input from '@/components/Input';
 import { Card, ChartContainer, Tooltip } from '@/components/_global';
 import { LabeledRadioButton, RedirectButton } from '@/components/btns';
 import { ABCChart } from '@/components/charts';
 import { useABC, useHover, useParams } from '@/hooks';
-import { ABCAddStepDialog, ABCScenarioDialog } from '@/components/modals/';
+import {
+  ABCAddStepDialog,
+  ABCScenarioDialog,
+  Backdrop,
+} from '@/components/modals/';
 import { ABCTable } from '@/components/tables';
 import { initialParams } from '@/hooks/useParams';
+import formatOutput from '@/utils/formatOutput';
 
 const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 const marketScenarios = [
@@ -50,6 +54,7 @@ function ABC() {
     singlePoints,
     reserveRatio,
     stepTable,
+    isLoading,
   } = useABC();
   const {
     openingPrice,
@@ -61,6 +66,8 @@ function ABC() {
     submitProposal,
     ragequitAmount,
     initialBuy,
+    zoomGraph,
+    setParams,
     handleChange,
     handleMarketScenario,
     handleAddStep,
@@ -117,6 +124,19 @@ function ABC() {
       tooltipText:
         'The percentage taken off SELL orders and sent to the Common Pool.',
     },
+    {
+      name: 'zoomGraph',
+      value: zoomGraph,
+      param: 'Chart Zoom',
+      placeholder: '',
+      options: [
+        { label: 'Yes', value: '1' },
+        { label: 'No', value: '0' },
+      ],
+      select: true,
+      tooltipText: '',
+      isNumber: false,
+    },
   ];
 
   return (
@@ -124,6 +144,9 @@ function ABC() {
       <Head>
         <title>Config 2 | Commons Dashboard</title>
       </Head>
+      <Backdrop isOpen={isLoading} handleClose={() => console.log('close')}>
+        <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-neon" />
+      </Backdrop>
       <div className="min-h-screen h-full bg-dash bg-cover">
         <ABCScenarioDialog
           isOpen={marketDialog}
@@ -159,104 +182,25 @@ function ABC() {
                   }
                   handleChange(event);
                 }}
+                select={input.select}
+                options={input.options}
+                isNumber={input.isNumber}
               />
             ))}
             <RedirectButton href="/learn/2" />
-
             <div className="py-2">
-              <span className="font-bj font-bold text-neon-light text-xs uppercase">
-                choose your market scenario
-              </span>
-
-              <div className="flex flex-row-reverse justify-end py-2">
-                {marketScenarios.map((scenario) => (
-                  <LabeledRadioButton
-                    key={scenario.id}
-                    margin
-                    pX
-                    id={scenario.id}
-                    label={scenario.id}
-                    name="stepList"
-                    checked={equals(scenario.value, stepList?.slice(0, 3))}
-                    onChange={() => handleMarketScenario(scenario.value)}
-                  />
-                ))}
+              <div className="font-inter text-xs text-gray-200 py-2">
+                Add more transactions to experience your ABC config
               </div>
-              <div className="py-2">
-                <span className="font-bj text-sm text-neon-light">
-                  Reserve Balance (wxDAI)
+              <button
+                disabled={stepTable?.step?.length >= 10}
+                className="flex justify-center items-center w-full h-8 mb-2 border border-neon-light disabled:text-gray-400 disabled:border-gray-400"
+                onClick={() => setStepDialog(true)}
+              >
+                <span className="font-bj font-bold text-xs text-neon-light uppercase cursor-pointer">
+                  add a transaction
                 </span>
-                <div
-                  ref={questionRef}
-                  className="inline-block align-middle m-1"
-                >
-                  <Tooltip
-                    isHovered={questionIsHovered}
-                    text="Setting the Reserve Balance zooms in on a section of the curve to perform transaction simulations."
-                  >
-                    <Image
-                      alt="Question mark."
-                      height="12"
-                      src="/icons/questionMark.svg"
-                      width="12"
-                    />
-                  </Tooltip>
-                </div>
-                <div className="relative h-12 bg-black-200 mt-1">
-                  <input
-                    className="font-bold text-neon-light text-xl w-full h-full pl-3 border-2 border-gray-500 focus:border-neon hover:border-gray-400 bg-transparent outline-none placeholder-right"
-                    name="reserveBalance"
-                    value={reserveBalance}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                      handleChange(event)
-                    }
-                  />
-                  <div className="absolute right-3 top-2/4 transform -translate-y-2/4">
-                    <span className="font-inter text-xs text-gray-300">
-                      wxDAI
-                    </span>
-                  </div>
-                </div>
-                <div className="flex justify-between text-neon-light py-2">
-                  <LabeledRadioButton
-                    id="launch"
-                    label="launch"
-                    name="reserveBalance"
-                    size="big"
-                    tooltipText="Simulate the Reserve Balance using the amount raised by the Hatch, adjusted by the Commons Tribute"
-                    value={launchValue}
-                    checked={launchValue === reserveBalance}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                      handleChange(event)
-                    }
-                  />
-                  {reserveBalanceButtons.map((balance) => (
-                    <LabeledRadioButton
-                      key={balance.id}
-                      id={balance.id}
-                      label={balance.id}
-                      name="reserveBalance"
-                      size={balance.size}
-                      value={balance.value}
-                      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                        handleChange(event)
-                      }
-                    />
-                  ))}
-                </div>
-                <div className="font-inter text-xs text-gray-200 py-2">
-                  Add more steps to experience your Bonding Curve
-                </div>
-                <button
-                  disabled={stepTable?.step?.length >= 10}
-                  className="flex justify-center items-center w-full h-8 border border-neon-light disabled:text-gray-400 disabled:border-gray-400"
-                  onClick={() => setStepDialog(true)}
-                >
-                  <span className="font-bj font-bold text-xs text-neon-light uppercase cursor-pointer">
-                    add a step
-                  </span>
-                </button>
-              </div>
+              </button>
               <span
                 className="font-bj font-medium text-neon text-sm uppercase cursor-pointer"
                 onClick={() => setMarketDialog(true)}
@@ -301,7 +245,7 @@ function ABC() {
               singleDataPoints={singlePoints}
             />
             <span className="font-bj text-sm text-neon-light px-16 pt-6 pb-2">
-              Steps
+              Transactions
             </span>
             <div className="flex px-16 pt-2 pb-6">
               {stepTable?.step?.map((item, index) => (
