@@ -101,7 +101,7 @@ function ConvictionThresholdChart({
           }
           rotate
           tooltipPosition="left"
-          tooltipText="Effective Supply is the amount of tokens currently voting on all proposals in Conviction Voting. This percentage is the relative amount of TEC tokens staked on this proposal."
+          tooltipText="Effective Supply is the amount of TEC tokens currently voting on all proposals in Conviction Voting. This percentage is the relative amount of TEC tokens staked on this proposal."
         />
       }
     />
