@@ -102,7 +102,11 @@ function ABCTable({ table }: ABCTableProps) {
             tooltipColumn
           />
           <TableCell
-            content={`${table.amountInParsed[index].amount} ${table.amountInParsed[index].currency}`}
+            content={`${formatOutput(
+              table.amountInParsed[index].amount,
+              '',
+              table.amountInParsed[index].currency
+            )} ${table.amountInParsed[index].currency}`}
             tooltipColumn
           />
 
