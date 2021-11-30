@@ -18,10 +18,12 @@ function ABCScenarioDialog({ handleClose, isOpen }: ABCScenarioDialogProps) {
         tokens for the Commons itself, and the next 3 transactions are generated
         automatically.
       </p>
-      Click the &quot;Add a Transaction&quot; button, to place a buy or sell
-      transaction on your ABC configuration. This will simulate a new
-      transaction on your ABC. Take note that you can use large transactions to
-      explore the full range of the ABC
+      <p className="font-inter text-lg text-neon-light text-center p-4">
+        Click the &quot;Add a Transaction&quot; button, to place a buy or sell
+        transaction on your ABC configuration. This will simulate a new
+        transaction on your ABC. Take note that you can use large transactions
+        to explore the full range of the ABC
+      </p>
     </Modal>
   );
 }

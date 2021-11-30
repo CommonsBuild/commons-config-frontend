@@ -5,13 +5,13 @@ import classnames from 'classnames';
 import toast, { Toaster } from 'react-hot-toast';
 import * as htmlToImage from 'html-to-image';
 import FormData from 'form-data';
+import axios from 'axios';
 import SubmitAnalysis from '@/components/SubmitAnalysis';
 import SubmitSummary from '@/components/SubmitSummary';
 import { Navbar } from '@/components/_global';
 import { AdvancedParametersDialog, SubmitDialog } from '@/components/modals';
 import { useParams } from '@/hooks/';
-import { initialParams } from '@/hooks/useParams';
-import api from '@/services/api';
+// import api from '@/services/api';
 
 async function getImage(id) {
   let image;
@@ -29,7 +29,6 @@ function SubmitConfig() {
     commonsTribute,
     submitProposal,
     handleChange,
-    handleMarketScenario,
     setParams,
     ...params
   } = useParams();
@@ -39,12 +38,6 @@ function SubmitConfig() {
   const [advancedParams, setAdvancedParams] = useState<boolean>(false);
   const [analyticsDash, setAnalyticsDash] = useState<boolean>(false);
   const [url, setUrl] = useState(undefined);
-  const launchValue =
-    (Number(initialParams.reserveBalance) -
-      Number(ragequitAmount) -
-      Number(initialBuy)) *
-    (1 - Number(commonsTribute) / 100);
-
   async function submitParams() {
     setLoading(true);
     const chosenParams = {
@@ -64,11 +57,11 @@ function SubmitConfig() {
         initialBuy,
         entryTribute: Number(params.entryTribute) / 100,
         exitTribute: Number(params.exitTribute) / 100,
-        reserveBalance: params.reserveBalance,
         stepList: params.stepList,
         zoomGraph: params.zoomGraph,
         virtualSupply: Number(params.virtualSupply),
         virtualBalance: Number(params.virtualBalance),
+        includeMilestones: 1,
       },
       taoVoting: {
         strategy: params.taoStrategy,
@@ -118,18 +111,24 @@ function SubmitConfig() {
     body.append('taoVoting', taoVoting);
     body.append('convictionVoting', convictionVoting);
 
-    api
-      .post('/issue-generator/', body, {
-        headers: {
-          'Content-Type': `multipart/form-data`,
-        },
-      })
+    axios
+      .post(
+        'https://abcurve-backend-test.herokuapp.com/issue-generator/',
+        body,
+        {
+          headers: {
+            'Content-Type': `multipart/form-data`,
+          },
+        }
+      )
       .then((response) => {
         setUrl(response.data.url);
         setLoading(false);
         setDialog(true);
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log(e);
+        console.log(e.response);
         setLoading(false);
         toast('Something went wrong!', {
           duration: 3000,
@@ -147,12 +146,15 @@ function SubmitConfig() {
   }
 
   useEffect(() => {
-    if (convictionGrowth === '') {
-      setParams((previousParams) => ({
-        ...previousParams,
-        convictionGrowth: '5',
-      }));
-    }
+    const typeTimeOut = setTimeout(() => {
+      if (convictionGrowth === '') {
+        setParams((previousParams) => ({
+          ...previousParams,
+          convictionGrowth: '5',
+        }));
+      }
+    }, 4000);
+    return () => clearTimeout(typeTimeOut);
   }, [convictionGrowth]);
 
   return (
@@ -232,14 +234,8 @@ function SubmitConfig() {
                 setAnalyticsDash(true);
                 setParams((previousParams) => ({
                   ...previousParams,
-                  reserveBalance: String(launchValue),
                   convictionVotingPeriodDays: '14',
                 }));
-                handleMarketScenario([
-                  [5000, 'wxDAI'],
-                  [100000, 'wxDAI'],
-                  [3000, 'TEC'],
-                ]);
               }}
               submitProposal={submitProposal}
             />

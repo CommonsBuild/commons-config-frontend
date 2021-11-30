@@ -14,7 +14,6 @@ import {
   Backdrop,
 } from '@/components/modals/';
 import { ABCTable } from '@/components/tables';
-import { initialParams } from '@/hooks/useParams';
 import formatOutput from '@/utils/formatOutput';
 
 function ABC() {
@@ -24,6 +23,7 @@ function ABC() {
     stepLinSpaces,
     singlePoints,
     reserveRatio,
+    fundAllocations,
     stepTable,
     isLoading,
   } = useABC();
@@ -32,9 +32,7 @@ function ABC() {
     commonsTribute,
     entryTribute,
     exitTribute,
-    reserveBalance,
     submitProposal,
-    ragequitAmount,
     initialBuy,
     zoomGraph,
     handleChange,
@@ -45,12 +43,6 @@ function ABC() {
   const [marketDialog, setMarketDialog] = useState(false);
   const [stepDialog, setStepDialog] = useState(false);
   const [selectedStep, setSelectedStep] = useState(1);
-  const launchValue = (
-    (Number(initialParams.reserveBalance) -
-      Number(ragequitAmount) -
-      Number(initialBuy)) *
-    (1 - Number(commonsTribute) / 100)
-  ).toFixed(2);
   const inputs = [
     {
       name: 'openingPrice',
@@ -165,7 +157,7 @@ function ABC() {
                 onClick={() => setStepDialog(true)}
               >
                 <span className="font-bj font-bold text-xs text-neon-light uppercase cursor-pointer">
-                  add a transaction
+                  simulate a transaction
                 </span>
               </button>
               <span
@@ -177,33 +169,30 @@ function ABC() {
             </div>
           </Card>
           <ChartContainer title="Experience your Augmented Bonding Curve by adjusting your params and adding steps.">
-            <div className="max-w-max h-0 text-center relative -top-2 left-24">
-              <InfoBox
-                label={`COMMON POOL AT LAUNCH: ${formatOutput(
-                  (Number(initialParams.reserveBalance) -
-                    Number(ragequitAmount) -
-                    Number(initialBuy)) *
-                    (Number(commonsTribute) / 100)
-                )} wxDAI`}
-                link="https://forum.tecommons.org/t/augmented-bonding-curve-commons-tribute/517"
-                tooltipText="The amount of wxDAI which will be in the Common Pool at the Commons Upgrade. This is calculated using the Hatch funds raised, Hatchers who have rage quit (Advanced), the Initial buy-in (Advanced) and the Commons Tribute."
-              />
-            </div>
-            <div className="max-w-max h-0 text-center relative top-12 left-24">
-              <InfoBox
-                color="neon"
-                label={`RESERVE RATIO: ${(reserveRatio * 100).toFixed(2)}%`}
-                link="https://forum.tecommons.org/t/augmented-bonding-curve-opening-price-reserve-ratio/516"
-                tooltipText={
-                  <span>
-                    Reserve Ratio is an output of the Opening Price and Commons
-                    Tribute, it defines the shape of the ABC.{' '}
-                    <b className="text-neon">
-                      Click to learn more about the Reserve Ratio.
-                    </b>
-                  </span>
-                }
-              />
+            <div className="max-w-max h-0 text-center relative -top-3 left-24">
+              <div className="flex gap-2">
+                <InfoBox
+                  label={`COMMON POOL AT LAUNCH: ${formatOutput(
+                    fundAllocations.commonPoolAfter
+                  )} wxDAI`}
+                  link="https://forum.tecommons.org/t/augmented-bonding-curve-commons-tribute/517"
+                  tooltipText="The amount of wxDAI which will be in the Common Pool at the Commons Upgrade. This is calculated using the Hatch funds raised, Hatchers who have rage quit (Advanced), the Initial buy-in (Advanced) and the Commons Tribute."
+                />
+                <InfoBox
+                  color="neon"
+                  label={`RESERVE RATIO: ${(reserveRatio * 100).toFixed(2)}%`}
+                  link="https://forum.tecommons.org/t/augmented-bonding-curve-opening-price-reserve-ratio/516"
+                  tooltipText={
+                    <span>
+                      Reserve Ratio is an output of the Opening Price and
+                      Commons Tribute, it defines the shape of the ABC.{' '}
+                      <b className="text-neon">
+                        Click to learn more about the Reserve Ratio.
+                      </b>
+                    </span>
+                  }
+                />
+              </div>
             </div>
             <ABCChart
               balanceInThousands={balanceInThousands}
@@ -223,9 +212,6 @@ function ABC() {
                       'hover:border-gray-400': index !== selectedStep,
                       'border-gray-700 ': index !== selectedStep,
                       'border-neon': index === selectedStep,
-                      'first:hidden':
-                        Number(reserveBalance) !== Number(launchValue) &&
-                        Number(initialBuy) > 0,
                     }
                   )}
                   onClick={() => setSelectedStep(index)}
@@ -236,7 +222,7 @@ function ABC() {
                   {index > 3 ? (
                     <a
                       className="absolute -top-2 -right-2 rounded-full bg-red-500 h-4 w-4 flex justify-center items-center opacity-0 group-hover:opacity-100"
-                      onClick={() => handleRemoveStep(index)}
+                      onClick={() => handleRemoveStep(index - 3)}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -257,13 +243,7 @@ function ABC() {
                 </div>
               ))}
             </div>
-            <ABCTable
-              table={{ ...stepTable }}
-              showStepZero={
-                Number(reserveBalance) !== Number(launchValue) &&
-                Number(initialBuy) > 0
-              }
-            />
+            <ABCTable table={{ ...stepTable }} />
           </ChartContainer>
         </div>
       </div>

@@ -99,7 +99,7 @@ function SubmitAnalysis({ params, submitParams, submitProposal }) {
             <MilestoneTable data={milestoneTable} />
           </div>
           <div className="mt-12">
-            <ABCTable table={{ ...ABCTableData }} showStepZero={false} />
+            <ABCTable table={{ ...ABCTableData }} />
           </div>
         </AnalysisContainer>
         <AnalysisContainer onVisible={() => setInFocus(3)}>

@@ -91,7 +91,7 @@ function ABCAddStepDialog({
             }}
           >
             <span className="font-bj font-bold text-xs text-neon uppercase p-2 py-3">
-              add a step
+              simulate a transaction
             </span>
           </a>
         </div>

@@ -73,12 +73,15 @@ function ConvictionVoting() {
   ];
 
   useEffect(() => {
-    if (convictionGrowth === '') {
-      setParams((previousParams) => ({
-        ...previousParams,
-        convictionGrowth: '5',
-      }));
-    }
+    const typeTimeOut = setTimeout(() => {
+      if (convictionGrowth === '') {
+        setParams((previousParams) => ({
+          ...previousParams,
+          convictionGrowth: '5',
+        }));
+      }
+    }, 4000);
+    return () => clearTimeout(typeTimeOut);
   }, [convictionGrowth]);
 
   return (

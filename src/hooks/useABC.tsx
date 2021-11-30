@@ -6,8 +6,9 @@ import {
   useEffect,
   useState,
 } from 'react';
+import axios from 'axios';
 import { useParams } from '@/hooks/useParams';
-import api from '@/services/api';
+// import api from '@/services/api';
 import errorToast from '@/lib/notifications/error';
 
 type ABCContextType = {
@@ -19,6 +20,7 @@ type ABCContextType = {
   reserveRatio: number;
   milestoneTable: { [key: string]: number[] };
   stepTable: { [key: string]: number[] };
+  fundAllocations: { [key: string]: number };
   setContext: Dispatch<SetStateAction<ABCContextType>>;
 };
 
@@ -30,6 +32,7 @@ const initialContext: ABCContextType = {
   singlePoints: [],
   reserveRatio: 0,
   milestoneTable: {},
+  fundAllocations: {},
   stepTable: {},
   setContext: (): void => {
     throw new Error('setContext must be overridden');
@@ -49,7 +52,6 @@ function ABCProvider({ children }: AppABCContextProps) {
     commonsTribute,
     entryTribute,
     exitTribute,
-    reserveBalance,
     stepList,
     initialBuy,
     ragequitAmount,
@@ -64,69 +66,47 @@ function ABCProvider({ children }: AppABCContextProps) {
       ...previousParams,
       isLoading: true,
     }));
-    console.log('antes');
-    await api
-      .post('/augmented-bonding-curve/', {
-        openingPrice,
-        commonsTribute: Number(commonsTribute) / 100,
-        entryTribute: Number(entryTribute) / 100,
-        exitTribute: Number(exitTribute) / 100,
-        reserveBalance,
-        stepList,
-        initialBuy,
-        ragequitAmount,
-        zoomGraph,
-        // virtualSupply,
-        // virtualBalance,
-      })
+    await axios
+      .post(
+        'https://abcurve-backend-test.herokuapp.com/augmented-bonding-curve/',
+        {
+          openingPrice,
+          commonsTribute: Number(commonsTribute) / 100,
+          entryTribute: Number(entryTribute) / 100,
+          exitTribute: Number(exitTribute) / 100,
+          stepList,
+          initialBuy,
+          ragequitAmount,
+          zoomGraph,
+          includeMilestones: 1,
+          // virtualSupply,
+          // virtualBalance,
+        }
+      )
       .then((response) => {
-        console.log('durante');
-        const { chartData, milestoneTable, stepTable } = response.data;
+        const { chartData, milestoneTable, stepTable, fundAllocations } =
+          response.data;
         setContext({
           ...chartData,
           milestoneTable,
           stepTable,
+          fundAllocations,
           isLoading: false,
         });
       })
       .catch(() => errorToast());
-    console.log('depois');
   };
 
   useEffect(() => {
-    // const typeTimeOut = setTimeout(() => {
-    fetchABCData();
-    // api
-    //   .post('/augmented-bonding-curve/', {
-    //     openingPrice,
-    //     commonsTribute: Number(commonsTribute) / 100,
-    //     entryTribute: Number(entryTribute) / 100,
-    //     exitTribute: Number(exitTribute) / 100,
-    //     reserveBalance,
-    //     stepList,
-    //     initialBuy,
-    //     ragequitAmount,
-    //     zoomGraph,
-    //     // virtualSupply,
-    //     // virtualBalance,
-    //   })
-    //   .then((response) => {
-    //     const { chartData, milestoneTable, stepTable } = response.data;
-    //     setContext({
-    //       ...chartData,
-    //       milestoneTable,
-    //       stepTable,
-    //     });
-    //   })
-    //   .catch(() => errorToast());
-    // }, 500);
-    // return () => clearTimeout(typeTimeOut);
+    const typeTimeOut = setTimeout(() => {
+      fetchABCData();
+    }, 500);
+    return () => clearTimeout(typeTimeOut);
   }, [
     openingPrice,
     commonsTribute,
     entryTribute,
     exitTribute,
-    reserveBalance,
     JSON.stringify(stepList),
     initialBuy,
     ragequitAmount,
