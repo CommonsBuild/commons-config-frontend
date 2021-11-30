@@ -16,7 +16,6 @@ const radioButtons = [
   { id: 'radio5', label: '2 Weeks', value: '14' },
   { id: 'radio4', label: '7 Days', value: '7' },
   { id: 'radio3', label: '2 Days', value: '2' },
-  { id: 'radio2', label: '1 Day', value: '1' },
   { id: 'radio1', label: '8 Hours', value: '0.33' },
 ];
 
