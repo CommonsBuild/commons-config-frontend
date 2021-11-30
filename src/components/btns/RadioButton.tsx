@@ -16,7 +16,7 @@ function RadioButton({
   value,
 }: RadioButtonProps) {
   return (
-    <p className="mx-4">
+    <p className="mx-2">
       <input
         id={id}
         type="radio"
