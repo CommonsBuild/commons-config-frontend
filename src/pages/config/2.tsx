@@ -93,7 +93,8 @@ function ABC() {
         { label: 'No', value: '0' },
       ],
       select: true,
-      tooltipText: '',
+      tooltipText:
+        'Choosing Yes zooms the graph into the portion of the ABC where simulated transactions can be viewed. Choosing No shows a larger perspective of the ABC itself.',
       isNumber: false,
     },
   ];
