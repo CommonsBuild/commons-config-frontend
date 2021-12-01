@@ -113,7 +113,7 @@ function SubmitConfig() {
 
     axios
       .post(
-        'https://abcurve-backend-test.herokuapp.com/issue-generator/',
+        'https://test-commons-dashboard.herokuapp.com/issue-generator/',
         body,
         {
           headers: {
@@ -235,6 +235,7 @@ function SubmitConfig() {
                 setParams((previousParams) => ({
                   ...previousParams,
                   convictionVotingPeriodDays: '14',
+                  zoomGraph: '0',
                 }));
               }}
               submitProposal={submitProposal}
