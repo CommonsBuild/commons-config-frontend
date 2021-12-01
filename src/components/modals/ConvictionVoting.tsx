@@ -22,7 +22,7 @@ function ConvictionGrowthDialog({
 }: ConvictionGrowthDialogProps) {
   return (
     <Modal handleClose={handleClose} isOpen={isOpen} title="Conviction Growth">
-      <div className="py-8 m-auto w-11/12">
+      <div className="pt-8 pb-2 m-auto w-11/12">
         <ConvictionGrowthChart
           convictionPercentage={convictionPercentage}
           timeDays={timeDays}

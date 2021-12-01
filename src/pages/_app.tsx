@@ -43,7 +43,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
                         animate={{ opacity: 1 }}
                         exit={{ y: -50, opacity: 0 }}
                         transition={{ duration: 1 }}
-                        className="fixed flex justify-center items-center bg-neon w-full h-8 z-100"
+                        className="fixed flex justify-center items-center bg-neon w-full h-12 z-100"
                       >
                         <a
                           className="cursor-pointer"
@@ -52,38 +52,38 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
                           rel="noreferrer"
                         >
                           <div className="relative flex overflow-x-hidden">
-                            <div className="py-12 animate-marquee whitespace-nowrap">
-                              <span className="font-bj font-bold text-xs uppercase mx-4 cursor-pointer">
+                            <div className="animate-marquee whitespace-nowrap">
+                              <span className="font-bj font-bold text-sm uppercase mx-4 cursor-pointer">
                                 🎉🎉 Join our param parties to build some
                                 amazing economies with us! 🎉🎉
                               </span>
-                              <span className="font-bj font-bold text-xs uppercase mx-4 cursor-pointer">
+                              <span className="font-bj font-bold text-sm uppercase mx-4 cursor-pointer">
                                 🎉🎉 Join our param parties to build some
                                 amazing economies with us! 🎉🎉
                               </span>
-                              <span className="font-bj font-bold text-xs uppercase mx-4 cursor-pointer">
+                              <span className="font-bj font-bold text-sm uppercase mx-4 cursor-pointer">
                                 🎉🎉 Join our param parties to build some
                                 amazing economies with us! 🎉🎉
                               </span>
-                              <span className="font-bj font-bold text-xs uppercase mx-4 cursor-pointer">
+                              <span className="font-bj font-bold text-sm uppercase mx-4 cursor-pointer">
                                 🎉🎉 Join our param parties to build some
                                 amazing economies with us! 🎉🎉
                               </span>
                             </div>
                             <div className="absolute top-0 py-12 animate-marquee2 whitespace-nowrap">
-                              <span className="font-bj font-bold text-xs uppercase mx-4 cursor-pointer">
+                              <span className="font-bj font-bold text-sm uppercase mx-4 cursor-pointer">
                                 🎉🎉 Join our param parties to build some
                                 amazing economies with us! 🎉🎉
                               </span>
-                              <span className="font-bj font-bold text-xs uppercase mx-4 cursor-pointer">
+                              <span className="font-bj font-bold text-sm uppercase mx-4 cursor-pointer">
                                 🎉🎉 Join our param parties to build some
                                 amazing economies with us! 🎉🎉
                               </span>
-                              <span className="font-bj font-bold text-xs uppercase mx-4 cursor-pointer">
+                              <span className="font-bj font-bold text-sm uppercase mx-4 cursor-pointer">
                                 🎉🎉 Join our param parties to build some
                                 amazing economies with us! 🎉🎉
                               </span>
-                              <span className="font-bj font-bold text-xs uppercase mx-4 cursor-pointer">
+                              <span className="font-bj font-bold text-sm uppercase mx-4 cursor-pointer">
                                 🎉🎉 Join our param parties to build some
                                 amazing economies with us! 🎉🎉
                               </span>
@@ -102,7 +102,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
                     )}
                     <motion.div
                       key="navbar"
-                      initial={{ y: 32, paddingBottom: '1rem' }}
+                      initial={{ y: '3rem', paddingBottom: '1rem' }}
                       animate={!banner && { y: 0, paddingBottom: 0 }}
                       transition={{ duration: 1 }}
                     >

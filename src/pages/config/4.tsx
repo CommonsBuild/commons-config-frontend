@@ -10,11 +10,14 @@ import { ConvictionVotingTable } from '@/components/tables';
 import useHover from '@/hooks/useHover';
 
 const radioButtons = [
-  { id: 'radio5', label: '6 Months', value: '180' },
-  { id: 'radio4', label: '3 Months', value: '60' },
-  { id: 'radio3', label: '1 Month', value: '30' },
-  { id: 'radio2', label: '2 Weeks', value: '14' },
-  { id: 'radio1', label: '7 Days', value: '7' },
+  { id: 'radio8', label: '6 Months', value: '180' },
+  { id: 'radio7', label: '3 Months', value: '60' },
+  { id: 'radio6', label: '1 Month', value: '30' },
+  { id: 'radio5', label: '2 Weeks', value: '14' },
+  { id: 'radio4', label: '7 Days', value: '7' },
+  { id: 'radio3', label: '3 Days', value: '3' },
+  { id: 'radio2', label: '1 Day', value: '1' },
+  { id: 'radio1', label: '8 Hours', value: '0.33' },
 ];
 
 function ConvictionVoting() {
@@ -61,14 +64,14 @@ function ConvictionVoting() {
       link: 'https://forum.tecommons.org/t/conviction-voting-conviction-growth-aka-half-life/490',
       placeholder: 'days',
       tooltipText: 'The amount of time it takes to increase Conviction by 50%.',
-      // children: (
-      //   <span
-      //     className="font-bj font-bold text-xs text-neon uppercase cursor-pointer"
-      //     onClick={() => setDialogOpen(true)}
-      //   >
-      //     view graph
-      //   </span>
-      // ),
+      children: (
+        <span
+          className="font-bj font-bold text-xs text-neon uppercase cursor-pointer"
+          onClick={() => setDialogOpen(true)}
+        >
+          view graph
+        </span>
+      ),
     },
   ];
 
@@ -124,7 +127,7 @@ function ConvictionVoting() {
                 tooltipText={input.tooltipText}
                 link={input.link}
               >
-                {/* {input.children} */}
+                {input.children}
               </Input>
             ))}
             <div className="font-inter text-xs text-gray-200 pt-4 pb-2">
@@ -151,7 +154,7 @@ function ConvictionVoting() {
               text="Select a time frame in which you want to pass a proposal."
             >
               <div
-                className="flex flex-row-reverse justify-between max-w-2xl mx-auto px-2 py-6 mb-6 bg-cyan-700 opacity-60"
+                className="flex flex-row-reverse justify-between max-w-4xl mx-auto px-2 py-6 mb-6 bg-cyan-700 opacity-60"
                 ref={tableHover}
               >
                 {radioButtons.map((button) => (
