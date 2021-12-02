@@ -79,6 +79,7 @@ function SubmitConfig() {
         minimumConviction: Number(params.minimumConviction) / 100,
         convictionGrowth: Number(convictionGrowth),
         votingPeriodDays: Number(params.convictionVotingPeriodDays),
+        tableScenarios: params.tableScenarios,
       },
       advancedSettings: {
         strategy: params.advancedStrategy,
