@@ -23,12 +23,12 @@ function InfoBox({ color = 'white', label, link, tooltipText }: InfoBoxProps) {
     <Tooltip isHovered={questionIsHovered} text={tooltipText}>
       <div
         ref={questionRef}
-        className="grid grid-flow-col gap-2 justify-between items-center p-2 bg-black-200"
+        className="grid grid-flow-col gap-2 justify-between items-center px-4 py-2 bg-black-200"
       >
         <a href={link} target="_blank" rel="noreferrer">
           <span
             className={classnames(
-              'font-bj font-bold text-xs cursor-pointer flex',
+              'font-bj font-bold text-sm cursor-pointer flex',
               textColors[color]
             )}
           >
