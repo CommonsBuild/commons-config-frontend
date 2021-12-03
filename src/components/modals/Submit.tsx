@@ -23,16 +23,13 @@ function SubmitDialog({
         handleClose={handleClose}
         isOpen={isOpen && url !== undefined}
         customButton={
-          <button className="h-14 px-6 mx-auto bg-neon outline-none	hover:bg-neon-light-600 disabled:opacity-50 disabled:bg-gray-400 disabled:text-gray-300 w-full">
-            <a
-              href={url}
-              target="_blank"
-              rel="noreferrer"
-              className="font-bj font-bold text-lg uppercase cursor-pointer"
-            >
-              view your proposal
-            </a>
-          </button>
+          <a href={url} target="_blank" rel="noreferrer">
+            <button className="h-14 px-6 mx-auto bg-neon outline-none	hover:bg-neon-light-600 disabled:opacity-50 disabled:bg-gray-400 disabled:text-gray-300 w-full">
+              <span className="font-bj font-bold text-lg uppercase cursor-pointer">
+                view your proposal
+              </span>
+            </button>
+          </a>
         }
       >
         <h2 className="font-bj font-bold text-xl text-neon text-center py-6 px-4">

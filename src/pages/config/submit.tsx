@@ -127,9 +127,7 @@ function SubmitConfig() {
         setLoading(false);
         setDialog(true);
       })
-      .catch((e) => {
-        console.log(e);
-        console.log(e.response);
+      .catch(() => {
         setLoading(false);
         toast('Something went wrong!', {
           duration: 3000,
