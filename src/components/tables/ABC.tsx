@@ -60,11 +60,11 @@ function ABCTable({ table }: ABCTableProps) {
             tooltipText="The updated price of the TEC token, in wxDAI, resulting from the transaction."
           />
           <TableHeader
-            headerText="price slippage"
+            headerText="slippage"
             tooltipText={
               <span>
                 The TEC token price fluctuates based on the size of buys and
-                sells along the curve. The <i>price slippage</i> is the relative
+                sells along the curve. The <i>slippage</i> is the relative
                 difference between the <b>Current Price</b> and the{' '}
                 <b>average price</b> of TEC that was bought or sold.
               </span>
