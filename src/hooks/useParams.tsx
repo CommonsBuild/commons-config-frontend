@@ -22,7 +22,6 @@ type ParamsContextType = {
   entryTribute: string;
   exitTribute: string;
   initialBuy: string | number;
-  reserveBalance: string;
   ragequitAmount: string;
   stepList: (number | string)[][];
   zoomGraph: string;
@@ -53,7 +52,7 @@ type ParamsContextType = {
   submitProposal: boolean;
   setParams: Dispatch<SetStateAction<ParamsContextType>>;
   handleChange: (event: React.ChangeEvent) => void;
-  handleMarketScenario: (scenario: (number | string)[][]) => void;
+  // handleMarketScenario: (scenario: (number | string)[][]) => void;
   handleAddStep: (step: (number | string)[], param: string) => void;
   handleRemoveStep: (stepIndex: number) => void;
 };
@@ -72,12 +71,7 @@ export const initialParams: ParamsContextType = {
   commonsTribute: '50',
   entryTribute: '3',
   exitTribute: '15',
-  reserveBalance: '1571223.57',
-  stepList: [
-    [5000, 'wxDAI'],
-    [100000, 'wxDAI'],
-    [3000, 'TEC'],
-  ],
+  stepList: [],
   initialBuy: '250000',
   ragequitAmount: '60000',
   zoomGraph: '0',
@@ -112,9 +106,9 @@ export const initialParams: ParamsContextType = {
   handleChange: (): void => {
     throw new Error('handleChange must be overridden');
   },
-  handleMarketScenario: (): void => {
-    throw new Error('handleMarketScenario must be overridden');
-  },
+  // handleMarketScenario: (): void => {
+  //   throw new Error('handleMarketScenario must be overridden');
+  // },
   handleAddStep: (): void => {
     throw new Error('handleAddStep must be overridden');
   },
@@ -142,7 +136,7 @@ function ParamsProvider({ children }: AppParamsContextProps) {
     if (params) {
       const {
         handleChange,
-        handleMarketScenario,
+        // handleMarketScenario,
         handleAddStep,
         handleRemoveStep,
         setParams: setFunc,
@@ -175,7 +169,7 @@ function ParamsProvider({ children }: AppParamsContextProps) {
         }
         return 'true';
       });
-      if (values.every((elem) => elem !== '') && stepList.length !== 0) {
+      if (values.every((elem) => elem !== '')) {
         setSubmitProposal(true);
       } else {
         setSubmitProposal(false);
@@ -186,42 +180,23 @@ function ParamsProvider({ children }: AppParamsContextProps) {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    const resetBalance = ['openingPrice', 'commonsTribute'].includes(name);
-    if (resetBalance) {
-      const launchValue = String(
-        (
-          (Number(initialParams.reserveBalance) -
-            Number(params?.ragequitAmount) -
-            Number(params?.initialBuy)) *
-          (1 -
-            Number(name === 'commonsTribute' ? value : params?.commonsTribute) /
-              100)
-        ).toFixed(2)
-      );
-      setParams((previousParams) => ({
-        ...previousParams,
-        [name]: value,
-        reserveBalance: String(launchValue),
-      }));
-    } else {
-      setParams((previousParams) => ({
-        ...previousParams,
-        [name]: value,
-      }));
-    }
-  };
-
-  const handleMarketScenario = (scenario: (number | string)[][]) => {
-    const { stepList } = params;
-    let newScenario;
-    if (stepList.length > 3) {
-      newScenario = [...scenario, ...stepList.slice(3, stepList.length)];
-    }
     setParams((previousParams) => ({
       ...previousParams,
-      stepList: newScenario || scenario,
+      [name]: value,
     }));
   };
+
+  // const handleMarketScenario = (scenario: (number | string)[][]) => {
+  //   const { stepList } = params;
+  //   let newScenario;
+  //   if (stepList.length > 3) {
+  //     newScenario = [...scenario, ...stepList.slice(3, stepList.length)];
+  //   }
+  //   setParams((previousParams) => ({
+  //     ...previousParams,
+  //     stepList: newScenario || scenario,
+  //   }));
+  // };
 
   const handleAddStep = (step: (number | string)[], param: string) => {
     let newList = [];
@@ -261,7 +236,7 @@ function ParamsProvider({ children }: AppParamsContextProps) {
         submitProposal: submitProposalState,
         setParams,
         handleChange,
-        handleMarketScenario,
+        // handleMarketScenario,
         handleAddStep,
         handleRemoveStep,
       }}

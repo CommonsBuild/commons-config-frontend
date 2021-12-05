@@ -8,7 +8,9 @@ function LearnOne() {
   return (
     <>
       <AudioPlayer track={TokenFreezeThawAudio} />
-      <h3 className="text-bj font-bold text-3xl">Token Freeze & Token Thaw</h3>
+      <h3 className="text-bj font-bold text-3xl">
+        Token Freeze &amp; Token Thaw
+      </h3>
       <div className="font-inter">
         <br />
         <p>

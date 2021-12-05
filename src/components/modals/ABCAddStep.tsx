@@ -34,7 +34,24 @@ function ABCAddStepDialog({
   };
 
   return (
-    <Modal handleClose={handleClose as () => void} isOpen={isOpen} transparent>
+    <Modal
+      handleClose={handleClose as () => void}
+      isOpen={isOpen}
+      transparent
+      customButton={
+        <button
+          className="h-14 px-6 mx-auto bg-neon outline-none	hover:bg-neon-light-600 disabled:opacity-50 disabled:bg-gray-400 disabled:text-gray-300 w-full"
+          onClick={(e) => {
+            onClick([Number(stepData.value), stepData.type], 'stepList');
+            handleClose(e);
+          }}
+        >
+          <span className="font-bj font-bold text-lg uppercase cursor-pointer">
+            simulate a transaction
+          </span>
+        </button>
+      }
+    >
       <div className="bg-black">
         <div className="bg-black-200 px-8 py-6">
           <span className="block font-bj font-bold text-xs text-neon-light uppercase pb-2">
@@ -83,17 +100,6 @@ function ABCAddStepDialog({
               </span>
             </div>
           </div>
-          <a
-            className="flex justify-center border border-neon my-3"
-            onClick={(e) => {
-              onClick([Number(stepData.value), stepData.type], 'stepList');
-              handleClose(e);
-            }}
-          >
-            <span className="font-bj font-bold text-xs text-neon uppercase p-2 py-3">
-              add a step
-            </span>
-          </a>
         </div>
       </div>
     </Modal>

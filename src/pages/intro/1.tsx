@@ -64,7 +64,7 @@ IntroOne.getLayout = function getLayout(page: ReactElement) {
   return (
     <Intro
       dialogContent={<IntroOneDialog />}
-      dialogTitle="Token Freeze & Token Thaw"
+      dialogTitle="Token Freeze &amp; Token Thaw"
       nextHref="/intro/2"
       title="Intro 1 | Commons Dashboard"
     >

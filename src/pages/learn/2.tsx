@@ -64,7 +64,7 @@ function LearnTwo() {
           rel="noreferrer"
           className="block font-bj font-bold text-neon leading-loose"
         >
-          Entry Tribute & Exit Tribute
+          Entry Tribute &amp; Exit Tribute
         </a>
         <a
           href="https://forum.tecommons.org/t/augmented-bonding-curve-commons-tribute/517/2"
@@ -80,7 +80,7 @@ function LearnTwo() {
           rel="noreferrer"
           className="block font-bj font-bold text-neon leading-loose"
         >
-          Opening Price & Reserve Ratio
+          Opening Price &amp; Reserve Ratio
         </a>
       </div>
     </>

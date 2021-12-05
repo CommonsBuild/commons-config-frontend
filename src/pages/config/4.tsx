@@ -10,11 +10,14 @@ import { ConvictionVotingTable } from '@/components/tables';
 import useHover from '@/hooks/useHover';
 
 const radioButtons = [
-  { id: 'radio5', label: '6 Months', value: '180' },
-  { id: 'radio4', label: '3 Months', value: '60' },
-  { id: 'radio3', label: '1 Month', value: '30' },
-  { id: 'radio2', label: '2 Weeks', value: '14' },
-  { id: 'radio1', label: '7 Days', value: '7' },
+  { id: 'radio8', label: '6 Months', value: '180' },
+  { id: 'radio7', label: '3 Months', value: '60' },
+  { id: 'radio6', label: '1 Month', value: '30' },
+  { id: 'radio5', label: '2 Weeks', value: '14' },
+  { id: 'radio4', label: '7 Days', value: '7' },
+  { id: 'radio3', label: '3 Days', value: '3' },
+  { id: 'radio2', label: '1 Day', value: '1' },
+  { id: 'radio1', label: '8 Hours', value: '0.33' },
 ];
 
 function ConvictionVoting() {
@@ -73,12 +76,15 @@ function ConvictionVoting() {
   ];
 
   useEffect(() => {
-    if (convictionGrowth === '') {
-      setParams((previousParams) => ({
-        ...previousParams,
-        convictionGrowth: '5',
-      }));
-    }
+    const typeTimeOut = setTimeout(() => {
+      if (convictionGrowth === '') {
+        setParams((previousParams) => ({
+          ...previousParams,
+          convictionGrowth: '5',
+        }));
+      }
+    }, 4000);
+    return () => clearTimeout(typeTimeOut);
   }, [convictionGrowth]);
 
   return (
@@ -148,7 +154,7 @@ function ConvictionVoting() {
               text="Select a time frame in which you want to pass a proposal."
             >
               <div
-                className="flex flex-row-reverse justify-between max-w-2xl mx-auto px-2 py-6 mb-6 bg-cyan-700 opacity-60"
+                className="flex flex-row-reverse justify-between max-w-4xl mx-auto px-2 py-6 mb-6 bg-cyan-700 opacity-60"
                 ref={tableHover}
               >
                 {radioButtons.map((button) => (

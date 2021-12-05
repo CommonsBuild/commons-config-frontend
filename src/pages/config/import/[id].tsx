@@ -86,6 +86,7 @@ function Import() {
             convictionVotingPeriodDays: String(conviction.votingPeriodDays),
             tableScenarios: conviction.tableScenarios || [],
             transferable: Boolean(advanced.transferability),
+            zoomGraph: '0',
           };
           localStorage.setItem('params', JSON.stringify(newParams));
           setParams({ ...newParams });
