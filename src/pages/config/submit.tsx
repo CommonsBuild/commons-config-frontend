@@ -5,13 +5,12 @@ import classnames from 'classnames';
 import toast, { Toaster } from 'react-hot-toast';
 import * as htmlToImage from 'html-to-image';
 import FormData from 'form-data';
-import axios from 'axios';
 import SubmitAnalysis from '@/components/SubmitAnalysis';
 import SubmitSummary from '@/components/SubmitSummary';
 import { Navbar } from '@/components/_global';
 import { AdvancedParametersDialog, SubmitDialog } from '@/components/modals';
 import { useParams } from '@/hooks/';
-// import api from '@/services/api';
+import api from '@/services/api';
 
 async function getImage(id) {
   let image;
@@ -112,16 +111,12 @@ function SubmitConfig() {
     body.append('taoVoting', taoVoting);
     body.append('convictionVoting', convictionVoting);
 
-    axios
-      .post(
-        'https://test-commons-dashboard.herokuapp.com/issue-generator/',
-        body,
-        {
-          headers: {
-            'Content-Type': `multipart/form-data`,
-          },
-        }
-      )
+    api
+      .post('/issue-generator/', body, {
+        headers: {
+          'Content-Type': `multipart/form-data`,
+        },
+      })
       .then((response) => {
         setUrl(response.data.url);
         setLoading(false);

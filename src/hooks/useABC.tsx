@@ -6,9 +6,8 @@ import {
   useEffect,
   useState,
 } from 'react';
-import axios from 'axios';
 import { useParams } from '@/hooks/useParams';
-// import api from '@/services/api';
+import api from '@/services/api';
 import errorToast from '@/lib/notifications/error';
 
 type ABCContextType = {
@@ -66,23 +65,20 @@ function ABCProvider({ children }: AppABCContextProps) {
       ...previousParams,
       isLoading: true,
     }));
-    await axios
-      .post(
-        'https://abcurve-backend-test.herokuapp.com/augmented-bonding-curve/',
-        {
-          openingPrice,
-          commonsTribute: Number(commonsTribute) / 100,
-          entryTribute: Number(entryTribute) / 100,
-          exitTribute: Number(exitTribute) / 100,
-          stepList,
-          initialBuy,
-          ragequitAmount,
-          zoomGraph,
-          includeMilestones: 1,
-          virtualSupply: -1,
-          virtualBalance: -1,
-        }
-      )
+    await api
+      .post('/augmented-bonding-curve/', {
+        openingPrice,
+        commonsTribute: Number(commonsTribute) / 100,
+        entryTribute: Number(entryTribute) / 100,
+        exitTribute: Number(exitTribute) / 100,
+        stepList,
+        initialBuy,
+        ragequitAmount,
+        zoomGraph,
+        includeMilestones: 1,
+        virtualSupply: -1,
+        virtualBalance: -1,
+      })
       .then((response) => {
         const { chartData, milestoneTable, stepTable, fundAllocations } =
           response.data;
