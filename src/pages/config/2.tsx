@@ -174,7 +174,7 @@ function ABC() {
               <div className="flex gap-2">
                 <InfoBox
                   label={`COMMON POOL AT LAUNCH: ${formatOutput(
-                    fundAllocations.commonPoolAfter
+                    fundAllocations?.commonPoolAfter
                   )} wxDAI`}
                   link="https://forum.tecommons.org/t/augmented-bonding-curve-commons-tribute/517"
                   tooltipText="The amount of wxDAI which will be in the Common Pool at the Commons Upgrade. This is calculated using the Hatch funds raised, Hatchers who have rage quit (Advanced), the Initial buy-in (Advanced) and the Commons Tribute."
