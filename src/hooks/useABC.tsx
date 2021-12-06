@@ -11,6 +11,7 @@ import api from '@/services/api';
 import errorToast from '@/lib/notifications/error';
 
 type ABCContextType = {
+  isLoading: boolean;
   price: number[];
   balanceInThousands: number[];
   stepLinSpaces: { [key: string]: number[] }[];
@@ -18,16 +19,19 @@ type ABCContextType = {
   reserveRatio: number;
   milestoneTable: { [key: string]: number[] };
   stepTable: { [key: string]: number[] };
+  fundAllocations: { [key: string]: number };
   setContext: Dispatch<SetStateAction<ABCContextType>>;
 };
 
 const initialContext: ABCContextType = {
+  isLoading: false,
   price: [],
   balanceInThousands: [],
   stepLinSpaces: [{}],
   singlePoints: [],
   reserveRatio: 0,
   milestoneTable: {},
+  fundAllocations: {},
   stepTable: {},
   setContext: (): void => {
     throw new Error('setContext must be overridden');
@@ -47,41 +51,51 @@ function ABCProvider({ children }: AppABCContextProps) {
     commonsTribute,
     entryTribute,
     exitTribute,
-    reserveBalance,
     stepList,
     initialBuy,
     ragequitAmount,
     zoomGraph,
-    // virtualSupply,
-    // virtualBalance,
+    virtualSupply,
+    virtualBalance,
     setParams,
   } = useParams();
 
+  const fetchABCData = async () => {
+    setContext((previousParams) => ({
+      ...previousParams,
+      isLoading: true,
+    }));
+    await api
+      .post('/augmented-bonding-curve/', {
+        openingPrice,
+        commonsTribute: Number(commonsTribute) / 100,
+        entryTribute: Number(entryTribute) / 100,
+        exitTribute: Number(exitTribute) / 100,
+        stepList,
+        initialBuy,
+        ragequitAmount,
+        zoomGraph,
+        includeMilestones: 1,
+        virtualSupply,
+        virtualBalance,
+      })
+      .then((response) => {
+        const { chartData, milestoneTable, stepTable, fundAllocations } =
+          response.data;
+        setContext({
+          ...chartData,
+          milestoneTable,
+          stepTable,
+          fundAllocations,
+          isLoading: false,
+        });
+      })
+      .catch(() => errorToast());
+  };
+
   useEffect(() => {
     const typeTimeOut = setTimeout(() => {
-      api
-        .post('/augmented-bonding-curve/', {
-          openingPrice,
-          commonsTribute: Number(commonsTribute) / 100,
-          entryTribute: Number(entryTribute) / 100,
-          exitTribute: Number(exitTribute) / 100,
-          reserveBalance,
-          stepList,
-          initialBuy,
-          ragequitAmount,
-          zoomGraph,
-          // virtualSupply,
-          // virtualBalance,
-        })
-        .then((response) => {
-          const { chartData, milestoneTable, stepTable } = response.data;
-          setContext({
-            ...chartData,
-            milestoneTable,
-            stepTable,
-          });
-        })
-        .catch(() => errorToast());
+      fetchABCData();
     }, 500);
     return () => clearTimeout(typeTimeOut);
   }, [
@@ -89,7 +103,6 @@ function ABCProvider({ children }: AppABCContextProps) {
     commonsTribute,
     entryTribute,
     exitTribute,
-    reserveBalance,
     JSON.stringify(stepList),
     initialBuy,
     ragequitAmount,

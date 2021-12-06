@@ -1,46 +1,20 @@
 import { useState } from 'react';
 import Head from 'next/head';
-import Image from 'next/image';
 import classnames from 'classnames';
 import { Toaster } from 'react-hot-toast';
-import formatOutput from '@/utils/formatOutput';
 import InfoBox from '@/components/InfoBox';
 import Input from '@/components/Input';
-import { Card, ChartContainer, Tooltip } from '@/components/_global';
-import { LabeledRadioButton, RedirectButton } from '@/components/btns';
+import { Card, ChartContainer } from '@/components/_global';
+import { RedirectButton } from '@/components/btns';
 import { ABCChart } from '@/components/charts';
-import { useABC, useHover, useParams } from '@/hooks';
-import { ABCAddStepDialog, ABCScenarioDialog } from '@/components/modals/';
+import { useABC, useParams } from '@/hooks';
+import {
+  ABCAddStepDialog,
+  ABCScenarioDialog,
+  Backdrop,
+} from '@/components/modals/';
 import { ABCTable } from '@/components/tables';
-import { initialParams } from '@/hooks/useParams';
-
-const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b);
-const marketScenarios = [
-  {
-    id: 'bearish',
-    value: [
-      [5000, 'wxDAI'],
-      [50000, 'TEC'],
-      [3000, 'wxDAI'],
-    ],
-  },
-  {
-    id: 'bullish',
-    value: [
-      [5000, 'wxDAI'],
-      [100000, 'wxDAI'],
-      [3000, 'TEC'],
-    ],
-  },
-];
-
-const reserveBalanceButtons = [
-  { id: '100k', size: 'medium', value: '100000' },
-  { id: '500k', size: 'medium', value: '500000' },
-  { id: '1m', size: 'small', value: '1000000' },
-  { id: '3m', size: 'small', value: '3000000' },
-  { id: '5m', size: 'small', value: '5000000' },
-];
+import formatOutput from '@/utils/formatOutput';
 
 function ABC() {
   const {
@@ -49,20 +23,19 @@ function ABC() {
     stepLinSpaces,
     singlePoints,
     reserveRatio,
+    fundAllocations,
     stepTable,
+    isLoading,
   } = useABC();
   const {
     openingPrice,
     commonsTribute,
     entryTribute,
     exitTribute,
-    reserveBalance,
-    stepList,
     submitProposal,
-    ragequitAmount,
     initialBuy,
+    zoomGraph,
     handleChange,
-    handleMarketScenario,
     handleAddStep,
     handleRemoveStep,
   } = useParams();
@@ -70,13 +43,6 @@ function ABC() {
   const [marketDialog, setMarketDialog] = useState(false);
   const [stepDialog, setStepDialog] = useState(false);
   const [selectedStep, setSelectedStep] = useState(1);
-  const [questionRef, questionIsHovered] = useHover<HTMLDivElement>();
-  const launchValue = (
-    (Number(initialParams.reserveBalance) -
-      Number(ragequitAmount) -
-      Number(initialBuy)) *
-    (1 - Number(commonsTribute) / 100)
-  ).toFixed(2);
   const inputs = [
     {
       name: 'openingPrice',
@@ -97,7 +63,7 @@ function ABC() {
       link: 'https://forum.tecommons.org/t/augmented-bonding-curve-commons-tribute/517',
       placeholder: '%',
       tooltipText:
-        'This is a percentage of the total funds raised from the Hatch, and is sent to the Common Pool to kick-start the Commons project. The remaining percentage determines the Reserve Balance.',
+        'This is the percentage of approx. 1.25 million wxDai that will be sent to the Common Pool to fund mission aligned projects. The remaining wxDai will be sent to the Reserve of the ABC.',
     },
     {
       name: 'entryTribute',
@@ -117,6 +83,20 @@ function ABC() {
       tooltipText:
         'The percentage taken off SELL orders and sent to the Common Pool.',
     },
+    {
+      name: 'zoomGraph',
+      value: zoomGraph,
+      param: 'Chart Zoom',
+      placeholder: '',
+      options: [
+        { label: 'Yes', value: '1' },
+        { label: 'No', value: '0' },
+      ],
+      select: true,
+      tooltipText:
+        'Choosing Yes zooms the graph into the portion of the ABC where simulated transactions can be viewed. Choosing No shows a larger perspective of the ABC itself.',
+      isNumber: false,
+    },
   ];
 
   return (
@@ -124,6 +104,9 @@ function ABC() {
       <Head>
         <title>Config 2 | Commons Dashboard</title>
       </Head>
+      <Backdrop isOpen={isLoading}>
+        <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-neon" />
+      </Backdrop>
       <div className="min-h-screen h-full bg-dash bg-cover">
         <ABCScenarioDialog
           isOpen={marketDialog}
@@ -159,104 +142,25 @@ function ABC() {
                   }
                   handleChange(event);
                 }}
+                select={input.select}
+                options={input.options}
+                isNumber={input.isNumber}
               />
             ))}
             <RedirectButton href="/learn/2" />
-
             <div className="py-2">
-              <span className="font-bj font-bold text-neon-light text-xs uppercase">
-                choose your market scenario
-              </span>
-
-              <div className="flex flex-row-reverse justify-end py-2">
-                {marketScenarios.map((scenario) => (
-                  <LabeledRadioButton
-                    key={scenario.id}
-                    margin
-                    pX
-                    id={scenario.id}
-                    label={scenario.id}
-                    name="stepList"
-                    checked={equals(scenario.value, stepList?.slice(0, 3))}
-                    onChange={() => handleMarketScenario(scenario.value)}
-                  />
-                ))}
+              <div className="font-inter text-xs text-gray-200 py-2">
+                Add more transactions to experience your ABC config
               </div>
-              <div className="py-2">
-                <span className="font-bj text-sm text-neon-light">
-                  Reserve Balance (wxDAI)
+              <button
+                disabled={stepTable?.step?.length >= 10}
+                className="flex justify-center items-center w-full h-8 mb-2 border border-neon-light disabled:text-gray-400 disabled:border-gray-400"
+                onClick={() => setStepDialog(true)}
+              >
+                <span className="font-bj font-bold text-xs text-neon-light uppercase cursor-pointer">
+                  simulate a transaction
                 </span>
-                <div
-                  ref={questionRef}
-                  className="inline-block align-middle m-1"
-                >
-                  <Tooltip
-                    isHovered={questionIsHovered}
-                    text="Setting the Reserve Balance zooms in on a section of the curve to perform transaction simulations."
-                  >
-                    <Image
-                      alt="Question mark."
-                      height="12"
-                      src="/icons/questionMark.svg"
-                      width="12"
-                    />
-                  </Tooltip>
-                </div>
-                <div className="relative h-12 bg-black-200 mt-1">
-                  <input
-                    className="font-bold text-neon-light text-xl w-full h-full pl-3 border-2 border-gray-500 focus:border-neon hover:border-gray-400 bg-transparent outline-none placeholder-right"
-                    name="reserveBalance"
-                    value={reserveBalance}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                      handleChange(event)
-                    }
-                  />
-                  <div className="absolute right-3 top-2/4 transform -translate-y-2/4">
-                    <span className="font-inter text-xs text-gray-300">
-                      wxDAI
-                    </span>
-                  </div>
-                </div>
-                <div className="flex justify-between text-neon-light py-2">
-                  <LabeledRadioButton
-                    id="launch"
-                    label="launch"
-                    name="reserveBalance"
-                    size="big"
-                    tooltipText="Simulate the Reserve Balance using the amount raised by the Hatch, adjusted by the Commons Tribute"
-                    value={launchValue}
-                    checked={launchValue === reserveBalance}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                      handleChange(event)
-                    }
-                  />
-                  {reserveBalanceButtons.map((balance) => (
-                    <LabeledRadioButton
-                      key={balance.id}
-                      id={balance.id}
-                      label={balance.id}
-                      name="reserveBalance"
-                      size={balance.size}
-                      value={balance.value}
-                      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                        handleChange(event)
-                      }
-                    />
-                  ))}
-                </div>
-                <div className="font-inter text-xs text-gray-200 py-2">
-                  Add more steps to experience your Bonding Curve
-                </div>
-                <button
-                  disabled={stepTable?.step?.length >= 10}
-                  className="flex justify-center items-center w-full h-8 border border-neon-light disabled:text-gray-400 disabled:border-gray-400"
-                  onClick={() => setStepDialog(true)}
-                >
-                  <span className="font-bj font-bold text-xs text-neon-light uppercase cursor-pointer">
-                    add a step
-                  </span>
-                </button>
-              </div>
+              </button>
               <span
                 className="font-bj font-medium text-neon text-sm uppercase cursor-pointer"
                 onClick={() => setMarketDialog(true)}
@@ -266,33 +170,30 @@ function ABC() {
             </div>
           </Card>
           <ChartContainer title="Experience your Augmented Bonding Curve by adjusting your params and adding steps.">
-            <div className="max-w-max h-0 text-center relative -top-2 left-24">
-              <InfoBox
-                label={`COMMON POOL AT LAUNCH: ${formatOutput(
-                  (Number(initialParams.reserveBalance) -
-                    Number(ragequitAmount) -
-                    Number(initialBuy)) *
-                    (Number(commonsTribute) / 100)
-                )} wxDAI`}
-                link="https://forum.tecommons.org/t/augmented-bonding-curve-commons-tribute/517"
-                tooltipText="The amount of wxDAI which will be in the Common Pool at the Commons Upgrade. This is calculated using the Hatch funds raised, Hatchers who have rage quit (Advanced), the Initial buy-in (Advanced) and the Commons Tribute."
-              />
-            </div>
-            <div className="max-w-max h-0 text-center relative top-12 left-24">
-              <InfoBox
-                color="neon"
-                label={`RESERVE RATIO: ${(reserveRatio * 100).toFixed(2)}%`}
-                link="https://forum.tecommons.org/t/augmented-bonding-curve-opening-price-reserve-ratio/516"
-                tooltipText={
-                  <span>
-                    Reserve Ratio is an output of the Opening Price and Commons
-                    Tribute, it defines the shape of the ABC.{' '}
-                    <b className="text-neon">
-                      Click to learn more about the Reserve Ratio.
-                    </b>
-                  </span>
-                }
-              />
+            <div className="max-w-max h-0 text-center relative -top-1 left-24">
+              <div className="flex gap-2">
+                <InfoBox
+                  label={`COMMON POOL AT LAUNCH: ${formatOutput(
+                    fundAllocations?.commonPoolAfter
+                  )} wxDAI`}
+                  link="https://forum.tecommons.org/t/augmented-bonding-curve-commons-tribute/517"
+                  tooltipText="The amount of wxDAI which will be in the Common Pool at the Commons Upgrade. This is calculated using the Hatch funds raised, Hatchers who have rage quit (Advanced), the Initial buy-in (Advanced) and the Commons Tribute."
+                />
+                <InfoBox
+                  color="neon"
+                  label={`RESERVE RATIO: ${(reserveRatio * 100).toFixed(2)}%`}
+                  link="https://forum.tecommons.org/t/augmented-bonding-curve-opening-price-reserve-ratio/516"
+                  tooltipText={
+                    <span>
+                      Reserve Ratio is an output of the Opening Price and
+                      Commons Tribute, it defines the shape of the ABC.{' '}
+                      <b className="text-neon">
+                        Click to learn more about the Reserve Ratio.
+                      </b>
+                    </span>
+                  }
+                />
+              </div>
             </div>
             <ABCChart
               balanceInThousands={balanceInThousands}
@@ -301,7 +202,7 @@ function ABC() {
               singleDataPoints={singlePoints}
             />
             <span className="font-bj text-sm text-neon-light px-16 pt-6 pb-2">
-              Steps
+              Transactions
             </span>
             <div className="flex px-16 pt-2 pb-6">
               {stepTable?.step?.map((item, index) => (
@@ -312,9 +213,6 @@ function ABC() {
                       'hover:border-gray-400': index !== selectedStep,
                       'border-gray-700 ': index !== selectedStep,
                       'border-neon': index === selectedStep,
-                      'first:hidden':
-                        Number(reserveBalance) !== Number(launchValue) &&
-                        Number(initialBuy) > 0,
                     }
                   )}
                   onClick={() => setSelectedStep(index)}
@@ -325,7 +223,7 @@ function ABC() {
                   {index > 3 ? (
                     <a
                       className="absolute -top-2 -right-2 rounded-full bg-red-500 h-4 w-4 flex justify-center items-center opacity-0 group-hover:opacity-100"
-                      onClick={() => handleRemoveStep(index)}
+                      onClick={() => handleRemoveStep(index - 3)}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -346,13 +244,7 @@ function ABC() {
                 </div>
               ))}
             </div>
-            <ABCTable
-              table={{ ...stepTable }}
-              showStepZero={
-                Number(reserveBalance) !== Number(launchValue) &&
-                Number(initialBuy) > 0
-              }
-            />
+            <ABCTable table={{ ...stepTable }} />
           </ChartContainer>
         </div>
       </div>

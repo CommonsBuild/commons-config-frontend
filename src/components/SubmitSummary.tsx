@@ -302,7 +302,7 @@ const SubmitSummary = ({
       )}
       <SummaryContainer
         inputList={freezeThawInputs}
-        title="token freeze & token thaw"
+        title="token freeze &amp; token thaw"
         onChange={handleChange}
         textAreaName="tokenFreezeStrategy"
         textAreaValue={params.tokenFreezeStrategy}

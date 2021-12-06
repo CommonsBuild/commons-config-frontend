@@ -99,7 +99,7 @@ const TokenFreezeThawChart = ({
           }
           rotate
           tooltipPosition="left"
-          tooltipText="The price floor is the minimum possible price of the token. This is a result of tokens being frozen and is affected by the paramaters Token Freeze & Token Thaw."
+          tooltipText="The price floor is the minimum possible price of the token. This is a result of tokens being frozen and is affected by the parameters Token Freeze &amp; Token Thaw."
         />
       }
     />

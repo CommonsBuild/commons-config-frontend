@@ -51,7 +51,7 @@ function TokenFreezeThaw() {
       <div className="min-h-screen h-full bg-dash bg-cover">
         <div className="flex justify-center">
           <Card
-            title="token freeze & token thaw"
+            title="token freeze &amp; token thaw"
             nextHref="/config/2"
             nextPanel="Modifying the Commons"
             submitProposal={!submitProposal}

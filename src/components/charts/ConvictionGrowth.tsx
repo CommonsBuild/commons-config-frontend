@@ -1,7 +1,7 @@
 import React from 'react';
-import Image from 'next/image';
 import { Line } from 'react-chartjs-2';
 import ChartAxisLabel from './ChartAxisLabel';
+import ChartGrid from '../ChartGrid';
 
 interface ConvictionGrowthProps {
   convictionPercentage: number[];
@@ -85,17 +85,23 @@ function ConvictionGrowthChart({
       <div className="w-20 h-0 text-right relative -top-12 -left-2">
         <ChartAxisLabel label="% of maximum conviction" />
       </div>
-      <div className="flex justify-center py-2">
+      <ChartGrid
+        id="q"
+        chart={<Line data={data} options={options} />}
+        xAxisLabel={<ChartAxisLabel label="days" />}
+        yAxisLabel={<></>}
+      />
+      {/* <div className="flex justify-center py-2">
         <div className="w-full">
-          <Line data={data} options={options} />
           <div className="relative h-3/5 abc-chart">
             <Image layout="fill" src="/chart_bg.png" />
           </div>
+          <Line data={data} options={options} />
         </div>
-      </div>
-      <div className="w-24 h-0 ml-auto text-right relative bottom-2">
+      </div> */}
+      {/* <div className="w-24 h-0 ml-auto text-right relative bottom-2">
         <ChartAxisLabel label="days" />
-      </div>
+      </div> */}
     </>
   );
 }

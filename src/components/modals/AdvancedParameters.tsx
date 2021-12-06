@@ -43,7 +43,7 @@ function AdvancedParametersDialog({
           rel="noreferrer"
           className="block font-bj font-bold text-neon leading-loose"
         >
-          Disputability & Celeste
+          Disputability &amp; Celeste
         </a>
         <a
           href="https://forum.tecommons.org/c/defi-legos-and-how-they-work-together/adv-ccd-params/27"
