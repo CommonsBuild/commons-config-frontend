@@ -12,12 +12,12 @@ function LearnFour() {
       <div className="font-inter">
         <br />
         <p>
-          Conviction Voting is the governance system in which Commons Members
-          create proposals to request funds from the Common Pool.
+          Conviction Voting is the governance system in which BrightDAO Members
+          create proposals to request funds from the BrightDAO.
         </p>
         <br />
         <p>
-          TEC tokens can be staked on these proposals to signal approval of the
+          BRIGHT can be staked on these proposals to signal approval of the
           request. Staked tokens accrue voting power, or Conviction,
           continuously over time. The amount of tokens currently voting on all
           proposals in Conviction Voting is represented by the term{' '}
@@ -27,15 +27,16 @@ function LearnFour() {
         </p>
         <br />
         <p>
-          This is the real power behind the TEC token. TEC holders have a direct
-          impact on funding Token Engineering by reviewing projects and voting
-          on which initiatives get funded and how much funding they receive.
+          This is the real power behind the BRIGHT token. BRIGHT holders have a
+          direct impact on funding BrightDAO ecosystem by reviewing projects and
+          voting on which initiatives get funded and how much funding they
+          receive.
         </p>
         <br />
         <p>
           The <strong>Spending Limit</strong> sets the maximum percentage of the
           Common Pool funds that can be requested by a single proposal. The{' '}
-          <strong>Minimum Conviction</strong> dictates how many TEC tokens are
+          <strong>Minimum Conviction</strong> dictates how many BRIGHT are
           needed to pass a proposal, no matter how small the amount requested.
         </p>
         <br />
