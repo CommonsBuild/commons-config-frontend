@@ -12,36 +12,37 @@ function LearnThree() {
       <div className="font-inter">
         <br />
         <p>
-          As your Commons evolves so should its configuration. Parameters within
-          the different Commons components will be able to be modified after
-          they have been implemented. In this module you will need to define the
-          voting requirements for any proposal to alter the Commons
+          As the BrightDAO evolves so should its configuration. Parameters
+          within the BrightDAO components will be able to be modified during
+          deployment. In this module you will need to define the voting
+          requirements for any proposal to alter the BrightDAO on-chain
           configuration.
         </p>
         <br />
-        <p className="font-bold">Modifying the Commons</p>
+        <p className="font-bold">Modifying BrightDAO</p>
         <br />
         <p>
-          Tao Voting is the voting process by which the Commons can modify its
-          economic and governance settings post-upgrade. It is a very powerful
-          voting application that is capable of performing many high-impact
-          functions, for example:
+          Tao Voting is the voting application by which the BRIGHT holders can
+          modify the economic and governance settings of BrightDAO. It is a very
+          powerful voting application that is capable of performing many
+          high-impact Decisions, for example:
         </p>
         <br />
         <ul className="list-disc list-inside">
-          <li>Mint and burn TEC tokens</li>
-          <li>Install and remove Applications (Modules) in the Commons</li>
-          <li>Modify the parameters of all existing Applications (Modules)</li>
+          <li>Install and remove Aragon Applications</li>
+          <li>Modify the parameters of all existing Applications</li>
+          <li>Remove BRIGHT from the Common Pool</li>
         </ul>
         <br />
         <p>
-          Since there is only one set of voting parameters for all Commons
-          components, strong thresholds for passing proposals in Tao Voting are
-          critical to ensure the Commons architecture remains uncompromised.
+          Since there is only one set of voting parameters for all BrightDAO
+          components, well thought out thresholds for passing proposals in Tao
+          Voting are critical to ensure the BrightDAO architecture remains
+          uncompromised.
         </p>
         <br />
         <p>
-          Tao Voting is an upgraded version of Dandelion Voting with familiar
+          Tao Voting is an upgraded version of DAO Voting app with familiar
           parameters such as <strong>Support Required</strong>,{' '}
           <strong>Minimum Quorum</strong>, <strong>Execution Delay</strong>
           and <strong>Vote Duration</strong>.
@@ -55,9 +56,9 @@ function LearnThree() {
         <p className="font-bold">Delegation</p>
         <br />
         <p>
-          TEC Token holders can delegate their Tao Voting powers to another
-          member who will cast votes on their behalf, these members become
-          delegates. Delegates can only vote during the{' '}
+          BRIGHT holders can delegate their Tao Voting powers to another member
+          who will cast votes on their behalf, these members become delegates.
+          Delegates can only vote during the{' '}
           <strong>Delegate Voting Period</strong>, which is a specified amount
           of time at the beginning of the voting process. If a delegate votes
           contrary to their delegator the delegator can veto the delegated vote
@@ -80,9 +81,9 @@ function LearnThree() {
         <br />
         <p className="font-bold leading-loose">You decide:</p>
         <ul className="list-disc list-inside">
-          <li>Legacy Dandelion Voting settings</li>
-          <li>The amount of time Delegates are allowed to vote</li>
-          <li>How long to listen for a change of outcome</li>
+          <li>Normal DAO Voting settings </li>
+          <li>The amount of time Delegates are allowed to vote </li>
+          <li>How long to listen for a change of outcome </li>
           <li>The amount of time that can be added for voting</li>
         </ul>
         <p className="font-bj font-bold text-lg my-6">
