@@ -60,10 +60,10 @@ function AddProposal({ isOpen, handleClose, onClick }: AddProposalProps) {
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             handleChange(event)
           }
-          placeholder="wxDAI"
+          placeholder="GIV"
         />
         <p className="font-inter text-neon-light pt-3">
-          How much wxDAI is being governed by Conviction Voting
+          How much GIV is being governed by Conviction Voting
         </p>
         <Input
           name="commonPool"
@@ -72,13 +72,13 @@ function AddProposal({ isOpen, handleClose, onClick }: AddProposalProps) {
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             handleChange(event)
           }
-          placeholder="wxDAI"
+          placeholder="GIV"
         />
         <p className="font-inter text-neon-light pt-3">
-          How many TEC tokens are Actively Voting in Conviction Voting?
+          How many GIV are Actively Voting in Conviction Voting?
         </p>
         <p className="font-inter text-gray-200 text-xs pt-3 pb-1">
-          Hatchers will have ~2 million TEC tokens they can vote with.
+          Hatchers will have ~2 million GIV they can vote with.
         </p>
         <Input
           name="effectiveSupply"
@@ -87,7 +87,7 @@ function AddProposal({ isOpen, handleClose, onClick }: AddProposalProps) {
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             handleChange(event)
           }
-          placeholder="TEC"
+          placeholder="GIV"
         />
       </div>
     </Modal>
