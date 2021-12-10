@@ -20,7 +20,7 @@ function ConvictionVotingTable({
           <TableHeader
             headerText="Proposal"
             size="m"
-            tooltipText="A simluted funding request using Conviction Voting"
+            tooltipText="A simulated funding request using Conviction Voting"
           />
           <TableHeader
             headerText="requested amount (BRIGHT)"
@@ -35,7 +35,7 @@ function ConvictionVotingTable({
           <TableHeader
             headerText="effective supply (BRIGHT)"
             size="l"
-            tooltipText="The cumulative total of all TEC tokens staked on all proposals in Conviction Voting"
+            tooltipText="The cumulative total of all BRIGHT staked on all proposals in Conviction Voting"
           />
           <TableHeader
             headerText={`min tokens needed to pass in ${
