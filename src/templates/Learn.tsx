@@ -1,15 +1,15 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import Image from 'next/image';
-import Head from 'next/head';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { ReactNode, useState } from 'react';
 import {
   AnimatePresence,
   AnimateSharedLayout,
-  motion,
   Variants,
+  motion,
 } from 'framer-motion';
+import Head from 'next/head';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { ReactNode, useState } from 'react';
 
 import { CustomNavbar as Navbar } from '@/components/_global/Navbar';
 import { Checkbox, NeonButton } from '@/components/btns';

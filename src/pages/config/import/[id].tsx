@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import { Navbar } from '@/components/_global';
+import { useParams } from '@/hooks';
+import errorToast from '@/lib/notifications/error';
+import api from '@/services/api';
+import classnames from 'classnames';
+import { AnimatePresence, Variants, motion } from 'framer-motion';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import classnames from 'classnames';
+import { useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { motion, AnimatePresence, Variants } from 'framer-motion';
-import { Navbar } from '@/components/_global';
-import api from '@/services/api';
-import { useParams } from '@/hooks';
-import errorToast from '@/lib/notifications/error';
 
 const success: Variants = {
   animate: {
@@ -115,7 +115,7 @@ function Import() {
             >
               <h3 className="font-inter font-medium text-3xl text-center text-neon-light mt-18 px-96">
                 The parameters we&apos;re imported successfully.{' '}
-                <Link href="/config/1">
+                <Link legacyBehavior href="/config/1">
                   <a className="font-bold text-neon underline">Click here</a>
                 </Link>{' '}
                 to start modifying the parameters!

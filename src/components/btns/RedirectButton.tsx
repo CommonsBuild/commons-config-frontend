@@ -6,7 +6,7 @@ interface RedirectButtonProps {
 
 function RedirectButton({ href }: RedirectButtonProps) {
   return (
-    <Link href={href}>
+    <Link legacyBehavior href={href}>
       <a
         target="_blank"
         rel="noreferrer noopener"

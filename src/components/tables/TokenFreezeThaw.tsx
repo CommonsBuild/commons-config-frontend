@@ -31,7 +31,7 @@ function TokenFreezeThawTable({ table }: TokenFreezeThawTableProps) {
       }
       content={table?.price?.map((elem, index) => (
         <TableRow key={index}>
-          <TableCell content={table.label[index]} size="xl" tooltipColumn />
+          <TableCell content={table?.label?.[index]} size="xl" tooltipColumn />
           <TableCell
             content={`${Number(table.tokensReleased[index].toFixed(2)) * 100}%`}
             size="xl"

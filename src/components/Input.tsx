@@ -1,7 +1,7 @@
-import Image from 'next/image';
-import classnames from 'classnames';
 import { Tooltip } from '@/components/_global';
 import { useHover, useParams } from '@/hooks';
+import classnames from 'classnames';
+import Image from 'next/image';
 import Select from './Select';
 
 interface InputProps {
@@ -69,8 +69,8 @@ function Input({
                   <div className="inline-block mt-1 ml-1">
                     <Image
                       src="/icons/questionMark.svg"
-                      height="12px"
-                      width="12px"
+                      height="12"
+                      width="12"
                     />
                   </div>
                 ) : (

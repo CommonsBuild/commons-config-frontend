@@ -1,7 +1,7 @@
-import Image from 'next/image';
-import classnames from 'classnames';
-import { Tooltip } from '../_global';
 import { useHover } from '@/hooks';
+import classnames from 'classnames';
+import Image from 'next/image';
+import { Tooltip } from '../_global';
 
 const headerSize = {
   s: 'w-1/12',
@@ -54,7 +54,7 @@ function TableHeader({
           </span>
           {tooltipText && (
             <div className="flex mx-2 self-center min-w-max">
-              <Image src="/icons/questionMark.svg" height="12px" width="12px" />
+              <Image src="/icons/questionMark.svg" height="12" width="12" />
             </div>
           )}
         </span>

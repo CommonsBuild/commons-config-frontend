@@ -1,9 +1,9 @@
-import React from 'react';
+import { useParams } from '@/hooks';
+import classnames from 'classnames';
+import { AnimateSharedLayout, motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import classnames from 'classnames';
-import { motion, AnimateSharedLayout } from 'framer-motion';
-import { useParams } from '@/hooks';
+import React from 'react';
 
 interface NavbarProps {
   children?: React.ReactNode;
@@ -150,4 +150,4 @@ function ConfigNavbar() {
   );
 }
 
-export { Navbar, ConfigNavbar, CustomNavbar };
+export { ConfigNavbar, CustomNavbar, Navbar };

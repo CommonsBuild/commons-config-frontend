@@ -18,7 +18,7 @@ type Size = 's' | 'm' | 'l' | 'xl';
 
 interface TableCellProps {
   bold?: boolean;
-  content: string | number | React.ReactNode;
+  content?: string | number | React.ReactNode;
   size?: Size;
   tooltipColumn?: boolean;
 }

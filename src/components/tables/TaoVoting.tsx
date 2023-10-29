@@ -29,9 +29,9 @@ function TaoVotingTable({ table }: TaoVotingTableProps) {
           rowName.map((elem) => (
             <TableRow>
               <TableCell bold content={elem.name} size="xl" />
-              <TableCell content={table[elem.id][0]} size="xl" />
-              <TableCell content={table[elem.id][1]} size="xl" />
-              <TableCell content={table[elem.id][2]} size="xl" />
+              <TableCell content={table?.[elem.id]?.[0]} size="xl" />
+              <TableCell content={table?.[elem.id]?.[1]} size="xl" />
+              <TableCell content={table?.[elem.id]?.[2]} size="xl" />
             </TableRow>
           ))
         ) : (

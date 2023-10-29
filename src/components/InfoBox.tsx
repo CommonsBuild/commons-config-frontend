@@ -1,7 +1,7 @@
-import Image from 'next/image';
-import classnames from 'classnames';
 import { Tooltip } from '@/components/_global';
 import { useHover } from '@/hooks';
+import classnames from 'classnames';
+import Image from 'next/image';
 
 const textColors = {
   neon: 'text-neon',

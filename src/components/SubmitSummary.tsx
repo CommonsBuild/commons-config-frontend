@@ -1,9 +1,9 @@
-import Image from 'next/image';
-import Link from 'next/link';
 import SummaryContainer from '@/components/SummaryContainer';
 import TextArea from '@/components/TextArea';
 import { NeonButton } from '@/components/btns';
 import { useParams } from '@/hooks';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const SubmitSummary = ({
   handleChange,
@@ -351,7 +351,7 @@ const SubmitSummary = ({
           value={params.overallStrategy}
           onChange={(event) => handleChange(event)}
         />
-        <Link href="/config/1">
+        <Link legacyBehavior href="/config/1">
           <a className="h-14 flex justify-center items-center w-full py-2 border border-neon my-2">
             <span className="font-bj font-bold text-neon uppercase">
               return to configuration

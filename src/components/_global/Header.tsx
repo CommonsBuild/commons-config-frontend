@@ -14,7 +14,7 @@ function Header() {
           src="/assets/tec-text-light.svg"
           alt="Token Engineering Commons"
         />
-        <Link href="/">
+        <Link legacyBehavior href="/">
           <a className="text-bj text-sm text-neon font-bold transition hover:text-neon-100">
             TAKE ME BACK
           </a>

@@ -1,7 +1,7 @@
-import React from 'react';
-import Link from 'next/link';
-import classnames from 'classnames';
 import { NeonButton } from '@/components/btns';
+import classnames from 'classnames';
+import Link from 'next/link';
+import React from 'react';
 
 interface CardProps {
   children: React.ReactNode;
@@ -42,7 +42,7 @@ function Card({
       <div className="w-full mt-2">
         <div className="flex justify-between gap-2 mb-2">
           {previousPanel ? (
-            <Link href={previousHref}>
+            <Link legacyBehavior href={previousHref}>
               <a className="flex justify-center w-full py-2 border border-neon">
                 <label className="font-bj font-bold text-neon uppercase cursor-pointer">
                   back
@@ -53,7 +53,7 @@ function Card({
             <></>
           )}
           {nextPanel ? (
-            <Link href={nextHref}>
+            <Link legacyBehavior href={nextHref}>
               <a className="flex justify-center w-full py-2 border border-neon">
                 <span className="font-bj font-bold text-neon uppercase cursor-pointer">
                   next
