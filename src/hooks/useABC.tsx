@@ -127,6 +127,11 @@ function ABCProvider({ children }: AppABCContextProps) {
     initialBuy,
     ragequitAmount,
     zoomGraph,
+    virtualSupply,
+    virtualBalance,
+    totalHatchFunding,
+    totalInitialTechSupply,
+    hatchFinalTechPrice,
     setParams,
   ]);
 
