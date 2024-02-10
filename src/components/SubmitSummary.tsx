@@ -267,6 +267,25 @@ const SubmitSummary = ({
       param: 'Initial Buy',
       placeholder: 'wxDAI',
     },
+    {
+      name: 'totalHatchFunding',
+      value: params.totalHatchFunding,
+      format: true,
+      param: 'Total Hatch Funding',
+    },
+    {
+      name: 'totalInitialTechSupply',
+      value: params.totalInitialTechSupply,
+      format: true,
+      param: 'Total Initial Tech Supply',
+    },
+    {
+      name: 'hatchFinalTechPrice',
+      value: params.hatchFinalTechPrice,
+      format: true,
+      param: 'Hatch Final Tech Price',
+      placeholder: '$',
+    },
   ];
 
   return (
@@ -274,7 +293,12 @@ const SubmitSummary = ({
       {advancedParams ? (
         <>
           <div className="flex container bg-gray-500 max-w-screen-lg p-8 mb-4 mx-auto border border-warn">
-            <Image src="/icons/warning.svg" width={48} height={48} />
+            <Image
+              alt="warning"
+              src="/icons/warning.svg"
+              width={48}
+              height={48}
+            />
             <div className="ml-8 font-bj text-warn">
               <h3 className="font-bold">WARNING!</h3>
               <p>

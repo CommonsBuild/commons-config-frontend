@@ -57,28 +57,48 @@ function ABCProvider({ children }: AppABCContextProps) {
     zoomGraph,
     virtualSupply,
     virtualBalance,
+    totalHatchFunding,
+    totalInitialTechSupply,
+    hatchFinalTechPrice,
     setParams,
   } = useParams();
+
+  const advancedParams = [
+    { name: 'totalHatchFunding', value: totalHatchFunding, multiplier: 1000 },
+    {
+      name: 'totalInitialTechSupply',
+      value: totalInitialTechSupply,
+      multiplier: 1000,
+    },
+    { name: 'hatchFinalTechPrice', value: hatchFinalTechPrice, multiplier: 1 },
+  ];
 
   const fetchABCData = async () => {
     setContext((previousParams) => ({
       ...previousParams,
       isLoading: true,
     }));
+    const formattedParams = {
+      openingPrice,
+      commonsTribute: Number(commonsTribute) / 100,
+      entryTribute: Number(entryTribute) / 100,
+      exitTribute: Number(exitTribute) / 100,
+      stepList,
+      initialBuy,
+      ragequitAmount,
+      zoomGraph,
+      includeMilestones: 1,
+      virtualSupply,
+      virtualBalance,
+    };
+
+    advancedParams.forEach(({ name, value, multiplier }) => {
+      if (Number.isNaN(Number(value) / multiplier)) return;
+      formattedParams[name] = Number(value) / multiplier;
+    });
+
     await api
-      .post('/augmented-bonding-curve/', {
-        openingPrice,
-        commonsTribute: Number(commonsTribute) / 100,
-        entryTribute: Number(entryTribute) / 100,
-        exitTribute: Number(exitTribute) / 100,
-        stepList,
-        initialBuy,
-        ragequitAmount,
-        zoomGraph,
-        includeMilestones: 1,
-        virtualSupply,
-        virtualBalance,
-      })
+      .post('/augmented-bonding-curve/', formattedParams)
       .then((response) => {
         const { chartData, milestoneTable, stepTable, fundAllocations } =
           response.data;

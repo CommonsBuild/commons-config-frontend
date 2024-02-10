@@ -42,6 +42,9 @@ type ParamsContextType = {
   gardenLiquidity: string;
   virtualSupply: string;
   virtualBalance: string;
+  totalHatchFunding: string;
+  totalInitialTechSupply: string;
+  hatchFinalTechPrice: string;
   transferable: boolean;
   tokenName: string;
   tokenSymbol: string;
@@ -92,6 +95,9 @@ export const initialParams: ParamsContextType = {
   gardenLiquidity: '1',
   virtualSupply: '1',
   virtualBalance: '1',
+  totalHatchFunding: '1571223.57',
+  totalInitialTechSupply: '2041863.58',
+  hatchFinalTechPrice: '0.754743',
   transferable: true,
   tokenName: 'Token Engineering Commons',
   tokenSymbol: 'TEC',
@@ -152,6 +158,9 @@ function ParamsProvider({ children }: AppParamsContextProps) {
         HNYLiquidity,
         gardenLiquidity,
         virtualSupply,
+        totalHatchFunding,
+        totalInitialTechSupply,
+        hatchFinalTechPrice,
         virtualBalance,
         transferable,
         tokenName,
