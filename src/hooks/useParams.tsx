@@ -195,18 +195,6 @@ function ParamsProvider({ children }: AppParamsContextProps) {
     }));
   };
 
-  // const handleMarketScenario = (scenario: (number | string)[][]) => {
-  //   const { stepList } = params;
-  //   let newScenario;
-  //   if (stepList.length > 3) {
-  //     newScenario = [...scenario, ...stepList.slice(3, stepList.length)];
-  //   }
-  //   setParams((previousParams) => ({
-  //     ...previousParams,
-  //     stepList: newScenario || scenario,
-  //   }));
-  // };
-
   const handleAddStep = (step: (number | string)[], param: string) => {
     let newList = [];
     if (param === 'stepList') {

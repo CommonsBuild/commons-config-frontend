@@ -218,12 +218,14 @@ function ABC() {
                   onClick={() => setSelectedStep(index)}
                 >
                   <span className="font-bj font-medium text-2xl text-neon-light cursor-pointer">
-                    {index + (Number(initialBuy) > 0 ? 0 : 1)}
+                    {Number(initialBuy) > 0 ? index : index + 1}
                   </span>
-                  {index > 3 ? (
+                  {index > (Number(initialBuy) ? 1 : 0) ? (
                     <a
                       className="absolute -top-2 -right-2 rounded-full bg-red-500 h-4 w-4 flex justify-center items-center opacity-0 group-hover:opacity-100"
-                      onClick={() => handleRemoveStep(index - 3)}
+                      onClick={() =>
+                        handleRemoveStep(Number(initialBuy) ? index - 1 : index)
+                      }
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
